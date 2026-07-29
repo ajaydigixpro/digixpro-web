@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="shrink-0">
             <Link 
               href="/contact" 
-              className="inline-flex items-center justify-center px-6 py-3.5 bg-white text-black font-bold text-[15px] rounded-xl hover:bg-[#16a34a] hover:text-white transition-all shadow-lg hover:scale-105"
+              className="inline-flex items-center justify-center px-6 py-3.5 bg-white text-black font-bold text-[15px] rounded-xl hover:bg-[#009E73] hover:text-white transition-all shadow-lg hover:scale-105"
             >
               Request a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
@@ -32,7 +32,7 @@ export default function Footer() {
         {/* Middle Section: Giant DigiXPro Logo & Positioning */}
         <div className="mb-10">
           <Link href="/" className="inline-block text-[18vw] md:text-[160px] font-extrabold tracking-tighter leading-none text-white hover:text-neutral-300 transition-colors select-none">
-            DigiXPro<span className="text-[#16a34a]">.</span>
+            DigiXPro<span className="text-[#009E73]">.</span>
           </Link>
           <p className="text-[14px] md:text-[16px] font-mono text-neutral-400 uppercase tracking-widest mt-2">
             Independent Technology Architecture Advisory
