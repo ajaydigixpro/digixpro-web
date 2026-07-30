@@ -1,6 +1,5 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
 import { 
   ArrowLeft, 
   Target, 
@@ -20,6 +19,27 @@ import {
   Layers,
   Activity
 } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'SattvaOS Architecture Evidence | DigiXPro',
+  description: 'Production evidence for SattvaOS enterprise management system and platform architecture.',
+  alternates: {
+    canonical: 'https://digixpro.in/evidence/sattvaos',
+  },
+  openGraph: {
+    title: 'SattvaOS Architecture Evidence | DigiXPro',
+    description: 'Production evidence for SattvaOS enterprise management system and platform architecture.',
+    url: 'https://digixpro.in/evidence/sattvaos',
+    type: 'article',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'SattvaOS Architecture Evidence' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SattvaOS Architecture Evidence | DigiXPro',
+    description: 'Production evidence for SattvaOS enterprise management system and platform architecture.',
+    images: ['/twitter-image.png'],
+  },
+};
 
 export default function SattvaOSEvidence() {
   return (

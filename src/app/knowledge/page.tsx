@@ -24,11 +24,13 @@ export const metadata: Metadata = {
     description: 'Documented architecture and operational intelligence from live production systems.',
     url: 'https://digixpro.in/knowledge',
     type: 'website',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'The Decision Library | DigiXPro' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'The Decision Library | DigiXPro',
     description: 'Documented architecture and operational intelligence from live production systems.',
+    images: ['/twitter-image.png'],
   },
 };
 

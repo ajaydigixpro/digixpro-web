@@ -1,6 +1,5 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
 import { 
   ArrowLeft, 
   Target, 
@@ -19,6 +18,27 @@ import {
   ExternalLink,
   BookOpen
 } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Aatma Guru Architecture Evidence | DigiXPro',
+  description: 'Production evidence for Aatma Guru institution management and governance OS designed by DigiXPro.',
+  alternates: {
+    canonical: 'https://digixpro.in/evidence/aatma-guru',
+  },
+  openGraph: {
+    title: 'Aatma Guru Architecture Evidence | DigiXPro',
+    description: 'Production evidence for Aatma Guru institution management and governance OS.',
+    url: 'https://digixpro.in/evidence/aatma-guru',
+    type: 'article',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Aatma Guru Architecture Evidence' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Aatma Guru Architecture Evidence | DigiXPro',
+    description: 'Production evidence for Aatma Guru institution management and governance OS.',
+    images: ['/twitter-image.png'],
+  },
+};
 
 export default function AatmaGuruEvidence() {
   return (

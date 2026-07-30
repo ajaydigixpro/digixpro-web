@@ -1,6 +1,5 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
 import { 
   ArrowLeft, 
   Target, 
@@ -17,6 +16,27 @@ import {
   TrendingUp,
   ShieldCheck
 } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'DigiXPro Architecture Evidence | DigiXPro',
+  description: 'Production evidence and technical architecture breakdown for DigiXPro digital ecosystem.',
+  alternates: {
+    canonical: 'https://digixpro.in/evidence/digixpro',
+  },
+  openGraph: {
+    title: 'DigiXPro Architecture Evidence | DigiXPro',
+    description: 'Production evidence and technical architecture breakdown for DigiXPro digital ecosystem.',
+    url: 'https://digixpro.in/evidence/digixpro',
+    type: 'article',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'DigiXPro Architecture Evidence' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DigiXPro Architecture Evidence | DigiXPro',
+    description: 'Production evidence and technical architecture breakdown for DigiXPro digital ecosystem.',
+    images: ['/twitter-image.png'],
+  },
+};
 
 export default function DigiXProArchitecture() {
   return (
