@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import NirvandhamClient from './NirvandhamClient';
+import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 
 export const metadata: Metadata = {
   title: 'Nirvandham Platform Architecture Evidence',
@@ -24,5 +25,10 @@ export const metadata: Metadata = {
 };
 
 export default function NirvandhamEvidence() {
-  return <NirvandhamClient />;
+  return (
+    <>
+      <NirvandhamClient />
+      <StickyMobileCTA />
+    </>
+  );
 }

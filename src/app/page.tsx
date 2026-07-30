@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import ProfessionalServiceSchema from "@/components/seo/ProfessionalServiceSchema";
+import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -37,33 +38,42 @@ export default function HomePage() {
       {/* ==========================================
           1. HERO SECTION (UPDATED CTA)
       ========================================== */}
-      <section className="max-w-[1200px] mx-auto px-6 pt-28 pb-20">
+      {/* pt-16 mobile (64px) → pt-28 desktop (112px): closes the 32px mobile gap */}
+      <section className="max-w-[1200px] mx-auto px-6 pt-16 md:pt-28 pb-16 md:pb-20">
         <div className="max-w-4xl">
-          <div className="inline-flex items-center space-x-2 bg-neutral-50 border border-neutral-200 px-4 py-2 rounded-full mb-8 shadow-sm">
+          <div className="inline-flex items-center space-x-2 bg-neutral-50 border border-neutral-200 px-4 py-2 rounded-full mb-6 md:mb-8 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
             <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700">
-              Independent • Vendor-Neutral • Evidence-Driven
+              Independent &bull; Vendor-Neutral &bull; Evidence-Driven
             </span>
           </div>
           
-          <h1 className="text-[56px] md:text-[80px] font-extrabold tracking-tight leading-[1.05] mb-8">
+          {/* text-[40px] mobile keeps CTA above fold on 375px; scales to [80px] desktop */}
+          <h1 className="text-[40px] md:text-[80px] font-extrabold tracking-tight leading-[1.05] mb-6 md:mb-8">
             Your business is growing.<br />
-            <span className="text-neutral-400">Your operations aren't.</span>
+            <span className="text-neutral-400">Your operations aren&apos;t.</span>
           </h1>
           
-          <p className="text-[20px] md:text-[24px] font-bold text-neutral-800 leading-relaxed max-w-3xl mb-4">
-            Before you buy another CRM, ERP, or AI tool... make sure you're solving the right problem.
+          <p className="text-[18px] md:text-[24px] font-bold text-neutral-800 leading-relaxed max-w-3xl mb-3 md:mb-4">
+            Before you buy another CRM, ERP, or AI tool... make sure you&apos;re solving the right problem.
           </p>
-          <p className="text-[18px] md:text-[20px] text-neutral-600 leading-relaxed max-w-3xl mb-12">
+          <p className="text-[16px] md:text-[20px] text-neutral-600 leading-relaxed max-w-3xl mb-8 md:mb-12">
             Every wrong technology decision costs time, money, and momentum. We design business operating systems before you spend money on software.
           </p>
           
+          {/* Primary + secondary CTAs — clear hierarchy */}
           <div className="flex flex-wrap items-center gap-4">
             <Link 
               href="/contact" 
-              className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] text-white font-bold text-[16px] rounded-xl hover:bg-[#16a34a] transition-colors shadow-md"
+              className="inline-flex items-center justify-center px-7 py-4 bg-[#0A0A0A] text-white font-bold text-[15px] md:text-[16px] rounded-xl hover:bg-[#16a34a] transition-colors shadow-md min-h-[52px]"
             >
               Request a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+            <Link
+              href="/evidence"
+              className="inline-flex items-center justify-center px-6 py-4 border border-neutral-300 text-neutral-700 font-bold text-[14px] md:text-[15px] rounded-xl hover:border-neutral-500 hover:text-black transition-colors min-h-[52px]"
+            >
+              View Our Evidence
             </Link>
           </div>
         </div>
@@ -365,6 +375,8 @@ export default function HomePage() {
       </section>
 
       </div>
+      {/* Mobile sticky CTA — dignified, non-manipulative, appears on scroll */}
+      <StickyMobileCTA />
     </>
   );
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
+import Link from 'next/link';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -241,8 +243,27 @@ export default function EvidenceIndexPage() {
             </div>
           </section>
 
+          {/* Bottom CTA */}
+          <div className="mt-12 bg-[#0A0A0A] rounded-[20px] p-8 md:p-10 text-center">
+            <p className="text-neutral-400 text-xs font-mono uppercase tracking-widest mb-3">Ready to work together?</p>
+            <h2 className="text-white text-[22px] md:text-[28px] font-extrabold mb-4">
+              Design your own architecture.
+            </h2>
+            <p className="text-neutral-400 text-[15px] max-w-lg mx-auto mb-6">
+              Let&apos;s audit your current operational state and design the right technology stack — before you commit to any vendor.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-8 py-4 bg-[#009E73] text-white font-bold text-[15px] rounded-xl hover:bg-[#007a5a] transition-colors shadow-md min-h-[52px]"
+            >
+              Request a Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </div>
+
         </div>
       </div>
+      {/* Mobile sticky CTA */}
+      <StickyMobileCTA />
     </>
   );
 }

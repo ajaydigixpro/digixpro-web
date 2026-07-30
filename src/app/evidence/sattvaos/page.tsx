@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 import { 
   ArrowLeft, 
   Target, 
@@ -43,7 +44,8 @@ export const metadata: Metadata = {
 
 export default function SattvaOSEvidence() {
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] font-sans px-6 py-12 max-w-5xl mx-auto selection:bg-[#22C55E]/20">
+    <>
+    <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] font-sans px-6 py-12 max-w-5xl mx-auto selection:bg-[#22C55E]/20 pb-24 md:pb-12">
       
       {/* Navigation Back */}
       <a href="/evidence" className="inline-flex items-center text-xs font-mono text-neutral-500 hover:text-black mb-8 transition">
@@ -328,5 +330,7 @@ export default function SattvaOSEvidence() {
 
       </div>
     </div>
+    <StickyMobileCTA />
+    </>
   );
 }

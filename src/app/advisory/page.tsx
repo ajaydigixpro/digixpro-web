@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import FAQSchema from '@/components/seo/FAQSchema';
+import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 import { 
   ArrowRight, 
   Database, 
@@ -89,7 +90,8 @@ export default function AdvisoryPage() {
       />
       
       {/* 1. HERO SECTION */}
-      <section className="max-w-[1200px] mx-auto px-6 pt-20 pb-24 border-b border-neutral-200">
+      {/* pt-12 mobile → pt-20 desktop: fixes mobile gap */}
+      <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-16 md:pb-24 border-b border-neutral-200">
         <div className="max-w-4xl">
           <div className="inline-flex items-center space-x-2 bg-neutral-50 border border-neutral-200 px-4 py-1.5 rounded-full mb-6">
             <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
@@ -257,12 +259,21 @@ export default function AdvisoryPage() {
         {/* The Differentiator Block */}
         <div className="bg-[#0A0A0A] p-8 md:p-10 rounded-[24px] text-center shadow-xl max-w-4xl mx-auto">
           <h3 className="text-white font-extrabold text-[20px] md:text-[24px] mb-4">Implementation is Optional</h3>
-          <p className="text-[16px] text-neutral-400 leading-relaxed">
+          <p className="text-[16px] text-neutral-400 leading-relaxed mb-8">
             Execution may be handled by your internal team, your preferred implementation partner, or DigiXPro where appropriate. We design the system; you choose how it gets built.
           </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center px-8 py-4 bg-[#009E73] text-white font-bold text-[15px] rounded-xl hover:bg-[#007a5a] transition-colors shadow-md min-h-[52px]"
+          >
+            Request a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
         </div>
 
       </section>
+
+      {/* Mobile sticky CTA */}
+      <StickyMobileCTA />
 
     </div>
   );

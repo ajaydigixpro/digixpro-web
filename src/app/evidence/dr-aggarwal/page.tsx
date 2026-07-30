@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import DrAggarwalClient from './DrAggarwalClient';
+import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 
 export const metadata: Metadata = {
   title: 'Dr Aggarwal Physio Centre Case Study',
@@ -23,7 +24,11 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function DrAggarwalEvidence() {
-  return <DrAggarwalClient />;
+  return (
+    <>
+      <DrAggarwalClient />
+      <StickyMobileCTA />
+    </>
+  );
 }

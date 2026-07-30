@@ -1,6 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
+import Link from 'next/link';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 import { 
   ArrowRight, 
   ArrowDown,
@@ -69,7 +71,8 @@ export default function HowWeWorkPage() {
       />
       
       {/* 1. HERO SECTION */}
-      <section className="max-w-[1200px] mx-auto px-6 pt-20 pb-24 border-b border-neutral-200">
+      {/* pt-12 mobile (48px) → pt-20 desktop (80px): fixes mobile gap */}
+      <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-16 md:pb-24 border-b border-neutral-200">
         <div className="max-w-4xl">
           <div className="inline-flex items-center space-x-2 bg-neutral-50 border border-neutral-200 px-4 py-1.5 rounded-full mb-6">
             <span className="w-2 h-2 rounded-full bg-[#16a34a]"></span>
@@ -249,6 +252,27 @@ export default function HowWeWorkPage() {
           ))}
         </div>
       </section>
+
+      {/* CTA SECTION */}
+      <section className="max-w-[1200px] mx-auto px-6 py-16 md:py-24">
+        <div className="bg-neutral-50 border border-neutral-200 rounded-[24px] p-8 md:p-12 text-center">
+          <h2 className="text-[24px] md:text-[36px] font-extrabold mb-4 text-black">
+            Ready to apply this methodology to your business?
+          </h2>
+          <p className="text-[16px] md:text-[18px] text-neutral-600 max-w-2xl mx-auto mb-8">
+            Start with a 30-minute discovery call. We&apos;ll map your current operational state before recommending any technology.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] text-white font-bold text-[15px] rounded-xl hover:bg-[#16a34a] transition-colors shadow-md min-h-[52px]"
+          >
+            Request a Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </div>
+      </section>
+
+      {/* Mobile sticky CTA for this long page */}
+      <StickyMobileCTA />
 
     </div>
   );
