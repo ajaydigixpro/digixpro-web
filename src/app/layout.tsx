@@ -10,6 +10,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const viewport: Viewport = {
   themeColor: "#009E73",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export const metadata: Metadata = {
@@ -21,6 +23,34 @@ export const metadata: Metadata = {
   },
   description:
     "Your business is growing. Your operations aren't. Every wrong technology decision costs time, money, and momentum.",
+  keywords: [
+    "technology architecture advisory",
+    "business operating system",
+    "CRM ERP advisory India",
+    "workflow automation consulting",
+    "AI business systems",
+    "DigiXPro",
+    "Dr Ajay Shukla",
+    "startup technology consultant",
+    "digital transformation advisory",
+  ],
+  authors: [{ name: "Dr. Ajay Shukla", url: "https://digixpro.in/founder" }],
+  creator: "DigiXPro",
+  publisher: "DigiXPro",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://digixpro.in",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -44,14 +74,33 @@ export const metadata: Metadata = {
     description:
       "Your business is growing. Your operations aren't. Every wrong technology decision costs time, money, and momentum.",
     url: "https://digixpro.in",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "DigiXPro — Independent Technology Architecture Advisory",
+        type: "image/png",
+      },
+    ],
+    locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
+    site: "@digixpro",
+    creator: "@digixpro",
     title: "DigiXPro | Independent Technology Architecture Advisory",
     description:
       "Your business is growing. Your operations aren't. Every wrong technology decision costs time, money, and momentum.",
+    images: [
+      {
+        url: "/twitter-image.png",
+        alt: "DigiXPro — Independent Technology Architecture Advisory",
+      },
+    ],
   },
 };
+
 
 export default function RootLayout({
   children,

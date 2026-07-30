@@ -364,61 +364,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ==========================================
-          10. FOOTER
-      ========================================== */}
-      <footer className="border-t border-neutral-200 bg-neutral-50 pt-16 pb-8">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
-            
-            <div className="col-span-2 md:col-span-1">
-              <div className="font-extrabold tracking-tighter text-2xl mb-4 flex items-center">
-                DigiXPro<span className="text-[#16a34a] text-3xl leading-none">.</span>
-              </div>
-              <p className="text-[14px] text-neutral-500 leading-relaxed">
-                Independent Technology Architecture Advisory. We design businesses that run on technology.
-              </p>
-            </div>
-
-            <div>
-              <h4 className="font-bold text-black mb-4 uppercase text-xs tracking-widest">Advisory</h4>
-              <ul className="space-y-3 text-[14px] font-medium text-neutral-600">
-                <li><Link href="/advisory#ai-platforms" className="hover:text-[#16a34a]">AI Business Systems</Link></li>
-                <li><Link href="/advisory#marketplace" className="hover:text-[#16a34a]">Marketplace Systems</Link></li>
-                <li><Link href="/advisory#publishing" className="hover:text-[#16a34a]">Business Automation</Link></li>
-                <li><Link href="/advisory#audits" className="hover:text-[#16a34a]">Technology Advisory</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-bold text-black mb-4 uppercase text-xs tracking-widest">Knowledge Base</h4>
-              <ul className="space-y-3 text-[14px] font-medium text-neutral-600">
-                <li><Link href="/knowledge" className="hover:text-[#16a34a]">Workflow Automation</Link></li>
-                <li><Link href="/knowledge" className="hover:text-[#16a34a]">ERP vs CRM</Link></li>
-                <li><Link href="/knowledge" className="hover:text-[#16a34a]">Startup Operations</Link></li>
-                <li><Link href="/knowledge" className="hover:text-[#16a34a]">Technology Roadmap</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-bold text-black mb-4 uppercase text-xs tracking-widest">Company</h4>
-              <ul className="space-y-3 text-[14px] font-medium text-neutral-600">
-                <li><Link href="/founder" className="hover:text-[#16a34a]">Founder</Link></li>
-                <li><Link href="/how-we-work" className="hover:text-[#16a34a]">How We Work</Link></li>
-                <li><Link href="/evidence" className="hover:text-[#16a34a]">Production Evidence</Link></li>
-                <li><Link href="/contact" className="hover:text-[#16a34a]">Contact Us</Link></li>
-              </ul>
-            </div>
-
-          </div>
-          
-          <div className="border-t border-neutral-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] text-neutral-500 font-mono">
-            <div>© {new Date().getFullYear()} DigiXPro. Independent Advisory.</div>
-            <div>Designed for Operational Clarity.</div>
-          </div>
-        </div>
-      </footer>
-
       </div>
     </>
   );

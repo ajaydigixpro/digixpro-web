@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { 
   ArrowLeft, 
   MapPin, 
@@ -14,16 +15,49 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Contact Us | DigiXPro',
-  description: 'Schedule a 30-minute discovery call to discuss your business architecture.',
+  title: 'Contact Us — Request a Discovery Call',
+  description: 'Request a free 30-minute discovery call to discuss your business architecture, operational bottlenecks, and technology decisions. Based in Noida, India. Serving founders and growing businesses nationwide.',
+  keywords: [
+    'contact DigiXPro',
+    'technology advisory consultation India',
+    'book discovery call',
+    'technology architecture consultant Noida',
+  ],
   alternates: {
     canonical: 'https://digixpro.in/contact',
+  },
+  openGraph: {
+    title: 'Contact Us — Request a Discovery Call | DigiXPro',
+    description: 'Request a free 30-minute discovery call to discuss your business architecture, operational bottlenecks, and technology decisions.',
+    url: 'https://digixpro.in/contact',
+    type: 'website',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'DigiXPro — Book a Discovery Call',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact Us — Request a Discovery Call | DigiXPro',
+    description: 'Request a free 30-minute discovery call to discuss your technology architecture.',
+    images: ['/twitter-image.png'],
   },
 };
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#16a34a]/20 pb-24">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://digixpro.in' },
+          { name: 'Contact', url: 'https://digixpro.in/contact' },
+        ]}
+      />
       
      
       {/* 1. HERO SECTION */}

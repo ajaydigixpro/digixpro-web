@@ -13,7 +13,22 @@ export default function PersonSchema() {
       "डॉ. अजय शुक्ल"
     ],
     "jobTitle": "Founder & Technology Architect",
+    "description": "I help founders make technology decisions they won't have to rebuild six months later. I design business operating systems before expensive technology decisions are made.",
     "url": "https://digixpro.in/founder",
+    "image": "https://digixpro.in/founder-portrait.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/digixpro/"
+    ],
+    "knowsAbout": [
+      "Technology Architecture",
+      "Business Operating Systems",
+      "AI Infrastructure Design",
+      "Workflow Automation",
+      "ERP and CRM Strategy",
+      "Digital Transformation",
+      "Marketplace Platform Design",
+      "Startup Operations"
+    ],
     "worksFor": {
       "@id": "https://digixpro.in/#organization"
     }

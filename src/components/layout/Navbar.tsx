@@ -1,21 +1,48 @@
-"use client"; // Kyunki hum useState use kar rahe hain
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X } from 'lucide-react'; // Icons ke liye
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
+
+const navLinks = [
+  { href: '/advisory', label: 'Advisory' },
+  { href: '/how-we-work', label: 'How We Work' },
+  { href: '/evidence', label: 'Evidence' },
+  { href: '/knowledge', label: 'Knowledge' },
+  { href: '/founder', label: 'Founder' },
+];
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 8);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   return (
-    <nav className="border-b border-neutral-200 sticky top-0 bg-white/90 backdrop-blur-md z-50">
+    <nav
+      aria-label="Main navigation"
+      className={`border-b border-neutral-200 sticky top-0 bg-white/90 backdrop-blur-md z-50 transition-shadow duration-200 ${
+        isScrolled ? 'shadow-md shadow-black/5' : 'shadow-none'
+      }`}
+    >
       <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
         
         {/* BRAND LOGO */}
-        <Link href="/" className="flex items-center space-x-2">
+        <Link href="/" className="flex items-center space-x-2" aria-label="DigiXPro — Go to homepage">
           <Image 
-            src="/logo.svg" // Ya logo.png jo bhi aapka naam ho
+            src="/logo.svg"
             alt="DigiXPro Logo" 
             width={160} 
             height={40} 
@@ -25,45 +52,84 @@ export default function Navbar() {
         </Link>
 
         {/* DESKTOP NAVIGATION */}
-        <div className="hidden md:flex items-center space-x-8 text-[14px] font-bold">
-          <Link href="/advisory" className="transition-colors text-neutral-500 hover:text-black">Advisory</Link>
-          <Link href="/how-we-work" className="transition-colors text-neutral-500 hover:text-black">How We Work</Link>
-          <Link href="/evidence" className="transition-colors text-neutral-500 hover:text-black">Evidence</Link>
-          <Link href="/knowledge" className="transition-colors text-neutral-500 hover:text-black">Knowledge</Link>
-          <Link href="/founder" className="transition-colors text-neutral-500 hover:text-black">Founder</Link>
+        <div className="hidden md:flex items-center space-x-8 text-[14px] font-bold" role="menubar">
+          {navLinks.map(({ href, label }) => {
+            const isActive = pathname === href || pathname.startsWith(href + '/');
+            return (
+              <Link
+                key={href}
+                href={href}
+                role="menuitem"
+                className={`transition-colors relative pb-0.5 ${
+                  isActive
+                    ? 'text-black after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#009E73] after:rounded-full'
+                    : 'text-neutral-500 hover:text-black'
+                }`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* DESKTOP CTA */}
         <div className="hidden md:block">
-          <Link href="/contact" className="inline-flex items-center justify-center px-5 py-2.5 bg-[#0A0A0A] text-white font-bold text-[13px] rounded-lg hover:bg-[#009E73] transition-colors">
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center px-5 py-2.5 bg-[#0A0A0A] text-white font-bold text-[13px] rounded-lg hover:bg-[#009E73] transition-colors"
+          >
             Request a Call
           </Link>
         </div>
 
         {/* MOBILE MENU BUTTON */}
         <button 
-          className="md:hidden p-2 text-neutral-600"
+          className="md:hidden p-2 text-neutral-600 rounded-lg hover:bg-neutral-100 transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-nav-menu"
+          aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
         >
-          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {isMobileMenuOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
         </button>
       </div>
 
       {/* MOBILE MENU DROPDOWN */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-neutral-200 px-6 py-4 flex flex-col space-y-4 shadow-lg absolute w-full left-0 top-20">
-          <Link href="/advisory" onClick={() => setIsMobileMenuOpen(false)} className="text-[16px] font-bold text-neutral-700">Advisory</Link>
-          <Link href="/how-we-work" onClick={() => setIsMobileMenuOpen(false)} className="text-[16px] font-bold text-neutral-700">How We Work</Link>
-          <Link href="/evidence" onClick={() => setIsMobileMenuOpen(false)} className="text-[16px] font-bold text-neutral-700">Evidence</Link>
-          <Link href="/knowledge" onClick={() => setIsMobileMenuOpen(false)} className="text-[16px] font-bold text-neutral-700">Knowledge</Link>
-          <Link href="/founder" onClick={() => setIsMobileMenuOpen(false)} className="text-[16px] font-bold text-neutral-700">Founder</Link>
-          <div className="pt-4 border-t border-neutral-100">
-            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="block text-center px-5 py-3 bg-[#0A0A0A] text-white font-bold text-[15px] rounded-lg">
-              Request a Call
+      <div
+        id="mobile-nav-menu"
+        role="navigation"
+        aria-label="Mobile navigation"
+        className={`md:hidden bg-white border-b border-neutral-200 px-6 overflow-hidden transition-all duration-200 ${
+          isMobileMenuOpen ? 'py-4 max-h-96 opacity-100' : 'max-h-0 py-0 opacity-0'
+        } flex flex-col space-y-4 shadow-lg absolute w-full left-0 top-20`}
+      >
+        {navLinks.map(({ href, label }) => {
+          const isActive = pathname === href || pathname.startsWith(href + '/');
+          return (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`text-[16px] font-bold transition-colors ${
+                isActive ? 'text-[#009E73]' : 'text-neutral-700 hover:text-black'
+              }`}
+              aria-current={isActive ? 'page' : undefined}
+            >
+              {label}
             </Link>
-          </div>
+          );
+        })}
+        <div className="pt-4 border-t border-neutral-100">
+          <Link
+            href="/contact"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block text-center px-5 py-3 bg-[#0A0A0A] text-white font-bold text-[15px] rounded-lg hover:bg-[#009E73] transition-colors"
+          >
+            Request a Call
+          </Link>
         </div>
-      )}
+      </div>
     </nav>
   );
 }

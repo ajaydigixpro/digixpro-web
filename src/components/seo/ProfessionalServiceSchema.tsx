@@ -8,13 +8,65 @@ export default function ProfessionalServiceSchema() {
     "@id": "https://digixpro.in/#advisory",
     "name": "DigiXPro",
     "url": "https://digixpro.in",
-    "description": "Independent Technology Architecture & Business Operating Systems Advisory.",
+    "description": "Independent Technology Architecture & Business Operating Systems Advisory for growing businesses and founders.",
     "serviceType": "Technology Architecture Advisory",
-    "areaServed": "IN",
+    "currenciesAccepted": "INR",
+    "paymentAccepted": "Cash, Bank Transfer, UPI",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Noida",
+      "addressRegion": "Uttar Pradesh",
+      "addressCountry": "IN"
+    },
+    "email": "consult@digixpro.in",
+    "areaServed": [
+      {
+        "@type": "Country",
+        "name": "India"
+      }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Advisory Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Infrastructure & Governance Advisory",
+            "description": "Architecting secure, role-based AI execution layers integrated with proprietary data."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Marketplace & Platform Architecture",
+            "description": "Designing scalable multi-vendor operating systems with decoupled inventory and order management."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Business & Workflow Automation",
+            "description": "Replacing fragmented manual processes with a centralized business operating system."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Enterprise Tech Audit & Rescue",
+            "description": "Independent technical due-diligence, architecture analysis, and rescue strategy."
+          }
+        }
+      ]
+    },
     "provider": {
       "@id": "https://digixpro.in/#organization"
     }
   };
 
   return <Script id="prof-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
-}
+}

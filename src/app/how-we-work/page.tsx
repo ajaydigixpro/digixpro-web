@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { 
   ArrowRight, 
   ArrowDown,
@@ -12,10 +13,38 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'How We Work - Methodology',
-  description: 'Our 7-step architecture hierarchy and independent advisory methodology. We design business operating systems before you spend money on software.',
+  title: 'Our Methodology — How We Work',
+  description: 'Our 7-step architecture hierarchy and independent advisory methodology. We design business operating systems before you spend money on software. Business, People, Process, Information, Automation, Technology, Software.',
+  keywords: [
+    'technology architecture methodology',
+    'business operating system design',
+    'how DigiXPro works',
+    'IT advisory process',
+    'operational clarity consulting',
+  ],
   alternates: {
     canonical: 'https://digixpro.in/how-we-work',
+  },
+  openGraph: {
+    title: 'Our Methodology — How We Work | DigiXPro',
+    description: 'Our 7-step architecture hierarchy and independent advisory methodology for designing business operating systems.',
+    url: 'https://digixpro.in/how-we-work',
+    type: 'website',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'DigiXPro — Architecture Methodology: Business to Software',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Our Methodology — How We Work | DigiXPro',
+    description: 'Our 7-step architecture hierarchy and independent advisory methodology.',
+    images: ['/twitter-image.png'],
   },
 };
 
@@ -32,6 +61,12 @@ export default function HowWeWorkPage() {
 
   return (
     <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#16a34a]/20 pb-24">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://digixpro.in' },
+          { name: 'How We Work', url: 'https://digixpro.in/how-we-work' },
+        ]}
+      />
       
       {/* 1. HERO SECTION */}
       <section className="max-w-[1200px] mx-auto px-6 pt-20 pb-24 border-b border-neutral-200">

@@ -8,10 +8,36 @@ export default function OrganizationSchema() {
     "@id": "https://digixpro.in/#organization",
     "name": "DigiXPro Digital Solution",
     "alternateName": "DigiXPro",
+    "description": "Independent Technology Architecture Advisory. We design business operating systems before you spend money on software.",
     "url": "https://digixpro.in",
+    "foundingDate": "2018",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://digixpro.in/logo-1024.png"
+      "url": "https://digixpro.in/logo-1024.png",
+      "width": 1024,
+      "height": 1024
+    },
+    "image": "https://digixpro.in/opengraph-image.png",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Noida",
+      "addressRegion": "Uttar Pradesh",
+      "addressCountry": "IN"
+    },
+    "email": "consult@digixpro.in",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "email": "consult@digixpro.in",
+      "areaServed": "IN",
+      "availableLanguage": ["English", "Hindi"]
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/digixpro/",
+      "https://www.facebook.com/digixprodigitalsolution"
+    ],
+    "founder": {
+      "@id": "https://digixpro.in/#founder"
     }
   };
 

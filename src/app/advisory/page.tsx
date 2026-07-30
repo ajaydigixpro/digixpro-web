@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { 
   ArrowRight, 
   Database, 
@@ -17,16 +18,50 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Advisory Services',
-  description: 'Independent technology architecture advisory. We work with founders before major technology decisions are made to reduce risk and design operational clarity.',
+  title: 'Technology Architecture Advisory Services',
+  description: 'Independent technology architecture advisory for growing businesses. We work with founders before major technology decisions are made to reduce risk, eliminate waste, and design operational clarity.',
+  keywords: [
+    'technology architecture advisory',
+    'independent tech consultant India',
+    'AI infrastructure advisory',
+    'ERP CRM advisory',
+    'business workflow automation',
+  ],
   alternates: {
     canonical: 'https://digixpro.in/advisory',
+  },
+  openGraph: {
+    title: 'Technology Architecture Advisory Services | DigiXPro',
+    description: 'Independent technology architecture advisory for growing businesses. We work with founders before major technology decisions are made.',
+    url: 'https://digixpro.in/advisory',
+    type: 'website',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'DigiXPro — Technology Architecture Advisory Services',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Technology Architecture Advisory Services | DigiXPro',
+    description: 'Independent technology architecture advisory for growing businesses.',
+    images: ['/twitter-image.png'],
   },
 };
 
 export default function AdvisoryPage() {
   return (
     <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#16a34a]/20 pb-16">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://digixpro.in' },
+          { name: 'Advisory Services', url: 'https://digixpro.in/advisory' },
+        ]}
+      />
       
       {/* 1. HERO SECTION */}
       <section className="max-w-[1200px] mx-auto px-6 pt-20 pb-24 border-b border-neutral-200">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -20,7 +21,22 @@ export const metadata: Metadata = {
     description: 'Explore our production-grade architecture case studies and operational evidence.',
     url: 'https://digixpro.in/evidence',
     type: 'website',
-  }
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'DigiXPro — Operational Evidence & Case Studies',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Operational Evidence | DigiXPro',
+    description: 'Explore our production-grade architecture case studies and operational evidence.',
+    images: ['/twitter-image.png'],
+  },
 };
 
 export default function EvidenceIndexPage() {
@@ -73,7 +89,14 @@ export default function EvidenceIndexPage() {
 
   return (
     <>
-      {/* Script tag for JSON-LD */}
+      {/* BreadcrumbList schema for SERP rich results */}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://digixpro.in' },
+          { name: 'Operational Evidence', url: 'https://digixpro.in/evidence' },
+        ]}
+      />
+      {/* Script tag for JSON-LD CollectionPage schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}

@@ -7,8 +7,21 @@ export default function WebSiteSchema() {
     "@type": "WebSite",
     "@id": "https://digixpro.in/#website",
     "name": "DigiXPro",
-    "url": "https://digixpro.in"
+    "url": "https://digixpro.in",
+    "description": "Independent Technology Architecture Advisory — business operating systems designed before you spend money on software.",
+    "inLanguage": "en-IN",
+    "publisher": {
+      "@id": "https://digixpro.in/#organization"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://digixpro.in/knowledge?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
   };
 
   return <Script id="website-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
-}
+}
