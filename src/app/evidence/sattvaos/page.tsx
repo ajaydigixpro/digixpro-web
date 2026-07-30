@@ -21,15 +21,15 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'SattvaOS Architecture Evidence | DigiXPro',
+  title: 'SattvaOS Architecture Evidence',
   description: 'Production evidence for SattvaOS enterprise management system and platform architecture.',
   alternates: {
-    canonical: 'https://digixpro.in/evidence/sattvaos',
+    canonical: 'https://www.digixpro.in/evidence/sattvaos',
   },
   openGraph: {
     title: 'SattvaOS Architecture Evidence | DigiXPro',
     description: 'Production evidence for SattvaOS enterprise management system and platform architecture.',
-    url: 'https://digixpro.in/evidence/sattvaos',
+    url: 'https://www.digixpro.in/evidence/sattvaos',
     type: 'article',
     images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'SattvaOS Architecture Evidence' }],
   },

@@ -24,12 +24,12 @@ export const metadata: Metadata = {
     'technology architecture consultant Noida',
   ],
   alternates: {
-    canonical: 'https://digixpro.in/contact',
+    canonical: 'https://www.digixpro.in/contact',
   },
   openGraph: {
     title: 'Contact Us — Request a Discovery Call | DigiXPro',
     description: 'Request a free 30-minute discovery call to discuss your business architecture, operational bottlenecks, and technology decisions.',
-    url: 'https://digixpro.in/contact',
+    url: 'https://www.digixpro.in/contact',
     type: 'website',
     images: [
       {
@@ -54,8 +54,8 @@ export default function ContactPage() {
     <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#16a34a]/20 pb-24">
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: 'https://digixpro.in' },
-          { name: 'Contact', url: 'https://digixpro.in/contact' },
+          { name: 'Home', url: 'https://www.digixpro.in' },
+          { name: 'Contact', url: 'https://www.digixpro.in/contact' },
         ]}
       />
       

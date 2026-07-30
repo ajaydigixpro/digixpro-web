@@ -16,16 +16,16 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const article = knowledgeArticles.find((item) => item.id === resolvedParams.id);
   const title = article ? article.title : "Article Not Found";
   const description = article ? article.summary : "Decision Library Article";
-  const url = `https://digixpro.in/knowledge/${resolvedParams.id}`;
+  const url = `https://www.digixpro.in/knowledge/${resolvedParams.id}`;
 
   return {
-    title: `${title} | DigiXPro Decision Library`,
+    title: `${title} — Decision Library`,
     description,
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title,
+      title: `${title} | DigiXPro`,
       description,
       url,
       type: 'article',
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} | DigiXPro`,
       description,
       images: ['/twitter-image.png'],
     },
@@ -56,7 +56,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
     );
   }
 
-  const articleUrl = `https://digixpro.in/knowledge/${article.id}`;
+  const articleUrl = `https://www.digixpro.in/knowledge/${article.id}`;
 
   return (
     <>

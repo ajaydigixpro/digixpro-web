@@ -15,7 +15,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://digixpro.in"),
+  metadataBase: new URL("https://www.digixpro.in"),
   applicationName: "DigiXPro",
   title: {
     default: "DigiXPro | Independent Technology Architecture Advisory",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "startup technology consultant",
     "digital transformation advisory",
   ],
-  authors: [{ name: "Dr. Ajay Shukla", url: "https://digixpro.in/founder" }],
+  authors: [{ name: "Dr. Ajay Shukla", url: "https://www.digixpro.in/founder" }],
   creator: "DigiXPro",
   publisher: "DigiXPro",
   robots: {
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://digixpro.in",
+    canonical: "https://www.digixpro.in",
   },
   icons: {
     icon: [
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     title: "DigiXPro | Independent Technology Architecture Advisory",
     description:
       "Your business is growing. Your operations aren't. Every wrong technology decision costs time, money, and momentum.",
-    url: "https://digixpro.in",
+    url: "https://www.digixpro.in",
     images: [
       {
         url: "/opengraph-image.png",

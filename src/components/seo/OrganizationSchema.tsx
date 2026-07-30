@@ -5,19 +5,19 @@ export default function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": "https://digixpro.in/#organization",
+    "@id": "https://www.digixpro.in/#organization",
     "name": "DigiXPro Digital Solution",
     "alternateName": "DigiXPro",
     "description": "Independent Technology Architecture Advisory. We design business operating systems before you spend money on software.",
-    "url": "https://digixpro.in",
+    "url": "https://www.digixpro.in",
     "foundingDate": "2018",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://digixpro.in/logo-1024.png",
+      "url": "https://www.digixpro.in/logo-1024.png",
       "width": 1024,
       "height": 1024
     },
-    "image": "https://digixpro.in/opengraph-image.png",
+    "image": "https://www.digixpro.in/opengraph-image.png",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Noida",
@@ -37,7 +37,7 @@ export default function OrganizationSchema() {
       "https://www.facebook.com/digixprodigitalsolution"
     ],
     "founder": {
-      "@id": "https://digixpro.in/#founder"
+      "@id": "https://www.digixpro.in/#founder"
     }
   };
 

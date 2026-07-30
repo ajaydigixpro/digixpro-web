@@ -5,9 +5,9 @@ export default function ProfessionalServiceSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": "https://digixpro.in/#advisory",
+    "@id": "https://www.digixpro.in/#advisory",
     "name": "DigiXPro",
-    "url": "https://digixpro.in",
+    "url": "https://www.digixpro.in",
     "description": "Independent Technology Architecture & Business Operating Systems Advisory for growing businesses and founders.",
     "serviceType": "Technology Architecture Advisory",
     "currenciesAccepted": "INR",
@@ -64,7 +64,7 @@ export default function ProfessionalServiceSchema() {
       ]
     },
     "provider": {
-      "@id": "https://digixpro.in/#organization"
+      "@id": "https://www.digixpro.in/#organization"
     }
   };
 

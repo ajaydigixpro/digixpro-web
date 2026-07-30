@@ -3,7 +3,7 @@ import { knowledgeArticles } from '@/data/knowledge';
 import { evidenceItems } from '@/data/evidence';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://digixpro.in';
+  const baseUrl = 'https://www.digixpro.in';
 
   // 1. Static Core Pages — with accurate static dates and differentiated frequencies
   const routes: MetadataRoute.Sitemap = [

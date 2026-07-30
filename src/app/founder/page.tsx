@@ -21,13 +21,20 @@ export const metadata: Metadata = {
   title: 'Founder & Technology Architect | Dr. Ajay Shukla',
   description: 'I help founders make technology decisions they won\'t have to rebuild six months later. Founder & Technology Architect at DigiXPro.',
   alternates: {
-    canonical: 'https://digixpro.in/founder',
+    canonical: 'https://www.digixpro.in/founder',
   },
   openGraph: {
     title: 'Founder & Technology Architect | Dr. Ajay Shukla',
     description: 'I help founders make technology decisions they won\'t have to rebuild six months later.',
-    url: 'https://digixpro.in/founder',
+    url: 'https://www.digixpro.in/founder',
     type: 'profile',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Dr. Ajay Shukla - Founder & Technology Architect' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Founder & Technology Architect | Dr. Ajay Shukla',
+    description: 'I help founders make technology decisions they won\'t have to rebuild six months later.',
+    images: ['/twitter-image.png'],
   },
 };
 

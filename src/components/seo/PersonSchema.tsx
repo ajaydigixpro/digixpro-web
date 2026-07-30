@@ -5,7 +5,7 @@ export default function PersonSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "@id": "https://digixpro.in/#founder",
+    "@id": "https://www.digixpro.in/#founder",
     "name": "Dr. Ajay Shukla",
     "alternateName": [
       "Dr. Ajay Shukla (Vidya Vachaspati)",
@@ -14,8 +14,8 @@ export default function PersonSchema() {
     ],
     "jobTitle": "Founder & Technology Architect",
     "description": "I help founders make technology decisions they won't have to rebuild six months later. I design business operating systems before expensive technology decisions are made.",
-    "url": "https://digixpro.in/founder",
-    "image": "https://digixpro.in/founder-portrait.png",
+    "url": "https://www.digixpro.in/founder",
+    "image": "https://www.digixpro.in/founder-portrait.png",
     "sameAs": [
       "https://www.linkedin.com/company/digixpro/"
     ],
@@ -30,7 +30,7 @@ export default function PersonSchema() {
       "Startup Operations"
     ],
     "worksFor": {
-      "@id": "https://digixpro.in/#organization"
+      "@id": "https://www.digixpro.in/#organization"
     }
   };
 

@@ -10,19 +10,19 @@ interface ArticleSchemaProps {
   imageUrl?: string;
 }
 
-export default function ArticleSchema({ title, description, url, publishedAt, updatedAt, imageUrl = "https://digixpro.in/opengraph-image.png" }: ArticleSchemaProps) {
+export default function ArticleSchema({ title, description, url, publishedAt, updatedAt, imageUrl = "https://www.digixpro.in/opengraph-image.png" }: ArticleSchemaProps) {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "TechArticle",
     "@id": `${url}#article`,
     "headline": title,
     "description": description,
     "image": imageUrl,
     "author": {
-      "@id": "https://digixpro.in/#founder"
+      "@id": "https://www.digixpro.in/#founder"
     },
     "publisher": {
-      "@id": "https://digixpro.in/#organization"
+      "@id": "https://www.digixpro.in/#organization"
     },
     "datePublished": publishedAt,
     "dateModified": updatedAt,

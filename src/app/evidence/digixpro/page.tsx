@@ -18,15 +18,15 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'DigiXPro Architecture Evidence | DigiXPro',
+  title: 'DigiXPro Architecture Evidence',
   description: 'Production evidence and technical architecture breakdown for DigiXPro digital ecosystem.',
   alternates: {
-    canonical: 'https://digixpro.in/evidence/digixpro',
+    canonical: 'https://www.digixpro.in/evidence/digixpro',
   },
   openGraph: {
     title: 'DigiXPro Architecture Evidence | DigiXPro',
     description: 'Production evidence and technical architecture breakdown for DigiXPro digital ecosystem.',
-    url: 'https://digixpro.in/evidence/digixpro',
+    url: 'https://www.digixpro.in/evidence/digixpro',
     type: 'article',
     images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'DigiXPro Architecture Evidence' }],
   },

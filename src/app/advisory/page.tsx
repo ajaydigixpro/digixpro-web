@@ -28,12 +28,12 @@ export const metadata: Metadata = {
     'business workflow automation',
   ],
   alternates: {
-    canonical: 'https://digixpro.in/advisory',
+    canonical: 'https://www.digixpro.in/advisory',
   },
   openGraph: {
     title: 'Technology Architecture Advisory Services | DigiXPro',
     description: 'Independent technology architecture advisory for growing businesses. We work with founders before major technology decisions are made.',
-    url: 'https://digixpro.in/advisory',
+    url: 'https://www.digixpro.in/advisory',
     type: 'website',
     images: [
       {
@@ -58,8 +58,8 @@ export default function AdvisoryPage() {
     <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#16a34a]/20 pb-16">
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: 'https://digixpro.in' },
-          { name: 'Advisory Services', url: 'https://digixpro.in/advisory' },
+          { name: 'Home', url: 'https://www.digixpro.in' },
+          { name: 'Advisory Services', url: 'https://www.digixpro.in/advisory' },
         ]}
       />
       

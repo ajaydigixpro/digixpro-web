@@ -23,12 +23,12 @@ export const metadata: Metadata = {
     'operational clarity consulting',
   ],
   alternates: {
-    canonical: 'https://digixpro.in/how-we-work',
+    canonical: 'https://www.digixpro.in/how-we-work',
   },
   openGraph: {
     title: 'Our Methodology — How We Work | DigiXPro',
     description: 'Our 7-step architecture hierarchy and independent advisory methodology for designing business operating systems.',
-    url: 'https://digixpro.in/how-we-work',
+    url: 'https://www.digixpro.in/how-we-work',
     type: 'website',
     images: [
       {
@@ -63,8 +63,8 @@ export default function HowWeWorkPage() {
     <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#16a34a]/20 pb-24">
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: 'https://digixpro.in' },
-          { name: 'How We Work', url: 'https://digixpro.in/how-we-work' },
+          { name: 'Home', url: 'https://www.digixpro.in' },
+          { name: 'How We Work', url: 'https://www.digixpro.in/how-we-work' },
         ]}
       />
       

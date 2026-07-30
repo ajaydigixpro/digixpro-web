@@ -20,15 +20,15 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Aatma Guru Architecture Evidence | DigiXPro',
+  title: 'Aatma Guru Architecture Evidence',
   description: 'Production evidence for Aatma Guru institution management and governance OS designed by DigiXPro.',
   alternates: {
-    canonical: 'https://digixpro.in/evidence/aatma-guru',
+    canonical: 'https://www.digixpro.in/evidence/aatma-guru',
   },
   openGraph: {
     title: 'Aatma Guru Architecture Evidence | DigiXPro',
     description: 'Production evidence for Aatma Guru institution management and governance OS.',
-    url: 'https://digixpro.in/evidence/aatma-guru',
+    url: 'https://www.digixpro.in/evidence/aatma-guru',
     type: 'article',
     images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Aatma Guru Architecture Evidence' }],
   },

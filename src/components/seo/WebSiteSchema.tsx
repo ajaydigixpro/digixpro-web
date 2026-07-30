@@ -5,19 +5,19 @@ export default function WebSiteSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://digixpro.in/#website",
+    "@id": "https://www.digixpro.in/#website",
     "name": "DigiXPro",
-    "url": "https://digixpro.in",
+    "url": "https://www.digixpro.in",
     "description": "Independent Technology Architecture Advisory — business operating systems designed before you spend money on software.",
     "inLanguage": "en-IN",
     "publisher": {
-      "@id": "https://digixpro.in/#organization"
+      "@id": "https://www.digixpro.in/#organization"
     },
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://digixpro.in/knowledge?q={search_term_string}"
+        "urlTemplate": "https://www.digixpro.in/knowledge?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }

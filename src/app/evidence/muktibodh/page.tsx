@@ -3,15 +3,15 @@ import { Metadata } from 'next';
 import MuktibodhClient from './MuktibodhClient';
 
 export const metadata: Metadata = {
-  title: 'Muktibodh Digital Publishing & Knowledge OS Evidence | DigiXPro',
+  title: 'Muktibodh Digital Publishing & Knowledge OS Evidence',
   description: 'Production evidence for Muktibodh digital publishing, archiving, and structured knowledge platform architecture.',
   alternates: {
-    canonical: 'https://digixpro.in/evidence/muktibodh',
+    canonical: 'https://www.digixpro.in/evidence/muktibodh',
   },
   openGraph: {
     title: 'Muktibodh Digital Publishing & Knowledge OS Evidence | DigiXPro',
     description: 'Production evidence for Muktibodh digital publishing, archiving, and structured knowledge platform architecture.',
-    url: 'https://digixpro.in/evidence/muktibodh',
+    url: 'https://www.digixpro.in/evidence/muktibodh',
     type: 'article',
     images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Muktibodh Publishing OS Case Study' }],
   },

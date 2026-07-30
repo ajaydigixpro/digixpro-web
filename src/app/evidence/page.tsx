@@ -11,15 +11,15 @@ import {
 
 // 1️⃣ SEO METADATA (Google aur Social Media ke liye)
 export const metadata: Metadata = {
-  title: 'Operational Evidence & Case Studies | DigiXPro',
+  title: 'Operational Evidence & Case Studies',
   description: 'Real analytics, architecture logs, verified public footprints, and business outcomes engineered by DigiXPro across Healthcare, Marketplaces, and AI Systems.',
   alternates: {
-    canonical: 'https://digixpro.in/evidence',
+    canonical: 'https://www.digixpro.in/evidence',
   },
   openGraph: {
-    title: 'Operational Evidence | DigiXPro',
+    title: 'Operational Evidence & Case Studies | DigiXPro',
     description: 'Explore our production-grade architecture case studies and operational evidence.',
-    url: 'https://digixpro.in/evidence',
+    url: 'https://www.digixpro.in/evidence',
     type: 'website',
     images: [
       {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Operational Evidence | DigiXPro',
+    title: 'Operational Evidence & Case Studies | DigiXPro',
     description: 'Explore our production-grade architecture case studies and operational evidence.',
     images: ['/twitter-image.png'],
   },
@@ -47,13 +47,13 @@ export default function EvidenceIndexPage() {
     "@type": "CollectionPage",
     "name": "DigiXPro Operational Evidence",
     "description": "Real analytics, architecture logs, and business outcomes categorized across our core operational pillars.",
-    "url": "https://digixpro.in/evidence",
+    "url": "https://www.digixpro.in/evidence",
     "publisher": {
       "@type": "Organization",
       "name": "DigiXPro",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://digixpro.in/logo.png"
+        "url": "https://www.digixpro.in/logo.png"
       }
     },
     "mainEntity": {
@@ -63,25 +63,25 @@ export default function EvidenceIndexPage() {
           "@type": "ListItem",
           "position": 1,
           "name": "Dr Aggarwal Physio Centre Case Study",
-          "url": "https://digixpro.in/evidence/dr-aggarwal"
+          "url": "https://www.digixpro.in/evidence/dr-aggarwal"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "ScanCentreNearMe Marketplace Architecture",
-          "url": "https://digixpro.in/evidence/scan-centre"
+          "url": "https://www.digixpro.in/evidence/scan-centre"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Buy Secondhand Books Commerce OS",
-          "url": "https://digixpro.in/evidence/buy-secondhand-book"
+          "url": "https://www.digixpro.in/evidence/buy-secondhand-book"
         },
         {
           "@type": "ListItem",
           "position": 4,
           "name": "SattvaOS Master Platform",
-          "url": "https://digixpro.in/evidence/sattvaos"
+          "url": "https://www.digixpro.in/evidence/sattvaos"
         }
       ]
     }
@@ -92,8 +92,8 @@ export default function EvidenceIndexPage() {
       {/* BreadcrumbList schema for SERP rich results */}
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: 'https://digixpro.in' },
-          { name: 'Operational Evidence', url: 'https://digixpro.in/evidence' },
+          { name: 'Home', url: 'https://www.digixpro.in' },
+          { name: 'Operational Evidence', url: 'https://www.digixpro.in/evidence' },
         ]}
       />
       {/* Script tag for JSON-LD CollectionPage schema */}

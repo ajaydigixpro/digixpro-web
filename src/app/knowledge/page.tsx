@@ -17,12 +17,12 @@ export const metadata: Metadata = {
   title: 'The Decision Library | Architecture Insights',
   description: 'Real lessons from production systems, consulting engagements, and architecture decisions by DigiXPro.',
   alternates: {
-    canonical: 'https://digixpro.in/knowledge',
+    canonical: 'https://www.digixpro.in/knowledge',
   },
   openGraph: {
     title: 'The Decision Library | DigiXPro',
     description: 'Documented architecture and operational intelligence from live production systems.',
-    url: 'https://digixpro.in/knowledge',
+    url: 'https://www.digixpro.in/knowledge',
     type: 'website',
     images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'The Decision Library | DigiXPro' }],
   },
