@@ -49,6 +49,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    // Legal / Trust pages
+    {
+      url: `${baseUrl}/privacy-policy`,
+      lastModified: new Date('2025-07-30'),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: new Date('2025-07-30'),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/disclaimer`,
+      lastModified: new Date('2025-07-30'),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
   ];
 
   // 2. TRUE Dynamic Knowledge Slugs (From SSOT)

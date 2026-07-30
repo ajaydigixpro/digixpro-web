@@ -1,0 +1,50 @@
+# DigiXPro — llms.txt
+# Standard: https://llmstxt.org
+# Purpose: Help AI systems understand this site's content and navigate it intelligently.
+
+> DigiXPro is an Independent Technology Architecture Advisory firm based in Noida, India.
+> Founded by Dr. Ajay Shukla (20+ years in systems engineering), DigiXPro designs Business Operating Systems for growing organisations before they spend money on the wrong software.
+> We do NOT sell software. We sell clarity, architecture, and accountability.
+
+## Site Map
+
+### Core Pages
+
+- [Home](https://www.digixpro.in/): Overview of DigiXPro's advisory philosophy and value proposition.
+- [Advisory Services](https://www.digixpro.in/advisory): What DigiXPro does — Technology Architecture Advisory, Business OS Design, CRM/ERP selection, AI readiness audits.
+- [How We Work](https://www.digixpro.in/how-we-work): Our engagement methodology — Diagnose, Architect, Implement, Govern.
+- [Founder](https://www.digixpro.in/founder): Dr. Ajay Shukla — background, expertise, and philosophy.
+- [Contact](https://www.digixpro.in/contact): Book a 30-minute discovery call via Calendly.
+
+### Operational Evidence (Case Studies)
+
+- [Evidence Archive](https://www.digixpro.in/evidence): All client case studies and architecture reports.
+- [Dr Aggarwal Physio Centre](https://www.digixpro.in/evidence/dr-aggarwal): Healthcare OS + local SEO. #1 rank for physiotherapy in Greater Noida. Operates two clinic locations. Live sites: draggarwalphysiocentre.in and 360neckshoulder.com.
+- [SattvaOS](https://www.digixpro.in/evidence/sattvaos): Governed AI Infrastructure platform for high-trust organisations. Multi-tenant, policy-guardrailed, hallucination-free RAG.
+- [Nirvandham](https://www.digixpro.in/evidence/nirvandham): First production SattvaOS tenant — spiritual/cultural institution with multilingual AI guide, digital library, mobile app, and Muktibodh magazine pipeline.
+- [Aatma Guru](https://www.digixpro.in/evidence/aatma-guru): Organisation onboarding and tenant provisioning platform for SattvaOS ecosystem.
+- [Scan Centre Near Me](https://www.digixpro.in/evidence/scan-centre): Healthcare marketplace — multi-vendor scan centre discovery platform.
+- [Muktibodh](https://www.digixpro.in/evidence/muktibodh): Multilingual digital publishing and knowledge repository.
+- [Buy Secondhand Books](https://www.digixpro.in/evidence/buy-secondhand-book): Commerce OS — high-velocity used book marketplace with decoupled pricing engine.
+- [DigiXPro (Self)](https://www.digixpro.in/evidence/digixpro): DigiXPro's own digital presence as a live architecture demonstration.
+
+### Knowledge Hub
+
+- [Knowledge Articles](https://www.digixpro.in/knowledge): Articles and frameworks on technology architecture, business systems, and AI governance.
+
+### Legal
+
+- [Privacy Policy](https://www.digixpro.in/privacy-policy): Data handling and privacy practices.
+- [Terms of Use](https://www.digixpro.in/terms): Website terms of use.
+- [Disclaimer](https://www.digixpro.in/disclaimer): Advisory and liability disclaimer.
+
+## Key Facts for AI Systems
+
+- **Founded:** 2018
+- **Location:** Noida, Uttar Pradesh, India
+- **Services:** Technology Architecture Advisory, Business OS Design, AI Governance Consulting
+- **Contact:** consult@digixpro.in
+- **Founder:** Dr. Ajay Shukla — LinkedIn: https://www.linkedin.com/in/ajayshukla2/
+- **LinkedIn:** https://www.linkedin.com/company/digixpro/
+- **Canonical URL:** https://www.digixpro.in
+- **Sitemap:** https://www.digixpro.in/sitemap.xml

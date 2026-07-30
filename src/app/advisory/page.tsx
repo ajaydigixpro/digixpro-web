@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import FAQSchema from '@/components/seo/FAQSchema';
 import { 
   ArrowRight, 
   Database, 
@@ -60,6 +61,30 @@ export default function AdvisoryPage() {
         items={[
           { name: 'Home', url: 'https://www.digixpro.in' },
           { name: 'Advisory Services', url: 'https://www.digixpro.in/advisory' },
+        ]}
+      />
+      <FAQSchema
+        items={[
+          {
+            question: 'What does a technology architecture advisory do?',
+            answer: 'A technology architecture advisor analyses your business operations and designs the right system architecture before you spend money on software. DigiXPro evaluates your workflows, identifies gaps, selects the right tools (CRM, ERP, AI), and creates a blueprint for implementation — so you avoid costly mistakes and rebuilds.',
+          },
+          {
+            question: 'How is DigiXPro different from a software development company?',
+            answer: 'DigiXPro does not write code or build software. We are an independent advisory firm — we design the architecture, select the right vendors, and manage implementation accountability. Our independence means we have no bias toward any software vendor or technology stack.',
+          },
+          {
+            question: 'Who are DigiXPro\'s advisory services for?',
+            answer: 'DigiXPro works with founders, CEOs, and leadership teams of growing businesses — typically 10 to 200 people — who are about to make a major technology investment (CRM, ERP, AI systems, custom software) and want an independent expert to validate their decisions before committing.',
+          },
+          {
+            question: 'How much does a technology architecture advisory engagement cost?',
+            answer: 'Engagement scope and fees vary depending on the complexity of your operations and the depth of advisory required. Start with a free 30-minute discovery call to discuss your situation. Book via the Contact page.',
+          },
+          {
+            question: 'Can DigiXPro help with AI implementation for my business?',
+            answer: 'Yes. DigiXPro advises on AI readiness, AI vendor selection, and governed AI infrastructure design. We have direct experience architecting institutional AI systems (SattvaOS) and can evaluate whether AI is the right investment for your current operational maturity.',
+          },
         ]}
       />
       
