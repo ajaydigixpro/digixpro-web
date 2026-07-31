@@ -77,7 +77,7 @@ export default function FounderPage() {
                   </span>
                 </div>
                 <p className="text-[14px] font-mono text-neutral-500 uppercase tracking-wider">
-                  Founder, DigiXPro
+                  Founder, DigiXPro Digital Solution
                 </p>
               </div>
 
