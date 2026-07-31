@@ -13,7 +13,7 @@ export default function OrganizationSchema() {
     "foundingDate": "2018",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://www.digixpro.in/logo-1024.png",
+      "url": "https://www.digixpro.in/logo-1024.png?v=2",
       "width": 1024,
       "height": 1024
     },

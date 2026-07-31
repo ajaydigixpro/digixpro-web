@@ -55,7 +55,7 @@ export default function EvidenceIndexPage() {
       "name": "DigiXPro",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.digixpro.in/logo.png"
+        "url": "https://www.digixpro.in/logo-1024.png?v=2"
       }
     },
     "mainEntity": {

@@ -42,7 +42,7 @@ export default function Navbar() {
         {/* BRAND LOGO */}
         <Link href="/" className="flex items-center space-x-2" aria-label="DigiXPro — Go to homepage">
           <Image 
-            src="/logo.svg"
+            src="/logo.svg?v=2"
             alt="DigiXPro Logo" 
             width={160} 
             height={40} 
