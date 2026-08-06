@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import ProfessionalServiceSchema from "@/components/seo/ProfessionalServiceSchema";
 import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
+import { services } from '@/data/services';
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -155,6 +156,76 @@ export default function HomePage() {
           <div className="text-center mt-12 text-[14px] font-medium text-neutral-500 relative z-10">
             Designed architecture ensures your business operates as a continuous, self-feeding loop.
           </div>
+        </div>
+      </section>
+
+      {/* ==========================================
+          WHAT WE BUILD (OUR SERVICE PILLARS)
+      ========================================== */}
+      <section className="py-24 bg-neutral-50 border-y border-neutral-200">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="mb-16 text-center max-w-3xl mx-auto">
+            <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+              What We Build
+            </div>
+            <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6 leading-tight">
+              Our Service Pillars &amp; Architecture Capabilities
+            </h2>
+            <p className="text-[18px] text-neutral-600 leading-relaxed">
+              Explore our structured technology advisory and digital experience design capabilities.
+            </p>
+          </div>
+
+          <div className="space-y-16">
+            {/* Technology Advisory Track Grid */}
+            <div>
+              <div className="flex items-center space-x-3 mb-6 border-b border-neutral-200 pb-2">
+                <Cpu className="w-5 h-5 text-[#16a34a]" />
+                <h3 className="text-xl font-extrabold text-black">Technology Advisory Track</h3>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {services.filter((s) => s.track === 'tech').map((service) => (
+                  <div key={service.slug} className="bg-white border border-neutral-200 p-6 rounded-2xl flex flex-col justify-between group hover:border-[#16a34a] transition-all shadow-sm">
+                    <div>
+                      <span className="text-[10px] font-mono font-bold text-[#16a34a] bg-emerald-50 px-2 py-0.5 rounded uppercase tracking-wider mb-2 inline-block">
+                        {service.category}
+                      </span>
+                      <h4 className="text-lg font-extrabold text-black mb-2 group-hover:text-[#16a34a] transition-colors">{service.title}</h4>
+                      <p className="text-xs text-neutral-600 mb-6 leading-relaxed">{service.shortDesc}</p>
+                    </div>
+                    <Link href={`/services/${service.slug}`} className="inline-flex items-center text-xs font-bold text-black group-hover:text-[#16a34a] transition-colors pt-3 border-t border-neutral-100">
+                      Explore Service Blueprint <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Design Track Grid */}
+            <div>
+              <div className="flex items-center space-x-3 mb-6 border-b border-neutral-200 pb-2">
+                <Code2 className="w-5 h-5 text-[#16a34a]" />
+                <h3 className="text-xl font-extrabold text-black">Design &amp; Digital Experience Track</h3>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {services.filter((s) => s.track === 'design').map((service) => (
+                  <div key={service.slug} className="bg-white border border-neutral-200 p-6 rounded-2xl flex flex-col justify-between group hover:border-[#16a34a] transition-all shadow-sm">
+                    <div>
+                      <span className="text-[10px] font-mono font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded uppercase tracking-wider mb-2 inline-block">
+                        {service.category}
+                      </span>
+                      <h4 className="text-lg font-extrabold text-black mb-2 group-hover:text-[#16a34a] transition-colors">{service.title}</h4>
+                      <p className="text-xs text-neutral-600 mb-6 leading-relaxed">{service.shortDesc}</p>
+                    </div>
+                    <Link href={`/services/${service.slug}`} className="inline-flex items-center text-xs font-bold text-black group-hover:text-[#16a34a] transition-colors pt-3 border-t border-neutral-100">
+                      Explore Service Blueprint <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 

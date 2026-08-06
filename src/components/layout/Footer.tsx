@@ -54,7 +54,7 @@ export default function Footer() {
           
           <nav aria-label="Social media links" className="flex items-center space-x-3">
             <a 
-              href="https://www.linkedin.com/company/digixpro/" 
+              href="https://www.linkedin.com/company/digixprodigitalsolution/" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="hover:text-white transition-colors"
