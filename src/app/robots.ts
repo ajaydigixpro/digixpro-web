@@ -9,9 +9,13 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/private/', '/api/'],
       },
-      // Explicitly welcome AI training/index crawlers for AI discoverability (Section 9)
+      // Explicitly welcome AI training/index crawlers for AI discoverability
       {
         userAgent: 'GPTBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'OAI-SearchBot',
         allow: '/',
       },
       {
@@ -20,6 +24,10 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: 'GoogleOther',
+        allow: '/',
+      },
+      {
+        userAgent: 'Google-Extended',
         allow: '/',
       },
       {

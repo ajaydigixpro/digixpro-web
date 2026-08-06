@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import WebSiteSchema from "@/components/seo/WebSiteSchema";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     "startup technology consultant",
     "digital transformation advisory",
   ],
-  authors: [{ name: "Dr. Ajay Shukla", url: "https://www.digixpro.in/founder" }],
+  authors: [{ name: "Dr. Ajay Shukla (डॉ. अजय शुक्ल — विद्या वाचस्पति)", url: "https://www.digixpro.in/founder" }],
   creator: "DigiXPro",
   publisher: "DigiXPro",
   robots: {
@@ -50,6 +51,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://www.digixpro.in",
+    languages: {
+      "en-IN": "https://www.digixpro.in",
+      "x-default": "https://www.digixpro.in",
+    },
   },
   icons: {
     icon: [
@@ -101,23 +106,23 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        suppressHydrationWarning
-        className={`${inter.className} min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#009E73]/20 flex flex-col`}
+        className={`${inter.className} min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#009E73]/20 flex flex-col transition-colors duration-200`}
       >
-        <OrganizationSchema />
-        <WebSiteSchema />
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <OrganizationSchema />
+          <WebSiteSchema />
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -33,7 +33,7 @@ export default function OrganizationSchema() {
       "availableLanguage": ["English", "Hindi"]
     },
     "sameAs": [
-      "https://www.linkedin.com/company/digixpro/",
+      "https://www.linkedin.com/company/digixprodigitalsolution/",
       "https://www.facebook.com/digixprodigitalsolution"
     ],
     "founder": {

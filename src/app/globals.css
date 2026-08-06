@@ -1,22 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.14 0 0);
+  --surface: oklch(0.98 0 0);
+  --surface-hover: oklch(0.95 0 0);
+  --card: oklch(1 0 0);
+  --card-dark-bg: oklch(0.12 0 0);
+  --text-heading: oklch(0.12 0 0);
+  --text-body: oklch(0.42 0 0);
+  --text-muted: oklch(0.55 0 0);
+  --border: oklch(0.90 0 0);
+  --brand-green: oklch(0.60 0.16 162);
+  --brand-green-hover: oklch(0.52 0.16 162);
+}
+
+.dark {
+  --background: oklch(0.12 0 0);
+  --foreground: oklch(0.96 0 0);
+  --surface: oklch(0.16 0 0);
+  --surface-hover: oklch(0.20 0 0);
+  --card: oklch(0.16 0 0);
+  --card-dark-bg: oklch(0.08 0 0);
+  --text-heading: oklch(0.98 0 0);
+  --text-body: oklch(0.75 0 0);
+  --text-muted: oklch(0.60 0 0);
+  --border: oklch(0.25 0 0);
+  --brand-green: oklch(0.65 0.17 162);
+  --brand-green-hover: oklch(0.72 0.17 162);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-card: var(--card);
+  --color-text-heading: var(--text-heading);
+  --color-text-body: var(--text-body);
+  --color-text-muted: var(--text-muted);
+  --color-border: var(--border);
+  --color-brand-green: var(--brand-green);
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 html {
@@ -24,14 +50,14 @@ html {
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  /* Font is controlled by next/font Inter in layout.tsx — no override needed */
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Accessible focus rings for keyboard navigation */
 :focus-visible {
-  outline: 2px solid #009E73;
+  outline: 2px solid var(--brand-green);
   outline-offset: 3px;
   border-radius: 4px;
 }

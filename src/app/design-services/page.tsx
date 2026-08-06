@@ -7,78 +7,68 @@ import FAQSchema from '@/components/seo/FAQSchema';
 import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 import { 
   ArrowRight, 
-  Database, 
-  Cpu, 
-  Network, 
-  ShieldAlert,
+  Palette, 
+  Layout, 
+  Sparkles,
   ArrowDown,
   CheckCircle2,
   FileText,
   Map,
   CheckSquare,
   ShieldCheck,
-  Briefcase,
-  Code2,
-  Settings
+  Briefcase
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Technology Architecture Advisory Services',
-  description: 'Independent technology architecture advisory for growing businesses. We work with founders before major technology decisions are made to reduce risk, eliminate waste, and design operational clarity.',
+  title: 'Brand & Digital Design Services',
+  description: 'Structured visual communication, custom modern website design, unlimited graphic design retaners, and strategic branding services for growing organizations.',
   keywords: [
-    'technology architecture advisory',
-    'independent tech consultant India',
-    'AI infrastructure advisory',
-    'ERP CRM advisory',
-    'business workflow automation',
-    'IT consulting services',
-    'Fractional CTO services',
+    'website design services',
+    'unlimited graphic design service',
+    'branding services',
+    'digital publication design',
+    'logo design system',
+    'Figma UI UX design',
   ],
   alternates: {
-    canonical: 'https://www.digixpro.in/advisory',
+    canonical: 'https://www.digixpro.in/design-services',
   },
   openGraph: {
-    title: 'Technology Architecture Advisory Services | DigiXPro',
-    description: 'Independent technology architecture advisory for growing businesses. We work with founders before major technology decisions are made.',
-    url: 'https://www.digixpro.in/advisory',
+    title: 'Brand & Digital Design Services | DigiXPro',
+    description: 'Structured visual communication, custom modern website design, and strategic branding services.',
+    url: 'https://www.digixpro.in/design-services',
     type: 'website',
     images: [
       {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'DigiXPro — Technology Architecture Advisory Services',
+        alt: 'DigiXPro — Brand & Digital Design Services',
         type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Technology Architecture Advisory Services | DigiXPro',
-    description: 'Independent technology architecture advisory for growing businesses.',
+    title: 'Brand & Digital Design Services | DigiXPro',
+    description: 'Structured visual communication and custom modern web design.',
     images: ['/twitter-image.png'],
   },
 };
 
-export default function AdvisoryPage() {
-  const techServices = services.filter((s) => s.track === 'tech');
+export default function DesignServicesPage() {
+  const designServices = services.filter((s) => s.track === 'design');
 
   const getIcon = (slug: string) => {
     switch (slug) {
-      case 'it-consulting-services':
-        return <Database className="w-7 h-7 text-[#16a34a]" />;
-      case 'ai-consulting-services':
-        return <Cpu className="w-7 h-7 text-[#16a34a]" />;
-      case 'ai-automation-agency':
-        return <Network className="w-7 h-7 text-[#16a34a]" />;
-      case 'erp-consultant-services':
-        return <Briefcase className="w-7 h-7 text-[#16a34a]" />;
-      case 'fractional-cto-services':
-        return <ShieldAlert className="w-7 h-7 text-[#16a34a]" />;
-      case 'business-process-automation':
-        return <Settings className="w-7 h-7 text-[#16a34a]" />;
+      case 'website-design-services':
+        return <Layout className="w-7 h-7 text-[#16a34a]" />;
+      case 'unlimited-graphic-design':
+        return <Sparkles className="w-7 h-7 text-[#16a34a]" />;
+      case 'branding-services':
+        return <Palette className="w-7 h-7 text-[#16a34a]" />;
       default:
-        return <Code2 className="w-7 h-7 text-[#16a34a]" />;
+        return <Palette className="w-7 h-7 text-[#16a34a]" />;
     }
   };
 
@@ -87,30 +77,26 @@ export default function AdvisoryPage() {
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: 'https://www.digixpro.in' },
-          { name: 'Advisory Services', url: 'https://www.digixpro.in/advisory' },
+          { name: 'Design Services', url: 'https://www.digixpro.in/design-services' },
         ]}
       />
       <FAQSchema
         items={[
           {
-            question: 'What does a technology architecture advisory do?',
-            answer: 'A technology architecture advisor analyses your business operations and designs the right system architecture before you spend money on software. DigiXPro evaluates your workflows, identifies gaps, selects the right tools (CRM, ERP, AI), and creates a blueprint for implementation — so you avoid costly mistakes and rebuilds.',
+            question: 'What design services does DigiXPro offer?',
+            answer: 'We provide structured visual communication through 3 core design pillars: Website Design Services (Next.js/React modern JS architectures), Unlimited Graphic Design Service subscriptions, and Strategic Branding Services (logo design systems, brand guidelines, and multi-page magazine/editorial layouts).',
           },
           {
-            question: 'How is DigiXPro different from a software development company?',
-            answer: 'DigiXPro does not write code or build software. We are an independent advisory firm — we design the architecture, select the right vendors, and manage implementation accountability. Our independence means we have no bias toward any software vendor or technology stack.',
+            question: 'Why choose custom JS web design over traditional WordPress themes?',
+            answer: 'Custom JS website design (Next.js, React, TailwindCSS) delivers 100% Core Web Vitals performance, instant page loads, immune security against plugin exploits, and unlimited design flexibility tailored to your exact brand positioning.',
           },
           {
-            question: 'Who are DigiXPro\'s advisory services for?',
-            answer: 'DigiXPro works with founders, CEOs, and leadership teams of growing businesses — typically 10 to 200 people — who are about to make a major technology investment (CRM, ERP, AI systems, custom software) and want an independent expert to validate their decisions before committing.',
+            question: 'How does the Unlimited Graphic Design subscription work?',
+            answer: 'You pay a flat monthly rate for continuous creative support. You submit design requests into a queue for social media graphics, ad banners, presentations, pitch decks, and brand marketing collateral with fast 24-48 hour turnaround.',
           },
           {
-            question: 'How much does a technology architecture advisory engagement cost?',
-            answer: 'Engagement scope and fees vary depending on the complexity of your operations and the depth of advisory required. Start with a free 30-minute discovery call to discuss your situation. Book via the Contact page.',
-          },
-          {
-            question: 'Can DigiXPro help with AI implementation for my business?',
-            answer: 'Yes. DigiXPro advises on AI readiness, AI vendor selection, and governed AI infrastructure design. We have direct experience architecting institutional AI systems (SattvaOS) and can evaluate whether AI is the right investment for your current operational maturity.',
+            question: 'Do your branding services include magazine and publication design?',
+            answer: 'Yes. We specialize in editorial publication design (digital magazines, books, annual reports) as part of our branding services, as demonstrated in our Muktibodh publishing system evidence.',
           },
         ]}
       />
@@ -121,31 +107,31 @@ export default function AdvisoryPage() {
           <div className="inline-flex items-center space-x-2 bg-neutral-50 border border-neutral-200 px-4 py-1.5 rounded-full mb-6">
             <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
             <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700">
-              Architecture Consulting. Not code outsourcing.
+              Visual Communication &bull; Web Engineering
             </span>
           </div>
           
           <h1 className="text-[44px] md:text-[64px] font-extrabold tracking-tight leading-[1.05] mb-8">
-            Independent Architecture Advisory.
+            Brand &amp; Digital Experience Design.
           </h1>
           
           <p className="text-[18px] md:text-[22px] font-medium text-neutral-600 leading-relaxed max-w-3xl">
-            We work with founders and growing businesses before major technology decisions are made. Our role is to reduce risk through architecture, operational design, and independent technical guidance.
+            We design high-performance websites, enduring brand identities, and predictable graphic design support systems that elevate visual authority.
           </p>
         </div>
       </section>
 
-      {/* 2. TYPICAL ADVISORY ENGAGEMENTS (ARRAY-DRIVEN FROM SERVICES.TS) */}
+      {/* 2. DESIGN SERVICE PILLARS (ARRAY-DRIVEN FROM SERVICES.TS) */}
       <section className="py-24 max-w-[1200px] mx-auto px-6">
         <div className="mb-16 max-w-3xl">
-          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">Technology Advisory Pillars</h2>
+          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">Design Service Pillars</h2>
           <p className="text-[18px] text-neutral-600">
-            Explore our specialized technology architecture services engineered for operational scaling and clarity.
+            Structured creative capabilities engineered for consistency, speed, and digital distinction.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {techServices.map((service) => (
+          {designServices.map((service) => (
             <div 
               key={service.slug}
               className="bg-neutral-50 border border-neutral-200 rounded-[32px] p-8 md:p-10 flex flex-col group hover:border-black/20 transition-all shadow-sm"
@@ -165,7 +151,7 @@ export default function AdvisoryPage() {
                   href={`/services/${service.slug}`} 
                   className="inline-flex items-center text-[15px] font-bold text-black hover:text-[#16a34a] transition-colors"
                 >
-                  Explore Service Blueprint <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  Explore Design Blueprint <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </div>
@@ -179,18 +165,18 @@ export default function AdvisoryPage() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">What You Receive</h2>
             <p className="text-[18px] text-neutral-600">
-              Tangible, production-ready intelligence to run your operations.
+              Tangible visual assets and design systems to power your brand.
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { title: "Business Operating System Blueprint", icon: <Map className="w-5 h-5 text-[#16a34a]" /> },
-              { title: "Technology Roadmap", icon: <CheckSquare className="w-5 h-5 text-[#16a34a]" /> },
-              { title: "Decision Rationale", icon: <FileText className="w-5 h-5 text-[#16a34a]" /> },
-              { title: "Vendor Evaluation", icon: <Briefcase className="w-5 h-5 text-[#16a34a]" /> },
-              { title: "Implementation Strategy", icon: <ArrowRight className="w-5 h-5 text-[#16a34a]" /> },
-              { title: "Risk Assessment", icon: <ShieldCheck className="w-5 h-5 text-red-500" /> }
+              { title: "Custom Web Application UI/UX", icon: <Layout className="w-5 h-5 text-[#16a34a]" /> },
+              { title: "Vector Logo Mark & System", icon: <Palette className="w-5 h-5 text-[#16a34a]" /> },
+              { title: "Comprehensive Brand Guidelines", icon: <FileText className="w-5 h-5 text-[#16a34a]" /> },
+              { title: "Digital Magazine & Publication Layouts", icon: <Sparkles className="w-5 h-5 text-[#16a34a]" /> },
+              { title: "Dedicated Design Queue", icon: <CheckSquare className="w-5 h-5 text-[#16a34a]" /> },
+              { title: "Native Source Files (Figma, AI, PSD)", icon: <ShieldCheck className="w-5 h-5 text-[#16a34a]" /> }
             ].map((item, idx) => (
               <div key={idx} className="flex items-center p-6 border border-neutral-200 rounded-2xl bg-white hover:border-[#16a34a]/30 transition-colors shadow-sm">
                 <div className="mr-4 bg-neutral-50 p-3 rounded-xl border border-neutral-100">
@@ -203,22 +189,22 @@ export default function AdvisoryPage() {
         </div>
       </section>
 
-      {/* 4. HOW WE PARTNER */}
+      {/* 4. HOW WE WORK */}
       <section className="py-24 max-w-[1200px] mx-auto px-6">
         <div className="mb-16 max-w-3xl">
-          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">How We Partner</h2>
+          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">Design Workflow</h2>
           <p className="text-[18px] text-neutral-600">
-            A transparent workflow designed to separate the architecture from the implementation.
+            A structured visual engineering pipeline from brand strategy to production assets.
           </p>
         </div>
 
         {/* Workflow Diagram */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 overflow-x-auto pb-12 mb-8">
           {[
-            { step: "01", name: "Discovery" },
-            { step: "02", name: "Architecture" },
-            { step: "03", name: "Implementation Strategy" },
-            { step: "04", name: "Execution Support (Optional)" }
+            { step: "01", name: "Visual Discovery" },
+            { step: "02", name: "Design System Architecture" },
+            { step: "03", name: "Component Engineering" },
+            { step: "04", name: "Production Rollout" }
           ].map((item, idx, arr) => (
             <React.Fragment key={idx}>
               <div className="flex flex-col w-full md:w-auto min-w-[200px] p-6 rounded-2xl bg-white shadow-sm border border-neutral-200">
@@ -241,11 +227,11 @@ export default function AdvisoryPage() {
           ))}
         </div>
 
-        {/* The Differentiator Block */}
+        {/* Bottom CTA Block */}
         <div className="bg-[#0A0A0A] p-8 md:p-10 rounded-[24px] text-center shadow-xl max-w-4xl mx-auto">
-          <h3 className="text-white font-extrabold text-[20px] md:text-[24px] mb-4">Implementation is Optional</h3>
+          <h3 className="text-white font-extrabold text-[20px] md:text-[24px] mb-4">Ready to elevate your visual identity?</h3>
           <p className="text-[16px] text-neutral-400 leading-relaxed mb-8">
-            Execution may be handled by your internal team, your preferred implementation partner, or DigiXPro where appropriate. We design the system; you choose how it gets built.
+            Let&apos;s discuss your website, graphic design support, or brand guidelines. Book a 30-minute discovery consultation.
           </p>
           <Link
             href="/contact"

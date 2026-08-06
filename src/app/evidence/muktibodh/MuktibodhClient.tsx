@@ -19,7 +19,9 @@ import {
   Share2,
   Download,
   BookMarked,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Video,
+  ExternalLink
 } from 'lucide-react';
 
 export default function MuktibodhClient() {
@@ -358,6 +360,32 @@ export default function MuktibodhClient() {
               <div className="bg-white p-3.5 border border-neutral-200 rounded-lg shadow-sm flex items-center">
                 <CheckCircle2 className="w-4 h-4 text-[#22C55E] mr-2 shrink-0" />
                 <span>Seamless magazine archive & distribution layer</span>
+              </div>
+            </div>
+          </section>
+
+          {/* MULTI-PLATFORM PRESENCE & EDITORIAL CREDITS */}
+          <section>
+            <h2 className="text-xl font-bold flex items-center mb-4 border-b border-neutral-200 pb-2">
+              <Video className="w-5 h-5 mr-2 text-red-600" /> 7. Multi-Platform Presence &amp; Editorial Credits
+            </h2>
+            <div className="bg-white border border-neutral-200 rounded-xl p-5 shadow-sm text-xs font-mono space-y-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <span className="font-bold text-black text-sm font-sans block mb-1">Muktibodh Digital Channel</span>
+                  <p className="text-neutral-500 font-sans text-xs">Official publication media channel and digital video archive.</p>
+                </div>
+                <a 
+                  href="https://www.youtube.com/@muktibodhmagazine" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-4 py-2.5 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition shrink-0"
+                >
+                  <Video className="w-4 h-4 mr-2" /> Visit YouTube Channel <ExternalLink className="w-3 h-3 ml-1.5 opacity-80" />
+                </a>
+              </div>
+              <div className="pt-3 border-t border-neutral-100 text-[11px] text-neutral-500 font-sans italic">
+                Designed &amp; typeset by Ajay Shukla, in collaboration with Nirvan Dham.
               </div>
             </div>
           </section>

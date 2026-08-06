@@ -16,6 +16,8 @@ import {
   AlertCircle
 } from 'lucide-react';
 import PersonSchema from "@/components/seo/PersonSchema";
+import Script from 'next/script';
+import { evidenceItems } from '@/data/evidence';
 
 export const metadata: Metadata = {
   title: 'Founder & Technology Architect | Dr. Ajay Shukla',
@@ -39,9 +41,25 @@ export const metadata: Metadata = {
 };
 
 export default function FounderPage() {
+  const profilePageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": "https://www.digixpro.in/founder/#profilepage",
+    "url": "https://www.digixpro.in/founder",
+    "name": "Dr. Ajay Shukla (डॉ. अजय शुक्ल — विद्या वाचस्पति) — Founder & Technology Architect Profile",
+    "mainEntity": {
+      "@id": "https://www.digixpro.in/#founder"
+    }
+  };
+
   return (
     <>
       <PersonSchema />
+      <Script
+        id="profile-page-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
+      />
       <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#009E73]/20">
         
         {/* 1. HERO SECTION (2-COLUMN LAYOUT) */}
@@ -186,39 +204,60 @@ export default function FounderPage() {
           </div>
         </section>
 
-        {/* 4. SELECTED EVIDENCE (3 PROJECTS) */}
+        {/* 4. SELECTED EVIDENCE (TRACK-DRIVEN FROM EVIDENCE.TS) */}
         <section className="bg-[#0A0A0A] text-white py-24">
-          <div className="max-w-[1200px] mx-auto px-6">
-            <div className="mb-12">
+          <div className="max-w-[1200px] mx-auto px-6 space-y-16">
+            <div className="border-b border-neutral-800 pb-6">
               <h2 className="text-[32px] md:text-[40px] font-extrabold">Selected Evidence</h2>
-              <p className="text-[18px] text-neutral-400 mt-2">Production systems architected under my guidance.</p>
+              <p className="text-[18px] text-neutral-400 mt-2">Production systems and digital architectures engineered under direct advisory guidance.</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-[24px] flex flex-col h-full group hover:border-[#009E73]/30 transition-all">
-                <h3 className="text-[20px] font-extrabold mb-3">Buy Second Hand Books</h3>
-                <p className="text-[15px] text-neutral-400 mb-6 flex-grow">Marketplace operating system with multi-vendor OMS and decoupled inventory.</p>
-                <Link href="/evidence/buy-secondhand-book" className="inline-flex items-center text-[#009E73] font-bold text-[14px] group-hover:text-white transition-colors">
-                  View Blueprint <ArrowRight className="w-4 h-4 ml-1" />
-                </Link>
+            {/* Technology Evidence Track */}
+            <div className="space-y-6">
+              <div className="flex items-center space-x-3 text-[#009E73] font-mono text-xs font-bold uppercase tracking-wider">
+                <Cpu className="w-4 h-4" />
+                <span>Technology Advisory Track</span>
               </div>
-
-              <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-[24px] flex flex-col h-full group hover:border-[#009E73]/30 transition-all">
-                <h3 className="text-[20px] font-extrabold mb-3">SattvaOS</h3>
-                <p className="text-[15px] text-neutral-400 mb-6 flex-grow">Governed AI execution layer with strict multi-tenant data isolation and role controls.</p>
-                <Link href="/evidence/sattvaos" className="inline-flex items-center text-[#009E73] font-bold text-[14px] group-hover:text-white transition-colors">
-                  View Blueprint <ArrowRight className="w-4 h-4 ml-1" />
-                </Link>
-              </div>
-
-              <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-[24px] flex flex-col h-full group hover:border-[#009E73]/30 transition-all">
-                <h3 className="text-[20px] font-extrabold mb-3">Muktibodh</h3>
-                <p className="text-[15px] text-neutral-400 mb-6 flex-grow">Multilingual digital publishing ecosystem engineered for zero-cost horizontal scaling.</p>
-                <Link href="/evidence/muktibodh" className="inline-flex items-center text-[#009E73] font-bold text-[14px] group-hover:text-white transition-colors">
-                  View Blueprint <ArrowRight className="w-4 h-4 ml-1" />
-                </Link>
+              <div className="grid md:grid-cols-3 gap-6">
+                {evidenceItems.filter((item) => item.track === 'tech').map((item) => (
+                  <div key={item.id} className="bg-neutral-900 border border-neutral-800 p-6 rounded-[20px] flex flex-col h-full group hover:border-[#009E73]/50 transition-all shadow-md">
+                    <div className="flex justify-between items-start mb-3">
+                      <span className="text-[10px] font-mono bg-neutral-800 text-neutral-300 px-2 py-0.5 rounded border border-neutral-700 font-bold">{item.category}</span>
+                      <span className="text-[10px] font-mono text-[#009E73] bg-[#009E73]/10 px-2 py-0.5 rounded font-bold">Tech Track</span>
+                    </div>
+                    <h3 className="text-[18px] font-extrabold mb-2 text-white group-hover:text-[#009E73] transition-colors">{item.title}</h3>
+                    <p className="text-[13px] text-neutral-400 mb-6 flex-grow">Production evidence and operational architecture for {item.title}.</p>
+                    <Link href={`/evidence/${item.id}`} className="inline-flex items-center text-[#009E73] font-bold text-[13px] group-hover:text-white transition-colors">
+                      View Architecture Blueprint <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                ))}
               </div>
             </div>
+
+            {/* Design Evidence Track */}
+            <div className="space-y-6 pt-6 border-t border-neutral-900">
+              <div className="flex items-center space-x-3 text-[#009E73] font-mono text-xs font-bold uppercase tracking-wider">
+                <Code2 className="w-4 h-4" />
+                <span>Design & Publishing Track</span>
+              </div>
+              <div className="grid md:grid-cols-3 gap-6">
+                {evidenceItems.filter((item) => item.track === 'design').map((item) => (
+                  <div key={item.id} className="bg-neutral-900 border border-neutral-800 p-6 rounded-[20px] flex flex-col h-full group hover:border-[#009E73]/50 transition-all shadow-md">
+                    <div className="flex justify-between items-start mb-3">
+                      <span className="text-[10px] font-mono bg-neutral-800 text-neutral-300 px-2 py-0.5 rounded border border-neutral-700 font-bold">{item.category}</span>
+                      <span className="text-[10px] font-mono text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded font-bold">Design Track</span>
+                    </div>
+                    <h3 className="text-[18px] font-extrabold mb-2 text-white group-hover:text-[#009E73] transition-colors">{item.title}</h3>
+                    <p className="text-[13px] text-neutral-400 mb-6 flex-grow">Digital publication design and visual knowledge architecture for {item.title}.</p>
+                    <Link href={`/evidence/${item.id}`} className="inline-flex items-center text-[#009E73] font-bold text-[13px] group-hover:text-white transition-colors">
+                      View Design Blueprint <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </section>
 
