@@ -23,22 +23,22 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Technology Architecture Advisory Services',
-  description: 'Independent technology architecture advisory for growing businesses. We work with founders before major technology decisions are made to reduce risk, eliminate waste, and design operational clarity.',
+  title: 'IT Consulting & Technology Advisory Services | DigiXPro',
+  description: 'Independent IT consulting services and technology architecture advisory for growing businesses. We work with founders before major technology decisions are made to reduce risk, eliminate waste, and design operational clarity.',
   keywords: [
+    'IT consulting services',
     'technology architecture advisory',
     'independent tech consultant India',
     'AI infrastructure advisory',
     'ERP CRM advisory',
     'business workflow automation',
-    'IT consulting services',
     'Fractional CTO services',
   ],
   alternates: {
     canonical: 'https://www.digixpro.in/advisory',
   },
   openGraph: {
-    title: 'Technology Architecture Advisory Services | DigiXPro',
+    title: 'IT Consulting & Technology Advisory Services | DigiXPro',
     description: 'Independent technology architecture advisory for growing businesses. We work with founders before major technology decisions are made.',
     url: 'https://www.digixpro.in/advisory',
     type: 'website',
