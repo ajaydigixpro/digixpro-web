@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 
 export default function EvidenceIndexPage() {
   
-  // 2️⃣ JSON-LD SCHEMA
+  // 2️⃣ JSON-LD SCHEMA (EXACT MATCH FOR ALL 8 VISIBLE CARDS)
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -90,14 +90,32 @@ export default function EvidenceIndexPage() {
         {
           "@type": "ListItem",
           "position": 5,
+          "name": "aatma.guru Onboarding OS",
+          "url": "https://www.digixpro.in/evidence/aatma-guru"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Nirvandham Digital Institution",
+          "url": "https://www.digixpro.in/evidence/nirvandham"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "DigiXPro Architecture Case Study",
+          "url": "https://www.digixpro.in/evidence/digixpro"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
           "name": "Muktibodh Publishing System",
           "url": "https://www.digixpro.in/evidence/muktibodh"
         },
         {
           "@type": "ListItem",
-          "position": 6,
-          "name": "DigiXPro Architecture Case Study",
-          "url": "https://www.digixpro.in/evidence/digixpro"
+          "position": 9,
+          "name": "360 Neck & Shoulder Care System",
+          "url": "https://www.digixpro.in/evidence/360-neck-shoulder"
         }
       ]
     }
@@ -271,7 +289,7 @@ export default function EvidenceIndexPage() {
             <div>
               <div className="flex items-center space-x-3 mb-6 border-b border-neutral-200 dark:border-neutral-800 pb-2">
                 <BookOpen className="w-5 h-5 text-black dark:text-white" />
-                <h3 className="text-xl font-bold text-black dark:text-white">Publishing &amp; Editorial Systems</h3>
+                <h3 className="text-xl font-bold text-black dark:text-white">Publishing &amp; Healthcare Web Design Systems</h3>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <a href="/evidence/muktibodh" className="block bg-white dark:bg-neutral-900 p-6 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-amber-500 transition group shadow-sm">
@@ -283,6 +301,18 @@ export default function EvidenceIndexPage() {
                   <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">Engineering a multi-format digital knowledge delivery system and publishing engine.</p>
                   <div className="flex items-center text-xs font-mono text-black dark:text-white font-bold pt-3 border-t border-neutral-100 dark:border-neutral-800">
                     View Architecture Report <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                  </div>
+                </a>
+
+                <a href="/evidence/360-neck-shoulder" className="block bg-white dark:bg-neutral-900 p-6 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-emerald-500 transition group shadow-sm">
+                  <div className="flex justify-between items-start mb-3">
+                    <span className="text-[10px] font-mono bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-bold text-neutral-600 dark:text-neutral-400">DESIGN-HEALTH-001</span>
+                    <span className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800 font-bold">Specialist Branding</span>
+                  </div>
+                  <h4 className="font-bold text-lg mb-1 text-black dark:text-white group-hover:text-emerald-600 transition">360 Neck &amp; Shoulder Care</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">Specialised clinic web design, visual identity architecture &amp; local patient intake platform.</p>
+                  <div className="flex items-center text-xs font-mono text-black dark:text-white font-bold pt-3 border-t border-neutral-100 dark:border-neutral-800">
+                    View Case Study <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
                 </a>
               </div>

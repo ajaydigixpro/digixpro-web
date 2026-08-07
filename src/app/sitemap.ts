@@ -3,6 +3,8 @@ import { knowledgeArticles } from '@/data/knowledge';
 import { evidenceItems } from '@/data/evidence';
 import { services } from '@/data/services';
 
+export const dynamic = 'force-static';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.digixpro.in';
 

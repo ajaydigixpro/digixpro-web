@@ -8,8 +8,9 @@ import { ArrowRight } from 'lucide-react';
 export default function Footer() {
   const pathname = usePathname();
 
-  // Hide the top CTA box on service detail pages and contact page where dedicated page CTAs exist
-  const hideTopCTA = pathname?.startsWith('/services/') || pathname === '/contact';
+  // Hide top CTA box on service detail pages, contact page, and main hub pages where dedicated page CTAs exist
+  const hubPages = ['/services', '/design-services', '/advisory', '/contact', '/how-we-work', '/evidence'];
+  const hideTopCTA = pathname?.startsWith('/services/') || hubPages.some((page) => pathname === page || pathname?.startsWith(page + '/'));
 
   return (
     <footer aria-label="Site footer" className="bg-[#0A0A0A] text-white pt-20 pb-8 px-6 overflow-hidden mt-auto">

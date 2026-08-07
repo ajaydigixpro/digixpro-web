@@ -14,5 +14,6 @@ export const evidenceItems: EvidenceItem[] = [
   { id: "aatma-guru", title: "aatma.guru", category: "AI Infrastructure", track: "tech", lastUpdated: "2024-02-28" },
   { id: "nirvandham", title: "Nirvandham Operations", category: "Business Systems", track: "tech", lastUpdated: "2024-02-28" },
   { id: "muktibodh", title: "Muktibodh Publishing System", category: "Publishing", track: "design", lastUpdated: "2023-09-05" },
-  { id: "digixpro", title: "DigiXPro — Our Own Architecture", category: "Platform", track: "tech", lastUpdated: "2024-05-15" }
+  { id: "digixpro", title: "DigiXPro — Our Own Architecture", category: "Platform", track: "tech", lastUpdated: "2024-05-15" },
+  { id: "360-neck-shoulder", title: "360 Neck & Shoulder Care", category: "Healthcare / Web Design", track: "design", lastUpdated: "2024-05-15" }
 ];

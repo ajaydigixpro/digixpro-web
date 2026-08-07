@@ -53,7 +53,7 @@ export const services: ServiceItem[] = [
       "Fragmented data silos across departments with zero single source of truth.",
       "High monthly SaaS burn with underutilized platform licenses.",
       "Vendor lock-in and dependency on expensive third-party implementation agencies.",
-      "Small business leadership struggling to find specialized IT consulting services for small business that offer independent advice without vendor sales quotas."
+      "Frustration among small business leaders trying to find objective IT consulting services for small business that deliver unbiased technology advice rather than pushing vendor software licenses."
     ],
     solutionHeading: "What Our IT Consulting Delivers",
     solutionDeliverables: [
@@ -107,7 +107,7 @@ export const services: ServiceItem[] = [
       "Hallucination risks in customer-facing and decision-critical automated workflows.",
       "Lack of role-based access control and tenant data isolation in AI systems.",
       "Wasted capital on experimental AI wrappers that fail to scale in production.",
-      "Small and mid-sized organization founders needing a trusted AI consultant for small business to evaluate safe AI implementation without data privacy risks."
+      "Uncertainty when hiring an AI consultant for small business who can evaluate high-impact automation use cases without exposing proprietary company data to public AI platforms."
     ],
     solutionHeading: "Our AI Advisory Blueprint",
     solutionDeliverables: [
@@ -464,7 +464,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: "What is included in your website design deliverable?",
-        answer: "Full responsive UI/UX design, custom frontend code, technical SEO integration, analytics setup, accessibility compliance, and production deployment on global Edge hosting."
+        answer: "Full responsive UI/UX design, custom frontend code, technical SEO integration, analytics setup, accessibility compliance, and production deployment on global Edge hosting, validated by real healthcare web platforms like 360 Neck & Shoulder Care (/evidence/360-neck-shoulder)."
       },
       {
         question: "What factors drive the overall website redesign cost for custom modern JS applications?",
