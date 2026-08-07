@@ -1,0 +1,20 @@
+# Cloudflare Pages 301 Permanent Redirects for Legacy Routes (19 Rules)
+/testimonials /evidence 301
+/testimonials/* /evidence 301
+/reviews /evidence 301
+/case-studies /evidence 301
+/case-studies/* /evidence 301
+/about-us /founder 301
+/about /founder 301
+/team /founder 301
+/services /advisory 301
+/blog /knowledge 301
+/blog/* /knowledge 301
+/portfolio /evidence 301
+/portfolio/* /evidence 301
+/work /evidence 301
+/work/* /evidence 301
+/get-in-touch /contact 301
+/schedule /contact 301
+/book /contact 301
+/operating-systems /evidence/sattvaos 301
