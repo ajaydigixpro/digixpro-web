@@ -103,6 +103,14 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
     "url": `https://www.digixpro.in/services/${service.slug}`
   };
 
+  // Determine track decision context wording
+  const isLeadership = service.category === 'Strategic Leadership' || service.slug.includes('fractional');
+  const trackDecisionBadge = isLeadership 
+    ? "Executive Leadership Decision" 
+    : service.track === 'design' 
+      ? "Design System & Visual Identity Decision" 
+      : "Technology Architecture Decision";
+
   return (
     <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#16a34a]/20 pb-16 transition-colors duration-200">
       <BreadcrumbSchema
@@ -152,7 +160,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               href="/contact"
               className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[15px] rounded-xl hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white transition-colors shadow-md min-h-[52px]"
             >
-              Request a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
+              {service.ctaButtonText} <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
             <Link
               href="/evidence"
@@ -248,9 +256,12 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </div>
       </section>
 
-      {/* 5. BOTTOM CTA SECTION (SERVICE-SPECIFIC CONTEXT-BOUND COPY) */}
+      {/* 5. SINGLE BOTTOM CTA SECTION (TRACK-DYNAMIC & PROBLEM-SPECIFIC) */}
       <section className="max-w-[1200px] mx-auto px-6 py-20 md:py-24">
         <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-[32px] p-10 md:p-16 text-center shadow-xl max-w-4xl mx-auto">
+          <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#16a34a] bg-emerald-950/60 border border-emerald-800/80 px-3 py-1 rounded-full mb-6 inline-block">
+            {trackDecisionBadge}
+          </span>
           <h2 className="text-[28px] md:text-[40px] font-extrabold mb-4 leading-tight">
             {service.ctaHeading}
           </h2>

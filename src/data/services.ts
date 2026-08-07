@@ -352,7 +352,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: "Which case studies demonstrate DigiXPro Fractional CEO impact?",
-        answer: "Our executive advisory practice has governed complex multi-system operations, documented in our DigiXPro enterprise transformation blueprint and Scan Centre Near Me diagnostic discovery network."
+        answer: "Our executive advisory practice is validated by production architecture case studies, including the DigiXPro enterprise operating system blueprint and multi-facility healthcare network transformations."
       },
       {
         question: "What factors determine total fractional CEO cost for a growing company?",
