@@ -108,7 +108,7 @@ export default function OperatingSystemsClient() {
 
     if (hasError) {
       return (
-        <div className="w-full h-full bg-neutral-100 flex flex-col items-center justify-center text-neutral-400">
+        <div className="w-full h-full bg-neutral-100 dark:bg-neutral-800 flex flex-col items-center justify-center text-neutral-400 dark:text-neutral-500">
           <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
           <span className="text-[11px] font-mono font-bold uppercase tracking-wider">Screenshot Pending</span>
         </div>
@@ -126,11 +126,11 @@ export default function OperatingSystemsClient() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#16a34a]/20 pb-24">
+    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#16a34a]/20 pb-24 transition-colors duration-200">
       
       {/* Navigation Back */}
       <div className="max-w-[1200px] mx-auto px-6 pt-8">
-        <Link href="/" className="inline-flex items-center text-xs font-mono text-neutral-500 hover:text-black transition">
+        <Link href="/" className="inline-flex items-center text-xs font-mono text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition">
           <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Back to Overview
         </Link>
       </div>

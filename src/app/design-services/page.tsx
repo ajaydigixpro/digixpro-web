@@ -73,7 +73,7 @@ export default function DesignServicesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#16a34a]/20 pb-16">
+    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#16a34a]/20 pb-16 transition-colors duration-200">
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: 'https://www.digixpro.in' },
@@ -102,20 +102,20 @@ export default function DesignServicesPage() {
       />
       
       {/* 1. HERO SECTION */}
-      <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-16 md:pb-24 border-b border-neutral-200">
+      <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-16 md:pb-24 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-4xl">
-          <div className="inline-flex items-center space-x-2 bg-neutral-50 border border-neutral-200 px-4 py-1.5 rounded-full mb-6">
+          <div className="inline-flex items-center space-x-2 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-4 py-1.5 rounded-full mb-6">
             <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
-            <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700">
+            <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">
               Visual Communication &bull; Web Engineering
             </span>
           </div>
           
-          <h1 className="text-[44px] md:text-[64px] font-extrabold tracking-tight leading-[1.05] mb-8">
+          <h1 className="text-[44px] md:text-[64px] font-extrabold tracking-tight leading-[1.05] mb-8 text-black dark:text-white">
             Brand &amp; Digital Experience Design.
           </h1>
           
-          <p className="text-[18px] md:text-[22px] font-medium text-neutral-600 leading-relaxed max-w-3xl">
+          <p className="text-[18px] md:text-[22px] font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-3xl">
             We design high-performance websites, enduring brand identities, and predictable graphic design support systems that elevate visual authority.
           </p>
         </div>
@@ -124,8 +124,8 @@ export default function DesignServicesPage() {
       {/* 2. DESIGN SERVICE PILLARS (ARRAY-DRIVEN FROM SERVICES.TS) */}
       <section className="py-24 max-w-[1200px] mx-auto px-6">
         <div className="mb-16 max-w-3xl">
-          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">Design Service Pillars</h2>
-          <p className="text-[18px] text-neutral-600">
+          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4 text-black dark:text-white">Design Service Pillars</h2>
+          <p className="text-[18px] text-neutral-600 dark:text-neutral-400">
             Structured creative capabilities engineered for consistency, speed, and digital distinction.
           </p>
         </div>
@@ -134,22 +134,22 @@ export default function DesignServicesPage() {
           {designServices.map((service) => (
             <div 
               key={service.slug}
-              className="bg-neutral-50 border border-neutral-200 rounded-[32px] p-8 md:p-10 flex flex-col group hover:border-black/20 transition-all shadow-sm"
+              className="bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 rounded-[32px] p-8 md:p-10 flex flex-col group hover:border-black/20 dark:hover:border-neutral-700 transition-all shadow-sm"
             >
-              <div className="w-14 h-14 bg-white border border-neutral-200 rounded-2xl flex items-center justify-center mb-8 shadow-sm">
+              <div className="w-14 h-14 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl flex items-center justify-center mb-8 shadow-sm">
                 {getIcon(service.slug)}
               </div>
               <span className="text-[11px] font-mono text-[#16a34a] font-bold uppercase tracking-wider mb-2">
                 {service.category}
               </span>
-              <h3 className="text-[22px] font-extrabold mb-3 text-black">{service.title}</h3>
-              <p className="text-[15px] text-neutral-600 leading-relaxed mb-8 flex-grow">
+              <h3 className="text-[22px] font-extrabold mb-3 text-black dark:text-white">{service.title}</h3>
+              <p className="text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8 flex-grow">
                 {service.shortDesc}
               </p>
-              <div className="pt-6 border-t border-neutral-200">
+              <div className="pt-6 border-t border-neutral-200 dark:border-neutral-800">
                 <Link 
                   href={`/services/${service.slug}`} 
-                  className="inline-flex items-center text-[15px] font-bold text-black hover:text-[#16a34a] transition-colors"
+                  className="inline-flex items-center text-[15px] font-bold text-black dark:text-white hover:text-[#16a34a] dark:hover:text-[#16a34a] transition-colors"
                 >
                   Explore Design Blueprint <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -160,11 +160,11 @@ export default function DesignServicesPage() {
       </section>
 
       {/* 3. WHAT YOU RECEIVE */}
-      <section className="bg-neutral-50 py-24 border-y border-neutral-200">
+      <section className="bg-neutral-50 dark:bg-neutral-900/50 py-24 border-y border-neutral-200 dark:border-neutral-800">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">What You Receive</h2>
-            <p className="text-[18px] text-neutral-600">
+            <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4 text-black dark:text-white">What You Receive</h2>
+            <p className="text-[18px] text-neutral-600 dark:text-neutral-400">
               Tangible visual assets and design systems to power your brand.
             </p>
           </div>
@@ -178,11 +178,11 @@ export default function DesignServicesPage() {
               { title: "Dedicated Design Queue", icon: <CheckSquare className="w-5 h-5 text-[#16a34a]" /> },
               { title: "Native Source Files (Figma, AI, PSD)", icon: <ShieldCheck className="w-5 h-5 text-[#16a34a]" /> }
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center p-6 border border-neutral-200 rounded-2xl bg-white hover:border-[#16a34a]/30 transition-colors shadow-sm">
-                <div className="mr-4 bg-neutral-50 p-3 rounded-xl border border-neutral-100">
+              <div key={idx} className="flex items-center p-6 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900 hover:border-[#16a34a]/30 transition-colors shadow-sm">
+                <div className="mr-4 bg-neutral-50 dark:bg-neutral-800 p-3 rounded-xl border border-neutral-100 dark:border-neutral-700">
                   {item.icon}
                 </div>
-                <span className="text-[15px] font-bold text-neutral-800">{item.title}</span>
+                <span className="text-[15px] font-bold text-neutral-800 dark:text-neutral-200">{item.title}</span>
               </div>
             ))}
           </div>
@@ -192,8 +192,8 @@ export default function DesignServicesPage() {
       {/* 4. HOW WE WORK */}
       <section className="py-24 max-w-[1200px] mx-auto px-6">
         <div className="mb-16 max-w-3xl">
-          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">Design Workflow</h2>
-          <p className="text-[18px] text-neutral-600">
+          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4 text-black dark:text-white">Design Workflow</h2>
+          <p className="text-[18px] text-neutral-600 dark:text-neutral-400">
             A structured visual engineering pipeline from brand strategy to production assets.
           </p>
         </div>
@@ -207,19 +207,19 @@ export default function DesignServicesPage() {
             { step: "04", name: "Production Rollout" }
           ].map((item, idx, arr) => (
             <React.Fragment key={idx}>
-              <div className="flex flex-col w-full md:w-auto min-w-[200px] p-6 rounded-2xl bg-white shadow-sm border border-neutral-200">
-                <span className="text-[12px] font-mono font-bold text-neutral-400 mb-2">PHASE {item.step}</span>
-                <span className={`font-extrabold text-[18px] ${idx === arr.length - 1 ? 'text-[#16a34a]' : 'text-black'}`}>
+              <div className="flex flex-col w-full md:w-auto min-w-[200px] p-6 rounded-2xl bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800">
+                <span className="text-[12px] font-mono font-bold text-neutral-400 dark:text-neutral-500 mb-2">PHASE {item.step}</span>
+                <span className={`font-extrabold text-[18px] ${idx === arr.length - 1 ? 'text-[#16a34a]' : 'text-black dark:text-white'}`}>
                   {item.name}
                 </span>
               </div>
               {idx !== arr.length - 1 && (
-                <div className="hidden md:block text-neutral-300">
+                <div className="hidden md:block text-neutral-300 dark:text-neutral-700">
                   <ArrowRight className="w-6 h-6" />
                 </div>
               )}
               {idx !== arr.length - 1 && (
-                <div className="md:hidden text-neutral-300 my-2">
+                <div className="md:hidden text-neutral-300 dark:text-neutral-700 my-2">
                   <ArrowDown className="w-6 h-6" />
                 </div>
               )}
@@ -228,7 +228,7 @@ export default function DesignServicesPage() {
         </div>
 
         {/* Bottom CTA Block */}
-        <div className="bg-[#0A0A0A] p-8 md:p-10 rounded-[24px] text-center shadow-xl max-w-4xl mx-auto">
+        <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 p-8 md:p-10 rounded-[24px] text-center shadow-xl max-w-4xl mx-auto">
           <h3 className="text-white font-extrabold text-[20px] md:text-[24px] mb-4">Ready to elevate your visual identity?</h3>
           <p className="text-[16px] text-neutral-400 leading-relaxed mb-8">
             Let&apos;s discuss your website, graphic design support, or brand guidelines. Book a 30-minute discovery consultation.

@@ -62,7 +62,7 @@ export default function HowWeWorkPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#16a34a]/20 pb-24">
+    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#16a34a]/20 pb-24 transition-colors duration-200">
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: 'https://www.digixpro.in' },
@@ -71,51 +71,50 @@ export default function HowWeWorkPage() {
       />
       
       {/* 1. HERO SECTION */}
-      {/* pt-12 mobile (48px) → pt-20 desktop (80px): fixes mobile gap */}
-      <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-16 md:pb-24 border-b border-neutral-200">
+      <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-16 md:pb-24 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-4xl">
-          <div className="inline-flex items-center space-x-2 bg-neutral-50 border border-neutral-200 px-4 py-1.5 rounded-full mb-6">
+          <div className="inline-flex items-center space-x-2 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-4 py-1.5 rounded-full mb-6">
             <span className="w-2 h-2 rounded-full bg-[#16a34a]"></span>
-            <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700">
+            <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">
               Independent Advisory Methodology
             </span>
           </div>
           
-          <h1 className="text-[44px] md:text-[64px] font-extrabold tracking-tight leading-[1.05] mb-8">
+          <h1 className="text-[44px] md:text-[64px] font-extrabold tracking-tight leading-[1.05] mb-8 text-black dark:text-white">
             Every successful technology system begins with understanding how the business actually works.
           </h1>
           
-          <p className="text-[18px] md:text-[22px] font-medium text-neutral-600 leading-relaxed max-w-3xl">
+          <p className="text-[18px] md:text-[22px] font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-3xl">
             Most projects fail because they start with software. We start with the business. Only after understanding people, processes, information, and operations do we recommend technology.
           </p>
         </div>
       </section>
 
       {/* 2. THE 7-STEP ARCHITECTURE HIERARCHY (VERTICAL FLOW) */}
-      <section className="bg-neutral-50 py-24 border-b border-neutral-200">
+      <section className="bg-neutral-50 dark:bg-neutral-900/50 py-24 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="max-w-3xl mb-16">
-            <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">The Architecture Hierarchy</h2>
-            <p className="text-[18px] text-neutral-600">
+            <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4 text-black dark:text-white">The Architecture Hierarchy</h2>
+            <p className="text-[18px] text-neutral-600 dark:text-neutral-400">
               This is our non-negotiable order of operations. Skipping a step is the fastest way to build software that nobody uses.
             </p>
           </div>
 
           <div className="max-w-2xl relative">
             {/* Vertical Line */}
-            <div className="absolute top-[28px] bottom-[28px] left-[28px] w-0.5 bg-neutral-300"></div>
+            <div className="absolute top-[28px] bottom-[28px] left-[28px] w-0.5 bg-neutral-300 dark:bg-neutral-700"></div>
             
             <div className="space-y-0">
               {sevenSteps.map((step, idx) => (
                 <div key={idx} className="flex items-start relative pb-10 last:pb-0">
-                  <div className={`w-14 h-14 rounded-full flex items-center justify-center font-mono font-bold shrink-0 z-10 border-2 bg-white ${idx === 6 ? 'border-[#16a34a] text-[#16a34a]' : 'border-neutral-300 text-neutral-400'}`}>
+                  <div className={`w-14 h-14 rounded-full flex items-center justify-center font-mono font-bold shrink-0 z-10 border-2 bg-white dark:bg-neutral-900 ${idx === 6 ? 'border-[#16a34a] text-[#16a34a]' : 'border-neutral-300 dark:border-neutral-700 text-neutral-400 dark:text-neutral-500'}`}>
                     0{idx + 1}
                   </div>
                   <div className="ml-8 pt-3">
-                    <h3 className={`text-[24px] font-extrabold mb-2 ${idx === 6 ? 'text-[#16a34a]' : 'text-black'}`}>
+                    <h3 className={`text-[24px] font-extrabold mb-2 ${idx === 6 ? 'text-[#16a34a]' : 'text-black dark:text-white'}`}>
                       {step.name}
                     </h3>
-                    <p className="text-[16px] text-neutral-600 font-medium">
+                    <p className="text-[16px] text-neutral-600 dark:text-neutral-400 font-medium">
                       {step.desc}
                     </p>
                   </div>
@@ -129,8 +128,8 @@ export default function HowWeWorkPage() {
       {/* 3. TRADITIONAL VS DIGIXPRO */}
       <section className="py-24 max-w-[1200px] mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">Why traditional IT projects fail</h2>
-          <p className="text-[18px] text-neutral-600">
+          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4 text-black dark:text-white">Why traditional IT projects fail</h2>
+          <p className="text-[18px] text-neutral-600 dark:text-neutral-400">
             The difference between buying code and designing an operating system.
           </p>
         </div>
@@ -138,30 +137,30 @@ export default function HowWeWorkPage() {
         <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
           
           {/* The Typical Project */}
-          <div className="bg-neutral-50 border border-neutral-200 rounded-[32px] p-8 md:p-12">
-            <h3 className="text-[20px] font-extrabold text-neutral-400 mb-8 pb-4 border-b border-neutral-200">The Typical Project</h3>
+          <div className="bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 rounded-[32px] p-8 md:p-12">
+            <h3 className="text-[20px] font-extrabold text-neutral-400 dark:text-neutral-500 mb-8 pb-4 border-b border-neutral-200 dark:border-neutral-800">The Typical Project</h3>
             <div className="space-y-4">
               {['Requirement gathering', 'Cost & Quote', 'Development', 'Deployment', 'Low Adoption & Friction'].map((step, idx, arr) => (
                 <div key={idx} className="text-center">
-                  <div className="bg-white border border-neutral-200 py-4 px-6 rounded-xl text-[15px] font-bold text-neutral-500 shadow-sm">
+                  <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 py-4 px-6 rounded-xl text-[15px] font-bold text-neutral-500 dark:text-neutral-400 shadow-sm">
                     {step}
                   </div>
-                  {idx !== arr.length - 1 && <ArrowDown className="w-5 h-5 mx-auto text-neutral-300 my-3" />}
+                  {idx !== arr.length - 1 && <ArrowDown className="w-5 h-5 mx-auto text-neutral-300 dark:text-neutral-700 my-3" />}
                 </div>
               ))}
             </div>
           </div>
 
           {/* The DigiXPro Methodology */}
-          <div className="bg-[#0A0A0A] rounded-[32px] p-8 md:p-12 shadow-xl">
+          <div className="bg-[#0A0A0A] dark:bg-neutral-900 rounded-[32px] p-8 md:p-12 shadow-xl border border-transparent dark:border-neutral-800">
             <h3 className="text-[20px] font-extrabold text-[#16a34a] mb-8 pb-4 border-b border-neutral-800">The DigiXPro Methodology</h3>
             <div className="space-y-4">
               {['Deep Discovery', 'Operational Mapping', 'Architecture Design', 'Technology Decisions', 'Structured Implementation', 'High Adoption & Scalability'].map((step, idx, arr) => (
                 <div key={idx} className="text-center">
-                  <div className={`py-4 px-6 rounded-xl text-[15px] font-bold shadow-sm border ${idx === arr.length - 1 ? 'bg-[#16a34a] text-white border-[#16a34a]' : 'bg-neutral-900 border-neutral-800 text-white'}`}>
+                  <div className={`py-4 px-6 rounded-xl text-[15px] font-bold shadow-sm border ${idx === arr.length - 1 ? 'bg-[#16a34a] text-white border-[#16a34a]' : 'bg-neutral-900 dark:bg-neutral-800 border-neutral-800 dark:border-neutral-700 text-white'}`}>
                     {step}
                   </div>
-                  {idx !== arr.length - 1 && <ArrowDown className="w-5 h-5 mx-auto text-neutral-700 my-3" />}
+                  {idx !== arr.length - 1 && <ArrowDown className="w-5 h-5 mx-auto text-neutral-700 dark:text-neutral-600 my-3" />}
                 </div>
               ))}
             </div>
@@ -171,48 +170,48 @@ export default function HowWeWorkPage() {
       </section>
 
       {/* 4. ENGAGEMENT PROCESS */}
-      <section className="bg-neutral-50 py-24 border-y border-neutral-200">
+      <section className="bg-neutral-50 dark:bg-neutral-900/50 py-24 border-y border-neutral-200 dark:border-neutral-800">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="mb-16 max-w-3xl">
-            <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">The Engagement Process</h2>
-            <p className="text-[18px] text-neutral-600">
+            <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4 text-black dark:text-white">The Engagement Process</h2>
+            <p className="text-[18px] text-neutral-600 dark:text-neutral-400">
               How we move from operational chaos to technical clarity.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            <div className="bg-white p-8 rounded-2xl border border-neutral-200 shadow-sm">
+            <div className="bg-white dark:bg-neutral-900 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
               <span className="text-[12px] font-mono font-bold text-[#16a34a] mb-4 block">PHASE 01</span>
-              <h3 className="text-[20px] font-extrabold mb-3 text-black">Discovery</h3>
-              <p className="text-[14px] text-neutral-600 leading-relaxed">
+              <h3 className="text-[20px] font-extrabold mb-3 text-black dark:text-white">Discovery</h3>
+              <p className="text-[14px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 Founder discussions, department meetings, and actively observing staff workflows in real-time.
               </p>
             </div>
-            <div className="bg-white p-8 rounded-2xl border border-neutral-200 shadow-sm">
+            <div className="bg-white dark:bg-neutral-900 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
               <span className="text-[12px] font-mono font-bold text-[#16a34a] mb-4 block">PHASE 02</span>
-              <h3 className="text-[20px] font-extrabold mb-3 text-black">Bottleneck ID</h3>
-              <p className="text-[14px] text-neutral-600 leading-relaxed">
+              <h3 className="text-[20px] font-extrabold mb-3 text-black dark:text-white">Bottleneck ID</h3>
+              <p className="text-[14px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 Finding exactly where the business is leaking time, money, and momentum due to bad systems.
               </p>
             </div>
-            <div className="bg-white p-8 rounded-2xl border border-neutral-200 shadow-sm">
+            <div className="bg-white dark:bg-neutral-900 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
               <span className="text-[12px] font-mono font-bold text-[#16a34a] mb-4 block">PHASE 03</span>
-              <h3 className="text-[20px] font-extrabold mb-3 text-black">The Blueprint</h3>
-              <p className="text-[14px] text-neutral-600 leading-relaxed">
+              <h3 className="text-[20px] font-extrabold mb-3 text-black dark:text-white">The Blueprint</h3>
+              <p className="text-[14px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 Delivering the complete Architecture Document, Decision Rationale, and scalable Tech Roadmap.
               </p>
             </div>
-            <div className="bg-white p-8 rounded-2xl border border-neutral-200 shadow-sm">
+            <div className="bg-white dark:bg-neutral-900 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
               <span className="text-[12px] font-mono font-bold text-[#16a34a] mb-4 block">PHASE 04</span>
-              <h3 className="text-[20px] font-extrabold mb-3 text-black">Execution</h3>
-              <p className="text-[14px] text-neutral-600 leading-relaxed">
+              <h3 className="text-[20px] font-extrabold mb-3 text-black dark:text-white">Execution</h3>
+              <p className="text-[14px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 Structured implementation, process automation, and technology rollout with strict governance.
               </p>
             </div>
           </div>
 
           {/* The Ultimate Differentiator */}
-          <div className="bg-[#0A0A0A] p-8 md:p-10 rounded-[24px] flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 p-8 md:p-10 rounded-[24px] flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
             <div>
               <h3 className="text-[24px] font-extrabold text-white mb-2">Implementation is optional.</h3>
               <p className="text-[16px] text-neutral-400 max-w-2xl">
@@ -228,8 +227,8 @@ export default function HowWeWorkPage() {
       {/* 5. WHAT YOU RECEIVE */}
       <section className="py-24 max-w-[1200px] mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">What You Receive</h2>
-          <p className="text-[18px] text-neutral-600">
+          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4 text-black dark:text-white">What You Receive</h2>
+          <p className="text-[18px] text-neutral-600 dark:text-neutral-400">
             Tangible, production-ready intelligence to run your operations.
           </p>
         </div>
@@ -243,11 +242,11 @@ export default function HowWeWorkPage() {
             { title: "Implementation Strategy", icon: <ArrowRight className="w-5 h-5 text-[#16a34a]" /> },
             { title: "Risk & Security Assessment", icon: <XCircle className="w-5 h-5 text-red-500" /> }
           ].map((item, idx) => (
-            <div key={idx} className="flex items-center p-6 border border-neutral-200 rounded-2xl bg-white hover:border-[#16a34a]/30 transition-colors shadow-sm">
-              <div className="mr-4 bg-neutral-50 p-3 rounded-xl border border-neutral-100">
+            <div key={idx} className="flex items-center p-6 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900 hover:border-[#16a34a]/30 transition-colors shadow-sm">
+              <div className="mr-4 bg-neutral-50 dark:bg-neutral-800 p-3 rounded-xl border border-neutral-100 dark:border-neutral-700">
                 {item.icon}
               </div>
-              <span className="text-[15px] font-bold text-neutral-800">{item.title}</span>
+              <span className="text-[15px] font-bold text-neutral-800 dark:text-neutral-200">{item.title}</span>
             </div>
           ))}
         </div>
@@ -255,16 +254,16 @@ export default function HowWeWorkPage() {
 
       {/* CTA SECTION */}
       <section className="max-w-[1200px] mx-auto px-6 py-16 md:py-24">
-        <div className="bg-neutral-50 border border-neutral-200 rounded-[24px] p-8 md:p-12 text-center">
-          <h2 className="text-[24px] md:text-[36px] font-extrabold mb-4 text-black">
+        <div className="bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 rounded-[24px] p-8 md:p-12 text-center">
+          <h2 className="text-[24px] md:text-[36px] font-extrabold mb-4 text-black dark:text-white">
             Ready to apply this methodology to your business?
           </h2>
-          <p className="text-[16px] md:text-[18px] text-neutral-600 max-w-2xl mx-auto mb-8">
+          <p className="text-[16px] md:text-[18px] text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-8">
             Start with a 30-minute discovery call. We&apos;ll map your current operational state before recommending any technology.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] text-white font-bold text-[15px] rounded-xl hover:bg-[#16a34a] transition-colors shadow-md min-h-[52px]"
+            className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[15px] rounded-xl hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white transition-colors shadow-md min-h-[52px]"
           >
             Request a Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
           </Link>

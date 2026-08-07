@@ -40,31 +40,31 @@ export const metadata: Metadata = {
 
 export default function DigiXProArchitecture() {
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] font-sans px-6 py-12 max-w-5xl mx-auto selection:bg-[#22C55E]/20">
+    <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans px-6 py-12 max-w-5xl mx-auto selection:bg-[#22C55E]/20 transition-colors duration-200">
       
       {/* Navigation Back */}
-      <a href="/evidence" className="inline-flex items-center text-xs font-mono text-neutral-500 hover:text-black mb-8 transition">
+      <a href="/evidence" className="inline-flex items-center text-xs font-mono text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white mb-8 transition">
         <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Back to Evidence Archive
       </a>
 
       {/* Header Section */}
-      <div className="border-b border-neutral-200 pb-8 mb-8">
+      <div className="border-b border-neutral-200 dark:border-neutral-800 pb-8 mb-8">
         <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span className="text-[10px] font-mono text-black bg-neutral-200 px-2 py-0.5 rounded border border-neutral-300 font-bold uppercase tracking-widest">
+          <span className="text-[10px] font-mono text-black dark:text-white bg-neutral-200 dark:bg-neutral-800 px-2 py-0.5 rounded border border-neutral-300 dark:border-neutral-700 font-bold uppercase tracking-widest">
             Framework Report
           </span>
-          <span className="text-[10px] font-mono text-[#22C55E] bg-green-50 px-2 py-0.5 rounded border border-green-200 font-bold uppercase tracking-widest">
+          <span className="text-[10px] font-mono text-[#22C55E] bg-green-50 dark:bg-green-950/50 px-2 py-0.5 rounded border border-green-200 dark:border-green-800 font-bold uppercase tracking-widest">
             Company Architecture
           </span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold mt-1 mb-4 leading-tight tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-extrabold mt-1 mb-4 leading-tight tracking-tight text-black dark:text-white">
           DigiXPro
         </h1>
-        <p className="text-xl text-neutral-900 font-extrabold max-w-3xl mb-2">
+        <p className="text-xl text-neutral-900 dark:text-neutral-200 font-extrabold max-w-3xl mb-2">
           Building reusable engineering assets instead of one-off client projects.
         </p>
-        <p className="text-base text-neutral-600 font-normal max-w-3xl leading-relaxed">
+        <p className="text-base text-neutral-600 dark:text-neutral-400 font-normal max-w-3xl leading-relaxed">
           How we architected DigiXPro not as a traditional software outsourcing agency, but as an Architecture Advisory and Product Engineering Studio that compounds intellectual property.
         </p>
       </div>

@@ -88,7 +88,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
   const parentHubPath = service.track === 'design' ? '/design-services' : '/advisory';
 
   return (
-    <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#16a34a]/20 pb-16">
+    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#16a34a]/20 pb-16 transition-colors duration-200">
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: 'https://www.digixpro.in' },
@@ -100,41 +100,41 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       <PersonSchema />
 
       {/* 1. HERO SECTION */}
-      <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-16 md:pb-24 border-b border-neutral-200">
+      <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-16 md:pb-24 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-4xl">
           {/* Back Navigation Link */}
           <Link 
             href={parentHubPath} 
-            className="inline-flex items-center text-xs font-mono text-neutral-500 hover:text-black mb-8 transition"
+            className="inline-flex items-center text-xs font-mono text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white mb-8 transition"
           >
             <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> Back to {parentHubName}
           </Link>
 
-          <div className="inline-flex items-center space-x-2 bg-neutral-50 border border-neutral-200 px-4 py-1.5 rounded-full mb-6 block">
+          <div className="inline-flex items-center space-x-2 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-4 py-1.5 rounded-full mb-6 block">
             <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
-            <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700">
+            <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">
               {service.badgeText} &bull; {service.category}
             </span>
           </div>
 
-          <h1 className="text-[40px] md:text-[60px] font-extrabold tracking-tight leading-[1.08] mb-8 text-black">
+          <h1 className="text-[40px] md:text-[60px] font-extrabold tracking-tight leading-[1.08] mb-8 text-black dark:text-white">
             {service.heroHeading}
           </h1>
 
-          <p className="text-[18px] md:text-[22px] font-medium text-neutral-600 leading-relaxed max-w-3xl mb-10">
+          <p className="text-[18px] md:text-[22px] font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-3xl mb-10">
             {service.heroSubheading}
           </p>
 
           <div className="flex flex-wrap items-center gap-4">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] text-white font-bold text-[15px] rounded-xl hover:bg-[#16a34a] transition-colors shadow-md min-h-[52px]"
+              className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[15px] rounded-xl hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white transition-colors shadow-md min-h-[52px]"
             >
               Request a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
             <Link
               href="/evidence"
-              className="inline-flex items-center justify-center px-6 py-4 border border-neutral-300 text-neutral-700 font-bold text-[14px] md:text-[15px] rounded-xl hover:border-neutral-500 hover:text-black transition-colors min-h-[52px]"
+              className="inline-flex items-center justify-center px-6 py-4 border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold text-[14px] md:text-[15px] rounded-xl hover:border-neutral-500 dark:hover:border-neutral-400 hover:text-black dark:hover:text-white transition-colors min-h-[52px]"
             >
               View Related Evidence
             </Link>
@@ -143,23 +143,23 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       </section>
 
       {/* 2. THE PROBLEM / BOTTLENECKS SECTION */}
-      <section className="bg-neutral-50 py-20 border-b border-neutral-200">
+      <section className="bg-neutral-50 dark:bg-neutral-900/50 py-20 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="max-w-3xl mb-12">
             <span className="text-xs font-mono text-red-500 font-bold uppercase tracking-widest block mb-2">The Operational Bottleneck</span>
-            <h2 className="text-[30px] md:text-[42px] font-extrabold text-black mb-4">
+            <h2 className="text-[30px] md:text-[42px] font-extrabold text-black dark:text-white mb-4">
               {service.problemHeading}
             </h2>
-            <p className="text-[16px] text-neutral-600">
+            <p className="text-[16px] text-neutral-600 dark:text-neutral-400">
               Why standard approaches fail and how operational complexity slows down growth.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl">
             {service.problemPoints.map((point, idx) => (
-              <div key={idx} className="bg-white p-6 md:p-8 rounded-2xl border border-neutral-200 shadow-sm flex items-start">
+              <div key={idx} className="bg-white dark:bg-neutral-900 p-6 md:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm flex items-start">
                 <AlertCircle className="w-6 h-6 text-red-500 mr-4 shrink-0 mt-0.5" />
-                <p className="text-[16px] font-medium text-neutral-800 leading-relaxed">
+                <p className="text-[16px] font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">
                   {point}
                 </p>
               </div>
@@ -172,22 +172,22 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       <section className="py-24 max-w-[1200px] mx-auto px-6">
         <div className="max-w-3xl mb-16">
           <span className="text-xs font-mono text-[#16a34a] font-bold uppercase tracking-widest block mb-2">Architecture Output</span>
-          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4">
+          <h2 className="text-[32px] md:text-[48px] font-extrabold mb-4 text-black dark:text-white">
             {service.solutionHeading}
           </h2>
-          <p className="text-[18px] text-neutral-600">
+          <p className="text-[18px] text-neutral-600 dark:text-neutral-400">
             Tangible, production-ready deliverables designed for operational clarity.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
           {service.solutionDeliverables.map((item, idx) => (
-            <div key={idx} className="bg-neutral-50 border border-neutral-200 rounded-[28px] p-8 flex flex-col hover:border-black/20 transition-all">
-              <div className="w-12 h-12 bg-white border border-neutral-200 rounded-xl flex items-center justify-center mb-6 shadow-sm">
+            <div key={idx} className="bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 rounded-[28px] p-8 flex flex-col hover:border-black/20 dark:hover:border-neutral-700 transition-all">
+              <div className="w-12 h-12 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl flex items-center justify-center mb-6 shadow-sm">
                 <CheckCircle2 className="w-6 h-6 text-[#16a34a]" />
               </div>
-              <h3 className="text-[22px] font-extrabold mb-3 text-black">{item.title}</h3>
-              <p className="text-[15px] text-neutral-600 leading-relaxed">
+              <h3 className="text-[22px] font-extrabold mb-3 text-black dark:text-white">{item.title}</h3>
+              <p className="text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 {item.desc}
               </p>
             </div>
@@ -196,28 +196,28 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       </section>
 
       {/* 4. FREQUENTLY ASKED QUESTIONS (FAQ) */}
-      <section className="bg-neutral-50 py-24 border-y border-neutral-200">
+      <section className="bg-neutral-50 dark:bg-neutral-900/50 py-24 border-y border-neutral-200 dark:border-neutral-800">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="max-w-3xl mb-16">
             <div className="flex items-center space-x-2 text-xs font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
               <HelpCircle className="w-4 h-4" />
               <span>Questions &amp; Answers</span>
             </div>
-            <h2 className="text-[32px] md:text-[44px] font-extrabold text-black mb-4">
+            <h2 className="text-[32px] md:text-[44px] font-extrabold text-black dark:text-white mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-[16px] text-neutral-600">
+            <p className="text-[16px] text-neutral-600 dark:text-neutral-400">
               Clear answers regarding scope, process, and architectural rationale for {service.title}.
             </p>
           </div>
 
           <div className="space-y-6 max-w-4xl">
             {service.faqs.map((faq, idx) => (
-              <div key={idx} className="bg-white border border-neutral-200 rounded-2xl p-8 shadow-sm">
-                <h3 className="text-[18px] md:text-[20px] font-extrabold text-black mb-3">
+              <div key={idx} className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-8 shadow-sm">
+                <h3 className="text-[18px] md:text-[20px] font-extrabold text-black dark:text-white mb-3">
                   {faq.question}
                 </h3>
-                <p className="text-[15px] text-neutral-700 leading-relaxed">
+                <p className="text-[15px] text-neutral-700 dark:text-neutral-300 leading-relaxed">
                   {faq.answer}
                 </p>
               </div>
@@ -228,7 +228,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
       {/* 5. BOTTOM CTA SECTION */}
       <section className="max-w-[1200px] mx-auto px-6 py-20 md:py-24">
-        <div className="bg-[#0A0A0A] text-white rounded-[32px] p-10 md:p-16 text-center shadow-xl max-w-4xl mx-auto">
+        <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-[32px] p-10 md:p-16 text-center shadow-xl max-w-4xl mx-auto">
           <h2 className="text-[28px] md:text-[40px] font-extrabold mb-4 leading-tight">
             Ready to evaluate your {service.title.toLowerCase()}?
           </h2>

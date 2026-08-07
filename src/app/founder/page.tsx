@@ -60,7 +60,7 @@ export default function FounderPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
       />
-      <div className="min-h-screen bg-white text-[#0A0A0A] font-sans selection:bg-[#009E73]/20">
+      <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#009E73]/20 transition-colors duration-200">
         
         {/* 1. HERO SECTION (2-COLUMN LAYOUT) */}
         <section className="max-w-[1200px] mx-auto px-6 pt-16 pb-20">
@@ -68,40 +68,40 @@ export default function FounderPage() {
             
             {/* Left: Copy & Context */}
             <div>
-              <div className="inline-flex items-center space-x-2 bg-neutral-50 border border-neutral-200 px-4 py-2 rounded-full mb-8 shadow-sm">
+              <div className="inline-flex items-center space-x-2 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-4 py-2 rounded-full mb-8 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-[#009E73]"></span>
-                <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700">
+                <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">
                   Founder & Technology Architect
                 </span>
               </div>
               
-              <h1 className="text-[44px] md:text-[56px] font-extrabold tracking-tight leading-[1.05] mb-8">
+              <h1 className="text-[44px] md:text-[56px] font-extrabold tracking-tight leading-[1.05] mb-8 text-black dark:text-white">
                 I help founders make technology decisions they won't have to rebuild six months later.
               </h1>
               
-              <p className="text-[18px] md:text-[20px] text-neutral-600 leading-relaxed mb-6">
+              <p className="text-[18px] md:text-[20px] text-neutral-600 dark:text-neutral-300 leading-relaxed mb-6">
                 Every business eventually reaches a point where software, people, and processes stop working together.
               </p>
-              <p className="text-[18px] md:text-[20px] text-neutral-600 leading-relaxed mb-10">
+              <p className="text-[18px] md:text-[20px] text-neutral-600 dark:text-neutral-300 leading-relaxed mb-10">
                 My work is to design the operating system before expensive technology decisions are made.
               </p>
               
               {/* Name Block with Hindi Name & Vidhya Vachaspati */}
               <div className="mb-10">
                 <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                  <h3 className="text-[22px] font-extrabold text-black">Dr. Ajay Shukla</h3>
-                  <span className="text-[15px] font-medium text-neutral-500">
+                  <h3 className="text-[22px] font-extrabold text-black dark:text-white">Dr. Ajay Shukla</h3>
+                  <span className="text-[15px] font-medium text-neutral-500 dark:text-neutral-400">
                     (डॉ. अजय शुक्ल — विद्या वाचस्पति)
                   </span>
                 </div>
-                <p className="text-[14px] font-mono text-neutral-500 uppercase tracking-wider">
+                <p className="text-[14px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
                   Founder, DigiXPro Digital Solution
                 </p>
               </div>
 
               <Link 
                 href="/contact" 
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] text-white font-bold text-[16px] rounded-xl hover:bg-[#009E73] transition-colors shadow-md"
+                className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[16px] rounded-xl hover:bg-[#009E73] dark:hover:bg-[#009E73] dark:hover:text-white transition-colors shadow-md"
               >
                 Request a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
@@ -109,7 +109,7 @@ export default function FounderPage() {
 
             {/* Right: The Portrait (Above the fold) */}
             <div className="relative w-full max-w-[480px] mx-auto md:mx-0 md:ml-auto">
-              <div className="absolute top-4 -right-4 bottom-4 -left-4 bg-neutral-100 rounded-[32px] -z-10 border border-neutral-200"></div>
+              <div className="absolute top-4 -right-4 bottom-4 -left-4 bg-neutral-100 dark:bg-neutral-900 rounded-[32px] -z-10 border border-neutral-200 dark:border-neutral-800"></div>
               
               <Image
                 src="/founder-portrait.png"
@@ -117,7 +117,7 @@ export default function FounderPage() {
                 width={480}
                 height={600}
                 priority
-                className="rounded-[32px] object-cover shadow-2xl relative z-10 w-full h-auto bg-neutral-200"
+                className="rounded-[32px] object-cover shadow-2xl relative z-10 w-full h-auto bg-neutral-200 dark:bg-neutral-800"
               />
             </div>
 
@@ -125,40 +125,29 @@ export default function FounderPage() {
         </section>
 
         {/* 2. WHY FOUNDERS CALL ME */}
-        <section className="bg-neutral-50 border-y border-neutral-200 py-24">
+        <section className="bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800 py-24">
           <div className="max-w-[1200px] mx-auto px-6">
             <div className="mb-14">
-              <h2 className="text-[32px] md:text-[40px] font-extrabold text-black mb-4">Why founders usually call me</h2>
-              <p className="text-[18px] text-neutral-600 max-w-2xl">
+              <h2 className="text-[32px] md:text-[40px] font-extrabold text-black dark:text-white mb-4">Why founders usually call me</h2>
+              <p className="text-[18px] text-neutral-600 dark:text-neutral-400 max-w-2xl">
                 I am typically brought in when standard software fails to map to operational reality.
               </p>
             </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm flex items-start">
-                <AlertCircle className="w-6 h-6 text-red-400 mr-4 shrink-0 mt-0.5" />
-                <p className="text-[16px] font-medium text-black">Their CRM doesn't match reality.</p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm flex items-start">
-                <AlertCircle className="w-6 h-6 text-red-400 mr-4 shrink-0 mt-0.5" />
-                <p className="text-[16px] font-medium text-black">Their ERP implementation failed.</p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm flex items-start">
-                <AlertCircle className="w-6 h-6 text-red-400 mr-4 shrink-0 mt-0.5" />
-                <p className="text-[16px] font-medium text-black">Nobody trusts the business data.</p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm flex items-start">
-                <AlertCircle className="w-6 h-6 text-red-400 mr-4 shrink-0 mt-0.5" />
-                <p className="text-[16px] font-medium text-black">Teams run core operations on WhatsApp.</p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm flex items-start">
-                <AlertCircle className="w-6 h-6 text-red-400 mr-4 shrink-0 mt-0.5" />
-                <p className="text-[16px] font-medium text-black">AI initiatives have no clear direction.</p>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm flex items-start">
-                <AlertCircle className="w-6 h-6 text-red-400 mr-4 shrink-0 mt-0.5" />
-                <p className="text-[16px] font-medium text-black">Technology decisions became expensive.</p>
-              </div>
+              {[
+                "Their CRM doesn't match reality.",
+                "Their ERP implementation failed.",
+                "Nobody trusts the business data.",
+                "Teams run core operations on WhatsApp.",
+                "AI initiatives have no clear direction.",
+                "Technology decisions became expensive."
+              ].map((problem, idx) => (
+                <div key={idx} className="bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm flex items-start">
+                  <AlertCircle className="w-6 h-6 text-red-400 mr-4 shrink-0 mt-0.5" />
+                  <p className="text-[16px] font-medium text-black dark:text-white">{problem}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -166,8 +155,8 @@ export default function FounderPage() {
         {/* 3. MY PHILOSOPHY (THE 7 STEPS) */}
         <section className="py-24 max-w-[1200px] mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto mb-16">
-            <h2 className="text-[32px] md:text-[40px] font-extrabold mb-6">My philosophy</h2>
-            <p className="text-[18px] text-neutral-600 font-medium">
+            <h2 className="text-[32px] md:text-[40px] font-extrabold mb-6 text-black dark:text-white">My philosophy</h2>
+            <p className="text-[18px] text-neutral-600 dark:text-neutral-400 font-medium">
               Technology is never the starting point. It is the outcome.
             </p>
           </div>
@@ -183,19 +172,19 @@ export default function FounderPage() {
               { name: "Software", icon: <Code2 className="w-6 h-6 mb-2 text-[#009E73]" /> },
             ].map((step, idx, arr) => (
               <React.Fragment key={idx}>
-                <div className="flex flex-col items-center min-w-[110px] p-4 rounded-xl bg-white shadow-sm border border-neutral-200">
-                  <div className="text-neutral-500">{step.icon}</div>
-                  <span className={`font-bold text-[15px] ${idx === arr.length - 1 ? 'text-[#009E73]' : 'text-black'}`}>
+                <div className="flex flex-col items-center min-w-[110px] p-4 rounded-xl bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800">
+                  <div className="text-neutral-500 dark:text-neutral-400">{step.icon}</div>
+                  <span className={`font-bold text-[15px] ${idx === arr.length - 1 ? 'text-[#009E73]' : 'text-black dark:text-white'}`}>
                     {step.name}
                   </span>
                 </div>
                 {idx !== arr.length - 1 && (
-                  <div className="hidden md:block text-neutral-300">
+                  <div className="hidden md:block text-neutral-300 dark:text-neutral-700">
                     <ArrowRight className="w-5 h-5" />
                   </div>
                 )}
                 {idx !== arr.length - 1 && (
-                  <div className="md:hidden text-neutral-300 my-2 rotate-90">
+                  <div className="md:hidden text-neutral-300 dark:text-neutral-700 my-2 rotate-90">
                     <ArrowRight className="w-5 h-5" />
                   </div>
                 )}
@@ -267,40 +256,40 @@ export default function FounderPage() {
             
             {/* Positive */}
             <div>
-              <h3 className="text-[24px] font-extrabold text-black mb-6">What you can expect from me</h3>
+              <h3 className="text-[24px] font-extrabold text-black dark:text-white mb-6">What you can expect from me</h3>
               <ul className="space-y-4">
-                <li className="flex items-center text-[16px] font-medium text-neutral-800">
+                <li className="flex items-center text-[16px] font-medium text-neutral-800 dark:text-neutral-200">
                   <CheckCircle2 className="w-5 h-5 text-[#009E73] mr-3 shrink-0" /> Independent advice
                 </li>
-                <li className="flex items-center text-[16px] font-medium text-neutral-800">
+                <li className="flex items-center text-[16px] font-medium text-neutral-800 dark:text-neutral-200">
                   <CheckCircle2 className="w-5 h-5 text-[#009E73] mr-3 shrink-0" /> Vendor-neutral recommendations
                 </li>
-                <li className="flex items-center text-[16px] font-medium text-neutral-800">
+                <li className="flex items-center text-[16px] font-medium text-neutral-800 dark:text-neutral-200">
                   <CheckCircle2 className="w-5 h-5 text-[#009E73] mr-3 shrink-0" /> Production-first thinking
                 </li>
-                <li className="flex items-center text-[16px] font-medium text-neutral-800">
+                <li className="flex items-center text-[16px] font-medium text-neutral-800 dark:text-neutral-200">
                   <CheckCircle2 className="w-5 h-5 text-[#009E73] mr-3 shrink-0" /> Long-term architecture
                 </li>
-                <li className="flex items-center text-[16px] font-medium text-neutral-800">
+                <li className="flex items-center text-[16px] font-medium text-neutral-800 dark:text-neutral-200">
                   <CheckCircle2 className="w-5 h-5 text-[#009E73] mr-3 shrink-0" /> Clear implementation roadmap
                 </li>
               </ul>
             </div>
 
             {/* Negative */}
-            <div className="bg-neutral-50 p-8 rounded-2xl border border-neutral-200">
-              <h3 className="text-[24px] font-extrabold text-black mb-6">What you should not expect</h3>
+            <div className="bg-neutral-50 dark:bg-neutral-900/50 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800">
+              <h3 className="text-[24px] font-extrabold text-black dark:text-white mb-6">What you should not expect</h3>
               <ul className="space-y-4">
-                <li className="flex items-center text-[16px] font-medium text-neutral-600">
+                <li className="flex items-center text-[16px] font-medium text-neutral-600 dark:text-neutral-400">
                   <XCircle className="w-5 h-5 text-red-400 mr-3 shrink-0" /> Cheapest developer
                 </li>
-                <li className="flex items-center text-[16px] font-medium text-neutral-600">
+                <li className="flex items-center text-[16px] font-medium text-neutral-600 dark:text-neutral-400">
                   <XCircle className="w-5 h-5 text-red-400 mr-3 shrink-0" /> Technology trends
                 </li>
-                <li className="flex items-center text-[16px] font-medium text-neutral-600">
+                <li className="flex items-center text-[16px] font-medium text-neutral-600 dark:text-neutral-400">
                   <XCircle className="w-5 h-5 text-red-400 mr-3 shrink-0" /> Generic AI consulting
                 </li>
-                <li className="flex items-center text-[16px] font-medium text-neutral-600">
+                <li className="flex items-center text-[16px] font-medium text-neutral-600 dark:text-neutral-400">
                   <XCircle className="w-5 h-5 text-red-400 mr-3 shrink-0" /> Sales pitches
                 </li>
               </ul>

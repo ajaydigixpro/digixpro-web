@@ -18,15 +18,15 @@ export default function DisclaimerPage() {
   const lastUpdated = 'July 30, 2025';
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] font-sans px-6 py-16 max-w-3xl mx-auto">
+    <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans px-6 py-16 max-w-3xl mx-auto transition-colors duration-200">
       {/* Header */}
-      <div className="mb-12 border-b border-neutral-200 pb-8">
+      <div className="mb-12 border-b border-neutral-200 dark:border-neutral-800 pb-8">
         <div className="flex items-center gap-2 mb-4">
           <AlertTriangle className="w-5 h-5 text-amber-500" />
-          <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">Legal</span>
+          <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">Legal</span>
         </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">Disclaimer</h1>
-        <p className="text-sm text-neutral-500 font-mono">Last updated: {lastUpdated}</p>
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3 text-black dark:text-white">Disclaimer</h1>
+        <p className="text-sm text-neutral-500 dark:text-neutral-400 font-mono">Last updated: {lastUpdated}</p>
       </div>
 
       {/* Content */}

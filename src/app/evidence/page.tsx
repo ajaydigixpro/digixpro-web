@@ -118,18 +118,18 @@ export default function EvidenceIndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
       />
 
-      <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] font-sans px-6 py-12 max-w-5xl mx-auto selection:bg-[#22C55E]/20">
+      <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans px-6 py-12 max-w-5xl mx-auto selection:bg-[#22C55E]/20 transition-colors duration-200">
         
         {/* Back Link */}
-        <Link href="/" className="inline-flex items-center text-xs font-mono text-neutral-500 hover:text-black mb-12 transition">
+        <Link href="/" className="inline-flex items-center text-xs font-mono text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white mb-12 transition">
           <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Back to Overview
         </Link>
 
         {/* Page Header */}
-        <div className="border-b border-neutral-200 pb-8 mb-12">
+        <div className="border-b border-neutral-200 dark:border-neutral-800 pb-8 mb-12">
           <span className="text-xs font-mono text-[#22C55E] font-bold uppercase tracking-widest">The Archive</span>
-          <h1 className="text-4xl md:text-5xl font-extrabold mt-2">Operational Evidence</h1>
-          <p className="text-lg text-neutral-600 mt-4 max-w-3xl leading-relaxed">
+          <h1 className="text-4xl md:text-5xl font-extrabold mt-2 text-black dark:text-white">Operational Evidence</h1>
+          <p className="text-lg text-neutral-600 dark:text-neutral-300 mt-4 max-w-3xl leading-relaxed">
             Real analytics, architecture logs, verified public footprints, and business outcomes. Grouped across Technology Advisory and Design Services tracks.
           </p>
         </div>
@@ -140,27 +140,27 @@ export default function EvidenceIndexPage() {
               TRACK 1: TECHNOLOGY ADVISORY EVIDENCE (TECH TRACK)
               ========================================================================= */}
           <section className="space-y-12">
-            <div className="flex items-center space-x-3 border-b-2 border-black pb-3">
+            <div className="flex items-center space-x-3 border-b-2 border-black dark:border-white pb-3">
               <Cpu className="w-6 h-6 text-[#16a34a]" />
-              <h2 className="text-2xl md:text-3xl font-extrabold text-black">Technology Evidence</h2>
-              <span className="text-xs font-mono bg-neutral-200 text-neutral-700 px-2.5 py-0.5 rounded-full font-bold">Tech Track</span>
+              <h2 className="text-2xl md:text-3xl font-extrabold text-black dark:text-white">Technology Evidence</h2>
+              <span className="text-xs font-mono bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 px-2.5 py-0.5 rounded-full font-bold">Tech Track</span>
             </div>
 
             {/* Sub-Pillar 1.1: Healthcare Systems */}
             <div>
-              <div className="flex items-center space-x-3 mb-6 border-b border-neutral-200 pb-2">
-                <Stethoscope className="w-5 h-5 text-black" />
-                <h3 className="text-xl font-bold">Healthcare Systems</h3>
+              <div className="flex items-center space-x-3 mb-6 border-b border-neutral-200 dark:border-neutral-800 pb-2">
+                <Stethoscope className="w-5 h-5 text-black dark:text-white" />
+                <h3 className="text-xl font-bold text-black dark:text-white">Healthcare Systems</h3>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <a href="/evidence/dr-aggarwal" className="block bg-white p-6 border border-neutral-200 rounded-xl hover:border-[#22C55E] transition group shadow-sm">
+                <a href="/evidence/dr-aggarwal" className="block bg-white dark:bg-neutral-900 p-6 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-[#22C55E] transition group shadow-sm">
                   <div className="flex justify-between items-start mb-3">
-                    <span className="text-[10px] font-mono bg-neutral-100 px-2 py-0.5 rounded border font-bold text-neutral-600">HEALTH-001</span>
-                    <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">9+ Years Trust</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-bold text-neutral-600 dark:text-neutral-400">HEALTH-001</span>
+                    <span className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800 font-bold">9+ Years Trust</span>
                   </div>
-                  <h4 className="font-bold text-lg mb-1 group-hover:text-[#22C55E] transition">Dr Aggarwal Physio Centre</h4>
-                  <p className="text-xs text-neutral-500 mb-4">Local search dominance, trust architecture &amp; 360 Neck expansion.</p>
-                  <div className="flex items-center text-xs font-mono text-black font-bold pt-3 border-t border-neutral-100">
+                  <h4 className="font-bold text-lg mb-1 text-black dark:text-white group-hover:text-[#22C55E] transition">Dr Aggarwal Physio Centre</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">Local search dominance, trust architecture &amp; 360 Neck expansion.</p>
+                  <div className="flex items-center text-xs font-mono text-black dark:text-white font-bold pt-3 border-t border-neutral-100 dark:border-neutral-800">
                     View Evidence Report <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
                 </a>
@@ -169,31 +169,31 @@ export default function EvidenceIndexPage() {
 
             {/* Sub-Pillar 1.2: Marketplace & Platform Systems */}
             <div>
-              <div className="flex items-center space-x-3 mb-6 border-b border-neutral-200 pb-2">
-                <ShoppingBag className="w-5 h-5 text-black" />
-                <h3 className="text-xl font-bold">Marketplace &amp; Platform Systems</h3>
+              <div className="flex items-center space-x-3 mb-6 border-b border-neutral-200 dark:border-neutral-800 pb-2">
+                <ShoppingBag className="w-5 h-5 text-black dark:text-white" />
+                <h3 className="text-xl font-bold text-black dark:text-white">Marketplace &amp; Platform Systems</h3>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <a href="/evidence/scan-centre" className="block bg-white p-6 border border-neutral-200 rounded-xl hover:border-blue-500 transition group shadow-sm">
+                <a href="/evidence/scan-centre" className="block bg-white dark:bg-neutral-900 p-6 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-blue-500 transition group shadow-sm">
                   <div className="flex justify-between items-start mb-3">
-                    <span className="text-[10px] font-mono bg-neutral-100 px-2 py-0.5 rounded border font-bold text-neutral-600">MARKET-001</span>
-                    <span className="text-[10px] font-mono text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 font-bold">B2B2C Live</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-bold text-neutral-600 dark:text-neutral-400">MARKET-001</span>
+                    <span className="text-[10px] font-mono text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded border border-blue-200 dark:border-blue-800 font-bold">B2B2C Live</span>
                   </div>
-                  <h4 className="font-bold text-lg mb-1 group-hover:text-blue-600 transition">ScanCentreNearMe</h4>
-                  <p className="text-xs text-neutral-500 mb-4">Healthcare marketplace aggregator engineered via smart framework customization.</p>
-                  <div className="flex items-center text-xs font-mono text-black font-bold pt-3 border-t border-neutral-100">
+                  <h4 className="font-bold text-lg mb-1 text-black dark:text-white group-hover:text-blue-600 transition">ScanCentreNearMe</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">Healthcare marketplace aggregator engineered via smart framework customization.</p>
+                  <div className="flex items-center text-xs font-mono text-black dark:text-white font-bold pt-3 border-t border-neutral-100 dark:border-neutral-800">
                     View Evidence Report <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
                 </a>
 
-                <a href="/evidence/buy-secondhand-book" className="block bg-white p-6 border border-neutral-200 rounded-xl hover:border-amber-500 transition group shadow-sm">
+                <a href="/evidence/buy-secondhand-book" className="block bg-white dark:bg-neutral-900 p-6 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-amber-500 transition group shadow-sm">
                   <div className="flex justify-between items-start mb-3">
-                    <span className="text-[10px] font-mono bg-neutral-100 px-2 py-0.5 rounded border font-bold text-neutral-600">MARKET-002</span>
-                    <span className="text-[10px] font-mono text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 font-bold">Commerce OS</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-bold text-neutral-600 dark:text-neutral-400">MARKET-002</span>
+                    <span className="text-[10px] font-mono text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800 font-bold">Commerce OS</span>
                   </div>
-                  <h4 className="font-bold text-lg mb-1 group-hover:text-amber-600 transition">Buy Secondhand Books</h4>
-                  <p className="text-xs text-neutral-500 mb-4">Modernizing a legacy top-10 national bookstore via decoupled commerce infrastructure.</p>
-                  <div className="flex items-center text-xs font-mono text-black font-bold pt-3 border-t border-neutral-100">
+                  <h4 className="font-bold text-lg mb-1 text-black dark:text-white group-hover:text-amber-600 transition">Buy Secondhand Books</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">Modernizing a legacy top-10 national bookstore via decoupled commerce infrastructure.</p>
+                  <div className="flex items-center text-xs font-mono text-black dark:text-white font-bold pt-3 border-t border-neutral-100 dark:border-neutral-800">
                     View Evidence Report <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
                 </a>
@@ -202,55 +202,55 @@ export default function EvidenceIndexPage() {
 
             {/* Sub-Pillar 1.3: AI Infrastructure & Governance */}
             <div>
-              <div className="flex items-center space-x-3 mb-6 border-b border-neutral-200 pb-2">
-                <BookOpen className="w-5 h-5 text-black" />
-                <h3 className="text-xl font-bold">AI Infrastructure &amp; Governance</h3>
+              <div className="flex items-center space-x-3 mb-6 border-b border-neutral-200 dark:border-neutral-800 pb-2">
+                <BookOpen className="w-5 h-5 text-black dark:text-white" />
+                <h3 className="text-xl font-bold text-black dark:text-white">AI Infrastructure &amp; Governance</h3>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <a href="/evidence/sattvaos" className="block bg-white p-6 border border-neutral-200 rounded-xl hover:border-purple-600 transition group shadow-sm">
+                <a href="/evidence/sattvaos" className="block bg-white dark:bg-neutral-900 p-6 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-purple-600 transition group shadow-sm">
                   <div className="flex justify-between items-start mb-3">
-                    <span className="text-[10px] font-mono bg-neutral-100 px-2 py-0.5 rounded border font-bold text-neutral-600">AI-SYS-001</span>
-                    <span className="text-[10px] font-mono text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200 font-bold">Master Platform</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-bold text-neutral-600 dark:text-neutral-400">AI-SYS-001</span>
+                    <span className="text-[10px] font-mono text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/50 px-2 py-0.5 rounded border border-purple-200 dark:border-purple-800 font-bold">Master Platform</span>
                   </div>
-                  <h4 className="font-bold text-lg mb-1 group-hover:text-purple-700 transition">SattvaOS</h4>
-                  <p className="text-xs text-neutral-500 mb-4">Governed AI infrastructure, multi-tenant hierarchy and institutional risk control.</p>
-                  <div className="flex items-center text-xs font-mono text-black font-bold pt-3 border-t border-neutral-100">
+                  <h4 className="font-bold text-lg mb-1 text-black dark:text-white group-hover:text-purple-700 transition">SattvaOS</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">Governed AI infrastructure, multi-tenant hierarchy and institutional risk control.</p>
+                  <div className="flex items-center text-xs font-mono text-black dark:text-white font-bold pt-3 border-t border-neutral-100 dark:border-neutral-800">
                     View Architecture Report <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
                 </a>
 
-                <a href="/evidence/aatma-guru" className="block bg-white p-6 border border-neutral-200 rounded-xl hover:border-emerald-500 transition group shadow-sm">
+                <a href="/evidence/aatma-guru" className="block bg-white dark:bg-neutral-900 p-6 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-emerald-500 transition group shadow-sm">
                   <div className="flex justify-between items-start mb-3">
-                    <span className="text-[10px] font-mono bg-neutral-100 px-2 py-0.5 rounded border font-bold text-neutral-600">AI-SYS-002</span>
-                    <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">Onboarding OS</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-bold text-neutral-600 dark:text-neutral-400">AI-SYS-002</span>
+                    <span className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800 font-bold">Onboarding OS</span>
                   </div>
-                  <h4 className="font-bold text-lg mb-1 group-hover:text-emerald-600 transition">aatma.guru</h4>
-                  <p className="text-xs text-neutral-500 mb-4">Governed organization onboarding platform &amp; multi-tenant provisioning engine.</p>
-                  <div className="flex items-center text-xs font-mono text-black font-bold pt-3 border-t border-neutral-100">
+                  <h4 className="font-bold text-lg mb-1 text-black dark:text-white group-hover:text-emerald-600 transition">aatma.guru</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">Governed organization onboarding platform &amp; multi-tenant provisioning engine.</p>
+                  <div className="flex items-center text-xs font-mono text-black dark:text-white font-bold pt-3 border-t border-neutral-100 dark:border-neutral-800">
                     View Architecture Report <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
                 </a>
 
-                <a href="/evidence/nirvandham" className="block bg-white p-6 border border-neutral-200 rounded-xl hover:border-purple-600 transition group shadow-sm">
+                <a href="/evidence/nirvandham" className="block bg-white dark:bg-neutral-900 p-6 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-purple-600 transition group shadow-sm">
                   <div className="flex justify-between items-start mb-3">
-                    <span className="text-[10px] font-mono bg-neutral-100 px-2 py-0.5 rounded border font-bold text-neutral-600">TENANT-001</span>
-                    <span className="text-[10px] font-mono text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200 font-bold">Production Tenant</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-bold text-neutral-600 dark:text-neutral-400">TENANT-001</span>
+                    <span className="text-[10px] font-mono text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/50 px-2 py-0.5 rounded border border-purple-200 dark:border-purple-800 font-bold">Production Tenant</span>
                   </div>
-                  <h4 className="font-bold text-lg mb-1 group-hover:text-purple-600 transition">Nirvandham</h4>
-                  <p className="text-xs text-neutral-500 mb-4">First production deployment of the SattvaOS ecosystem as a governed digital institution.</p>
-                  <div className="flex items-center text-xs font-mono text-black font-bold pt-3 border-t border-neutral-100">
+                  <h4 className="font-bold text-lg mb-1 text-black dark:text-white group-hover:text-purple-600 transition">Nirvandham</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">First production deployment of the SattvaOS ecosystem as a governed digital institution.</p>
+                  <div className="flex items-center text-xs font-mono text-black dark:text-white font-bold pt-3 border-t border-neutral-100 dark:border-neutral-800">
                     View Architecture Report <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
                 </a>
 
-                <a href="/evidence/digixpro" className="block bg-white p-6 border border-neutral-200 rounded-xl hover:border-[#22C55E] transition group shadow-sm">
+                <a href="/evidence/digixpro" className="block bg-white dark:bg-neutral-900 p-6 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-[#22C55E] transition group shadow-sm">
                   <div className="flex justify-between items-start mb-3">
-                    <span className="text-[10px] font-mono bg-neutral-100 px-2 py-0.5 rounded border font-bold text-neutral-600">SELF-SYS-001</span>
-                    <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">Live Platform</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-bold text-neutral-600 dark:text-neutral-400">SELF-SYS-001</span>
+                    <span className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800 font-bold">Live Platform</span>
                   </div>
-                  <h4 className="font-bold text-lg mb-1 group-hover:text-[#22C55E] transition">DigiXPro Architecture</h4>
-                  <p className="text-xs text-neutral-500 mb-4">DigiXPro&apos;s own digital presence as a live architecture demonstration.</p>
-                  <div className="flex items-center text-xs font-mono text-black font-bold pt-3 border-t border-neutral-100">
+                  <h4 className="font-bold text-lg mb-1 text-black dark:text-white group-hover:text-[#22C55E] transition">DigiXPro Architecture</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">DigiXPro&apos;s own digital presence as a live architecture demonstration.</p>
+                  <div className="flex items-center text-xs font-mono text-black dark:text-white font-bold pt-3 border-t border-neutral-100 dark:border-neutral-800">
                     View Architecture Report <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
                 </a>
@@ -261,27 +261,27 @@ export default function EvidenceIndexPage() {
           {/* =========================================================================
               TRACK 2: DESIGN SERVICES EVIDENCE (DESIGN TRACK)
               ========================================================================= */}
-          <section className="space-y-8 pt-6 border-t border-neutral-200">
-            <div className="flex items-center space-x-3 border-b-2 border-black pb-3">
+          <section className="space-y-8 pt-6 border-t border-neutral-200 dark:border-neutral-800">
+            <div className="flex items-center space-x-3 border-b-2 border-black dark:border-white pb-3">
               <Palette className="w-6 h-6 text-[#16a34a]" />
-              <h2 className="text-2xl md:text-3xl font-extrabold text-black">Design Evidence</h2>
-              <span className="text-xs font-mono bg-neutral-200 text-neutral-700 px-2.5 py-0.5 rounded-full font-bold">Design Track</span>
+              <h2 className="text-2xl md:text-3xl font-extrabold text-black dark:text-white">Design Evidence</h2>
+              <span className="text-xs font-mono bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 px-2.5 py-0.5 rounded-full font-bold">Design Track</span>
             </div>
 
             <div>
-              <div className="flex items-center space-x-3 mb-6 border-b border-neutral-200 pb-2">
-                <BookOpen className="w-5 h-5 text-black" />
-                <h3 className="text-xl font-bold">Publishing &amp; Editorial Systems</h3>
+              <div className="flex items-center space-x-3 mb-6 border-b border-neutral-200 dark:border-neutral-800 pb-2">
+                <BookOpen className="w-5 h-5 text-black dark:text-white" />
+                <h3 className="text-xl font-bold text-black dark:text-white">Publishing &amp; Editorial Systems</h3>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <a href="/evidence/muktibodh" className="block bg-white p-6 border border-neutral-200 rounded-xl hover:border-amber-500 transition group shadow-sm">
+                <a href="/evidence/muktibodh" className="block bg-white dark:bg-neutral-900 p-6 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-amber-500 transition group shadow-sm">
                   <div className="flex justify-between items-start mb-3">
-                    <span className="text-[10px] font-mono bg-neutral-100 px-2 py-0.5 rounded border font-bold text-neutral-600">PUB-SYS-001</span>
-                    <span className="text-[10px] font-mono text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 font-bold">Knowledge Engine</span>
+                    <span className="text-[10px] font-mono bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-bold text-neutral-600 dark:text-neutral-400">PUB-SYS-001</span>
+                    <span className="text-[10px] font-mono text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800 font-bold">Knowledge Engine</span>
                   </div>
-                  <h4 className="font-bold text-lg mb-1 group-hover:text-amber-600 transition">Muktibodh</h4>
-                  <p className="text-xs text-neutral-500 mb-4">Engineering a multi-format digital knowledge delivery system and publishing engine.</p>
-                  <div className="flex items-center text-xs font-mono text-black font-bold pt-3 border-t border-neutral-100">
+                  <h4 className="font-bold text-lg mb-1 text-black dark:text-white group-hover:text-amber-600 transition">Muktibodh</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">Engineering a multi-format digital knowledge delivery system and publishing engine.</p>
+                  <div className="flex items-center text-xs font-mono text-black dark:text-white font-bold pt-3 border-t border-neutral-100 dark:border-neutral-800">
                     View Architecture Report <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
                 </a>
@@ -290,7 +290,7 @@ export default function EvidenceIndexPage() {
           </section>
 
           {/* Bottom CTA */}
-          <div className="mt-12 bg-[#0A0A0A] rounded-[20px] p-8 md:p-10 text-center">
+          <div className="mt-12 bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 rounded-[20px] p-8 md:p-10 text-center">
             <p className="text-neutral-400 text-xs font-mono uppercase tracking-widest mb-3">Ready to work together?</p>
             <h2 className="text-white text-[22px] md:text-[28px] font-extrabold mb-4">
               Design your own architecture.
