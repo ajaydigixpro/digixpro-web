@@ -12,6 +12,8 @@ export interface ServiceItem {
   slug: string;
   title: string;
   primaryKeyword: string;
+  supportingKeyword: string;
+  keywords: string[];
   category: string;
   track: "tech" | "design";
   badgeText: string;
@@ -23,6 +25,9 @@ export interface ServiceItem {
   solutionHeading: string;
   solutionDeliverables: ServiceDeliverable[];
   faqs: ServiceFAQ[];
+  ctaHeading: string;
+  ctaButtonText: string;
+  ctaSubtext: string;
   lastUpdated: string;
 }
 
@@ -34,6 +39,8 @@ export const services: ServiceItem[] = [
     slug: "it-consulting-services",
     title: "IT Consulting Services",
     primaryKeyword: "IT consulting services",
+    supportingKeyword: "IT consulting services for small business",
+    keywords: ["IT consulting services", "IT consulting services for small business", "independent IT consultant", "technology architecture review"],
     category: "Technology Architecture",
     track: "tech",
     badgeText: "Independent Tech Advisory",
@@ -45,7 +52,8 @@ export const services: ServiceItem[] = [
       "Software platforms purchased without mapping actual operational workflows.",
       "Fragmented data silos across departments with zero single source of truth.",
       "High monthly SaaS burn with underutilized platform licenses.",
-      "Vendor lock-in and dependency on expensive third-party implementation agencies."
+      "Vendor lock-in and dependency on expensive third-party implementation agencies.",
+      "Small business leadership struggling to find specialized IT consulting services for small business that offer independent advice without vendor sales quotas."
     ],
     solutionHeading: "What Our IT Consulting Delivers",
     solutionDeliverables: [
@@ -70,14 +78,23 @@ export const services: ServiceItem[] = [
       {
         question: "How long does a typical IT consulting engagement last?",
         answer: "Initial architecture reviews typically take 2 to 4 weeks, yielding a complete blueprint. Ongoing advisory retainers are available for continuous architectural guidance."
+      },
+      {
+        question: "Why should growing companies invest in IT consulting services for small business?",
+        answer: "IT consulting services for small business prevent costly trial-and-error software purchases, eliminate redundant SaaS subscription waste, and establish clear technology roadmaps tailored to lean operating budgets."
       }
     ],
+    ctaHeading: "Evaluating major technology decisions or struggling with software waste?",
+    ctaButtonText: "Book an Independent IT Architecture Review",
+    ctaSubtext: "If your technology decisions feel unaligned with business goals, book a 20-minute architecture review before committing further capital.",
     lastUpdated: "2026-08-01"
   },
   {
     slug: "ai-consulting-services",
     title: "AI Consulting Services",
     primaryKeyword: "AI consulting services",
+    supportingKeyword: "AI consultant for small business",
+    keywords: ["AI consulting services", "AI consultant for small business", "enterprise RAG design", "AI governance advisory"],
     category: "Artificial Intelligence",
     track: "tech",
     badgeText: "Governed AI Infrastructure",
@@ -89,7 +106,8 @@ export const services: ServiceItem[] = [
       "Public LLM tools leaking sensitive organizational data and intellectual property.",
       "Hallucination risks in customer-facing and decision-critical automated workflows.",
       "Lack of role-based access control and tenant data isolation in AI systems.",
-      "Wasted capital on experimental AI wrappers that fail to scale in production."
+      "Wasted capital on experimental AI wrappers that fail to scale in production.",
+      "Small and mid-sized organization founders needing a trusted AI consultant for small business to evaluate safe AI implementation without data privacy risks."
     ],
     solutionHeading: "Our AI Advisory Blueprint",
     solutionDeliverables: [
@@ -114,14 +132,23 @@ export const services: ServiceItem[] = [
       {
         question: "Do you build custom AI models or advise on architecture?",
         answer: "We provide end-to-end architecture advisory and system design. Where implementation support is requested, we govern the rollout through your team or vetted engineering partners."
+      },
+      {
+        question: "What should a company look for when hiring an AI consultant for small business?",
+        answer: "A qualified AI consultant for small business focuses on security isolation, data hygiene, and practical ROI rather than pushing generic AI chatbots or expensive experimental tools."
       }
     ],
+    ctaHeading: "Planning AI integration without risking data privacy or hallucinations?",
+    ctaButtonText: "Book an AI Governance & Infrastructure Review",
+    ctaSubtext: "If your organization needs role-gated AI infrastructure without public data leakage, discuss your AI roadmap with our architects.",
     lastUpdated: "2026-08-01"
   },
   {
     slug: "ai-automation-agency",
     title: "AI Automation & Agency Services",
     primaryKeyword: "AI automation agency",
+    supportingKeyword: "workflow automation tools",
+    keywords: ["AI automation agency", "workflow automation tools", "business process automation", "API integration service"],
     category: "Automation",
     track: "tech",
     badgeText: "Workflow & AI Automation",
@@ -133,7 +160,8 @@ export const services: ServiceItem[] = [
       "Core operational tasks managed manually across scattered WhatsApp groups.",
       "Hours wasted copying data between unintegrated CRM, accounting, and inventory tools.",
       "Delayed customer response times due to manual lead routing and assignment.",
-      "Human error in routine document processing, invoicing, and reporting."
+      "Human error in routine document processing, invoicing, and reporting.",
+      "Frustration with fragile workflow automation tools that break frequently during high transaction volumes and lack centralized error logging."
     ],
     solutionHeading: "Automated Systems Architecture",
     solutionDeliverables: [
@@ -158,14 +186,23 @@ export const services: ServiceItem[] = [
       {
         question: "What happens if an API or third-party service goes down?",
         answer: "Our architectures include queue management, retry mechanisms, and automated notification alerts so business data is never lost during partner downtime."
+      },
+      {
+        question: "How does DigiXPro integrate custom APIs with commercial workflow automation tools?",
+        answer: "We build resilient middleware pipelines connecting third-party workflow automation tools with custom Next.js and database backends, featuring error queues and data governance."
       }
     ],
+    ctaHeading: "Drowning in manual departmental handoffs and scattered messaging threads?",
+    ctaButtonText: "Book a Workflow Automation Discovery Call",
+    ctaSubtext: "If your operations rely on manual data re-entry and fragile chat loops, map your automation pipeline before scaling headcount.",
     lastUpdated: "2026-08-01"
   },
   {
     slug: "erp-consultant-services",
     title: "ERP Consultant Services",
     primaryKeyword: "ERP consultant services",
+    supportingKeyword: "ERP implementation failure",
+    keywords: ["ERP consultant services", "ERP implementation failure", "ERP vendor selection", "enterprise software audit"],
     category: "Business Systems",
     track: "tech",
     badgeText: "Enterprise Systems Advisory",
@@ -177,7 +214,8 @@ export const services: ServiceItem[] = [
       "Buying expensive ERP software before defining standard operating procedures.",
       "Customizing standard ERP software heavily instead of aligning business processes.",
       "Data corruption during legacy database migration to the new ERP system.",
-      "Low employee adoption due to overly complex, non-intuitive user interfaces."
+      "Low employee adoption due to overly complex, non-intuitive user interfaces.",
+      "Early warning signs of ERP implementation failure, including budget overruns, customization debt, and severe employee pushback."
     ],
     solutionHeading: "Our ERP Advisory Framework",
     solutionDeliverables: [
@@ -202,14 +240,23 @@ export const services: ServiceItem[] = [
       {
         question: "Can you help rescue a failing ERP project?",
         answer: "Yes. We perform ERP technical audits to diagnose root causes of failure, re-align business workflows, and establish a recovery roadmap."
+      },
+      {
+        question: "How does an independent ERP consultant prevent ERP implementation failure?",
+        answer: "An independent ERP consultant prevents ERP implementation failure by mapping operational SOPs and data schemas before software contracts are signed, keeping vendors accountable to scope."
       }
     ],
+    ctaHeading: "Is your ERP rollout showing early warning signs or budget overruns?",
+    ctaButtonText: "Book an ERP Risk & Architecture Review",
+    ctaSubtext: "If your ERP rollout is showing early warning signs, book a 20-minute architecture review before committing further budget.",
     lastUpdated: "2026-08-01"
   },
   {
     slug: "fractional-cto-services",
     title: "Fractional CTO Services",
     primaryKeyword: "fractional CTO services",
+    supportingKeyword: "fractional CTO cost",
+    keywords: ["fractional CTO services", "fractional CTO cost", "part-time CTO consultant", "executive tech advisory"],
     category: "Strategic Leadership",
     track: "tech",
     badgeText: "Executive Tech Leadership",
@@ -221,16 +268,22 @@ export const services: ServiceItem[] = [
       "Founders overburdened by technical management decisions outside their core domain.",
       "Engineering teams building features without architectural governance or clear tech roadmaps.",
       "High infrastructure costs and scaling bottlenecks restricting product growth.",
-      "Preparing for investor technical due diligence without senior technical representation."
+      "Preparing for investor technical due diligence without senior technical representation.",
+      "Uncertainty around fractional CTO cost structures and how part-time executive leadership compares to full-time hiring."
     ],
     solutionHeading: "Fractional CTO Capabilities",
     solutionDeliverables: [
       { title: "Technology Roadmap & Strategy", desc: "Aligning technical development milestones directly with business growth targets." },
       { title: "Architecture & Code Oversight", desc: "Regular architectural reviews, security audits, and code quality governance." },
+      { title: "Verification-First Governance", desc: "Every completion claim verified with raw production evidence (source code, live URLs); single source of truth data architecture." },
       { title: "Engineering Hiring & Management", desc: "Structuring engineering teams, establishing hiring standards, and mentoring tech leads." },
-      { title: "Due-Diligence & Investor Readiness", desc: "Preparing comprehensive technical documentation for funding rounds and acquisitions." }
+      { title: "Due-Diligence & Investor Readiness", desc: "Preparing comprehensive technical documentation for funding rounds, as demonstrated in our SattvaOS production case study." }
     ],
     faqs: [
+      {
+        question: "Is this a remote or on-site engagement?",
+        answer: "Remote-first engagement, with periodic on-site visits; hybrid cadence scales only with genuine operational need."
+      },
       {
         question: "What is the difference between a Fractional CTO and a technical consultant?",
         answer: "A technical consultant advises on specific projects. A Fractional CTO acts as an embedded member of your executive team, taking long-term accountability for technology strategy, architecture, and team direction."
@@ -244,16 +297,79 @@ export const services: ServiceItem[] = [
         answer: "Yes. Non-technical founders benefit immensely from having a trusted senior technologist to evaluate engineering options, interview candidates, and prevent vendor overcharging."
       },
       {
-        question: "How long does a Fractional CTO engagement usually last?",
-        answer: "Engagements typically run from 6 to 18 months until the company reaches the scale where hiring a full-time executive CTO becomes necessary."
+        question: "Which production evidence validates your Fractional CTO capabilities?",
+        answer: "Our fractional CTO practice is validated by production architecture case studies including SattvaOS (governed RAG AI) and multi-vendor marketplace engines."
+      },
+      {
+        question: "What factors determine the total fractional CTO cost for a growth-stage company?",
+        answer: "Fractional CTO cost is determined by required weekly advisory hours, system architecture complexity, and whether the engagement includes team hiring or vendor audit responsibilities."
       }
     ],
+    ctaHeading: "Need executive technical leadership without full-time executive salary overhead?",
+    ctaButtonText: "Request a Fractional CTO Discovery Call",
+    ctaSubtext: "If your engineering team lacks architectural governance or tech roadmap clarity, evaluate our on-demand executive advisory.",
+    lastUpdated: "2026-08-01"
+  },
+  {
+    slug: "fractional-ceo-services",
+    title: "Fractional CEO Services",
+    primaryKeyword: "fractional CEO services",
+    supportingKeyword: "fractional CEO cost",
+    keywords: ["fractional CEO services", "fractional CEO cost", "part-time CEO consultant", "interim executive leadership"],
+    category: "Strategic Leadership",
+    track: "tech",
+    badgeText: "Executive Business Governance",
+    heroHeading: "Fractional CEO Services for Growing Enterprises.",
+    heroSubheading: "Remote-first engagement, with periodic on-site visits; hybrid cadence scales only with genuine operational need. Executive business leadership, organizational governance, and strategic growth alignment.",
+    shortDesc: "Executive business governance, organizational restructuring, Remote-first engagement with periodic on-site visits, and strategic growth alignment.",
+    problemHeading: "Executive Leadership Bottlenecks We Eliminate",
+    problemPoints: [
+      "Founders overloaded by daily operational tasks instead of strategic enterprise expansion.",
+      "Lack of clear organizational hierarchy, approval loops, and executive accountability.",
+      "Misalignment between sales revenue goals, delivery operations, and financial cashflow.",
+      "High cost and long search delays of hiring a full-time executive CEO.",
+      "Uncertainty around fractional CEO cost structures and remote vs on-site engagement dynamics."
+    ],
+    solutionHeading: "Fractional CEO Advisory Capabilities",
+    solutionDeliverables: [
+      { title: "Organizational Operating System", desc: "Designing clear role hierarchies, reporting lines, and executive approval workflows." },
+      { title: "Strategic Growth & Revenue Governance", desc: "Aligning product delivery, sales targets, and financial unit economics." },
+      { title: "Verification-First Governance", desc: "Every completion claim verified with raw production evidence (source code, live URLs); data in single source of truth; decisions driven by empirical data." },
+      { title: "Executive Mentorship & Hiring", desc: "Evaluating senior hires, structuring leadership compensation, and mentoring founders." }
+    ],
+    faqs: [
+      {
+        question: "Is this a remote or on-site engagement?",
+        answer: "Remote-first engagement, with periodic on-site visits; hybrid cadence scales only with genuine operational need."
+      },
+      {
+        question: "What is the difference between a Fractional CEO and a business consultant?",
+        answer: "A business consultant provides advice and reports. A Fractional CEO takes direct executive accountability for organizational performance, team alignment, and operational execution."
+      },
+      {
+        question: "How does a Fractional CEO connect with our existing leadership team?",
+        answer: "The Fractional CEO acts as an embedded executive, leading weekly leadership syncs, auditing department OKRs, and establishing clear operational accountability."
+      },
+      {
+        question: "Which case studies demonstrate DigiXPro Fractional CEO impact?",
+        answer: "Our executive advisory practice has governed complex multi-system operations, documented in our DigiXPro enterprise transformation blueprint and Scan Centre Near Me diagnostic discovery network."
+      },
+      {
+        question: "What factors determine total fractional CEO cost for a growing company?",
+        answer: "Fractional CEO cost is determined by required weekly advisory hours, organizational complexity, and whether the scope includes restructuring or fundraising governance."
+      }
+    ],
+    ctaHeading: "Need executive business leadership without full-time C-suite salary bloat?",
+    ctaButtonText: "Request a Fractional CEO Discovery Call",
+    ctaSubtext: "If your organization lacks executive governance or cross-departmental alignment, evaluate our on-demand executive advisory.",
     lastUpdated: "2026-08-01"
   },
   {
     slug: "business-process-automation",
     title: "Business Process Automation",
     primaryKeyword: "business process automation",
+    supportingKeyword: "business automation software",
+    keywords: ["business process automation", "business automation software", "process optimization consulting", "operational OS design"],
     category: "Operations",
     track: "tech",
     badgeText: "Business Systems OS",
@@ -265,7 +381,8 @@ export const services: ServiceItem[] = [
       "Departmental handoffs relying on manual follow-ups, emails, or phone calls.",
       "Inconsistent customer onboarding and service delivery across team members.",
       "Lack of real-time operational visibility for executive leadership.",
-      "High operational headcount growth required just to process routine transaction volume."
+      "High operational headcount growth required just to process routine transaction volume.",
+      "Confusion when selecting commercial business automation software that doesn't fit existing organizational handoffs."
     ],
     solutionHeading: "Our Process Automation Strategy",
     solutionDeliverables: [
@@ -290,8 +407,15 @@ export const services: ServiceItem[] = [
       {
         question: "What industries do you specialize in for process automation?",
         answer: "We have proven architecture evidence across Healthcare, E-commerce, Publishing, Logistics, Marketplace platforms, and Institutional Services."
+      },
+      {
+        question: "Should a company purchase off-the-shelf business automation software or build custom automated pipelines?",
+        answer: "We evaluate whether commercial business automation software meets your specific operational requirements or if custom API pipelines offer better long-term reliability and cost control."
       }
     ],
+    ctaHeading: "Ready to transform manual business processes into one connected operating system?",
+    ctaButtonText: "Book a Business Systems Architecture Review",
+    ctaSubtext: "If your business processes are hindered by departmental silos, let's map your operational hierarchy before purchasing more software.",
     lastUpdated: "2026-08-01"
   },
 
@@ -302,6 +426,8 @@ export const services: ServiceItem[] = [
     slug: "website-design-services",
     title: "Website Design Services",
     primaryKeyword: "website design services",
+    supportingKeyword: "website redesign cost",
+    keywords: ["website design services", "website redesign cost", "custom Next.js web design", "high performance React website"],
     category: "Digital Experience",
     track: "design",
     badgeText: "Custom Modern JS Architecture",
@@ -313,7 +439,8 @@ export const services: ServiceItem[] = [
       "Heavy legacy CMS monoliths suffering from slow page load speeds and plugin bloat.",
       "Generic template layouts that fail to communicate technical authority and brand trust.",
       "Poor mobile performance, layout layout shift, and failing Core Web Vitals scores.",
-      "Fragile security postures vulnerable to continuous plugin updates and script exploits."
+      "Fragile security postures vulnerable to continuous plugin updates and script exploits.",
+      "Uncertainty around realistic website redesign cost quotes and avoiding hidden maintenance fees associated with legacy CMS templates."
     ],
     solutionHeading: "Modern Web Engineering Architecture",
     solutionDeliverables: [
@@ -338,14 +465,23 @@ export const services: ServiceItem[] = [
       {
         question: "What is included in your website design deliverable?",
         answer: "Full responsive UI/UX design, custom frontend code, technical SEO integration, analytics setup, accessibility compliance, and production deployment on global Edge hosting."
+      },
+      {
+        question: "What factors drive the overall website redesign cost for custom modern JS applications?",
+        answer: "Website redesign cost is driven by custom component complexity, Core Web Vitals optimization, JSON-LD structured schema engineering, and third-party API integrations."
       }
     ],
+    ctaHeading: "Planning a website redesign and tired of bloated, insecure templates?",
+    ctaButtonText: "Book a Custom Web Architecture Discovery Call",
+    ctaSubtext: "If your legacy website suffers from slow load speeds or poor Core Web Vitals, discover how custom JS architecture elevates your brand.",
     lastUpdated: "2026-08-01"
   },
   {
     slug: "unlimited-graphic-design",
     title: "Unlimited Graphic Design Service",
     primaryKeyword: "unlimited graphic design service",
+    supportingKeyword: "outsource graphic design",
+    keywords: ["unlimited graphic design service", "outsource graphic design", "graphic design subscription", "brand collateral design"],
     category: "Visual Communication",
     track: "design",
     badgeText: "Structured Design Support",
@@ -357,7 +493,8 @@ export const services: ServiceItem[] = [
       "Unpredictable invoicing and unexpected cost inflation from traditional design agencies.",
       "Inconsistent brand aesthetics across social media, pitch decks, and marketing campaigns.",
       "Internal marketing teams delayed by slow turnaround times on routine graphics.",
-      "Managing multiple specialized freelancers with conflicting design quality standards."
+      "Managing multiple specialized freelancers with conflicting design quality standards.",
+      "High costs and administrative friction when trying to outsource graphic design to multiple uncoordinated agencies or freelancers."
     ],
     solutionHeading: "Our Graphic Design Retainer Capabilities",
     solutionDeliverables: [
@@ -382,14 +519,23 @@ export const services: ServiceItem[] = [
       {
         question: "Are source files included with every delivered asset?",
         answer: "Yes. You receive full ownership of all final native design source files (Figma, Illustrator, Photoshop, PDF, PNG, SVG)."
+      },
+      {
+        question: "Why is a flat-rate subscription better than traditional ways to outsource graphic design?",
+        answer: "A flat-rate subscription eliminates per-project billing friction when you outsource graphic design, offering predictable monthly costs, dedicated queues, and fast 24-48 hour turnarounds."
       }
     ],
+    ctaHeading: "Struggling with inconsistent visual marketing collateral or freelancer delays?",
+    ctaButtonText: "Book a Design Retainer Discovery Call",
+    ctaSubtext: "If your team needs fast, predictable graphic design support with full source asset ownership, discuss our structured design retainers.",
     lastUpdated: "2026-08-01"
   },
   {
     slug: "branding-services",
     title: "Branding Services",
     primaryKeyword: "branding services",
+    supportingKeyword: "branding mistakes",
+    keywords: ["branding services", "branding mistakes", "corporate brand identity", "publication editorial design"],
     category: "Brand Identity",
     track: "design",
     badgeText: "Identity & Editorial Architecture",
@@ -401,7 +547,8 @@ export const services: ServiceItem[] = [
       "Outdated or inconsistent logo systems that fail to reflect corporate scale and authority.",
       "Lack of comprehensive brand guidelines leading to mismatched typography and color usage.",
       "Digital and print publications (magazines, reports) looking amateurish and poorly formatted.",
-      "Inability to command premium pricing due to weak visual perception in competitive markets."
+      "Inability to command premium pricing due to weak visual perception in competitive markets.",
+      "Making fatal branding mistakes that fragment corporate visual identity across digital, print, and publication channels."
     ],
     solutionHeading: "Our Comprehensive Branding Architecture",
     solutionDeliverables: [
@@ -426,8 +573,15 @@ export const services: ServiceItem[] = [
       {
         question: "How long does a full brand identity project take?",
         answer: "A comprehensive branding project—from strategy and logo design to brand book delivery—typically takes 3 to 6 weeks depending on scope."
+      },
+      {
+        question: "How do strategic branding services prevent common branding mistakes?",
+        answer: "Strategic branding services establish comprehensive brand guidelines, visual hierarchies, and vector asset governance that prevent common branding mistakes like visual fragmentation."
       }
     ],
+    ctaHeading: "Is visual fragmentation or inconsistent branding undermining your pricing power?",
+    ctaButtonText: "Book a Strategic Branding Architecture Review",
+    ctaSubtext: "If your brand identity lacks enterprise guidelines or editorial publication layout authority, build an enduring visual system.",
     lastUpdated: "2026-08-01"
   }
 ];

@@ -33,6 +33,7 @@ export const metadata: Metadata = {
     'ERP CRM advisory',
     'business workflow automation',
     'Fractional CTO services',
+    'Fractional CEO services',
   ],
   alternates: {
     canonical: 'https://www.digixpro.in/advisory',
@@ -75,6 +76,8 @@ export default function AdvisoryPage() {
         return <Briefcase className="w-7 h-7 text-[#16a34a]" />;
       case 'fractional-cto-services':
         return <ShieldAlert className="w-7 h-7 text-[#16a34a]" />;
+      case 'fractional-ceo-services':
+        return <Briefcase className="w-7 h-7 text-[#16a34a]" />;
       case 'business-process-automation':
         return <Settings className="w-7 h-7 text-[#16a34a]" />;
       default:

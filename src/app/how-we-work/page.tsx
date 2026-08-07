@@ -224,6 +224,40 @@ export default function HowWeWorkPage() {
         </div>
       </section>
 
+      {/* 4.5 VERIFICATION-FIRST OPERATING METHODOLOGY */}
+      <section className="bg-white dark:bg-[#0A0A0A] py-24 border-b border-neutral-200 dark:border-neutral-800">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-10 md:p-16 rounded-[32px] shadow-sm">
+            <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+              Non-Negotiable Execution Principles
+            </div>
+            <h2 className="text-[32px] md:text-[44px] font-extrabold mb-8 text-black dark:text-white">
+              Verification-First Operating Methodology
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-white dark:bg-neutral-950 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+                <h3 className="font-extrabold text-lg text-black dark:text-white mb-3 text-[#16a34a]">Raw Evidence Verification</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Every completion claim verified with raw production evidence (source code, live URLs, commit logs); never verbal assurances or unverified mockups.
+                </p>
+              </div>
+              <div className="bg-white dark:bg-neutral-950 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+                <h3 className="font-extrabold text-lg text-black dark:text-white mb-3 text-[#16a34a]">Single Source of Truth</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Operational data maintained strictly in a single source of truth, never duplicated across scattered messaging threads or unindexed spreadsheets.
+                </p>
+              </div>
+              <div className="bg-white dark:bg-neutral-950 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+                <h3 className="font-extrabold text-lg text-black dark:text-white mb-3 text-[#16a34a]">Empirical Data Strategy</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Strategic architecture decisions driven by empirical market data and production metrics, never unvalidated assumptions or guesswork.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 5. WHAT YOU RECEIVE */}
       <section className="py-24 max-w-[1200px] mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">

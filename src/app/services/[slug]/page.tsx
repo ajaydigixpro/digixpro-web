@@ -41,8 +41,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${service.title} | DigiXPro`,
     description: service.heroSubheading,
-    keywords: [
+    keywords: service.keywords || [
       service.primaryKeyword,
+      service.supportingKeyword,
       service.category,
       "DigiXPro advisory",
       "technology architecture India",
@@ -87,6 +88,21 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
   const parentHubName = service.track === 'design' ? 'Design Services' : 'Advisory Services';
   const parentHubPath = service.track === 'design' ? '/design-services' : '/advisory';
 
+  const serviceSchemaMarkup = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": service.title,
+    "description": service.shortDesc,
+    "provider": {
+      "@type": "Organization",
+      "name": "DigiXPro Digital Solution",
+      "url": "https://www.digixpro.in"
+    },
+    "serviceType": service.category,
+    "keywords": service.keywords ? service.keywords.join(", ") : `${service.primaryKeyword}, ${service.supportingKeyword}`,
+    "url": `https://www.digixpro.in/services/${service.slug}`
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#16a34a]/20 pb-16 transition-colors duration-200">
       <BreadcrumbSchema
@@ -98,6 +114,12 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       />
       <FAQSchema items={service.faqs} />
       <PersonSchema />
+
+      {/* JSON-LD Service Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchemaMarkup) }}
+      />
 
       {/* 1. HERO SECTION */}
       <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-16 md:pb-24 border-b border-neutral-200 dark:border-neutral-800">
@@ -226,20 +248,20 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </div>
       </section>
 
-      {/* 5. BOTTOM CTA SECTION */}
+      {/* 5. BOTTOM CTA SECTION (SERVICE-SPECIFIC CONTEXT-BOUND COPY) */}
       <section className="max-w-[1200px] mx-auto px-6 py-20 md:py-24">
         <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-[32px] p-10 md:p-16 text-center shadow-xl max-w-4xl mx-auto">
           <h2 className="text-[28px] md:text-[40px] font-extrabold mb-4 leading-tight">
-            Ready to evaluate your {service.title.toLowerCase()}?
+            {service.ctaHeading}
           </h2>
           <p className="text-[16px] md:text-[18px] text-neutral-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Let&apos;s discuss your current operational bottlenecks, technology decisions, and architectural roadmap before you make expensive commitments.
+            {service.ctaSubtext}
           </p>
           <Link
             href="/contact"
             className="inline-flex items-center justify-center px-8 py-4 bg-[#009E73] text-white font-bold text-[15px] rounded-xl hover:bg-[#007a5a] transition-colors shadow-md min-h-[52px]"
           >
-            Request a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
+            {service.ctaButtonText} <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
         </div>
       </section>
