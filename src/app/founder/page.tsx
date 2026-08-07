@@ -99,12 +99,22 @@ export default function FounderPage() {
                 </p>
               </div>
 
-              <Link 
-                href="/contact" 
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[16px] rounded-xl hover:bg-[#009E73] dark:hover:bg-[#009E73] dark:hover:text-white transition-colors shadow-md"
-              >
-                Request a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
+              <div className="flex flex-wrap items-center gap-4">
+                <Link 
+                  href="/contact" 
+                  className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[16px] rounded-xl hover:bg-[#009E73] dark:hover:bg-[#009E73] dark:hover:text-white transition-colors shadow-md min-h-[52px]"
+                >
+                  Request a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+                <a
+                  href="https://www.linkedin.com/in/ajay-shukla-digixpro/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-6 py-4 border border-neutral-300 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 font-bold text-[15px] rounded-xl hover:border-neutral-500 dark:hover:border-neutral-400 hover:text-black dark:hover:text-white transition-colors min-h-[52px]"
+                >
+                  Connect on LinkedIn <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </div>
             </div>
 
             {/* Right: The Portrait (Above the fold) */}

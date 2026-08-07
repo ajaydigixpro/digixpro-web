@@ -72,6 +72,15 @@ export default function Footer() {
             >
               LinkedIn
             </a>
+            <span className="text-neutral-700" aria-hidden="true">&middot;</span>
+            <a 
+              href="https://www.facebook.com/digixprodigitalsolution" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-white transition-colors"
+            >
+              Facebook
+            </a>
           </nav>
         </div>
 
