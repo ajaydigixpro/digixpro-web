@@ -62,18 +62,18 @@ export default function DesignServicesPage() {
   const getIcon = (slug: string) => {
     switch (slug) {
       case 'website-design-services':
-        return <Layout className="w-7 h-7 text-[#16a34a]" />;
+        return <Layout className="w-7 h-7 text-amber-600 dark:text-amber-400" />;
       case 'unlimited-graphic-design':
-        return <Sparkles className="w-7 h-7 text-[#16a34a]" />;
+        return <Sparkles className="w-7 h-7 text-amber-600 dark:text-amber-400" />;
       case 'branding-services':
-        return <Palette className="w-7 h-7 text-[#16a34a]" />;
+        return <Palette className="w-7 h-7 text-amber-600 dark:text-amber-400" />;
       default:
-        return <Palette className="w-7 h-7 text-[#16a34a]" />;
+        return <Palette className="w-7 h-7 text-amber-600 dark:text-amber-400" />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#16a34a]/20 pb-16 transition-colors duration-200">
+    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-amber-500/20 pb-16 transition-colors duration-200">
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: 'https://www.digixpro.in' },
@@ -104,10 +104,10 @@ export default function DesignServicesPage() {
       {/* 1. HERO SECTION */}
       <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-16 md:pb-24 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-4xl">
-          <div className="inline-flex items-center space-x-2 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-4 py-1.5 rounded-full mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
-            <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">
-              Visual Communication &bull; Web Engineering
+          <div className="inline-flex items-center space-x-2 bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 px-4 py-1.5 rounded-full mb-6">
+            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+            <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-amber-700 dark:text-amber-400">
+              Equal Priority: Design Systems &amp; Visual Communication
             </span>
           </div>
           
@@ -134,26 +134,24 @@ export default function DesignServicesPage() {
           {designServices.map((service) => (
             <div 
               key={service.slug}
-              className="bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 rounded-[32px] p-8 md:p-10 flex flex-col group hover:border-black/20 dark:hover:border-neutral-700 transition-all shadow-sm"
+              className="bg-white dark:bg-neutral-900 border-2 border-neutral-200/80 dark:border-neutral-800 rounded-3xl p-8 flex flex-col justify-between group hover:border-amber-500 dark:hover:border-amber-500 transition-all shadow-md"
             >
-              <div className="w-14 h-14 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl flex items-center justify-center mb-8 shadow-sm">
-                {getIcon(service.slug)}
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[10px] font-mono font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2.5 py-1 rounded uppercase tracking-wider border border-amber-200 dark:border-amber-800">
+                    {service.category}
+                  </span>
+                  <span className="text-[10px] font-mono text-neutral-400 font-bold uppercase">Design Pillar</span>
+                </div>
+                <h3 className="text-xl font-extrabold text-black dark:text-white mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">{service.title}</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed flex-grow">{service.shortDesc}</p>
               </div>
-              <span className="text-[11px] font-mono text-[#16a34a] font-bold uppercase tracking-wider mb-2">
-                {service.category}
-              </span>
-              <h3 className="text-[22px] font-extrabold mb-3 text-black dark:text-white">{service.title}</h3>
-              <p className="text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8 flex-grow">
-                {service.shortDesc}
-              </p>
-              <div className="pt-6 border-t border-neutral-200 dark:border-neutral-800">
-                <Link 
-                  href={`/services/${service.slug}`} 
-                  className="inline-flex items-center text-[15px] font-bold text-black dark:text-white hover:text-[#16a34a] dark:hover:text-[#16a34a] transition-colors"
-                >
-                  Explore Design Blueprint <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
+              <Link 
+                href={`/services/${service.slug}`} 
+                className="inline-flex items-center text-xs font-bold text-black dark:text-neutral-200 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors pt-4 border-t border-neutral-100 dark:border-neutral-800"
+              >
+                Explore Design Blueprint <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           ))}
         </div>
@@ -171,15 +169,15 @@ export default function DesignServicesPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { title: "Custom Web Application UI/UX", icon: <Layout className="w-5 h-5 text-[#16a34a]" /> },
-              { title: "Vector Logo Mark & System", icon: <Palette className="w-5 h-5 text-[#16a34a]" /> },
-              { title: "Comprehensive Brand Guidelines", icon: <FileText className="w-5 h-5 text-[#16a34a]" /> },
-              { title: "Digital Magazine & Publication Layouts", icon: <Sparkles className="w-5 h-5 text-[#16a34a]" /> },
-              { title: "Dedicated Design Queue", icon: <CheckSquare className="w-5 h-5 text-[#16a34a]" /> },
-              { title: "Native Source Files (Figma, AI, PSD)", icon: <ShieldCheck className="w-5 h-5 text-[#16a34a]" /> }
+              { title: "Custom Web Application UI/UX", icon: <Layout className="w-5 h-5 text-amber-600 dark:text-amber-400" /> },
+              { title: "Vector Logo Mark & System", icon: <Palette className="w-5 h-5 text-amber-600 dark:text-amber-400" /> },
+              { title: "Comprehensive Brand Guidelines", icon: <FileText className="w-5 h-5 text-amber-600 dark:text-amber-400" /> },
+              { title: "Digital Magazine & Publication Layouts", icon: <Sparkles className="w-5 h-5 text-amber-600 dark:text-amber-400" /> },
+              { title: "Dedicated Design Queue", icon: <CheckSquare className="w-5 h-5 text-amber-600 dark:text-amber-400" /> },
+              { title: "Native Source Files (Figma, AI, PSD)", icon: <ShieldCheck className="w-5 h-5 text-amber-600 dark:text-amber-400" /> }
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center p-6 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900 hover:border-[#16a34a]/30 transition-colors shadow-sm">
-                <div className="mr-4 bg-neutral-50 dark:bg-neutral-800 p-3 rounded-xl border border-neutral-100 dark:border-neutral-700">
+              <div key={idx} className="flex items-center p-6 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900 hover:border-amber-500/30 transition-colors shadow-sm">
+                <div className="mr-4 bg-amber-50 dark:bg-amber-950/50 p-3 rounded-xl border border-amber-200 dark:border-amber-800">
                   {item.icon}
                 </div>
                 <span className="text-[15px] font-bold text-neutral-800 dark:text-neutral-200">{item.title}</span>

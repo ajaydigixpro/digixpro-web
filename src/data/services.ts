@@ -31,6 +31,8 @@ export interface ServiceItem {
   lastUpdated: string;
 }
 
+export const ENGAGEMENT_PRICING_PHILOSOPHY = "Engagements are scoped after a discovery call, based on actual project complexity — not a fixed rate card. AI-augmented workflows keep delivery lean, and that efficiency is passed directly to the client, not kept as extra margin. The goal is a long-term, founder-friendly partnership — priced to grow together, not to extract upfront.";
+
 export const services: ServiceItem[] = [
   // =========================================================================
   // TRACK 1: TECHNOLOGY ADVISORY (6 TECH SERVICES)
@@ -77,7 +79,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: "How long does a typical IT consulting engagement last?",
-        answer: "Initial architecture reviews typically take 2 to 4 weeks, yielding a complete blueprint. Ongoing advisory retainers are available for continuous architectural guidance."
+        answer: "Initial architecture reviews are completed in a focused discovery phase, yielding a complete blueprint. Ongoing advisory retainers are available for continuous architectural guidance."
       },
       {
         question: "Why should growing companies invest in IT consulting services for small business?",
@@ -181,7 +183,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: "How long does an AI automation project take to show ROI?",
-        answer: "Targeted workflow automations typically demonstrate measurable time savings and error reduction within 2 to 4 weeks of production deployment."
+        answer: "Targeted workflow automations typically demonstrate measurable time savings and error reduction upon initial production deployment."
       },
       {
         question: "What happens if an API or third-party service goes down?",
@@ -209,7 +211,7 @@ export const services: ServiceItem[] = [
     heroHeading: "Independent ERP Consultant Services for Complex Operations.",
     heroSubheading: "Avoid failed ERP implementations. We map your manufacturing, inventory, and financial processes before vendor selection to guarantee operational alignment.",
     shortDesc: "Operational process mapping, vendor-neutral ERP selection, and implementation governance for complex businesses.",
-    problemHeading: "Why 60% of ERP Implementations Fail",
+    problemHeading: "Why Enterprise ERP Implementations Fail",
     problemPoints: [
       "Buying expensive ERP software before defining standard operating procedures.",
       "Customizing standard ERP software heavily instead of aligning business processes.",
@@ -290,7 +292,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: "How many hours per month does a Fractional CTO work with us?",
-        answer: "Engagements typically range from 10 to 40 hours per month depending on your stage, team size, and architectural complexity."
+        answer: "Engagements are structured around client requirements, team size, and architectural complexity."
       },
       {
         question: "Is a Fractional CTO suitable for non-technical founders?",
@@ -444,9 +446,9 @@ export const services: ServiceItem[] = [
     ],
     solutionHeading: "Modern Web Engineering Architecture",
     solutionDeliverables: [
-      { title: "Custom Next.js & React Frontend", desc: "Bespoke, decoupled web applications built for lightning speed and 100% Lighthouse performance." },
+      { title: "Custom Next.js & React Frontend", desc: "Bespoke, decoupled web applications built for lightning speed and optimal Core Web Vitals performance." },
       { title: "TailwindCSS Design System", desc: "Responsive, accessible design tokens and UI components styled for brand distinction." },
-      { title: "100% Technical SEO & Schema", desc: "Built-in JSON-LD structured data, dynamic XML sitemap, and semantic HTML5 hierarchy." },
+      { title: "Comprehensive Technical SEO & Schema", desc: "Built-in JSON-LD structured data, dynamic XML sitemap, and semantic HTML5 hierarchy." },
       { title: "Edge Deployment & Security", desc: "Global CDN hosting with static pre-rendering, zero plugin vulnerabilities, and instant loads." }
     ],
     faqs: [
@@ -456,7 +458,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: "How does your website design process ensure high Google search rankings?",
-        answer: "Every site we build incorporates 100% technical SEO from day one: semantic HTML5 structure, precise canonical tags, automatic XML sitemaps, JSON-LD structured data, and ultra-fast mobile rendering."
+        answer: "Every site we build incorporates comprehensive technical SEO from day one: semantic HTML5 structure, precise canonical tags, automatic XML sitemaps, JSON-LD structured data, and ultra-fast mobile rendering."
       },
       {
         question: "Is custom web design suitable for non-technical teams to manage content?",
@@ -514,7 +516,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: "What is the typical turnaround time for a design request?",
-        answer: "Standard graphic design requests are delivered within 24 to 48 hours. Complex multi-page assets like pitch decks or whitepapers are broken into milestone deliverables."
+        answer: "Standard graphic design requests are delivered in rapid, predictable milestone iterations. Complex multi-page assets like pitch decks or whitepapers are broken into structured milestone deliverables."
       },
       {
         question: "Are source files included with every delivered asset?",
@@ -522,7 +524,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: "Why is a flat-rate subscription better than traditional ways to outsource graphic design?",
-        answer: "A flat-rate subscription eliminates per-project billing friction when you outsource graphic design, offering predictable monthly costs, dedicated queues, and fast 24-48 hour turnarounds."
+        answer: "A flat-rate subscription eliminates per-project billing friction when you outsource graphic design, offering predictable monthly costs, dedicated queues, and fast, milestone-scoped turnarounds."
       }
     ],
     ctaHeading: "Struggling with inconsistent visual marketing collateral or freelancer delays?",
@@ -572,7 +574,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: "How long does a full brand identity project take?",
-        answer: "A comprehensive branding project—from strategy and logo design to brand book delivery—typically takes 3 to 6 weeks depending on scope."
+        answer: "A comprehensive branding project—from strategy and logo design to brand book delivery—is executed across structured milestone deliverables depending on organizational scope."
       },
       {
         question: "How do strategic branding services prevent common branding mistakes?",

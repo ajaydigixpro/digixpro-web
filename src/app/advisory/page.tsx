@@ -121,9 +121,9 @@ export default function AdvisoryPage() {
       {/* 1. HERO SECTION */}
       <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-16 md:pb-24 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-4xl">
-          <div className="inline-flex items-center space-x-2 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-4 py-1.5 rounded-full mb-6">
+          <div className="inline-flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 px-4 py-1.5 rounded-full mb-6">
             <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
-            <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">
+            <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-[#16a34a]">
               Architecture Consulting. Not code outsourcing.
             </span>
           </div>
@@ -151,26 +151,21 @@ export default function AdvisoryPage() {
           {techServices.map((service) => (
             <div 
               key={service.slug}
-              className="bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 rounded-[32px] p-8 md:p-10 flex flex-col group hover:border-black/20 dark:hover:border-neutral-700 transition-all shadow-sm"
+              className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-6 rounded-2xl flex flex-col justify-between group hover:border-[#16a34a] transition-all shadow-sm"
             >
-              <div className="w-14 h-14 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl flex items-center justify-center mb-8 shadow-sm">
-                {getIcon(service.slug)}
+              <div>
+                <span className="text-[10px] font-mono font-bold text-[#16a34a] bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded uppercase tracking-wider mb-3 inline-block border border-emerald-200 dark:border-emerald-800">
+                  {service.category}
+                </span>
+                <h3 className="text-lg font-extrabold text-black dark:text-white mb-2 group-hover:text-[#16a34a] transition-colors">{service.title}</h3>
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed flex-grow">{service.shortDesc}</p>
               </div>
-              <span className="text-[11px] font-mono text-[#16a34a] font-bold uppercase tracking-wider mb-2">
-                {service.category}
-              </span>
-              <h3 className="text-[22px] font-extrabold mb-3 text-black dark:text-white">{service.title}</h3>
-              <p className="text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8 flex-grow">
-                {service.shortDesc}
-              </p>
-              <div className="pt-6 border-t border-neutral-200 dark:border-neutral-800">
-                <Link 
-                  href={`/services/${service.slug}`} 
-                  className="inline-flex items-center text-[15px] font-bold text-black dark:text-white hover:text-[#16a34a] dark:hover:text-[#16a34a] transition-colors"
-                >
-                  Explore Service Blueprint <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
+              <Link 
+                href={`/services/${service.slug}`} 
+                className="inline-flex items-center text-xs font-bold text-black dark:text-neutral-200 group-hover:text-[#16a34a] transition-colors pt-3 border-t border-neutral-100 dark:border-neutral-800"
+              >
+                Explore Service Blueprint <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           ))}
         </div>

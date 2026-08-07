@@ -7,10 +7,8 @@ import {
   Lightbulb, 
   TrendingUp, 
   ShieldCheck,
-  Calendar,
   ExternalLink,
-  CheckCircle2,
-  Palette
+  CheckCircle2
 } from 'lucide-react';
 
 export default function NeckShoulderClient() {
@@ -36,11 +34,10 @@ export default function NeckShoulderClient() {
         </h1>
         
         <p className="text-lg md:text-xl text-neutral-600 font-medium leading-relaxed max-w-3xl">
-          Specialised clinic web design, visual identity architecture, and direct patient intake system for a niche cervical and shoulder physiotherapy clinic.
+          Specialised clinic web design, visual identity architecture, and direct patient intake system for a niche cervical and shoulder physiotherapy clinic in Noida.
         </p>
 
         <div className="mt-6 flex flex-wrap gap-4 text-xs font-mono text-neutral-500">
-          <div className="flex items-center gap-1.5"><Calendar className="w-4 h-4 text-neutral-400" /> 2023 - Present</div>
           <div className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-emerald-600" /> Active Architecture</div>
           <div className="flex items-center gap-2">
             <a href="https://360neckshoulder.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[#16a34a] hover:underline">
@@ -66,7 +63,7 @@ export default function NeckShoulderClient() {
                 Specialised medical practices often struggle to differentiate niche treatments from general physiotherapy services. Patients suffering from chronic cervical spine issues or shoulder joint immobility require immediate clinical trust and specialized treatment information.
               </p>
               <ul className="list-disc pl-5 space-y-2 text-neutral-600">
-                <li>No dedicated digital identity separating specialized spine care from general physiotherapy</li>
+                <li>No dedicated digital identity separating specialized spine care from general physiotherapy in Noida</li>
                 <li>Inconsistent mobile user experience and slow landing page speeds</li>
                 <li>Lack of structured medical condition landing pages explaining cervical and shoulder protocols</li>
               </ul>
@@ -101,14 +98,18 @@ export default function NeckShoulderClient() {
               <TrendingUp className="w-5 h-5 text-emerald-600" /> Measured Outcomes
             </h2>
             <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-                  <div className="text-2xl font-extrabold text-emerald-700">100%</div>
-                  <div className="text-xs font-mono text-emerald-800">Mobile Speed Index</div>
+                  <div className="text-2xl font-extrabold text-emerald-700">10+ Keywords</div>
+                  <div className="text-xs font-mono text-emerald-800 mt-1">#1 on Bing (Zero Paid SEO)</div>
                 </div>
                 <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-                  <div className="text-2xl font-extrabold text-emerald-700">#1 Rank</div>
-                  <div className="text-xs font-mono text-emerald-800">Cervical Spine Greater Noida</div>
+                  <div className="text-2xl font-extrabold text-emerald-700">Page 3-4</div>
+                  <div className="text-xs font-mono text-emerald-800 mt-1">Google Rankings within months of launch — zero paid search spend</div>
+                </div>
+                <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100 sm:col-span-2">
+                  <div className="text-2xl font-extrabold text-emerald-700">45,000+</div>
+                  <div className="text-xs font-mono text-emerald-800 mt-1">Patients treated by parent clinic since 2008 (18+ years)</div>
                 </div>
               </div>
             </div>

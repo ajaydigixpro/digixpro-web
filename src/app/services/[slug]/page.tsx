@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { services } from '@/data/services';
+import { services, ENGAGEMENT_PRICING_PHILOSOPHY } from '@/data/services';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import FAQSchema from '@/components/seo/FAQSchema';
 import PersonSchema from '@/components/seo/PersonSchema';
@@ -265,8 +265,11 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <h2 className="text-[28px] md:text-[40px] font-extrabold mb-4 leading-tight">
             {service.ctaHeading}
           </h2>
-          <p className="text-[16px] md:text-[18px] text-neutral-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+          <p className="text-[16px] md:text-[18px] text-neutral-400 max-w-2xl mx-auto mb-6 leading-relaxed">
             {service.ctaSubtext}
+          </p>
+          <p className="text-[14px] md:text-[15px] text-neutral-300 bg-neutral-900/90 dark:bg-neutral-800/60 border border-neutral-800 dark:border-neutral-700/80 p-5 md:p-6 rounded-2xl max-w-2xl mx-auto mb-8 leading-relaxed text-left md:text-center shadow-inner">
+            {ENGAGEMENT_PRICING_PHILOSOPHY}
           </p>
           <Link
             href="/contact"

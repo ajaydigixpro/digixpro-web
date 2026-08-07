@@ -5,7 +5,7 @@ import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 
 export const metadata: Metadata = {
   title: '360 Neck & Shoulder Care Case Study',
-  description: 'Specialised healthcare web design, visual identity, and patient acquisition engine for 360 Neck & Shoulder clinic in Greater Noida — 360neckshoulder.com.',
+  description: 'Specialised healthcare web design, visual identity, and patient acquisition engine for 360 Neck & Shoulder clinic in Noida — 360neckshoulder.com.',
   alternates: {
     canonical: 'https://www.digixpro.in/evidence/360-neck-shoulder',
   },

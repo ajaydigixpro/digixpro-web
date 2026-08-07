@@ -101,7 +101,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
           <div className="prose prose-neutral dark:prose-invert max-w-none text-[17px] text-neutral-800 dark:text-neutral-200 leading-[1.8] space-y-6">
             {article.content.trim().split('\n\n').map((paragraph, idx) => {
               const trimmed = paragraph.trim();
-              if (trimmed.startsWith('<h3') || trimmed.startsWith('<ul') || trimmed.startsWith('<div') || trimmed.startsWith('<section')) {
+              if (trimmed.startsWith('<h2') || trimmed.startsWith('<h3') || trimmed.startsWith('<h4') || trimmed.startsWith('<ul') || trimmed.startsWith('<ol') || trimmed.startsWith('<div') || trimmed.startsWith('<section') || trimmed.startsWith('<table') || trimmed.startsWith('<blockquote')) {
                 return <div key={idx} dangerouslySetInnerHTML={{ __html: trimmed }} />;
               }
               if (trimmed.startsWith('### ')) {
@@ -117,8 +117,8 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
           {/* Author / Practice Signoff */}
           <div className="mt-16 pt-8 border-t border-neutral-200 dark:border-neutral-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <p className="text-[14px] font-bold text-black dark:text-white">Published by DigiXPro Advisory Practice</p>
-              <p className="text-[13px] text-neutral-500 dark:text-neutral-400">Independent Technology Architecture &amp; Systems &bull; Led by Dr. Ajay Shukla</p>
+              <p className="text-[14px] font-bold text-black dark:text-white">Published by DigiXPro Digital Solution</p>
+              <p className="text-[13px] text-neutral-500 dark:text-neutral-400">Technology Architecture Advisory &middot; Dr. Ajay Shukla</p>
             </div>
             <Link href="/contact" className="inline-flex items-center text-[14px] font-bold text-[#009E73] hover:underline">
               Discuss Your Architecture <ArrowRight className="w-4 h-4 ml-1" />

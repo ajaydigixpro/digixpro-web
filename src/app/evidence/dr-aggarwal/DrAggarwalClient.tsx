@@ -37,7 +37,7 @@ export default function DrAggarwalClient() {
       <div className="border-b border-neutral-200 pb-8 mb-12">
         <div className="flex items-center gap-3 mb-4">
           <span className="bg-emerald-100 text-[#16a34a] text-xs font-bold px-3 py-1 rounded-full font-mono uppercase tracking-wider">
-            Healthcare OS & SEO
+            Healthcare OS &amp; SEO
           </span>
           <span className="text-neutral-400 text-xs font-mono">Case Study #01</span>
         </div>
@@ -47,14 +47,14 @@ export default function DrAggarwalClient() {
         </h1>
         
         <p className="text-lg md:text-xl text-neutral-600 font-medium leading-relaxed max-w-3xl">
-          Zero-to-One digital footprint and patient acquisition system for a leading physiotherapy clinic network operating across two locations in Greater Noida.
+          Zero-to-One digital footprint and patient acquisition system for a leading physiotherapy clinic network operating across two locations in Noida.
         </p>
 
         <div className="mt-6 flex flex-wrap gap-4 text-xs font-mono text-neutral-500">
-          <div className="flex items-center gap-1.5"><Calendar className="w-4 h-4 text-neutral-400" /> 2023 - Present</div>
+          <div className="flex items-center gap-1.5"><Calendar className="w-4 h-4 text-neutral-400" /> 9+ Years — Present</div>
           <div className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-emerald-600" /> Active Architecture</div>
           <div className="flex items-center gap-2">
-            <a href="https://draggarwalphysiocentre.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[#16a34a] hover:underline">
+            <a href="https://draggarwalphysio.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[#16a34a] hover:underline">
               <ExternalLink className="w-4 h-4" /> Main Clinic
             </a>
             <span className="text-neutral-300">·</span>
@@ -78,7 +78,7 @@ export default function DrAggarwalClient() {
             </h2>
             <div className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm space-y-4 text-neutral-700 text-sm leading-relaxed">
               <p>
-                Dr Aggarwal Physio Centre was operating with zero digital visibility across both clinic locations in Greater Noida. Patients relied entirely on word-of-mouth, limiting practice growth and appointment predictability.
+                Dr Aggarwal Physio Centre was operating with zero digital visibility across both clinic locations in Noida. Patients relied entirely on word-of-mouth, limiting practice growth and appointment predictability. The relationship began with the main practice and has since expanded to the specialist 360 Neck &amp; Shoulder clinic.
               </p>
               <ul className="list-disc pl-5 space-y-2 text-neutral-600">
                 <li>No online booking or inquiry capture mechanism</li>
@@ -101,8 +101,8 @@ export default function DrAggarwalClient() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div className="border border-neutral-100 bg-neutral-50 p-4 rounded-xl">
                   <div className="font-bold text-black mb-1">Main Practice Site</div>
-                  <div className="text-xs text-neutral-500 mb-2">Full-service physiotherapy clinic architecture for the primary Greater Noida location.</div>
-                  <a href="https://draggarwalphysiocentre.in" target="_blank" rel="noopener noreferrer" className="text-xs text-[#16a34a] hover:underline flex items-center gap-1"><ExternalLink className="w-3 h-3" /> draggarwalphysiocentre.in</a>
+                  <div className="text-xs text-neutral-500 mb-2">Full-service physiotherapy clinic architecture for the primary Noida location.</div>
+                  <a href="https://draggarwalphysio.com" target="_blank" rel="noopener noreferrer" className="text-xs text-[#16a34a] hover:underline flex items-center gap-1"><ExternalLink className="w-3 h-3" /> draggarwalphysio.com</a>
                 </div>
                 <div className="border border-neutral-100 bg-neutral-50 p-4 rounded-xl">
                   <div className="font-bold text-black mb-1">360 Neck &amp; Shoulder</div>
@@ -111,7 +111,7 @@ export default function DrAggarwalClient() {
                 </div>
                 <div className="border border-neutral-100 bg-neutral-50 p-4 rounded-xl">
                   <div className="font-bold text-black mb-1">Local SEO Engine</div>
-                  <div className="text-xs text-neutral-500">Targeted high-intent localized search terms for physiotherapy in Greater Noida.</div>
+                  <div className="text-xs text-neutral-500">Targeted high-intent localized search terms for physiotherapy in Noida.</div>
                 </div>
                 <div className="border border-neutral-100 bg-neutral-50 p-4 rounded-xl">
                   <div className="font-bold text-black mb-1">Structured Schema</div>
@@ -129,7 +129,7 @@ export default function DrAggarwalClient() {
             <div className="bg-white p-4 rounded-2xl border border-neutral-200 shadow-sm">
               {!imgError ? (
                 <img 
-                  src="/evidence/dr-aggarwal-proof.png" 
+                  src="/dr-aggarwal.png" 
                   alt="Ahrefs Branded Keyword Proof for Dr Aggarwal Physio Centre" 
                   className="w-full h-auto rounded-xl border border-neutral-100"
                   onError={() => setImgError(true)}
@@ -158,8 +158,8 @@ export default function DrAggarwalClient() {
             </h3>
             <div className="space-y-4">
               <div>
-                <div className="text-3xl font-extrabold text-white">#1 Rank</div>
-                <div className="text-xs text-neutral-400">For core local physiotherapy keywords in Greater Noida</div>
+                <div className="text-3xl font-extrabold text-white">Top 3 Rank</div>
+                <div className="text-xs text-neutral-400">For core local physiotherapy keywords in Noida</div>
               </div>
               <div className="border-t border-neutral-800 pt-3">
                 <div className="text-3xl font-extrabold text-white">10x</div>
@@ -192,7 +192,7 @@ export default function DrAggarwalClient() {
             <div>
               <span className="text-neutral-400 block">Live Sites:</span>
               <div className="space-y-1 mt-1">
-                <a href="https://draggarwalphysiocentre.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs text-[#16a34a] hover:underline font-semibold"><ExternalLink className="w-3 h-3" /> draggarwalphysiocentre.in</a>
+                <a href="https://draggarwalphysio.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs text-[#16a34a] hover:underline font-semibold"><ExternalLink className="w-3 h-3" /> draggarwalphysio.com</a>
                 <a href="https://360neckshoulder.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs text-[#16a34a] hover:underline font-semibold"><ExternalLink className="w-3 h-3" /> 360neckshoulder.com</a>
               </div>
             </div>
