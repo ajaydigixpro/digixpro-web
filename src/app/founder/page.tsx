@@ -21,13 +21,13 @@ import { evidenceItems } from '@/data/evidence';
 
 export const metadata: Metadata = {
   title: 'Founder & Technology Architect | Dr. Ajay Shukla',
-  description: 'I help founders make technology decisions they won\'t have to rebuild six months later. Founder & Technology Architect at DigiXPro.',
+  description: 'Technology decisions engineered to outlast the next six months of growth — not just the next funding round. Founder & Technology Architect at DigiXPro.',
   alternates: {
     canonical: 'https://www.digixpro.in/founder',
   },
   openGraph: {
     title: 'Founder & Technology Architect | Dr. Ajay Shukla',
-    description: 'I help founders make technology decisions they won\'t have to rebuild six months later.',
+    description: 'Technology decisions engineered to outlast the next six months of growth — not just the next funding round.',
     url: 'https://www.digixpro.in/founder',
     type: 'profile',
     images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Dr. Ajay Shukla - Founder & Technology Architect' }],
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Founder & Technology Architect | Dr. Ajay Shukla',
-    description: 'I help founders make technology decisions they won\'t have to rebuild six months later.',
+    description: 'Technology decisions engineered to outlast the next six months of growth — not just the next funding round.',
     images: ['/twitter-image.png'],
   },
 };
@@ -71,19 +71,16 @@ export default function FounderPage() {
               <div className="inline-flex items-center space-x-2 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-4 py-2 rounded-full mb-8 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-[#009E73]"></span>
                 <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">
-                  Founder & Technology Architect
+                  Founder &amp; Technology Architect
                 </span>
               </div>
               
-              <h1 className="text-[44px] md:text-[56px] font-extrabold tracking-tight leading-[1.05] mb-8 text-black dark:text-white">
-                I help founders make technology decisions they won't have to rebuild six months later.
+              <h1 className="text-[40px] md:text-[52px] font-extrabold tracking-tight leading-[1.08] mb-8 text-black dark:text-white">
+                Technology decisions engineered to outlast the next six months of growth — not just the next funding round.
               </h1>
               
-              <p className="text-[18px] md:text-[20px] text-neutral-600 dark:text-neutral-300 leading-relaxed mb-6">
-                Every business eventually reaches a point where software, people, and processes stop working together.
-              </p>
               <p className="text-[18px] md:text-[20px] text-neutral-600 dark:text-neutral-300 leading-relaxed mb-10">
-                My work is to design the operating system before expensive technology decisions are made.
+                Every business eventually reaches a point where software, people, and processes stop working together. The operating system gets designed before expensive technology decisions are made.
               </p>
               
               {/* Name Block with Hindi Name & Vidhya Vachaspati */}
@@ -134,13 +131,13 @@ export default function FounderPage() {
           </div>
         </section>
 
-        {/* 2. WHY FOUNDERS CALL ME */}
+        {/* 2. WHY FOUNDERS USUALLY CALL */}
         <section className="bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800 py-24">
           <div className="max-w-[1200px] mx-auto px-6">
             <div className="mb-14">
-              <h2 className="text-[32px] md:text-[40px] font-extrabold text-black dark:text-white mb-4">Why founders usually call me</h2>
+              <h2 className="text-[32px] md:text-[40px] font-extrabold text-black dark:text-white mb-4">Why founders usually call</h2>
               <p className="text-[18px] text-neutral-600 dark:text-neutral-400 max-w-2xl">
-                I am typically brought in when standard software fails to map to operational reality.
+                Standard software usually fails to map to operational reality — that&apos;s typically when the call comes in.
               </p>
             </div>
             
@@ -162,10 +159,10 @@ export default function FounderPage() {
           </div>
         </section>
 
-        {/* 3. MY PHILOSOPHY (THE 7 STEPS) */}
+        {/* 3. THE PHILOSOPHY (THE 7 STEPS) */}
         <section className="py-24 max-w-[1200px] mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto mb-16">
-            <h2 className="text-[32px] md:text-[40px] font-extrabold mb-6 text-black dark:text-white">My philosophy</h2>
+            <h2 className="text-[32px] md:text-[40px] font-extrabold mb-6 text-black dark:text-white">The Philosophy</h2>
             <p className="text-[18px] text-neutral-600 dark:text-neutral-400 font-medium">
               Technology is never the starting point. It is the outcome.
             </p>
@@ -200,6 +197,18 @@ export default function FounderPage() {
                 )}
               </React.Fragment>
             ))}
+          </div>
+        </section>
+
+        {/* 3.5 BEYOND TECHNOLOGY */}
+        <section className="bg-neutral-50 dark:bg-neutral-900/50 border-t border-neutral-200 dark:border-neutral-800 py-20">
+          <div className="max-w-[1200px] mx-auto px-6">
+            <div className="max-w-4xl">
+              <h2 className="text-[32px] md:text-[40px] font-extrabold text-black dark:text-white mb-6">Beyond Technology</h2>
+              <p className="text-[17px] md:text-[19px] text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                Community service, karma yoga, and Advaita-based teaching continue through <a href="https://www.nirvandham.in" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">Nirvandham</a>, spanning multiple paths within its gurukul tradition. <a href="https://www.yujfoundation.in" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">Yuj Foundation</a> extends this into structured life-education curriculum across several tracks. Teaching also continues within <a href="https://gyanmarg.guru" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">gyanmarg.guru</a>&apos;s gurukul, with structured oral and written assessment as part of its ongoing program. Across all three, the approach stays consistent: clarity built through practice and direct experience, not lecture.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -238,7 +247,7 @@ export default function FounderPage() {
             <div className="space-y-6 pt-6 border-t border-neutral-900">
               <div className="flex items-center space-x-3 text-[#009E73] font-mono text-xs font-bold uppercase tracking-wider">
                 <Code2 className="w-4 h-4" />
-                <span>Design & Publishing Track</span>
+                <span>Design &amp; Publishing Track</span>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {evidenceItems.filter((item) => item.track === 'design').map((item) => (
@@ -260,13 +269,13 @@ export default function FounderPage() {
           </div>
         </section>
 
-        {/* 5. WHAT TO EXPECT (EXPECT VS NOT EXPECT) */}
+        {/* 5. WHAT THIS ADVISORY DELIVERS (EXPECT VS NOT EXPECT) */}
         <section className="py-24 max-w-[1200px] mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 md:gap-20">
             
             {/* Positive */}
             <div>
-              <h3 className="text-[24px] font-extrabold text-black dark:text-white mb-6">What you can expect from me</h3>
+              <h3 className="text-[24px] font-extrabold text-black dark:text-white mb-6">What This Advisory Delivers</h3>
               <ul className="space-y-4">
                 <li className="flex items-center text-[16px] font-medium text-neutral-800 dark:text-neutral-200">
                   <CheckCircle2 className="w-5 h-5 text-[#009E73] mr-3 shrink-0" /> Independent advice
