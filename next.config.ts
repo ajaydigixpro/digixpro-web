@@ -26,9 +26,8 @@ const nextConfig: NextConfig = {
       { source: "/about-us", destination: "/founder", permanent: true },
       { source: "/about", destination: "/founder", permanent: true },
       { source: "/team", destination: "/founder", permanent: true },
-      // Services → advisory
+      // Services → advisory (exact standalone /services only, allowing /services/[slug] to render dynamic service pages)
       { source: "/services", destination: "/advisory", permanent: true },
-      { source: "/services/:path*", destination: "/advisory", permanent: true },
       // Blog → knowledge hub
       { source: "/blog", destination: "/knowledge", permanent: true },
       { source: "/blog/:path*", destination: "/knowledge", permanent: true },
