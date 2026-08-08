@@ -112,7 +112,7 @@ export default function HomePage() {
         {/* ==========================================
             2. WHAT WE BUILD (OUR 9 SERVICE PILLARS — MOVED IMMEDIATELY AFTER HERO)
         ========================================== */}
-        <section className="py-24 bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800">
+        <section className="defer-below-fold py-24 bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
             <div className="mb-16 text-center max-w-3xl mx-auto">
               <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
@@ -193,7 +193,7 @@ export default function HomePage() {
         {/* ==========================================
             3. TYPICAL PROBLEMS
         ========================================== */}
-        <section className="py-24 max-w-[1200px] mx-auto px-6">
+        <section className="defer-below-fold py-24 max-w-[1200px] mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6 text-black dark:text-white">Does this sound familiar?</h2>
             <p className="text-[18px] text-neutral-600 dark:text-neutral-400">
@@ -231,7 +231,7 @@ export default function HomePage() {
         {/* ==========================================
             4. HOW YOUR SYSTEMS CONNECT (UPDATED SECTION TITLE FROM "WHAT WE ACTUALLY DESIGN")
         ========================================== */}
-        <section className="bg-neutral-50 dark:bg-neutral-900/50 py-24 border-y border-neutral-200 dark:border-neutral-800">
+        <section className="defer-below-fold bg-neutral-50 dark:bg-neutral-900/50 py-24 border-y border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
             <div className="mb-16 text-center max-w-3xl mx-auto">
               <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
@@ -273,7 +273,7 @@ export default function HomePage() {
         {/* ==========================================
             5. WE DON'T GUESS
         ========================================== */}
-        <section className="bg-[#0A0A0A] text-white py-24">
+        <section className="defer-below-fold bg-[#0A0A0A] text-white py-24">
           <div className="max-w-[1200px] mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6">We Don&apos;t Guess.</h2>
@@ -312,7 +312,7 @@ export default function HomePage() {
         {/* ==========================================
             6. DELIVERABLES (MATCHED TO SERVICES.TS SOLUTION DELIVERABLES PATTERN)
         ========================================== */}
-        <section className="py-24 border-b border-neutral-200 dark:border-neutral-800">
+        <section className="defer-below-fold py-24 border-b border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               
@@ -368,7 +368,7 @@ export default function HomePage() {
         {/* ==========================================
             7. AVOID EXPENSIVE MISTAKES 
         ========================================== */}
-        <section className="max-w-[1200px] mx-auto px-6 py-24">
+        <section className="defer-below-fold max-w-[1200px] mx-auto px-6 py-24">
           <div className="mb-16 max-w-3xl">
             <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
               The Ultimate ROI
@@ -397,7 +397,7 @@ export default function HomePage() {
         {/* ==========================================
             8. EVIDENCE PHILOSOPHY 
         ========================================== */}
-        <section className="bg-[#0A0A0A] text-white py-24">
+        <section className="defer-below-fold bg-[#0A0A0A] text-white py-24">
           <div className="max-w-[1200px] mx-auto px-6 text-center">
             <ShieldCheck className="w-12 h-12 text-[#16a34a] mx-auto mb-6" />
             <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6">
@@ -421,7 +421,7 @@ export default function HomePage() {
         {/* ==========================================
             9. THE CLOSING PHILOSOPHY 
         ========================================== */}
-        <section className="bg-neutral-50 dark:bg-neutral-900/50 py-24 border-b border-neutral-200 dark:border-neutral-800">
+        <section className="defer-below-fold bg-neutral-50 dark:bg-neutral-900/50 py-24 border-b border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
             <div className="text-center max-w-4xl mx-auto mb-16">
               <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
@@ -469,7 +469,7 @@ export default function HomePage() {
         {/* ==========================================
             10. BOTTOM CTA
         ========================================== */}
-        <section className="max-w-[1200px] mx-auto px-6 py-24">
+        <section className="defer-below-fold max-w-[1200px] mx-auto px-6 py-24">
           <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-12 md:p-16 rounded-[32px] text-center shadow-lg">
             <h2 className="text-[32px] md:text-[48px] font-extrabold mb-6 leading-tight text-black dark:text-white">
               Ready to design your operational system?

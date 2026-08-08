@@ -6,6 +6,13 @@
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+/* Large sections below the first viewport do not need layout and paint work
+   before the server-rendered hero H1 is visible. */
+.defer-below-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
