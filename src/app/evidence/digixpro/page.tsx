@@ -2,7 +2,6 @@ import React from 'react';
 import { Metadata } from 'next';
 import { 
   ArrowLeft, 
-  Target, 
   AlertTriangle, 
   Lightbulb, 
   Zap, 
@@ -10,7 +9,6 @@ import {
   Layers, 
   Briefcase,
   BookOpen,
-  Code2,
   Workflow,
   CheckCircle2,
   TrendingUp,
@@ -147,7 +145,7 @@ export default function DigiXProArchitecture() {
               <Lightbulb className="w-5 h-5 mr-2 text-black" /> 2. The DigiXPro Architecture Decision
             </h2>
             <div className="bg-[#0A0A0A] text-white p-6 border border-neutral-800 rounded-xl shadow-sm text-sm">
-              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">// COMPANY LOG</p>
+              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">Company log</p>
               <p className="mb-4 leading-relaxed">
                 We consciously decided to position DigiXPro as a <strong>Knowledge-First Architecture Firm</strong> rather than a coding shop. <em>Code is cheap; architectural decisions are expensive.</em>
               </p>
@@ -233,7 +231,7 @@ export default function DigiXProArchitecture() {
                 <ShieldCheck className="w-4 h-4 mr-2" /> Decision Optimization Engine
               </div>
               <p className="text-xl md:text-2xl font-extrabold tracking-tight text-white leading-snug">
-                "DigiXPro does not optimize projects. DigiXPro optimizes decision quality."
+                &ldquo;DigiXPro does not optimize projects. DigiXPro optimizes decision quality.&rdquo;
               </p>
               <div className="pt-4 border-t border-neutral-800 font-mono text-xs text-neutral-300 flex flex-wrap items-center gap-2">
                 <span className="bg-neutral-800 px-3 py-1.5 rounded border border-neutral-700 font-bold">Better Decisions</span> → 
@@ -256,7 +254,7 @@ export default function DigiXProArchitecture() {
               </div>
               <div className="text-neutral-500 font-mono text-[10px] mb-2 border-b border-neutral-800 pb-2">PRINCIPLE-001</div>
               <p className="text-lg font-bold leading-tight text-white mb-3">
-                "A technology company's value is not measured by lines of code written, but by the reusable intellectual property generated from every execution."
+                &ldquo;A technology company&apos;s value is not measured by lines of code written, but by the reusable intellectual property generated from every execution.&rdquo;
               </p>
               <p className="text-sm font-medium leading-relaxed text-neutral-300 mb-4">
                 Architecture before implementation. Knowledge before code.

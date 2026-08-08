@@ -7,19 +7,12 @@ import FAQSchema from '@/components/seo/FAQSchema';
 import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 import { 
   ArrowRight, 
-  Database, 
-  Cpu, 
-  Network, 
-  ShieldAlert,
   ArrowDown,
-  CheckCircle2,
   FileText,
   Map,
   CheckSquare,
   ShieldCheck,
   Briefcase,
-  Code2,
-  Settings
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -63,27 +56,6 @@ export const metadata: Metadata = {
 
 export default function AdvisoryPage() {
   const techServices = services.filter((s) => s.track === 'tech');
-
-  const getIcon = (slug: string) => {
-    switch (slug) {
-      case 'it-consulting-services':
-        return <Database className="w-7 h-7 text-[#16a34a]" />;
-      case 'ai-consulting-services':
-        return <Cpu className="w-7 h-7 text-[#16a34a]" />;
-      case 'ai-automation-agency':
-        return <Network className="w-7 h-7 text-[#16a34a]" />;
-      case 'erp-consultant-services':
-        return <Briefcase className="w-7 h-7 text-[#16a34a]" />;
-      case 'fractional-cto-services':
-        return <ShieldAlert className="w-7 h-7 text-[#16a34a]" />;
-      case 'fractional-ceo-services':
-        return <Briefcase className="w-7 h-7 text-[#16a34a]" />;
-      case 'business-process-automation':
-        return <Settings className="w-7 h-7 text-[#16a34a]" />;
-      default:
-        return <Code2 className="w-7 h-7 text-[#16a34a]" />;
-    }
-  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#16a34a]/20 pb-16 transition-colors duration-200">

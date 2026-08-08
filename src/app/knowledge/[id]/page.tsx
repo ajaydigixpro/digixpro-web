@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import DOMPurify from 'isomorphic-dompurify';
 import { ArrowLeft, Calendar, ArrowRight } from 'lucide-react';
 import { knowledgeArticles } from '@/data/knowledge';
 import ArticleSchema from '@/components/seo/ArticleSchema';
@@ -57,6 +58,14 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
   }
 
   const articleUrl = `https://www.digixpro.in/knowledge/${article.id}`;
+  const sanitizedContent = DOMPurify.sanitize(article.content, {
+    ALLOWED_TAGS: [
+      'a', 'blockquote', 'br', 'code', 'div', 'em', 'h2', 'h3', 'h4', 'li',
+      'ol', 'p', 'section', 'span', 'strong', 'table', 'tbody', 'td', 'th',
+      'thead', 'tr', 'ul',
+    ],
+    ALLOWED_ATTR: ['class', 'colspan', 'href', 'rel', 'rowspan', 'target'],
+  });
 
   return (
     <>
@@ -99,7 +108,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
 
           {/* Article Body Content */}
           <div className="prose prose-neutral dark:prose-invert max-w-none text-[17px] text-neutral-800 dark:text-neutral-200 leading-[1.8] space-y-6">
-            {article.content.trim().split('\n\n').map((paragraph, idx) => {
+            {sanitizedContent.trim().split('\n\n').map((paragraph, idx) => {
               const trimmed = paragraph.trim();
               if (trimmed.startsWith('<h2') || trimmed.startsWith('<h3') || trimmed.startsWith('<h4') || trimmed.startsWith('<ul') || trimmed.startsWith('<ol') || trimmed.startsWith('<div') || trimmed.startsWith('<section') || trimmed.startsWith('<table') || trimmed.startsWith('<blockquote')) {
                 return <div key={idx} dangerouslySetInnerHTML={{ __html: trimmed }} />;

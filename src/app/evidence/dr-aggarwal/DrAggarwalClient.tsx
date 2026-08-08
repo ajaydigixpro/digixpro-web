@@ -1,25 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { 
   ArrowLeft, 
-  Target, 
   AlertTriangle, 
   Lightbulb, 
-  Zap, 
-  TrendingUp, 
-  GraduationCap, 
-  CheckCircle2, 
-  Award, 
   ExternalLink, 
   ShieldCheck,
   Calendar,
   Image as ImageIcon,
-  Layers,
-  Milestone,
   FileText,
-  XCircle,
-  BookOpen
 } from 'lucide-react';
 
 export default function DrAggarwalClient() {
@@ -128,9 +119,11 @@ export default function DrAggarwalClient() {
             </h2>
             <div className="bg-white p-4 rounded-2xl border border-neutral-200 shadow-sm">
               {!imgError ? (
-                <img 
+                <Image
                   src="/dr-aggarwal.png" 
                   alt="Ahrefs Branded Keyword Proof for Dr Aggarwal Physio Centre" 
+                  width={1200}
+                  height={630}
                   className="w-full h-auto rounded-xl border border-neutral-100"
                   onError={() => setImgError(true)}
                 />

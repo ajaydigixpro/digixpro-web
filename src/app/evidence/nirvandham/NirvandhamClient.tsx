@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { 
   ArrowLeft, 
   Target, 
@@ -10,17 +11,11 @@ import {
   TrendingUp, 
   GraduationCap, 
   CheckCircle2, 
-  Server, 
   Cpu, 
-  ShieldCheck, 
-  FileCheck,
   Building,
   BookOpen,
   Globe,
-  Smartphone,
-  Layers,
   Image as ImageIcon,
-  ExternalLink
 } from 'lucide-react';
 
 export default function NirvandhamClient() {
@@ -146,7 +141,7 @@ export default function NirvandhamClient() {
               <Lightbulb className="w-5 h-5 mr-2 text-black" /> 2. The Institutional Architecture Decision
             </h2>
             <div className="bg-[#0A0A0A] text-white p-6 border border-neutral-800 rounded-xl shadow-sm text-sm">
-              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">// TENANT ARCHITECTURE</p>
+              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">Tenant architecture</p>
               <p className="mb-4 leading-relaxed">
                 Instead of building a conventional content website, we engineered Nirvandham as the <strong>first production tenant running on the SattvaOS governed infrastructure</strong>.
               </p>
@@ -236,9 +231,11 @@ export default function NirvandhamClient() {
                 <div className="border border-neutral-200 rounded-lg p-2 bg-neutral-50 flex flex-col items-center">
                   <div className="w-full aspect-square bg-white border border-neutral-200 rounded flex items-center justify-center overflow-hidden mb-2 relative">
                     {!homeError ? (
-                      <img 
+                      <Image
                         src="/nirvandham-home.png" 
                         alt="Live Homepage" 
+                        width={800}
+                        height={800}
                         className="w-full h-full object-cover object-center"
                         onError={() => setHomeError(true)}
                       />
@@ -256,9 +253,11 @@ export default function NirvandhamClient() {
                 <div className="border border-neutral-200 rounded-lg p-2 bg-neutral-50 flex flex-col items-center">
                   <div className="w-full aspect-square bg-white border border-neutral-200 rounded flex items-center justify-center overflow-hidden mb-2 relative">
                     {!aiError ? (
-                      <img 
+                      <Image
                         src="/nirvandham-ai.png" 
                         alt="Structured Knowledge Library" 
+                        width={800}
+                        height={800}
                         className="w-full h-full object-cover object-center"
                         onError={() => setAiError(true)}
                       />
@@ -276,9 +275,11 @@ export default function NirvandhamClient() {
                 <div className="border border-neutral-200 rounded-lg p-2 bg-neutral-50 flex flex-col items-center">
                   <div className="w-full aspect-square bg-white border border-neutral-200 rounded flex items-center justify-center overflow-hidden mb-2 relative">
                     {!appError ? (
-                      <img 
+                      <Image
                         src="/nirvandham-app.png" 
                         alt="Governed AI Retrieval" 
+                        width={800}
+                        height={800}
                         className="w-full h-full object-cover object-center"
                         onError={() => setAppError(true)}
                       />
@@ -347,7 +348,7 @@ export default function NirvandhamClient() {
               </div>
               <div className="text-neutral-500 font-mono text-[10px] mb-2 border-b border-neutral-800 pb-2">PRINCIPLE-042</div>
               <p className="text-lg font-bold leading-tight text-white mb-3">
-                "Knowledge becomes an institutional asset only when publishing, search, AI, and governance share the same architecture."
+                &ldquo;Knowledge becomes an institutional asset only when publishing, search, AI, and governance share the same architecture.&rdquo;
               </p>
               <p className="text-sm font-medium leading-relaxed text-neutral-300 mb-4">
                 Without a unified foundation, content remains scattered across isolated tools, failing to compound in value.
@@ -360,7 +361,7 @@ export default function NirvandhamClient() {
             {/* Direct Consultation Link */}
             <div className="bg-white p-5 border border-neutral-200 rounded-xl shadow-sm text-xs font-mono text-center">
               <div className="font-bold text-black text-sm font-sans mb-1">Building an Institution?</div>
-              <p className="text-neutral-500 font-sans text-xs mb-4">Let's discuss deploying governed digital infrastructure.</p>
+              <p className="text-neutral-500 font-sans text-xs mb-4">Let&apos;s discuss deploying governed digital infrastructure.</p>
               <a href="mailto:consult@digixpro.in?subject=Institutional%20Architecture%20Audit" className="block w-full py-2.5 bg-black text-white font-bold rounded hover:bg-purple-700 hover:text-white transition">
                 Book Institution Audit
               </a>

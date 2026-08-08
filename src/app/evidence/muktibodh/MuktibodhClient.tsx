@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { 
   ArrowLeft, 
   Target, 
@@ -10,14 +11,9 @@ import {
   TrendingUp, 
   GraduationCap, 
   CheckCircle2, 
-  Server, 
   Cpu, 
-  ShieldCheck, 
-  FileCheck,
   BookOpen,
   Layers,
-  Share2,
-  Download,
   BookMarked,
   Image as ImageIcon,
   Video,
@@ -143,7 +139,7 @@ export default function MuktibodhClient() {
               <Lightbulb className="w-5 h-5 mr-2 text-black" /> 2. The Publishing Architecture Decision
             </h2>
             <div className="bg-[#0A0A0A] text-white p-6 border border-neutral-800 rounded-xl shadow-sm text-sm">
-              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">// ARCHITECTURE LOG</p>
+              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">Architecture log</p>
               <p className="mb-4 leading-relaxed">
                 Instead of treating publications as downloadable PDFs, we engineered a <strong>structured knowledge delivery layer</strong>.
               </p>
@@ -242,9 +238,11 @@ export default function MuktibodhClient() {
                   </div>
                   <div className="w-full bg-white border border-neutral-200 rounded-lg overflow-hidden relative shadow-sm flex items-center justify-center p-2">
                     {!libError ? (
-                      <img 
+                      <Image
                         src="/muktibodh-lib.png" 
                         alt="Digital Library Discovery" 
+                        width={1200}
+                        height={630}
                         className="w-full h-auto object-contain max-h-[280px]"
                         onError={() => setLibError(true)}
                       />
@@ -266,9 +264,11 @@ export default function MuktibodhClient() {
                   </div>
                   <div className="w-full bg-white border border-neutral-200 rounded-lg overflow-hidden relative shadow-sm flex items-center justify-center p-2">
                     {!detailError ? (
-                      <img 
+                      <Image
                         src="/muktibodh-detail.png" 
                         alt="Structured Book Detail & Reading Options" 
+                        width={1200}
+                        height={630}
                         className="w-full h-auto object-contain max-h-[280px]"
                         onError={() => setDetailError(true)}
                       />
@@ -290,9 +290,11 @@ export default function MuktibodhClient() {
                   </div>
                   <div className="w-full bg-white border border-neutral-200 rounded-lg overflow-hidden relative shadow-sm flex items-center justify-center p-2">
                     {!readerError ? (
-                      <img 
+                      <Image
                         src="/muktibodh-reader.png" 
                         alt="Interactive Flipbook Reading Engine" 
+                        width={1200}
+                        height={630}
                         className="w-full h-auto object-contain max-h-[280px]"
                         onError={() => setReaderError(true)}
                       />
@@ -314,9 +316,11 @@ export default function MuktibodhClient() {
                   </div>
                   <div className="w-full bg-white border border-neutral-200 rounded-lg overflow-hidden relative shadow-sm flex items-center justify-center p-2">
                     {!magError ? (
-                      <img 
+                      <Image
                         src="/muktibodh-mag.png" 
                         alt="Monthly Magazine Publishing & Archive" 
+                        width={1200}
+                        height={630}
                         className="w-full h-auto object-contain max-h-[280px]"
                         onError={() => setMagError(true)}
                       />
@@ -402,7 +406,7 @@ export default function MuktibodhClient() {
               </div>
               <div className="text-neutral-500 font-mono text-[10px] mb-2 border-b border-neutral-800 pb-2">PRINCIPLE-055</div>
               <p className="text-lg font-bold leading-tight text-white mb-3">
-                "Knowledge compounds only when publication, discovery, reading, sharing, and preservation are engineered as one continuous system."
+                &ldquo;Knowledge compounds only when publication, discovery, reading, sharing, and preservation are engineered as one continuous system.&rdquo;
               </p>
               <p className="text-sm font-medium leading-relaxed text-neutral-300 mb-4">
                 Disjointed document sharing destroys intellectual value. True digital publishing requires an integrated delivery ecosystem.
@@ -415,7 +419,7 @@ export default function MuktibodhClient() {
             {/* Direct Consultation Link */}
             <div className="bg-white p-5 border border-neutral-200 rounded-xl shadow-sm text-xs font-mono text-center">
               <div className="font-bold text-black text-sm font-sans mb-1">Building a Publication System?</div>
-              <p className="text-neutral-500 font-sans text-xs mb-4">Let's discuss engineering digital knowledge delivery layers.</p>
+              <p className="text-neutral-500 font-sans text-xs mb-4">Let&apos;s discuss engineering digital knowledge delivery layers.</p>
               <a href="mailto:consult@digixpro.in?subject=Publishing%20Architecture%20Audit" className="block w-full py-2.5 bg-black text-white font-bold rounded hover:bg-amber-600 hover:text-white transition">
                 Book Publishing Audit
               </a>

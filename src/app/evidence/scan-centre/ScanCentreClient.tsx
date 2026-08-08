@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { 
   ArrowLeft, 
   Target, 
@@ -10,16 +11,11 @@ import {
   TrendingUp, 
   GraduationCap, 
   CheckCircle2, 
-  Layers, 
-  ExternalLink, 
   Cpu,
-  Code2,
   Clock,
   DollarSign,
   Server,
   Image as ImageIcon,
-  CheckSquare,
-  ShieldCheck,
   FileCheck
 } from 'lucide-react';
 
@@ -130,7 +126,7 @@ export default function ScanCentreClient() {
               <Lightbulb className="w-5 h-5 mr-2 text-black" /> 2. The Architectural Leverage Decision
             </h2>
             <div className="bg-[#0A0A0A] text-white p-6 border border-neutral-800 rounded-xl shadow-sm text-sm">
-              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">// ARCHITECTURE LOG</p>
+              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">Architecture log</p>
               <p className="mb-4 leading-relaxed">
                 Instead of writing 60,000+ lines of commodity infrastructure code from scratch (user auth, basic database schemas, routing boilerplates), <strong>we reused the commodity layer and custom-engineered the competitive layer</strong>.
               </p>
@@ -263,27 +259,33 @@ export default function ScanCentreClient() {
               {!imgError ? (
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="border border-neutral-200 rounded-lg p-2 bg-neutral-50">
-                    <img 
+                    <Image
                       src="/scan-centre.png" 
                       alt="Centre Dashboard View" 
+                      width={800}
+                      height={320}
                       className="w-full h-32 object-cover rounded mb-2"
                       onError={() => setImgError(true)}
                     />
                     <div className="text-[11px] font-mono font-bold text-center text-neutral-700">Centre Dashboard</div>
                   </div>
                   <div className="border border-neutral-200 rounded-lg p-2 bg-neutral-50">
-                    <img 
+                    <Image
                       src="/scan-centre.png" 
                       alt="Admin Panel View" 
+                      width={800}
+                      height={320}
                       className="w-full h-32 object-cover rounded mb-2"
                       onError={() => setImgError(true)}
                     />
                     <div className="text-[11px] font-mono font-bold text-center text-neutral-700">Admin Panel</div>
                   </div>
                   <div className="border border-neutral-200 rounded-lg p-2 bg-neutral-50">
-                    <img 
+                    <Image
                       src="/scan-centre.png" 
                       alt="Booking Flow View" 
+                      width={800}
+                      height={320}
                       className="w-full h-32 object-cover rounded mb-2"
                       onError={() => setImgError(true)}
                     />
@@ -314,7 +316,7 @@ export default function ScanCentreClient() {
             </h2>
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 text-sm text-blue-950 leading-relaxed space-y-3 font-sans">
               <p>
-                This project demonstrates that <strong>DigiXPro doesn't simply write code—we optimize capital expenditure (CapEx)</strong>. 
+                This project demonstrates that <strong>DigiXPro doesn&apos;t simply write code—we optimize capital expenditure (CapEx)</strong>.
               </p>
               <p className="text-xs font-mono text-blue-900">
                 By identifying precisely which components require custom engineering (marketplace workflows, specialized taxonomy) and which components can leverage battle-tested foundational frameworks, we protect founder runway and accelerate go-to-market speed by over 80%.
@@ -328,7 +330,7 @@ export default function ScanCentreClient() {
               <FileCheck className="w-4 h-4 mr-2" /> Reusable Intellectual Property Generated
             </div>
             <p className="text-xs text-neutral-300 leading-relaxed">
-              This engagement resulted in modular, reusable architectural components that feed directly into DigiXPro's internal engineering framework library:
+              This engagement resulted in modular, reusable architectural components that feed directly into DigiXPro&apos;s internal engineering framework library:
             </p>
             <div className="grid sm:grid-cols-2 gap-3 text-xs font-mono text-neutral-200">
               <div className="bg-neutral-800 p-3 rounded border border-neutral-700">• Marketplace Architecture Framework</div>
@@ -351,7 +353,7 @@ export default function ScanCentreClient() {
               </div>
               <div className="text-neutral-500 font-mono text-[10px] mb-2 border-b border-neutral-800 pb-2">PRINCIPLE-018</div>
               <p className="text-lg font-bold leading-tight text-white mb-3">
-                "Competitive advantage should be custom built. Commodity infrastructure should be reused."
+                &ldquo;Competitive advantage should be custom built. Commodity infrastructure should be reused.&rdquo;
               </p>
               <p className="text-sm font-medium leading-relaxed text-neutral-300 mb-4">
                 Smart software engineering is knowing when to write code from scratch, and when to heavily leverage existing frameworks to preserve runway.
@@ -364,7 +366,7 @@ export default function ScanCentreClient() {
             {/* Direct Consultation Link */}
             <div className="bg-white p-5 border border-neutral-200 rounded-xl shadow-sm text-xs font-mono text-center">
               <div className="font-bold text-black text-sm font-sans mb-1">Building a Marketplace?</div>
-              <p className="text-neutral-500 font-sans text-xs mb-4">Let's audit your architecture and optimize your CapEx.</p>
+              <p className="text-neutral-500 font-sans text-xs mb-4">Let&apos;s audit your architecture and optimize your CapEx.</p>
               <a href="mailto:consult@digixpro.in?subject=Marketplace%20Architecture%20Audit" className="block w-full py-2.5 bg-black text-white font-bold rounded hover:bg-blue-600 hover:text-white transition">
                 Book Architecture Audit
               </a>

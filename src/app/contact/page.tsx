@@ -1,9 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { 
-  ArrowLeft, 
   MapPin, 
   Mail, 
   Plane,
@@ -83,7 +81,7 @@ export default function ContactPage() {
               <ul className="space-y-4 text-[15px] font-medium text-neutral-700 dark:text-neutral-300">
                 <li className="flex items-start">
                   <CheckCircle2 className="w-5 h-5 text-[#16a34a] mr-3 mt-0.5 shrink-0" />
-                  You're evaluating major technology decisions.
+                  You&apos;re evaluating major technology decisions.
                 </li>
                 <li className="flex items-start">
                   <CheckCircle2 className="w-5 h-5 text-[#16a34a] mr-3 mt-0.5 shrink-0" />
@@ -91,11 +89,11 @@ export default function ContactPage() {
                 </li>
                 <li className="flex items-start">
                   <CheckCircle2 className="w-5 h-5 text-[#16a34a] mr-3 mt-0.5 shrink-0" />
-                  You're planning automation or AI integration.
+                  You&apos;re planning automation or AI integration.
                 </li>
                 <li className="flex items-start">
                   <CheckCircle2 className="w-5 h-5 text-[#16a34a] mr-3 mt-0.5 shrink-0" />
-                  You're scaling beyond manual processes.
+                  You&apos;re scaling beyond manual processes.
                 </li>
               </ul>
             </div>
@@ -110,7 +108,7 @@ export default function ContactPage() {
                 </li>
                 <li className="flex items-start">
                   <XCircle className="w-5 h-5 text-neutral-300 dark:text-neutral-600 mr-3 mt-0.5 shrink-0" />
-                  You're looking for the cheapest developer.
+                  You&apos;re looking for the cheapest developer.
                 </li>
                 <li className="flex items-start">
                   <XCircle className="w-5 h-5 text-neutral-300 dark:text-neutral-600 mr-3 mt-0.5 shrink-0" />
@@ -135,7 +133,7 @@ export default function ContactPage() {
               </div>
               <h2 className="text-[28px] md:text-[32px] font-extrabold mb-4 text-black dark:text-white">Book Your Discovery Session</h2>
               <p className="text-[16px] text-neutral-600 dark:text-neutral-400 mb-8 max-w-md mx-auto leading-relaxed">
-                Pick a time that works best for you. You'll be asked a few quick questions about your current operational bottlenecks before confirming the slot.
+                Pick a time that works best for you. You&apos;ll be asked a few quick questions about your current operational bottlenecks before confirming the slot.
               </p>
               
               <a 

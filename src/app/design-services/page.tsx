@@ -11,12 +11,9 @@ import {
   Layout, 
   Sparkles,
   ArrowDown,
-  CheckCircle2,
   FileText,
-  Map,
   CheckSquare,
   ShieldCheck,
-  Briefcase
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -58,19 +55,6 @@ export const metadata: Metadata = {
 
 export default function DesignServicesPage() {
   const designServices = services.filter((s) => s.track === 'design');
-
-  const getIcon = (slug: string) => {
-    switch (slug) {
-      case 'website-design-services':
-        return <Layout className="w-7 h-7 text-amber-600 dark:text-amber-400" />;
-      case 'unlimited-graphic-design':
-        return <Sparkles className="w-7 h-7 text-amber-600 dark:text-amber-400" />;
-      case 'branding-services':
-        return <Palette className="w-7 h-7 text-amber-600 dark:text-amber-400" />;
-      default:
-        return <Palette className="w-7 h-7 text-amber-600 dark:text-amber-400" />;
-    }
-  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-amber-500/20 pb-16 transition-colors duration-200">

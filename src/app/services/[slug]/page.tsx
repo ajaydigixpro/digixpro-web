@@ -12,11 +12,7 @@ import {
   ArrowLeft,
   CheckCircle2, 
   AlertCircle, 
-  FileText, 
-  ShieldCheck, 
-  Briefcase,
   HelpCircle,
-  Sparkles
 } from 'lucide-react';
 
 export async function generateStaticParams() {

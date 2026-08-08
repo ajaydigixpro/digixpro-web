@@ -28,6 +28,11 @@ export const metadata: Metadata = {
   description: 'Independent IT consulting services, business process automation, fractional CTO advisory, and modern web design systems for growing enterprises. Technology Architecture Advisory by DigiXPro.',
   alternates: {
     canonical: 'https://www.digixpro.in',
+    languages: {
+      en: 'https://www.digixpro.in/',
+      hi: 'https://www.digixpro.in/hi',
+      'x-default': 'https://www.digixpro.in/',
+    },
   },
   openGraph: {
     title: 'Independent IT Consulting & Business Process Automation | DigiXPro',
@@ -236,7 +241,7 @@ export default function HomePage() {
                 How Your Systems Connect.
               </h2>
               <p className="text-[18px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                We don't build isolated apps. We map and architect the complete operational model of your business so data flows seamlessly across one connected operating system.
+                We don&apos;t build isolated apps. We map and architect the complete operational model of your business so data flows seamlessly across one connected operating system.
               </p>
             </div>
             
@@ -271,9 +276,9 @@ export default function HomePage() {
         <section className="bg-[#0A0A0A] text-white py-24">
           <div className="max-w-[1200px] mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6">We Don't Guess.</h2>
+              <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6">We Don&apos;t Guess.</h2>
               <p className="text-[18px] text-neutral-400">
-                We don't recommend systems without understanding your business. Discovery isn't just an interview. Every engagement starts with observing actual operational reality.
+                We don&apos;t recommend systems without understanding your business. Discovery isn&apos;t just an interview. Every engagement starts with observing actual operational reality.
               </p>
             </div>
 
@@ -470,7 +475,7 @@ export default function HomePage() {
               Ready to design your operational system?
             </h2>
             <p className="text-[18px] text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-10">
-              Let's discuss your workflows, operational bottlenecks, and technology architecture before you make expensive commitments. Fill out the qualification form to request a 30-minute discovery call.
+              Let&apos;s discuss your workflows, operational bottlenecks, and technology architecture before you make expensive commitments. Fill out the qualification form to request a 30-minute discovery call.
             </p>
             <Link 
               href="/contact" 

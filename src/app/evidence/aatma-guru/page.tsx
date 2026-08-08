@@ -2,20 +2,15 @@ import React from 'react';
 import { Metadata } from 'next';
 import { 
   ArrowLeft, 
-  Target, 
   AlertTriangle, 
   Lightbulb, 
   Zap, 
-  TrendingUp, 
   GraduationCap, 
-  CheckCircle2, 
   Server, 
   Cpu, 
-  ShieldCheck, 
   FileCheck,
   UserCheck,
   Building2,
-  ExternalLink,
   BookOpen
 } from 'lucide-react';
 
@@ -132,7 +127,7 @@ export default function AatmaGuruEvidence() {
               <Lightbulb className="w-5 h-5 mr-2 text-black" /> 2. The Onboarding Pipeline Architecture
             </h2>
             <div className="bg-[#0A0A0A] text-white p-6 border border-neutral-800 rounded-xl shadow-sm text-sm">
-              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">// EXECUTION PIPELINE</p>
+              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">Execution pipeline</p>
               <p className="mb-4 leading-relaxed">
                 aatma.guru acts as the controlled gateway between the raw SattvaOS infrastructure and deployed institutional guides.
               </p>
@@ -222,7 +217,7 @@ export default function AatmaGuruEvidence() {
               </div>
               <div className="text-neutral-500 font-mono text-[10px] mb-2 border-b border-neutral-800 pb-2">PRINCIPLE-035</div>
               <p className="text-lg font-bold leading-tight text-white mb-3">
-                "In multi-tenant AI systems, secure onboarding and rights validation are more complex than the underlying model."
+                &ldquo;In multi-tenant AI systems, secure onboarding and rights validation are more complex than the underlying model.&rdquo;
               </p>
               <p className="text-sm font-medium leading-relaxed text-neutral-300 mb-4">
                 Platform scale is dictated not by inference speed, but by the rigor of organizational provisioning and verification gates.

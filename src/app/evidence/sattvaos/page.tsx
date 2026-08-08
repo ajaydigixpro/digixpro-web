@@ -3,13 +3,9 @@ import { Metadata } from 'next';
 import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 import { 
   ArrowLeft, 
-  Target, 
   AlertTriangle, 
-  Lightbulb, 
   Zap, 
-  TrendingUp, 
   GraduationCap, 
-  CheckCircle2, 
   Server, 
   Cpu, 
   ShieldCheck, 
@@ -315,7 +311,7 @@ export default function SattvaOSEvidence() {
               </div>
               <div className="text-neutral-500 font-mono text-[10px] mb-2 border-b border-neutral-800 pb-2">PRINCIPLE-031</div>
               <p className="text-lg font-bold leading-tight text-white mb-3">
-                "AI in high-trust institutions is not about raw capability. It is about governed boundaries."
+                &ldquo;AI in high-trust institutions is not about raw capability. It is about governed boundaries.&rdquo;
               </p>
               <p className="text-sm font-medium leading-relaxed text-neutral-300 mb-4">
                 Without institutional governance and rights enforcement, artificial intelligence remains an enterprise liability rather than an asset.

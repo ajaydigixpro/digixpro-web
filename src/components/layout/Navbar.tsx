@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import LanguageToggle from './LanguageToggle';
 import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
@@ -26,11 +27,6 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
 
   return (
     <nav
@@ -77,6 +73,7 @@ export default function Navbar() {
 
         {/* DESKTOP TOGGLES & CTA */}
         <div className="hidden md:flex items-center space-x-4">
+          <LanguageToggle />
           <ThemeToggle />
           <Link
             href="/contact"
@@ -88,6 +85,7 @@ export default function Navbar() {
 
         {/* MOBILE MENU BUTTON & TOGGLES */}
         <div className="flex md:hidden items-center space-x-3">
+          <LanguageToggle />
           <ThemeToggle />
           <button 
             className="p-2 text-neutral-600 dark:text-neutral-300 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
@@ -126,6 +124,9 @@ export default function Navbar() {
             </Link>
           );
         })}
+        <div className="pt-4 border-t border-neutral-100 dark:border-neutral-800">
+          <LanguageToggle />
+        </div>
         <div className="pt-4 border-t border-neutral-100 dark:border-neutral-800">
           <Link
             href="/contact"

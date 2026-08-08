@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { 
   ArrowLeft,
@@ -116,9 +117,11 @@ export default function OperatingSystemsClient() {
     }
 
     return (
-      <img 
+      <Image
         src={src} 
         alt={alt} 
+        width={1200}
+        height={800}
         className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
         onError={() => setHasError(true)}
       />
@@ -144,7 +147,7 @@ export default function OperatingSystemsClient() {
           Production <br className="hidden md:block" /> Platforms.
         </h1>
         <p className="text-[18px] md:text-[22px] text-neutral-600 max-w-2xl leading-relaxed">
-          We don't just write architecture documents. We engineer and scale complete operating systems and platforms that execute those architectural decisions.
+          We don&apos;t just write architecture documents. We engineer and scale complete operating systems and platforms that execute those architectural decisions.
         </p>
       </section>
 
@@ -226,7 +229,7 @@ export default function OperatingSystemsClient() {
             Custom Architecture Needs?
           </h3>
           <p className="text-[16px] text-neutral-600 max-w-lg mx-auto mb-8">
-            Every platform shown here started with an architecture discovery phase. Let's discuss what your next system requires.
+            Every platform shown here started with an architecture discovery phase. Let&apos;s discuss what your next system requires.
           </p>
           <Link 
             href="/contact" 

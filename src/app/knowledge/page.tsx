@@ -67,7 +67,7 @@ export default function KnowledgePage() {
           {/* Philosophy Block */}
           <div className="bg-neutral-50 dark:bg-neutral-900/50 border-l-4 border-[#009E73] p-6 rounded-r-2xl max-w-3xl border-neutral-200 dark:border-neutral-800">
             <p className="text-[16px] text-neutral-700 dark:text-neutral-300 font-medium">
-              <strong className="text-black dark:text-white">Our Editorial Rule:</strong> Every insight published here originates from a real architecture decision, an advisory engagement, or a live production system. We don't write trend pieces; we document engineering reality to help founders make better technical decisions.
+              <strong className="text-black dark:text-white">Our Editorial Rule:</strong> Every insight published here originates from a real architecture decision, an advisory engagement, or a live production system. We don&apos;t write trend pieces; we document engineering reality to help founders make better technical decisions.
             </p>
           </div>
         </div>

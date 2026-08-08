@@ -10,17 +10,12 @@ import {
   TrendingUp, 
   GraduationCap, 
   CheckCircle2, 
-  Layers, 
-  ExternalLink, 
   Server,
   Clock,
-  DollarSign,
   Cpu,
   ShoppingCart,
   RefreshCw,
   FileCheck,
-  Gauge,
-  GitCommit
 } from 'lucide-react';
 
 export default function BuySecondhandBookClient() {
@@ -129,7 +124,7 @@ export default function BuySecondhandBookClient() {
               <Lightbulb className="w-5 h-5 mr-2 text-black" /> 2. The Commerce Modernization Decision
             </h2>
             <div className="bg-[#0A0A0A] text-white p-6 border border-neutral-800 rounded-xl shadow-sm text-sm">
-              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">// ARCHITECTURE LOG</p>
+              <p className="font-mono text-[#22C55E] mb-3 font-bold text-xs">Architecture log</p>
               <p className="mb-4 leading-relaxed">
                 Instead of patching a decaying monolithic setup, we engineered a <strong>modern decoupled Commerce Operating System</strong> optimized for speed, precise pricing algorithms, and seamless checkout flows.
               </p>
@@ -299,7 +294,7 @@ export default function BuySecondhandBookClient() {
               </div>
               <div className="text-neutral-500 font-mono text-[10px] mb-2 border-b border-neutral-800 pb-2">PRINCIPLE-024</div>
               <p className="text-lg font-bold leading-tight text-white mb-3">
-                "Legacy domain authority buys time. Modern architecture restores market dominance."
+                &ldquo;Legacy domain authority buys time. Modern architecture restores market dominance.&rdquo;
               </p>
               <p className="text-sm font-medium leading-relaxed text-neutral-300 mb-4">
                 In digital commerce, traffic protects the present, but modular architecture secures the future.
@@ -312,7 +307,7 @@ export default function BuySecondhandBookClient() {
             {/* Direct Consultation Link */}
             <div className="bg-white p-5 border border-neutral-200 rounded-xl shadow-sm text-xs font-mono text-center">
               <div className="font-bold text-black text-sm font-sans mb-1">Upgrading Your E-commerce Stack?</div>
-              <p className="text-neutral-500 font-sans text-xs mb-4">Let's discuss modernizing your commerce operating system.</p>
+              <p className="text-neutral-500 font-sans text-xs mb-4">Let&apos;s discuss modernizing your commerce operating system.</p>
               <a href="mailto:consult@digixpro.in?subject=Modernize%20Your%20Commerce%20Stack" className="block w-full py-2.5 bg-black text-white font-bold rounded hover:bg-amber-600 hover:text-white transition">
                 Modernize Your Commerce Stack
               </a>
