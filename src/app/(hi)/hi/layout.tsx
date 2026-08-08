@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "optional" });
 
 export const viewport: Viewport = {
   themeColor: "#009E73",
