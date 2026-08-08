@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* The homepage H1 is the mobile LCP element. Keep that first paint on the
+   platform font stack; Inter remains available for the rest of the interface. */
+.hero-lcp-heading {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {

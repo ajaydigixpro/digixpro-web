@@ -78,7 +78,7 @@ export default function HomePage() {
               </span>
             </div>
             
-            <h1 className="text-[40px] md:text-[72px] font-extrabold tracking-tight leading-[1.05] mb-6 md:mb-8 text-black dark:text-white">
+            <h1 className="hero-lcp-heading text-[40px] md:text-[72px] font-extrabold tracking-tight leading-[1.05] mb-6 md:mb-8 text-black dark:text-white">
               Independent IT Consulting &amp;<br />
               <span className="text-[#16a34a]">Business Process Automation.</span>
             </h1>
