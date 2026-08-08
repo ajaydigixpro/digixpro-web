@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import ProfessionalServiceSchema from "@/components/seo/ProfessionalServiceSchema";
-import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
+import DeferredStickyMobileCTA from '@/components/layout/DeferredStickyMobileCTA';
 import { services } from '@/data/services';
 import { 
   ArrowRight, 
@@ -487,7 +487,7 @@ export default function HomePage() {
         </section>
 
       </div>
-      <StickyMobileCTA />
+      <DeferredStickyMobileCTA />
     </>
   );
 }
