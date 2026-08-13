@@ -173,7 +173,7 @@ export default function HomePage() {
                           <span className="text-[10px] font-mono font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2.5 py-1 rounded uppercase tracking-wider border border-amber-200 dark:border-amber-800">
                             {service.category}
                           </span>
-                          <span className="text-[10px] font-mono text-neutral-400 font-bold uppercase">Design Pillar</span>
+                          <span className="text-[10px] font-mono text-neutral-600 dark:text-neutral-400 font-bold uppercase">Design Pillar</span>
                         </div>
                         <h4 className="text-xl font-extrabold text-black dark:text-white mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">{service.title}</h4>
                         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">{service.shortDesc}</p>

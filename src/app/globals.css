@@ -18,6 +18,11 @@
   color: #16a34a;
 }
 
+/* Some sections use the dark surface without setting the document theme. */
+.bg-\[\#0A0A0A\] .text-\[\#16a34a\] {
+  color: #16a34a;
+}
+
 /* Large sections below the first viewport do not need layout and paint work
    before the server-rendered hero H1 is visible. */
 .defer-below-fold {

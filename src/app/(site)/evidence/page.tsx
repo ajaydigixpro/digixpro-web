@@ -145,7 +145,7 @@ export default function EvidenceIndexPage() {
 
         {/* Page Header */}
         <div className="border-b border-neutral-200 dark:border-neutral-800 pb-8 mb-12">
-          <span className="text-xs font-mono text-[#22C55E] font-bold uppercase tracking-widest">The Archive</span>
+          <span className="text-xs font-mono text-[#007a55] font-bold uppercase tracking-widest">The Archive</span>
           <h1 className="text-4xl md:text-5xl font-extrabold mt-2 text-black dark:text-white">Operational Evidence</h1>
           <p className="text-lg text-neutral-600 dark:text-neutral-300 mt-4 max-w-3xl leading-relaxed">
             Real analytics, architecture logs, verified public footprints, and business outcomes. Grouped across Technology Advisory and Design Services tracks.
