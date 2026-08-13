@@ -207,10 +207,10 @@ export default function EvidenceIndexPage() {
                 <a href="/evidence/buy-secondhand-book" className="block bg-white dark:bg-neutral-900 p-6 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-amber-500 transition group shadow-sm">
                   <div className="flex justify-between items-start mb-3">
                     <span className="text-[10px] font-mono bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-bold text-neutral-600 dark:text-neutral-400">MARKET-002</span>
-                    <span className="text-[10px] font-mono text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800 font-bold">Commerce OS</span>
+                    <span className="text-[10px] font-mono text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800 font-bold">Custom PHP 8.4 Engine</span>
                   </div>
-                  <h4 className="font-bold text-lg mb-1 text-black dark:text-white group-hover:text-amber-600 transition">Buy Secondhand Books</h4>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">Modernizing a legacy top-10 national bookstore via decoupled commerce infrastructure.</p>
+                  <h4 className="font-bold text-lg mb-1 text-black dark:text-white group-hover:text-amber-600 transition">BuySecondHandBook</h4>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-4">WordPress to custom PHP 8.4 engine migration: 12,272 URL redirects, zero SEO reset, 99/100 PageSpeed.</p>
                   <div className="flex items-center text-xs font-mono text-black dark:text-white font-bold pt-3 border-t border-neutral-100 dark:border-neutral-800">
                     View Evidence Report <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
