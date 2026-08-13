@@ -77,7 +77,7 @@ export default function ContactPage() {
             
             {/* Good Fit */}
             <div className="p-8 md:p-10">
-              <h3 className="text-[18px] font-extrabold text-black dark:text-white mb-6">This 30-min call is suitable if:</h3>
+              <h2 className="text-[18px] font-extrabold text-black dark:text-white mb-6">This 30-min call is suitable if:</h2>
               <ul className="space-y-4 text-[15px] font-medium text-neutral-700 dark:text-neutral-300">
                 <li className="flex items-start">
                   <CheckCircle2 className="w-5 h-5 text-[#16a34a] mr-3 mt-0.5 shrink-0" />
@@ -100,7 +100,7 @@ export default function ContactPage() {
 
             {/* Bad Fit */}
             <div className="p-8 md:p-10 bg-white dark:bg-neutral-900">
-              <h3 className="text-[18px] font-extrabold text-black dark:text-white mb-6">Probably not the right fit if:</h3>
+              <h2 className="text-[18px] font-extrabold text-black dark:text-white mb-6">Probably not the right fit if:</h2>
               <ul className="space-y-4 text-[15px] font-medium text-neutral-600 dark:text-neutral-400">
                 <li className="flex items-start">
                   <XCircle className="w-5 h-5 text-neutral-300 dark:text-neutral-600 mr-3 mt-0.5 shrink-0" />
@@ -243,7 +243,16 @@ export default function ContactPage() {
                 </li>
                 <li className="flex items-start border-t border-neutral-800 pt-4">
                   <Mail className="w-4 h-4 mr-3 mt-0.5 shrink-0 text-neutral-500" />
-                  <span><strong>Direct Email:</strong> consult@digixpro.in</span>
+                  <span>
+                    <strong>Direct Email:</strong>{' '}
+                    <a
+                      href="mailto:consult%40digixpro.in"
+                      aria-label="Email consult at digixpro dot in"
+                      className="underline underline-offset-2 hover:text-white"
+                    >
+                      <span>consult</span><span aria-hidden="true">@</span><span>digixpro.in</span>
+                    </a>
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <MapPin className="w-4 h-4 mr-3 mt-0.5 shrink-0 text-neutral-500" />

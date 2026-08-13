@@ -330,7 +330,7 @@ export default function EvidenceIndexPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-8 py-4 bg-[#009E73] text-white font-bold text-[15px] rounded-xl hover:bg-[#007a5a] transition-colors shadow-md min-h-[52px]"
+              className="inline-flex items-center justify-center px-8 py-4 bg-[#007a5a] text-white font-bold text-[15px] rounded-xl hover:bg-[#006247] transition-colors shadow-md min-h-[52px]"
             >
               Request a Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
             </Link>

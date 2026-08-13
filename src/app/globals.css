@@ -6,6 +6,18 @@
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+/* #16a34a is part of the visual palette, but it only has 3.29:1 contrast
+   on white at text sizes. Keep the same hue while using an AA-safe shade
+   for light-mode text; the original brighter treatment remains readable in
+   dark mode. This selector also covers existing arbitrary Tailwind classes. */
+.text-\[\#16a34a\] {
+  color: #007a55;
+}
+
+.dark .text-\[\#16a34a\] {
+  color: #16a34a;
+}
+
 /* Large sections below the first viewport do not need layout and paint work
    before the server-rendered hero H1 is visible. */
 .defer-below-fold {

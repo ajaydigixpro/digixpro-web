@@ -51,7 +51,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright, Legal Links & Social Links */}
-        <div className="border-t border-neutral-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-[13px] text-neutral-500 font-medium">
+        <div className="border-t border-neutral-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-[13px] text-neutral-400 font-medium">
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
             <div>© {new Date().getFullYear()} DigiXPro Digital Solution. All rights reserved.</div>
             <nav aria-label="Legal pages" className="flex items-center gap-3">
