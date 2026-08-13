@@ -295,7 +295,7 @@ export default function HomePage() {
                   { title: "Technology Roadmap", icon: <Map className="w-5 h-5 mr-3 text-[#16a34a]" /> }
                 ].map((step, idx, arr) => (
                   <div key={idx} className="flex items-center relative">
-                    <div className={`w-14 h-14 border rounded-full flex items-center justify-center font-mono font-bold shrink-0 z-10 hidden md:flex ${idx >= arr.length - 2 ? 'bg-[#16a34a]/10 border-[#16a34a] text-[#16a34a]' : 'bg-neutral-900 border-neutral-700 text-neutral-500'}`}>
+                    <div className={`w-14 h-14 border rounded-full flex items-center justify-center font-mono font-bold shrink-0 z-10 hidden md:flex ${idx >= arr.length - 2 ? 'bg-[#16a34a]/10 border-[#16a34a] text-[#16a34a]' : 'bg-neutral-900 border-neutral-700 text-neutral-400'}`}>
                       0{idx + 1}
                     </div>
                     <div className={`md:ml-8 border p-5 md:p-6 rounded-2xl flex-1 flex items-center ${idx >= arr.length - 2 ? 'bg-[#16a34a]/5 border-[#16a34a]/30' : 'bg-neutral-900/50 border-neutral-800'}`}>
