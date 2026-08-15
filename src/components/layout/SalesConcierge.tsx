@@ -274,15 +274,19 @@ export default function SalesConcierge() {
   }
 
   return (
-    <div className="fixed bottom-24 left-4 right-4 z-[45] flex flex-col items-end md:bottom-6 md:left-auto md:right-6">
+    <div
+      className={`fixed bottom-24 left-4 right-4 z-[45] flex flex-col items-end md:left-auto md:right-6 ${
+        isOpen ? "md:top-28 md:bottom-auto" : "md:bottom-6"
+      }`}
+    >
       {isOpen && (
         <section
           aria-label="DigiXPro Sales Concierge"
-          className="mb-3 flex h-[min(42rem,calc(100dvh-8.5rem))] w-full max-w-[27rem] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-2xl shadow-black/20 dark:border-neutral-800 dark:bg-[#101010] md:w-[27rem]"
+          className="flex h-[min(42rem,calc(100dvh-8.5rem))] w-full max-w-[27rem] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-2xl shadow-black/20 dark:border-neutral-800 dark:bg-[#101010] md:h-[min(42rem,calc(100dvh-9rem))] md:w-[27rem]"
         >
           <header className="border-b border-neutral-200 bg-gradient-to-br from-white via-white to-emerald-50/70 px-4 py-3.5 dark:border-neutral-800 dark:from-[#101010] dark:via-[#101010] dark:to-emerald-950/20">
             <div className="flex items-start justify-between gap-3">
-              <div>
+              <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="relative flex h-2.5 w-2.5" aria-hidden="true">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#009E73] opacity-70" />
@@ -294,26 +298,29 @@ export default function SalesConcierge() {
                   Practical architecture guidance before you commit budget.
                 </p>
                 <p className="mt-1 text-[11px] font-medium leading-4 text-[#007a55] dark:text-[#4ade80]">
-                  English · हिंदी · मराठी · ગુજરાતી · தமிழ் · తెలుగు · ಕನ್ನಡ · മലയാളം
+                  English · हिंदी · ਪੰਜਾਬੀ · मराठी · ગુજરાતી · தமிழ் · తెలుగు · ಕನ್ನಡ · മലയാളം
                 </p>
+              </div>
+              <div className="flex shrink-0 items-center gap-1">
                 {messages.length > 0 && (
                   <button
                     type="button"
                     onClick={startNewConversation}
-                    className="mt-1.5 text-[11px] font-semibold text-neutral-600 underline underline-offset-2 transition-colors hover:text-[#007a55] dark:text-neutral-400 dark:hover:text-[#4ade80]"
+                    className="inline-flex min-h-9 items-center rounded-lg border border-neutral-200 bg-white px-2.5 text-[11px] font-semibold text-neutral-600 transition-colors hover:border-emerald-200 hover:text-[#007a55] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-emerald-900 dark:hover:text-[#4ade80]"
+                    aria-label="Start a new conversation"
                   >
-                    Start a new conversation
+                    New chat
                   </button>
                 )}
+                <button
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                  className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-colors hover:border-neutral-300 hover:text-[#0A0A0A] dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
+                  aria-label="Close sales concierge"
+                >
+                  <X className="h-5 w-5" aria-hidden="true" />
+                </button>
               </div>
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="-mr-1 inline-flex min-h-10 min-w-10 items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-white/80 hover:text-[#0A0A0A] dark:hover:bg-neutral-800 dark:hover:text-white"
-              aria-label="Close sales concierge"
-              >
-                <X className="h-5 w-5" aria-hidden="true" />
-              </button>
             </div>
           </header>
 
@@ -331,7 +338,7 @@ export default function SalesConcierge() {
                 </div>
 
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {QUICK_STARTS.map((quickStart, index) => {
+                  {QUICK_STARTS.map((quickStart) => {
                     const Icon = quickStart.icon;
                     return (
                       <button
@@ -339,7 +346,7 @@ export default function SalesConcierge() {
                         type="button"
                         onClick={() => void sendVisitorMessage(quickStart.message)}
                         disabled={isSending}
-                        className={`group flex min-h-18 items-start gap-2.5 rounded-xl border border-neutral-200 bg-white px-3 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-[#009E73]/50 hover:bg-emerald-50/60 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-[#16a34a]/50 dark:hover:bg-emerald-950/20 ${index === QUICK_STARTS.length - 1 ? "sm:col-span-2" : ""}`}
+                        className="group flex min-h-18 items-start gap-2.5 rounded-xl border border-neutral-200 bg-white px-3 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-[#009E73]/50 hover:bg-emerald-50/60 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-[#16a34a]/50 dark:hover:bg-emerald-950/20"
                       >
                         <Icon className="mt-0.5 h-4 w-4 shrink-0 text-[#009E73]" aria-hidden="true" />
                         <span className="min-w-0 flex-1">
@@ -442,17 +449,19 @@ export default function SalesConcierge() {
         </button>
       )}
 
-      <button
-        type="button"
-        onClick={() => (isOpen ? setIsOpen(false) : openConcierge())}
-        className="inline-flex min-h-13 items-center gap-2 rounded-full bg-[#0A0A0A] px-4 text-sm font-bold text-white shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-[#202020] focus-visible:-translate-y-0.5 dark:border dark:border-neutral-700"
-        aria-expanded={isOpen}
-        aria-controls="sales-concierge-message"
-      >
-        {isOpen ? <X className="h-4 w-4" aria-hidden="true" /> : <MessageCircle className="h-4 w-4 text-[#4ade80]" aria-hidden="true" />}
-        <span>{isOpen ? "Close" : "Ask DigiXPro"}</span>
-        {!isOpen && <span className="hidden border-l border-neutral-600 pl-2 text-[11px] font-medium text-neutral-300 sm:inline">AI concierge</span>}
-      </button>
+      {!isOpen && (
+        <button
+          type="button"
+          onClick={openConcierge}
+          className="inline-flex min-h-13 items-center gap-2 rounded-full bg-[#0A0A0A] px-4 text-sm font-bold text-white shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-[#202020] focus-visible:-translate-y-0.5 dark:border dark:border-neutral-700"
+          aria-expanded={false}
+          aria-controls="sales-concierge-message"
+        >
+          <MessageCircle className="h-4 w-4 text-[#4ade80]" aria-hidden="true" />
+          <span>Ask DigiXPro</span>
+          <span className="hidden border-l border-neutral-600 pl-2 text-[11px] font-medium text-neutral-300 sm:inline">AI concierge</span>
+        </button>
+      )}
     </div>
   );
 }
