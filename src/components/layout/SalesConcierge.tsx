@@ -113,6 +113,14 @@ export default function SalesConcierge() {
     messageEndRef.current?.scrollIntoView({ block: "end" });
   }, [messages, isSending]);
 
+  function startNewConversation() {
+    window.localStorage.removeItem(SESSION_STORAGE_KEY);
+    window.localStorage.removeItem(CHAT_HISTORY_STORAGE_KEY);
+    setMessages([]);
+    setDraft("");
+    setError("");
+  }
+
   async function sendMessage(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const visitorMessage = draft.trim();
@@ -186,6 +194,15 @@ export default function SalesConcierge() {
               <p className="mt-1 text-[11px] font-medium leading-4 text-[#007a55] dark:text-[#4ade80]">
                 Replies in your language: English · हिंदी · मराठी · ગુજરાતી · தமிழ் · తెలుగు · ಕನ್ನಡ · മലയാളം
               </p>
+              {messages.length > 0 && (
+                <button
+                  type="button"
+                  onClick={startNewConversation}
+                  className="mt-1.5 text-[11px] font-semibold text-neutral-600 underline underline-offset-2 transition-colors hover:text-[#007a55] dark:text-neutral-400 dark:hover:text-[#4ade80]"
+                >
+                  Start a new conversation
+                </button>
+              )}
             </div>
             <button
               type="button"
