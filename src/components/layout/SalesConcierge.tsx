@@ -185,10 +185,14 @@ export default function SalesConcierge() {
   const showNudge = hasLoadedHistory && !isOpen && messages.length === 0 && !nudgeDismissed;
 
   useEffect(() => {
-    const storedMessages = getStoredHistory();
-    messageCounterRef.current = storedMessages.length;
-    setMessages(storedMessages);
-    setHasLoadedHistory(true);
+    const historyTimer = window.setTimeout(() => {
+      const storedMessages = getStoredHistory();
+      messageCounterRef.current = storedMessages.length;
+      setMessages(storedMessages);
+      setHasLoadedHistory(true);
+    }, 0);
+
+    return () => window.clearTimeout(historyTimer);
   }, []);
 
   useEffect(() => {
