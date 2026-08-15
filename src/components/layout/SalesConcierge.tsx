@@ -175,20 +175,30 @@ function MarkdownReply({ text }: { text: string }) {
 export default function SalesConcierge() {
   const [isOpen, setIsOpen] = useState(false);
   const [draft, setDraft] = useState("");
-  const [messages, setMessages] = useState<ChatMessage[]>(getStoredHistory);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [hasLoadedHistory, setHasLoadedHistory] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState("");
   const [nudgeDismissed, setNudgeDismissed] = useState(false);
   const messageEndRef = useRef<HTMLDivElement>(null);
-  const messageCounterRef = useRef(messages.length);
-  const showNudge = !isOpen && messages.length === 0 && !nudgeDismissed;
+  const messageCounterRef = useRef(0);
+  const showNudge = hasLoadedHistory && !isOpen && messages.length === 0 && !nudgeDismissed;
 
   useEffect(() => {
+    const storedMessages = getStoredHistory();
+    messageCounterRef.current = storedMessages.length;
+    setMessages(storedMessages);
+    setHasLoadedHistory(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hasLoadedHistory) return;
+
     window.localStorage.setItem(
       CHAT_HISTORY_STORAGE_KEY,
       JSON.stringify(messages.slice(-MAX_STORED_MESSAGES)),
     );
-  }, [messages]);
+  }, [hasLoadedHistory, messages]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ block: "end" });
