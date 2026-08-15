@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SalesConcierge from "@/components/layout/SalesConcierge";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import WebSiteSchema from "@/components/seo/WebSiteSchema";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
@@ -124,6 +125,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />
+          <SalesConcierge />
         </ThemeProvider>
       </body>
     </html>
