@@ -5,12 +5,27 @@ import { LoaderCircle, MessageCircle, Send, X } from "lucide-react";
 
 const WEBHOOK_URL = "https://n8n.digixpro.in/webhook/digixpro-sales-concierge";
 const SESSION_STORAGE_KEY = "digixpro-sales-concierge-session";
+const CHAT_HISTORY_STORAGE_KEY = "digixpro-sales-concierge-history";
+const MAX_STORED_MESSAGES = 30;
 
 type ChatMessage = {
   id: string;
   role: "visitor" | "assistant";
   text: string;
 };
+
+function isChatMessage(value: unknown): value is ChatMessage {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "id" in value &&
+    typeof value.id === "string" &&
+    "role" in value &&
+    (value.role === "visitor" || value.role === "assistant") &&
+    "text" in value &&
+    typeof value.text === "string"
+  );
+}
 
 function createSessionId() {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
@@ -66,9 +81,35 @@ export default function SalesConcierge() {
   const [isOpen, setIsOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [historyReady, setHistoryReady] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState("");
   const messageEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+      const savedHistory: unknown = JSON.parse(
+        window.localStorage.getItem(CHAT_HISTORY_STORAGE_KEY) ?? "[]",
+      );
+
+      if (Array.isArray(savedHistory)) {
+        setMessages(savedHistory.filter(isChatMessage).slice(-MAX_STORED_MESSAGES));
+      }
+    } catch {
+      window.localStorage.removeItem(CHAT_HISTORY_STORAGE_KEY);
+    } finally {
+      setHistoryReady(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!historyReady) return;
+
+    window.localStorage.setItem(
+      CHAT_HISTORY_STORAGE_KEY,
+      JSON.stringify(messages.slice(-MAX_STORED_MESSAGES)),
+    );
+  }, [historyReady, messages]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ block: "end" });
@@ -85,7 +126,7 @@ export default function SalesConcierge() {
       text: visitorMessage,
     };
 
-    setMessages((current) => [...current, visitorEntry]);
+    setMessages((current) => [...current, visitorEntry].slice(-MAX_STORED_MESSAGES));
     setDraft("");
     setError("");
     setIsSending(true);
@@ -114,10 +155,12 @@ export default function SalesConcierge() {
           ? payload.reply
           : "I’m sorry, I couldn’t read that response. Please try again.";
 
-      setMessages((current) => [
-        ...current,
-        { id: `assistant-${Date.now()}`, role: "assistant", text: reply },
-      ]);
+      const assistantEntry: ChatMessage = {
+        id: `assistant-${Date.now()}`,
+        role: "assistant",
+        text: reply,
+      };
+      setMessages((current) => [...current, assistantEntry].slice(-MAX_STORED_MESSAGES));
     } catch (requestError) {
       setError(
         requestError instanceof Error
@@ -141,6 +184,9 @@ export default function SalesConcierge() {
               <p className="text-sm font-bold text-[#0A0A0A] dark:text-white">DigiXPro Sales Concierge</p>
               <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
                 Discuss your systems, bottlenecks, and next step.
+              </p>
+              <p className="mt-1 text-[11px] font-medium leading-4 text-[#007a55] dark:text-[#4ade80]">
+                Replies in your language: English · हिंदी · मराठी · தமிழ் · తెలుగు · ಕನ್ನಡ · മലയാളം
               </p>
             </div>
             <button
@@ -199,7 +245,7 @@ export default function SalesConcierge() {
                     event.currentTarget.form?.requestSubmit();
                   }
                 }}
-                placeholder="Ask about your systems…"
+                placeholder="Ask in your language…"
                 rows={2}
                 disabled={isSending}
                 className="min-h-11 flex-1 resize-none rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm leading-5 text-[#0A0A0A] placeholder:text-neutral-500 focus:border-[#009E73] focus:outline-none dark:border-neutral-700 dark:bg-[#0A0A0A] dark:text-white dark:placeholder:text-neutral-500"
