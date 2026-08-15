@@ -126,12 +126,17 @@ function isInternalDigiXProUrl(href: string) {
 function MarkdownReply({ text }: { text: string }) {
   const parts: ReactNode[] = [];
   const linkPattern = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+  const renderInlineText = (value: string, key: string) =>
+    value.split(/(\*\*[^*]+\*\*)/g).map((part, index) => {
+      const boldMatch = /^\*\*(.+)\*\*$/.exec(part);
+      return boldMatch ? <strong key={`${key}-strong-${index}`}>{boldMatch[1]}</strong> : part;
+    });
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
   while ((match = linkPattern.exec(text)) !== null) {
     if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index));
+      parts.push(...renderInlineText(text.slice(lastIndex, match.index), `text-${match.index}`));
     }
 
     const [fullMatch, label, href] = match;
@@ -144,14 +149,14 @@ function MarkdownReply({ text }: { text: string }) {
         rel={isInternal ? undefined : "noreferrer"}
         className="font-semibold text-[#007a55] underline decoration-[#009E73]/50 underline-offset-2 transition-colors hover:text-[#005f43] dark:text-[#4ade80] dark:hover:text-[#86efac]"
       >
-        {label}
+        {renderInlineText(label, `link-${match.index}`)}
       </a>,
     );
     lastIndex = match.index + fullMatch.length;
   }
 
   if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex));
+    parts.push(...renderInlineText(text.slice(lastIndex), "text-final"));
   }
 
   return <>{parts}</>;
