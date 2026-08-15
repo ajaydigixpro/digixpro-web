@@ -295,7 +295,7 @@ export default function SalesConcierge() {
     >
       {isOpen && (
         <section
-          aria-label="DigiXPro Sales Concierge"
+          aria-label="DigiXPro AI Assist"
           className="flex h-[min(42rem,calc(100dvh-8.5rem))] w-full max-w-[27rem] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-2xl shadow-black/20 dark:border-neutral-800 dark:bg-[#101010] md:h-[min(42rem,calc(100dvh-9rem))] md:w-[27rem]"
         >
           <header className="border-b border-neutral-200 bg-gradient-to-br from-white via-white to-emerald-50/70 px-4 py-3.5 dark:border-neutral-800 dark:from-[#101010] dark:via-[#101010] dark:to-emerald-950/20">
@@ -306,7 +306,7 @@ export default function SalesConcierge() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#009E73] opacity-70" />
                     <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#009E73]" />
                   </span>
-                  <p className="text-sm font-bold text-[#0A0A0A] dark:text-white">DigiXPro Sales Concierge</p>
+                  <p className="text-sm font-bold text-[#0A0A0A] dark:text-white">DigiXPro AI Assist</p>
                 </div>
                 <p className="mt-1 text-xs leading-5 text-neutral-600 dark:text-neutral-400">
                   Practical architecture guidance before you commit budget.
@@ -330,7 +330,7 @@ export default function SalesConcierge() {
                   type="button"
                   onClick={() => setIsOpen(false)}
                   className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-colors hover:border-neutral-300 hover:text-[#0A0A0A] dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
-                  aria-label="Close sales concierge"
+                  aria-label="Close DigiXPro AI Assist"
                 >
                   <X className="h-5 w-5" aria-hidden="true" />
                 </button>
@@ -473,7 +473,7 @@ export default function SalesConcierge() {
         >
           <MessageCircle className="h-4 w-4 text-[#4ade80]" aria-hidden="true" />
           <span>Ask DigiXPro</span>
-          <span className="hidden border-l border-neutral-600 pl-2 text-[11px] font-medium text-neutral-300 sm:inline">AI concierge</span>
+          <span className="hidden border-l border-neutral-600 pl-2 text-[11px] font-medium text-neutral-300 sm:inline">AI Assist</span>
         </button>
       )}
     </div>
