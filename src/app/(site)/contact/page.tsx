@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import CallbackRequestForm from '@/components/contact/CallbackRequestForm';
 import { 
   MapPin, 
   Mail, 
@@ -125,15 +126,15 @@ export default function ContactPage() {
       <section className="max-w-[1200px] mx-auto px-6 py-8">
         <div className="grid lg:grid-cols-12 gap-16">
           
-          {/* LEFT: CALENDLY BOOKING BLOCK */}
+          {/* LEFT: DIRECT BOOKING BLOCK */}
           <div className="lg:col-span-7">
             <div className="bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 p-8 md:p-12 rounded-[24px] flex flex-col items-center justify-center text-center h-full">
               <div className="w-16 h-16 bg-white dark:bg-neutral-900 rounded-2xl flex items-center justify-center border border-neutral-200 dark:border-neutral-800 mb-6 shadow-sm">
                 <CalendarDays className="w-8 h-8 text-[#16a34a]" />
               </div>
-              <h2 className="text-[28px] md:text-[32px] font-extrabold mb-4 text-black dark:text-white">Book Your Discovery Session</h2>
+              <h2 className="text-[28px] md:text-[32px] font-extrabold mb-4 text-black dark:text-white">Ready to Scope the Work?</h2>
               <p className="text-[16px] text-neutral-600 dark:text-neutral-400 mb-8 max-w-md mx-auto leading-relaxed">
-                Pick a time that works best for you. You&apos;ll be asked a few quick questions about your current operational bottlenecks before confirming the slot.
+                Already explored the options and ready to discuss execution? Pick a 30-minute discovery conversation and move directly into the right scope.
               </p>
               
               <a 
@@ -142,11 +143,11 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center w-full sm:w-auto bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[16px] rounded-xl px-10 py-4 hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white transition-all hover:scale-105 shadow-md"
               >
-                Schedule on Calendly <ArrowRight className="w-5 h-5 ml-2" />
+                Book a 30-minute conversation <ArrowRight className="w-5 h-5 ml-2" />
               </a>
               
               <p className="text-[13px] text-neutral-500 dark:text-neutral-400 font-bold uppercase tracking-widest mt-6 mb-12">
-                100% Free • No Obligation • 30 Minutes
+                Direct scheduling • 30 minutes
               </p>
 
               {/* 3-Step Process */}
@@ -175,6 +176,16 @@ export default function ContactPage() {
 
           {/* RIGHT: EXPECTATIONS & STRUCTURE */}
           <div className="lg:col-span-5 space-y-12">
+            <section id="callback-request" className="rounded-[24px] border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 md:p-8">
+              <div className="mb-5">
+                <div className="text-[12px] font-mono font-bold uppercase tracking-widest text-[#16a34a]">Prefer a callback?</div>
+                <h2 className="mt-2 text-[24px] font-extrabold text-black dark:text-white">Leave the context. We&apos;ll call back.</h2>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                  Share a preferred WhatsApp/contact number or email, along with the decision you&apos;re working through. The request reaches DigiXPro directly.
+                </p>
+              </div>
+              <CallbackRequestForm />
+            </section>
             
             {/* Engagement Options */}
             <div>
