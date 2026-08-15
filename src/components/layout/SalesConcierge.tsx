@@ -8,7 +8,6 @@ import {
   Globe2,
   LoaderCircle,
   MessageCircle,
-  Search,
   Send,
   Sparkles,
   Workflow,
@@ -35,35 +34,46 @@ type QuickStart = {
 
 const QUICK_STARTS: QuickStart[] = [
   {
-    label: "Website or redesign",
-    detail: "Choose the right build approach",
+    label: "Learn & explore",
+    detail: "Articles, frameworks and examples",
+    message:
+      "I am looking for information and practical guidance before I decide whether I need a service. Please direct me to the most relevant DigiXPro Decision Library article or production evidence.",
+    icon: FolderOpen,
+  },
+  {
+    label: "Independent advisory",
+    detail: "Decide the right approach or vendor",
+    message:
+      "I need independent advisory before choosing a solution, platform, or implementation partner. Please help me identify the right decision path.",
+    icon: Bot,
+  },
+  {
+    label: "Work with DigiXPro Studio",
+    detail: "Plan and execute a scoped engagement",
+    message:
+      "I want DigiXPro Studio to plan and execute work. Please help me choose the most relevant service area: website, SEO, IT systems, branding, social-media campaign creative, or AI Automation.",
+    icon: Sparkles,
+  },
+  {
+    label: "Website & SEO",
+    detail: "Performance, redesign or organic visibility",
     message:
       "I am exploring a website or redesign. Please ask me one question: which investment band—below ₹1.5L, ₹1.5L-₹5L, or above ₹5L—before suggesting WordPress versus custom.",
     icon: Globe2,
   },
   {
-    label: "SEO & organic growth",
-    detail: "Monthly visibility and technical SEO",
-    message: "I want to understand a monthly SEO and organic-growth programme for my website.",
-    icon: Search,
-  },
-  {
-    label: "AI Automation",
-    detail: "Reduce manual work responsibly",
-    message: "I want to identify manual work that could be improved with AI Automation.",
+    label: "IT systems & Automation",
+    detail: "IT consulting, CRM, ERP or AI workflows",
+    message:
+      "I need guidance on IT consulting, CRM, ERP, operations, or AI Automation. Please help identify the most appropriate path.",
     icon: Workflow,
   },
   {
-    label: "Business systems",
-    detail: "CRM, ERP, workflows or data",
-    message: "I need guidance on business systems, workflows, CRM, or ERP decisions.",
-    icon: Bot,
-  },
-  {
-    label: "See relevant examples",
-    detail: "Review production evidence",
-    message: "Please show me the most relevant DigiXPro production examples for my requirements.",
-    icon: FolderOpen,
+    label: "Brand & campaign creative",
+    detail: "Branding, social assets or ad creative",
+    message:
+      "I need help with brand identity, social-media creative assets, campaign collateral, or ad-banner design. Please clarify the appropriate DigiXPro service scope.",
+    icon: MessageCircle,
   },
 ];
 
@@ -313,10 +323,10 @@ export default function SalesConcierge() {
                 <div className="rounded-2xl rounded-bl-md border border-emerald-100 bg-emerald-50/70 p-3.5 text-sm leading-6 text-neutral-800 dark:border-emerald-900/60 dark:bg-emerald-950/20 dark:text-neutral-200">
                   <div className="mb-1.5 flex items-center gap-2 font-bold text-[#0A0A0A] dark:text-white">
                     <Sparkles className="h-4 w-4 text-[#009E73]" aria-hidden="true" />
-                    How can I help today?
+                    Choose the conversation you need.
                   </div>
                   <p>
-                    Describe your situation in your own words, or choose a starting point. I can answer initial questions, recommend the next practical step, and show relevant production evidence.
+                    Start by learning, taking independent advice, or scoping work with DigiXPro Studio. Then the conversation narrows to the right service, evidence, or article.
                   </p>
                 </div>
 
