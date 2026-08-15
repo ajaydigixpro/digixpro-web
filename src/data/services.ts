@@ -422,7 +422,7 @@ export const services: ServiceItem[] = [
   },
 
   // =========================================================================
-  // TRACK 2: DESIGN SERVICES (3 DESIGN SERVICES)
+  // TRACK 2: DESIGN SERVICES (4 DESIGN SERVICES)
   // =========================================================================
   {
     slug: "website-design-services",
@@ -477,6 +477,62 @@ export const services: ServiceItem[] = [
     ctaButtonText: "Book a Custom Web Architecture Discovery Call",
     ctaSubtext: "If your legacy website suffers from slow load speeds or poor Core Web Vitals, discover how custom JS architecture elevates your brand.",
     lastUpdated: "2026-08-01"
+  },
+  {
+    slug: "social-media-campaign-strategy",
+    title: "Social Media & Campaign Strategy Services",
+    primaryKeyword: "social media strategy services",
+    supportingKeyword: "campaign strategy and ad creative",
+    keywords: [
+      "social media strategy services",
+      "campaign strategy and ad creative",
+      "social media content strategy",
+      "landing page campaign strategy",
+      "brand campaign planning",
+    ],
+    category: "Campaign Strategy",
+    track: "design",
+    badgeText: "Strategy, Creative & Conversion Alignment",
+    heroHeading: "Social Media & Campaign Strategy Built Around the Customer Journey.",
+    heroSubheading: "We connect brand positioning, content systems, campaign creative, landing pages, and measurement into one practical growth plan—so marketing activity has a coherent next step.",
+    shortDesc: "Social media strategy, campaign planning, ad-creative direction, landing-page alignment, and measurement frameworks for growing brands.",
+    problemHeading: "Why Campaign Activity Often Fails to Convert",
+    problemPoints: [
+      "Social posts, ad creatives, and landing pages communicate different messages and create a fragmented customer journey.",
+      "Marketing teams create content reactively, without audience segments, content pillars, or a clear conversion action.",
+      "Campaign creative is approved without a matching landing-page experience, measurement plan, or lead handoff process.",
+      "Brand assets drift across channels, reducing recognition and making even good campaigns feel inconsistent.",
+      "Paid-media budgets are discussed before the offer, audience, creative, and conversion system have been defined."
+    ],
+    solutionHeading: "What the Campaign Strategy Engagement Delivers",
+    solutionDeliverables: [
+      { title: "Audience & Channel Decision Map", desc: "A practical view of priority audiences, channel roles, message hierarchy, and the next action each campaign should drive." },
+      { title: "Content & Creative System", desc: "Content pillars, campaign themes, social-media creative direction, ad-banner concepts, and reusable brand-consistent templates." },
+      { title: "Landing-Page & Lead-Handoff Alignment", desc: "Campaign-to-landing-page messaging, conversion-path recommendations, form qualification, and CRM or WhatsApp handoff requirements." },
+      { title: "Measurement Framework", desc: "A clear reporting specification for campaign quality, enquiries, conversion signals, and the decisions to make from the data." }
+    ],
+    faqs: [
+      {
+        question: "Does this service include social-media content and ad creative?",
+        answer: "Yes. The strategy can define content pillars, campaign concepts, social-media creative direction, ad-banner requirements, and landing-page alignment. Ongoing production can be supported through the Unlimited Graphic Design Service where appropriate."
+      },
+      {
+        question: "Do you manage paid-media buying or ad spend?",
+        answer: "Campaign strategy, creative direction, landing-page alignment, and measurement are within this scope. Paid-media buying and ad-spend management are scoped separately after the required channel, operating model, and accountability are clear."
+      },
+      {
+        question: "How does campaign strategy connect with website and SEO work?",
+        answer: "A campaign is more effective when its message, social creative, landing page, technical SEO foundation, and lead handoff operate as one journey rather than as disconnected marketing tasks."
+      },
+      {
+        question: "Can this engagement help an internal marketing team?",
+        answer: "Yes. The outputs are designed as a usable decision and creative system that an internal team, DigiXPro Studio, or a specialist execution partner can apply."
+      }
+    ],
+    ctaHeading: "Need campaign activity to lead somewhere more coherent?",
+    ctaButtonText: "Discuss a Campaign Strategy",
+    ctaSubtext: "Start with the customer journey, offer, creative system, and measurement plan before committing to more campaign production or media spend.",
+    lastUpdated: "2026-08-15"
   },
   {
     slug: "unlimited-graphic-design",

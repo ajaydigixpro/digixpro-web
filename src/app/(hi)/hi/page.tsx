@@ -62,6 +62,10 @@ const hindiServiceCopy: Record<string, { category: string; title: string; shortD
     category: 'Digital Experience', title: 'Website Design Services',
     shortDesc: 'तेज, भरोसेमंद और conversion-focused websites जो आपके business systems से जुड़ी हों।',
   },
+  'social-media-campaign-strategy': {
+    category: 'Campaign Strategy', title: 'Social Media और Campaign Strategy Services',
+    shortDesc: 'Social media strategy, campaign creative, landing-page alignment और measurement framework से marketing activity को एक स्पष्ट customer journey से जोड़ें।',
+  },
   'unlimited-graphic-design': {
     category: 'Visual Communication', title: 'Unlimited Graphic Design',
     shortDesc: 'लगातार visual communication के लिए on-demand design capacity और structured delivery।',
