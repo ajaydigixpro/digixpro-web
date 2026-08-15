@@ -37,7 +37,8 @@ const QUICK_STARTS: QuickStart[] = [
   {
     label: "Website or redesign",
     detail: "Choose the right build approach",
-    message: "I need a website or redesign. Please help me choose the right approach for my business.",
+    message:
+      "I am exploring a website or redesign. Please ask me one question: which investment band—below ₹1.5L, ₹1.5L-₹5L, or above ₹5L—before suggesting WordPress versus custom.",
     icon: Globe2,
   },
   {
