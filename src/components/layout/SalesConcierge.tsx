@@ -27,6 +27,23 @@ function isChatMessage(value: unknown): value is ChatMessage {
   );
 }
 
+function getStoredHistory(): ChatMessage[] {
+  if (typeof window === "undefined") return [];
+
+  try {
+    const savedHistory: unknown = JSON.parse(
+      window.localStorage.getItem(CHAT_HISTORY_STORAGE_KEY) ?? "[]",
+    );
+
+    return Array.isArray(savedHistory)
+      ? savedHistory.filter(isChatMessage).slice(-MAX_STORED_MESSAGES)
+      : [];
+  } catch {
+    window.localStorage.removeItem(CHAT_HISTORY_STORAGE_KEY);
+    return [];
+  }
+}
+
 function createSessionId() {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return crypto.randomUUID();
@@ -80,36 +97,17 @@ function MarkdownReply({ text }: { text: string }) {
 export default function SalesConcierge() {
   const [isOpen, setIsOpen] = useState(false);
   const [draft, setDraft] = useState("");
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [historyReady, setHistoryReady] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>(getStoredHistory);
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState("");
   const messageEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    try {
-      const savedHistory: unknown = JSON.parse(
-        window.localStorage.getItem(CHAT_HISTORY_STORAGE_KEY) ?? "[]",
-      );
-
-      if (Array.isArray(savedHistory)) {
-        setMessages(savedHistory.filter(isChatMessage).slice(-MAX_STORED_MESSAGES));
-      }
-    } catch {
-      window.localStorage.removeItem(CHAT_HISTORY_STORAGE_KEY);
-    } finally {
-      setHistoryReady(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!historyReady) return;
-
     window.localStorage.setItem(
       CHAT_HISTORY_STORAGE_KEY,
       JSON.stringify(messages.slice(-MAX_STORED_MESSAGES)),
     );
-  }, [historyReady, messages]);
+  }, [messages]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ block: "end" });
@@ -186,7 +184,7 @@ export default function SalesConcierge() {
                 Discuss your systems, bottlenecks, and next step.
               </p>
               <p className="mt-1 text-[11px] font-medium leading-4 text-[#007a55] dark:text-[#4ade80]">
-                Replies in your language: English · हिंदी · मराठी · தமிழ் · తెలుగు · ಕನ್ನಡ · മലയാളം
+                Replies in your language: English · हिंदी · मराठी · ગુજરાતી · தமிழ் · తెలుగు · ಕನ್ನಡ · മലയാളം
               </p>
             </div>
             <button
