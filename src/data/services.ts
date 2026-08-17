@@ -200,60 +200,6 @@ export const services: ServiceItem[] = [
     lastUpdated: "2026-08-01"
   },
   {
-    slug: "erp-consultant-services",
-    title: "ERP Consultant Services",
-    primaryKeyword: "ERP consultant services",
-    supportingKeyword: "ERP implementation failure",
-    keywords: ["ERP consultant services", "ERP implementation failure", "ERP vendor selection", "enterprise software audit"],
-    category: "Business Systems",
-    track: "tech",
-    badgeText: "Enterprise Systems Advisory",
-    heroHeading: "Independent ERP Consultant Services for Complex Operations.",
-    heroSubheading: "Avoid failed ERP implementations. We map your manufacturing, inventory, and financial processes before vendor selection to guarantee operational alignment.",
-    shortDesc: "Operational process mapping, vendor-neutral ERP selection, and implementation governance for complex businesses.",
-    problemHeading: "Why Enterprise ERP Implementations Fail",
-    problemPoints: [
-      "Buying expensive ERP software before defining standard operating procedures.",
-      "Customizing standard ERP software heavily instead of aligning business processes.",
-      "Data corruption during legacy database migration to the new ERP system.",
-      "Low employee adoption due to overly complex, non-intuitive user interfaces.",
-      "Early warning signs of ERP implementation failure, including budget overruns, customization debt, and severe employee pushback."
-    ],
-    solutionHeading: "Our ERP Advisory Framework",
-    solutionDeliverables: [
-      { title: "Operational SOP Mapping", desc: "Deep-dive mapping of supply chain, finance, inventory, and sales workflows." },
-      { title: "ERP RFP & Vendor Evaluation", desc: "Creation of clear technical requirement specs and objective vendor evaluation matrix." },
-      { title: "Data Migration Strategy", desc: "Clean schema mapping and validation protocols for seamless legacy data migration." },
-      { title: "Implementation Governance", desc: "Acting as your client-side representative to hold the ERP vendor accountable to timeline and budget." }
-    ],
-    faqs: [
-      {
-        question: "Why should we hire an independent ERP consultant instead of relying on the vendor?",
-        answer: "ERP vendors are motivated to sell their platform and bill for implementation hours. An independent ERP consultant represents your interests, ensuring requirements are met without unnecessary customization fees."
-      },
-      {
-        question: "Which ERP platforms do you evaluate?",
-        answer: "We provide vendor-neutral evaluation across SAP, Oracle NetSuite, Odoo, Microsoft Dynamics, ERPNext, and specialized custom industry backends."
-      },
-      {
-        question: "At what stage should an organization engage an ERP consultant?",
-        answer: "The ideal time is before signing any ERP contract or issuing an RFP, when business processes and technical requirements can be clearly defined."
-      },
-      {
-        question: "Can you help rescue a failing ERP project?",
-        answer: "Yes. We perform ERP technical audits to diagnose root causes of failure, re-align business workflows, and establish a recovery roadmap."
-      },
-      {
-        question: "How does an independent ERP consultant prevent ERP implementation failure?",
-        answer: "An independent ERP consultant prevents ERP implementation failure by mapping operational SOPs and data schemas before software contracts are signed, keeping vendors accountable to scope."
-      }
-    ],
-    ctaHeading: "Is your ERP rollout showing early warning signs or budget overruns?",
-    ctaButtonText: "Book an ERP Risk & Architecture Review",
-    ctaSubtext: "If your ERP rollout is showing early warning signs, book a 20-minute architecture review before committing further budget.",
-    lastUpdated: "2026-08-01"
-  },
-  {
     slug: "fractional-cto-services",
     title: "Fractional CTO Services",
     primaryKeyword: "fractional CTO services",

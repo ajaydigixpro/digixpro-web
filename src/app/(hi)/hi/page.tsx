@@ -42,10 +42,6 @@ const hindiServiceCopy: Record<string, { category: string; title: string; shortD
     category: 'Automation', title: 'AI Automation Services',
     shortDesc: 'दोहराए जाने वाले manual काम, cross-platform data sync और workflow bottlenecks को automate करें।',
   },
-  'erp-consultant-services': {
-    category: 'Business Systems', title: 'ERP Consultant Services',
-    shortDesc: 'Operational process mapping, vendor-neutral ERP selection और implementation governance के लिए स्वतंत्र सलाह।',
-  },
   'fractional-cto-services': {
     category: 'Strategic Leadership', title: 'Fractional CTO Services',
     shortDesc: 'पूर्णकालिक नियुक्ति के बिना strategic technology leadership, architecture oversight और engineering governance।',

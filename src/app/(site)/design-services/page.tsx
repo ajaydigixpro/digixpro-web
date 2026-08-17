@@ -109,7 +109,7 @@ export default function DesignServicesPage() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {designServices.map((service) => (
             <div 
               key={service.slug}

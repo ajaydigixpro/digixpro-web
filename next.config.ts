@@ -22,6 +22,11 @@ const nextConfig: NextConfig = {
         destination: '/services/branding-services',
         permanent: true,
       },
+      {
+        source: '/services/erp-consultant-services',
+        destination: '/services/business-process-automation',
+        permanent: true,
+      },
     ];
   },
 };
