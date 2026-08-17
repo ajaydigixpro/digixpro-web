@@ -514,7 +514,7 @@ export const services: ServiceItem[] = [
     faqs: [
       {
         question: "Does this service include social-media content and ad creative?",
-        answer: "Yes. The strategy can define content pillars, campaign concepts, social-media creative direction, ad-banner requirements, and landing-page alignment. Ongoing production can be supported through the Unlimited Graphic Design Service where appropriate."
+        answer: "Yes. The strategy can define content pillars, campaign concepts, social-media creative direction, ad-banner requirements, and landing-page alignment. Ongoing production can be supported through our Strategic Branding and Design Services where appropriate."
       },
       {
         question: "Do you manage paid-media buying or ad spend?",
@@ -533,60 +533,6 @@ export const services: ServiceItem[] = [
     ctaButtonText: "Discuss a Campaign Strategy",
     ctaSubtext: "Start with the customer journey, offer, creative system, and measurement plan before committing to more campaign production or media spend.",
     lastUpdated: "2026-08-15"
-  },
-  {
-    slug: "unlimited-graphic-design",
-    title: "Unlimited Graphic Design Service",
-    primaryKeyword: "unlimited graphic design service",
-    supportingKeyword: "outsource graphic design",
-    keywords: ["unlimited graphic design service", "outsource graphic design", "graphic design subscription", "brand collateral design"],
-    category: "Visual Communication",
-    track: "design",
-    badgeText: "Structured Design Support",
-    heroHeading: "Dedicated Unlimited Graphic Design Service for Growing Brands.",
-    heroSubheading: "Scale your visual marketing collateral without the hassle of per-project billing or unreliable freelancers. Structured graphic design support delivered with consistent speed and precision.",
-    shortDesc: "Subscription visual design support, brand marketing assets, presentation systems, and digital creative production.",
-    problemHeading: "Creative Production Bottlenecks We Eliminate",
-    problemPoints: [
-      "Unpredictable invoicing and unexpected cost inflation from traditional design agencies.",
-      "Inconsistent brand aesthetics across social media, pitch decks, and marketing campaigns.",
-      "Internal marketing teams delayed by slow turnaround times on routine graphics.",
-      "Managing multiple specialized freelancers with conflicting design quality standards.",
-      "High costs and administrative friction when trying to outsource graphic design to multiple uncoordinated agencies or freelancers."
-    ],
-    solutionHeading: "Our Graphic Design Retainer Capabilities",
-    solutionDeliverables: [
-      { title: "Brand Marketing Assets", desc: "Social media graphics, ad banners, email header templates, and campaign collateral." },
-      { title: "Presentation & Pitch Decks", desc: "Professional, high-impact pitch decks and corporate presentation design systems." },
-      { title: "Print & Digital Media", desc: "Brochures, whitepapers, banners, event displays, and digital report layouts." },
-      { title: "Design System Maintenance", desc: "Ensuring strict typography, color palette, and asset consistency across all channels." }
-    ],
-    faqs: [
-      {
-        question: "How does the unlimited graphic design service subscription work?",
-        answer: "You pay a flat monthly fee and submit design requests through a prioritized queue. We work on your active requests sequentially with predictable turnaround times."
-      },
-      {
-        question: "What types of design assets are covered under this service?",
-        answer: "Social media graphics, ad creatives, presentation decks, marketing brochures, flyers, email templates, digital banners, and brand collateral are all covered."
-      },
-      {
-        question: "What is the typical turnaround time for a design request?",
-        answer: "Standard graphic design requests are delivered in rapid, predictable milestone iterations. Complex multi-page assets like pitch decks or whitepapers are broken into structured milestone deliverables."
-      },
-      {
-        question: "Are source files included with every delivered asset?",
-        answer: "Yes. You receive full ownership of all final native design source files (Figma, Illustrator, Photoshop, PDF, PNG, SVG)."
-      },
-      {
-        question: "Why is a flat-rate subscription better than traditional ways to outsource graphic design?",
-        answer: "A flat-rate subscription eliminates per-project billing friction when you outsource graphic design, offering predictable monthly costs, dedicated queues, and fast, milestone-scoped turnarounds."
-      }
-    ],
-    ctaHeading: "Struggling with inconsistent visual marketing collateral or freelancer delays?",
-    ctaButtonText: "Book a Design Retainer Discovery Call",
-    ctaSubtext: "If your team needs fast, predictable graphic design support with full source asset ownership, discuss our structured design retainers.",
-    lastUpdated: "2026-08-01"
   },
   {
     slug: "branding-services",

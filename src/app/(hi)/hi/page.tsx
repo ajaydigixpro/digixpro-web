@@ -66,10 +66,6 @@ const hindiServiceCopy: Record<string, { category: string; title: string; shortD
     category: 'Campaign Strategy', title: 'Social Media और Campaign Strategy Services',
     shortDesc: 'Social media strategy, campaign creative, landing-page alignment और measurement framework से marketing activity को एक स्पष्ट customer journey से जोड़ें।',
   },
-  'unlimited-graphic-design': {
-    category: 'Visual Communication', title: 'Unlimited Graphic Design',
-    shortDesc: 'लगातार visual communication के लिए on-demand design capacity और structured delivery।',
-  },
   'branding-services': {
     category: 'Brand Strategy', title: 'Branding Services',
     shortDesc: 'स्पष्ट positioning, visual identity और हर touchpoint पर consistent brand system।',
@@ -165,7 +161,7 @@ export default function HindiHomePage() {
                 <div><p className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-2">Design और Digital Experience Track</p><h3 className="text-[28px] font-extrabold text-black dark:text-white">Design System Pillars</h3></div>
                 <span className="text-sm font-bold text-neutral-500 dark:text-neutral-400">समान प्राथमिकता: Design Systems और Visual Communication</span>
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
                 {designServices.map((service) => {
                   const copy = hindiServiceCopy[service.slug];
                   return <div key={service.slug} className="group bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-7 shadow-sm hover:border-[#16a34a]/50 transition-colors flex flex-col">

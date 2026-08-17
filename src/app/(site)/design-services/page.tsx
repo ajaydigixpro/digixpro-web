@@ -18,10 +18,9 @@ import {
 
 export const metadata: Metadata = {
   title: 'Brand & Digital Design Services',
-  description: 'Structured visual communication, custom modern website design, unlimited graphic design retaners, and strategic branding services for growing organizations.',
+  description: 'Structured visual communication, custom modern website design, and strategic branding services for growing organizations.',
   keywords: [
     'website design services',
-    'unlimited graphic design service',
     'branding services',
     'digital publication design',
     'logo design system',
@@ -68,15 +67,11 @@ export default function DesignServicesPage() {
         items={[
           {
             question: 'What design services does DigiXPro offer?',
-            answer: 'We provide structured visual communication through 3 core design pillars: Website Design Services (Next.js/React modern JS architectures), Unlimited Graphic Design Service subscriptions, and Strategic Branding Services (logo design systems, brand guidelines, and multi-page magazine/editorial layouts).',
+            answer: 'We provide structured visual communication through 2 core design pillars: Website Design Services (Next.js/React modern JS architectures) and Strategic Branding Services (logo design systems, brand guidelines, and multi-page magazine/editorial layouts).',
           },
           {
             question: 'Why choose custom JS web design over traditional WordPress themes?',
             answer: 'Custom JS website design (Next.js, React, TailwindCSS) delivers 100% Core Web Vitals performance, instant page loads, immune security against plugin exploits, and unlimited design flexibility tailored to your exact brand positioning.',
-          },
-          {
-            question: 'How does the Unlimited Graphic Design subscription work?',
-            answer: 'You pay a flat monthly rate for continuous creative support. You submit design requests into a queue for social media graphics, ad banners, presentations, pitch decks, and brand marketing collateral with fast 24-48 hour turnaround.',
           },
           {
             question: 'Do your branding services include magazine and publication design?',
@@ -100,7 +95,7 @@ export default function DesignServicesPage() {
           </h1>
           
           <p className="text-[18px] md:text-[22px] font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-3xl">
-            We design high-performance websites, enduring brand identities, and predictable graphic design support systems that elevate visual authority.
+            We design high-performance websites and enduring brand identities that elevate visual authority.
           </p>
         </div>
       </section>
@@ -114,7 +109,7 @@ export default function DesignServicesPage() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl">
           {designServices.map((service) => (
             <div 
               key={service.slug}
@@ -157,7 +152,7 @@ export default function DesignServicesPage() {
               { title: "Vector Logo Mark & System", icon: <Palette className="w-5 h-5 text-amber-600 dark:text-amber-400" /> },
               { title: "Comprehensive Brand Guidelines", icon: <FileText className="w-5 h-5 text-amber-600 dark:text-amber-400" /> },
               { title: "Digital Magazine & Publication Layouts", icon: <Sparkles className="w-5 h-5 text-amber-600 dark:text-amber-400" /> },
-              { title: "Dedicated Design Queue", icon: <CheckSquare className="w-5 h-5 text-amber-600 dark:text-amber-400" /> },
+              { title: "Design System Tokens & UI Kit", icon: <CheckSquare className="w-5 h-5 text-amber-600 dark:text-amber-400" /> },
               { title: "Native Source Files (Figma, AI, PSD)", icon: <ShieldCheck className="w-5 h-5 text-amber-600 dark:text-amber-400" /> }
             ].map((item, idx) => (
               <div key={idx} className="flex items-center p-6 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-white dark:bg-neutral-900 hover:border-amber-500/30 transition-colors shadow-sm">
@@ -213,7 +208,7 @@ export default function DesignServicesPage() {
         <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 p-8 md:p-10 rounded-[24px] text-center shadow-xl max-w-4xl mx-auto">
           <h3 className="text-white font-extrabold text-[20px] md:text-[24px] mb-4">Ready to elevate your visual identity?</h3>
           <p className="text-[16px] text-neutral-400 leading-relaxed mb-8">
-            Let&apos;s discuss your website, graphic design support, or brand guidelines. Book a 30-minute discovery consultation.
+            Let&apos;s discuss your website or brand identity systems. Book a 30-minute discovery consultation.
           </p>
           <Link
             href="/contact"

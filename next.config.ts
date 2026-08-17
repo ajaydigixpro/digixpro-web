@@ -14,6 +14,16 @@ const nextConfig: NextConfig = {
 
   // Remove X-Powered-By header
   poweredByHeader: false,
+
+  async redirects() {
+    return [
+      {
+        source: '/services/unlimited-graphic-design',
+        destination: '/services/branding-services',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

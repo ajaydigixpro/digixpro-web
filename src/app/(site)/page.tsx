@@ -110,7 +110,7 @@ export default function HomePage() {
         </section>
 
         {/* ==========================================
-            2. WHAT WE BUILD (OUR 9 SERVICE PILLARS — MOVED IMMEDIATELY AFTER HERO)
+            2. WHAT WE BUILD (OUR 8 SERVICE PILLARS — MOVED IMMEDIATELY AFTER HERO)
         ========================================== */}
         <section className="defer-below-fold py-24 bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
@@ -152,7 +152,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Design Track Grid (3 Cards — PROMINENT & EQUAL PRIORITY STYLING) */}
+              {/* Design Track Grid (2 Cards — PROMINENT & EQUAL PRIORITY STYLING) */}
               <div className="pt-6 border-t border-neutral-200 dark:border-neutral-800">
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-8 border-b border-neutral-200 dark:border-neutral-800 pb-3">
                   <div className="flex items-center space-x-3">
@@ -160,12 +160,12 @@ export default function HomePage() {
                     <h3 className="text-2xl font-extrabold text-black dark:text-white">Design &amp; Digital Experience Track</h3>
                   </div>
                   <span className="text-xs font-mono bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 px-3 py-1 rounded-full font-bold uppercase border border-amber-200 dark:border-amber-800">
-                    Equal Priority: Design Systems &amp; Visual Communication
+                    2 Core Pillars &bull; Systems &amp; Identity
                   </span>
                 </div>
                 
-                {/* Prominent 3-card layout with wider padding and structured border highlight */}
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Prominent 2-card layout with wider padding and structured border highlight */}
+                <div className="grid md:grid-cols-2 gap-8 max-w-4xl">
                   {designServices.map((service) => (
                     <div key={service.slug} className="bg-white dark:bg-neutral-900 border-2 border-neutral-200/80 dark:border-neutral-800 p-8 rounded-3xl flex flex-col justify-between group hover:border-amber-500 dark:hover:border-amber-500 transition-all shadow-md">
                       <div>
