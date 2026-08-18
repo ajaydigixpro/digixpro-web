@@ -303,7 +303,7 @@ export default function SalesConcierge() {
               <div className="min-w-0">
                 <div className="flex items-center">
                   <p className="text-sm font-bold text-[#0A0A0A] dark:text-white">DigiXPro AI Assist</p>
-                  <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse shrink-0 ml-1.5" aria-hidden="true"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#419b78] animate-pulse shrink-0 ml-1.5" aria-hidden="true"></span>
                 </div>
                 <p className="mt-1 text-xs leading-5 text-neutral-600 dark:text-neutral-400">
                   Practical architecture guidance before you commit budget.
@@ -449,7 +449,7 @@ export default function SalesConcierge() {
         >
           <span className="mb-1 flex items-center text-xs font-bold text-[#0A0A0A] dark:text-white">
             <span>Need a clearer next step?</span>
-            <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse shrink-0 ml-1.5" aria-hidden="true"></span>
+            <span className="w-2 h-2 rounded-full bg-[#419b78] animate-pulse shrink-0 ml-1.5" aria-hidden="true"></span>
           </span>
           <span className="block text-xs leading-5 text-neutral-600 dark:text-neutral-400">
             Ask about your website, SEO, systems, or AI Automation. Relevant examples included.
@@ -468,7 +468,7 @@ export default function SalesConcierge() {
           <MessageCircle className="h-4 w-4 text-[#4ade80]" aria-hidden="true" />
           <span className="inline-flex items-center">
             Ask DigiXPro
-            <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse shrink-0 ml-1.5" aria-hidden="true"></span>
+            <span className="w-2 h-2 rounded-full bg-[#419b78] animate-pulse shrink-0 ml-1.5" aria-hidden="true"></span>
           </span>
           <span className="hidden border-l border-neutral-600 pl-2 text-[11px] font-medium text-neutral-300 sm:inline">AI Assist</span>
         </button>
