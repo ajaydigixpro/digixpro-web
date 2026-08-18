@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import ScanCentreClient from './ScanCentreClient';
+import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 
 export const metadata: Metadata = {
   title: 'ScanCentreNearMe Marketplace Architecture Evidence',
@@ -24,5 +25,10 @@ export const metadata: Metadata = {
 };
 
 export default function ScanCentreEvidence() {
-  return <ScanCentreClient />;
+  return (
+    <>
+      <ScanCentreClient />
+      <StickyMobileCTA />
+    </>
+  );
 }

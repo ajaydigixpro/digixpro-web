@@ -21,7 +21,8 @@ import {
 
 export default function ScanCentreClient() {
   const [activeTab, setActiveTab] = useState<'vendor' | 'search' | 'admin'>('vendor');
-  const [imgError, setImgError] = useState(false);
+  const [homeError, setHomeError] = useState(false);
+  const [dashError, setDashError] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] font-sans px-6 py-12 max-w-5xl mx-auto selection:bg-[#22C55E]/20">
@@ -245,62 +246,72 @@ export default function ScanCentreClient() {
             </div>
           </section>
 
-          {/* 6. Operational Evidence Screenshots (Collage View) */}
+          {/* 6. Operational Evidence Screenshots (2-Column View) */}
           <section>
             <h2 className="text-xl font-bold flex items-center mb-4 border-b border-neutral-200 pb-2">
-              <TrendingUp className="w-5 h-5 mr-2 text-black" /> 6. Operational Evidence & Views
+              <TrendingUp className="w-5 h-5 mr-2 text-black" /> 6. Operational Evidence &amp; Views
             </h2>
             
             <div className="bg-white border border-neutral-200 rounded-xl p-4 shadow-sm space-y-6 mb-6">
               <div className="text-xs font-mono text-neutral-500">
-                Multi-layer architecture verification across 3 core operational panels:
+                Multi-layer architecture verification across 2 core operational panels:
               </div>
 
-              {!imgError ? (
-                <div className="grid md:grid-cols-3 gap-4">
-                  <div className="border border-neutral-200 rounded-lg p-2 bg-neutral-50">
-                    <Image
-                      src="/scan-centre.png" 
-                      alt="Centre Dashboard View" 
-                      width={800}
-                      height={320}
-                      className="w-full h-32 object-cover rounded mb-2"
-                      onError={() => setImgError(true)}
-                    />
-                    <div className="text-[11px] font-mono font-bold text-center text-neutral-700">Centre Dashboard</div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* 1. Homepage */}
+                <div className="border border-neutral-200 rounded-xl p-3 bg-neutral-50 flex flex-col">
+                  <div className="flex items-center justify-between mb-2 font-mono">
+                    <span className="text-[10px] font-bold bg-neutral-900 text-white px-2 py-0.5 rounded uppercase tracking-widest">DISCOVERY</span>
+                    <span className="text-[11px] font-bold text-neutral-700">Marketplace Portal</span>
                   </div>
-                  <div className="border border-neutral-200 rounded-lg p-2 bg-neutral-50">
-                    <Image
-                      src="/scan-centre.png" 
-                      alt="Admin Panel View" 
-                      width={800}
-                      height={320}
-                      className="w-full h-32 object-cover rounded mb-2"
-                      onError={() => setImgError(true)}
-                    />
-                    <div className="text-[11px] font-mono font-bold text-center text-neutral-700">Admin Panel</div>
+                  <div className="w-full bg-white border border-neutral-200 rounded-lg overflow-hidden relative shadow-sm flex items-center justify-center p-2">
+                    {!homeError ? (
+                      <Image
+                        src="/evidence/scan-centre/homepage.png" 
+                        alt="Scan Centre Near Me Homepage" 
+                        width={1920}
+                        height={912}
+                        className="w-full h-auto object-contain max-h-[280px] rounded"
+                        onError={() => setHomeError(true)}
+                        priority
+                      />
+                    ) : (
+                      <div className="h-48 flex flex-col items-center justify-center text-center p-4">
+                        <ImageIcon className="w-8 h-8 text-neutral-400 mb-2" />
+                        <span className="text-xs text-neutral-500">homepage.png missing in /public/evidence/scan-centre/</span>
+                      </div>
+                    )}
                   </div>
-                  <div className="border border-neutral-200 rounded-lg p-2 bg-neutral-50">
-                    <Image
-                      src="/scan-centre.png" 
-                      alt="Booking Flow View" 
-                      width={800}
-                      height={320}
-                      className="w-full h-32 object-cover rounded mb-2"
-                      onError={() => setImgError(true)}
-                    />
-                    <div className="text-[11px] font-mono font-bold text-center text-neutral-700">Booking Flow</div>
-                  </div>
+                  <div className="text-xs font-mono font-bold text-center text-neutral-700 mt-2">Homepage</div>
                 </div>
-              ) : (
-                <div className="p-8 bg-neutral-100 rounded-lg text-center font-mono text-xs text-neutral-500 border border-dashed border-neutral-300">
-                  <ImageIcon className="w-8 h-8 mx-auto mb-2 text-neutral-400" />
-                  <p className="font-bold text-neutral-800 mb-1">Image Path: /public/scan-centre.png</p>
-                  <p className="text-[11px] text-neutral-500">
-                    Save platform screenshot in <code className="bg-white px-1.5 py-0.5 rounded border">digixpro-web/public/scan-centre.png</code>
-                  </p>
+
+                {/* 2. Centre Dashboard */}
+                <div className="border border-neutral-200 rounded-xl p-3 bg-neutral-50 flex flex-col">
+                  <div className="flex items-center justify-between mb-2 font-mono">
+                    <span className="text-[10px] font-bold bg-neutral-900 text-white px-2 py-0.5 rounded uppercase tracking-widest">OPERATIONS</span>
+                    <span className="text-[11px] font-bold text-neutral-700">Centre Operations</span>
+                  </div>
+                  <div className="w-full bg-white border border-neutral-200 rounded-lg overflow-hidden relative shadow-sm flex items-center justify-center p-2">
+                    {!dashError ? (
+                      <Image
+                        src="/evidence/scan-centre/dashboard.png" 
+                        alt="Scan Centre Near Me Centre Dashboard" 
+                        width={1920}
+                        height={912}
+                        className="w-full h-auto object-contain max-h-[280px] rounded"
+                        onError={() => setDashError(true)}
+                        priority
+                      />
+                    ) : (
+                      <div className="h-48 flex flex-col items-center justify-center text-center p-4">
+                        <ImageIcon className="w-8 h-8 text-neutral-400 mb-2" />
+                        <span className="text-xs text-neutral-500">dashboard.png missing in /public/evidence/scan-centre/</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="text-xs font-mono font-bold text-center text-neutral-700 mt-2">Centre Dashboard</div>
                 </div>
-              )}
+              </div>
 
               <div className="p-3 bg-neutral-50 rounded-lg border border-neutral-200 text-xs font-mono text-neutral-600 flex justify-between items-center">
                 <span>Status: Production-Ready Platform</span>
