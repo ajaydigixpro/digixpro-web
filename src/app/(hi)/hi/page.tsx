@@ -103,7 +103,7 @@ export default function HindiHomePage() {
     <>
       <ProfessionalServiceSchema />
       <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#009E73]/20">
-        <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
+        <section className="relative overflow-hidden pt-10 pb-14 md:pt-16 md:pb-20">
           <div className="max-w-[1200px] mx-auto px-6 text-center relative z-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 px-4 py-2 text-[11px] font-mono font-bold uppercase tracking-widest text-neutral-600 dark:text-neutral-300 mb-8">
               Technology Architecture Advisory <span className="text-[#16a34a]">•</span> स्वतंत्र <span className="text-[#16a34a]">•</span> Vendor-Neutral

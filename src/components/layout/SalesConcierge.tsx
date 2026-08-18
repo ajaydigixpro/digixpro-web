@@ -302,10 +302,7 @@ export default function SalesConcierge() {
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="relative flex h-2.5 w-2.5" aria-hidden="true">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#009E73] opacity-70" />
-                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#009E73]" />
-                  </span>
+                  <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse shrink-0" aria-hidden="true"></span>
                   <p className="text-sm font-bold text-[#0A0A0A] dark:text-white">DigiXPro AI Assist</p>
                 </div>
                 <p className="mt-1 text-xs leading-5 text-neutral-600 dark:text-neutral-400">
@@ -451,10 +448,7 @@ export default function SalesConcierge() {
           className="mb-3 w-full max-w-[19rem] rounded-2xl border border-emerald-200 bg-white p-3 text-left shadow-xl shadow-black/10 transition-transform hover:-translate-y-0.5 dark:border-emerald-900/70 dark:bg-neutral-900 md:w-[19rem]"
         >
           <span className="mb-1 flex items-center gap-2 text-xs font-bold text-[#0A0A0A] dark:text-white">
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#009E73] opacity-70" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#009E73]" />
-            </span>
+            <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse shrink-0" aria-hidden="true"></span>
             Need a clearer next step?
           </span>
           <span className="block text-xs leading-5 text-neutral-600 dark:text-neutral-400">
@@ -467,10 +461,11 @@ export default function SalesConcierge() {
         <button
           type="button"
           onClick={openConcierge}
-          className="inline-flex min-h-13 items-center gap-2 rounded-full bg-[#0A0A0A] px-4 text-sm font-bold text-white shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-[#202020] focus-visible:-translate-y-0.5 dark:border dark:border-neutral-700"
+          className="inline-flex min-h-13 items-center gap-2.5 rounded-full bg-[#0A0A0A] px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-[#202020] focus-visible:-translate-y-0.5 dark:border dark:border-neutral-700"
           aria-expanded={false}
           aria-controls="sales-concierge-message"
         >
+          <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse shrink-0" aria-hidden="true"></span>
           <MessageCircle className="h-4 w-4 text-[#4ade80]" aria-hidden="true" />
           <span>Ask DigiXPro</span>
           <span className="hidden border-l border-neutral-600 pl-2 text-[11px] font-medium text-neutral-300 sm:inline">AI Assist</span>

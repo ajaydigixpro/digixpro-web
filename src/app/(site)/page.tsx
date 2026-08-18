@@ -69,7 +69,7 @@ export default function HomePage() {
         {/* ==========================================
             1. HERO SECTION (UPDATED VALIDATED KEYWORD HEADLINE)
         ========================================== */}
-        <section className="max-w-[1200px] mx-auto px-6 pt-16 md:pt-28 pb-16 md:pb-20">
+        <section className="max-w-[1200px] mx-auto px-6 pt-10 md:pt-16 pb-12 md:pb-16">
           <div className="max-w-4xl">
             <div className="inline-flex items-center space-x-2 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-4 py-2 rounded-full mb-6 md:mb-8 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
