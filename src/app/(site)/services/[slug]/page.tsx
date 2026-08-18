@@ -238,16 +238,19 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           </div>
 
           <div className="space-y-6 max-w-4xl">
-            {service.faqs.map((faq, idx) => (
-              <div key={idx} className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-8 shadow-sm">
-                <h3 className="text-[18px] md:text-[20px] font-extrabold text-black dark:text-white mb-3">
-                  {faq.question}
-                </h3>
-                <p className="text-[15px] text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                  {faq.answer}
-                </p>
-              </div>
-            ))}
+            {service.faqs.map((faq, idx) => {
+              const faqId = `faq-${faq.question.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+              return (
+                <div key={idx} className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-8 shadow-sm">
+                  <h3 id={faqId} className="text-[18px] md:text-[20px] font-extrabold text-black dark:text-white mb-3 scroll-mt-24">
+                    {faq.question}
+                  </h3>
+                  <p className="text-[15px] text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
