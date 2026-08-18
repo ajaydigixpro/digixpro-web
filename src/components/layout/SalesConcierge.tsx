@@ -301,9 +301,10 @@ export default function SalesConcierge() {
           <header className="border-b border-neutral-200 bg-gradient-to-br from-white via-white to-emerald-50/70 px-4 py-3.5 dark:border-neutral-800 dark:from-[#101010] dark:via-[#101010] dark:to-emerald-950/20">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <div className="flex items-center">
-                  <p className="text-sm font-bold text-[#0A0A0A] dark:text-white">DigiXPro AI Assist</p>
-                  <span className="w-2 h-2 rounded-full bg-[#419b78] animate-pulse shrink-0 ml-1.5" aria-hidden="true"></span>
+                <div>
+                  <p className="text-sm font-bold text-[#0A0A0A] dark:text-white">
+                    DigiXPro<span className="text-[#009E73]" aria-hidden="true">.</span> AI Assist
+                  </p>
                 </div>
                 <p className="mt-1 text-xs leading-5 text-neutral-600 dark:text-neutral-400">
                   Practical architecture guidance before you commit budget.
@@ -447,9 +448,8 @@ export default function SalesConcierge() {
           onClick={openConcierge}
           className="mb-3 w-full max-w-[19rem] rounded-2xl border border-emerald-200 bg-white p-3 text-left shadow-xl shadow-black/10 transition-transform hover:-translate-y-0.5 dark:border-emerald-900/70 dark:bg-neutral-900 md:w-[19rem]"
         >
-          <span className="mb-1 flex items-center text-xs font-bold text-[#0A0A0A] dark:text-white">
-            <span>Need a clearer next step?</span>
-            <span className="w-2 h-2 rounded-full bg-[#419b78] animate-pulse shrink-0 ml-1.5" aria-hidden="true"></span>
+          <span className="mb-1 block text-xs font-bold text-[#0A0A0A] dark:text-white">
+            Need a clearer next step?
           </span>
           <span className="block text-xs leading-5 text-neutral-600 dark:text-neutral-400">
             Ask about your website, SEO, systems, or AI Automation. Relevant examples included.
@@ -466,9 +466,8 @@ export default function SalesConcierge() {
           aria-controls="sales-concierge-message"
         >
           <MessageCircle className="h-4 w-4 text-[#4ade80]" aria-hidden="true" />
-          <span className="inline-flex items-center">
-            Ask DigiXPro
-            <span className="w-2 h-2 rounded-full bg-[#419b78] animate-pulse shrink-0 ml-1.5" aria-hidden="true"></span>
+          <span>
+            Ask DigiXPro<span className="text-[#009E73]" aria-hidden="true">.</span>
           </span>
           <span className="hidden border-l border-neutral-600 pl-2 text-[11px] font-medium text-neutral-300 sm:inline">AI Assist</span>
         </button>
