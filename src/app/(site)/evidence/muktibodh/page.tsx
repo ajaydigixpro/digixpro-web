@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import MuktibodhClient from './MuktibodhClient';
+import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 
 export const metadata: Metadata = {
   title: 'Muktibodh Digital Publishing & Knowledge OS Evidence',
@@ -24,5 +25,10 @@ export const metadata: Metadata = {
 };
 
 export default function MuktibodhEvidence() {
-  return <MuktibodhClient />;
+  return (
+    <>
+      <MuktibodhClient />
+      <StickyMobileCTA />
+    </>
+  );
 }

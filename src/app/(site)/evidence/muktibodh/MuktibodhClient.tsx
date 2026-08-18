@@ -239,17 +239,18 @@ export default function MuktibodhClient() {
                   <div className="w-full bg-white border border-neutral-200 rounded-lg overflow-hidden relative shadow-sm flex items-center justify-center p-2">
                     {!libError ? (
                       <Image
-                        src="/muktibodh-lib.png" 
+                        src="/evidence/muktibodh/muktibodh-lib.png" 
                         alt="Digital Library Discovery" 
-                        width={1200}
-                        height={630}
+                        width={1920}
+                        height={912}
                         className="w-full h-auto object-contain max-h-[280px]"
                         onError={() => setLibError(true)}
+                        priority
                       />
                     ) : (
                       <div className="h-48 flex flex-col items-center justify-center text-center p-4">
                         <ImageIcon className="w-8 h-8 text-neutral-400 mb-2" />
-                        <span className="text-xs text-neutral-500">muktibodh-lib.png missing in /public/</span>
+                        <span className="text-xs text-neutral-500">muktibodh-lib.png missing in /public/evidence/muktibodh/</span>
                       </div>
                     )}
                   </div>
@@ -265,17 +266,18 @@ export default function MuktibodhClient() {
                   <div className="w-full bg-white border border-neutral-200 rounded-lg overflow-hidden relative shadow-sm flex items-center justify-center p-2">
                     {!detailError ? (
                       <Image
-                        src="/muktibodh-detail.png" 
+                        src="/evidence/muktibodh/muktibodh-detail.png" 
                         alt="Structured Book Detail & Reading Options" 
-                        width={1200}
-                        height={630}
+                        width={1920}
+                        height={912}
                         className="w-full h-auto object-contain max-h-[280px]"
                         onError={() => setDetailError(true)}
+                        priority
                       />
                     ) : (
                       <div className="h-48 flex flex-col items-center justify-center text-center p-4">
                         <ImageIcon className="w-8 h-8 text-neutral-400 mb-2" />
-                        <span className="text-xs text-neutral-500">muktibodh-detail.png missing in /public/</span>
+                        <span className="text-xs text-neutral-500">muktibodh-detail.png missing in /public/evidence/muktibodh/</span>
                       </div>
                     )}
                   </div>
@@ -291,17 +293,17 @@ export default function MuktibodhClient() {
                   <div className="w-full bg-white border border-neutral-200 rounded-lg overflow-hidden relative shadow-sm flex items-center justify-center p-2">
                     {!readerError ? (
                       <Image
-                        src="/muktibodh-reader.png" 
+                        src="/evidence/muktibodh/muktibodh-reader.png" 
                         alt="Interactive Flipbook Reading Engine" 
-                        width={1200}
-                        height={630}
+                        width={1920}
+                        height={912}
                         className="w-full h-auto object-contain max-h-[280px]"
                         onError={() => setReaderError(true)}
                       />
                     ) : (
                       <div className="h-48 flex flex-col items-center justify-center text-center p-4">
                         <ImageIcon className="w-8 h-8 text-neutral-400 mb-2" />
-                        <span className="text-xs text-neutral-500">muktibodh-reader.png missing in /public/</span>
+                        <span className="text-xs text-neutral-500">muktibodh-reader.png missing in /public/evidence/muktibodh/</span>
                       </div>
                     )}
                   </div>
@@ -317,17 +319,17 @@ export default function MuktibodhClient() {
                   <div className="w-full bg-white border border-neutral-200 rounded-lg overflow-hidden relative shadow-sm flex items-center justify-center p-2">
                     {!magError ? (
                       <Image
-                        src="/muktibodh-mag.png" 
+                        src="/evidence/muktibodh/muktibodh-mag.png" 
                         alt="Monthly Magazine Publishing & Archive" 
-                        width={1200}
-                        height={630}
+                        width={1920}
+                        height={912}
                         className="w-full h-auto object-contain max-h-[280px]"
                         onError={() => setMagError(true)}
                       />
                     ) : (
                       <div className="h-48 flex flex-col items-center justify-center text-center p-4">
                         <ImageIcon className="w-8 h-8 text-neutral-400 mb-2" />
-                        <span className="text-xs text-neutral-500">muktibodh-mag.png missing in /public/</span>
+                        <span className="text-xs text-neutral-500">muktibodh-mag.png missing in /public/evidence/muktibodh/</span>
                       </div>
                     )}
                   </div>
