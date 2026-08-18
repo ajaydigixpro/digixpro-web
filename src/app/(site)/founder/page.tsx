@@ -144,11 +144,14 @@ export default function FounderPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 "Their CRM doesn't match reality.",
-                "Their ERP implementation failed.",
+                "The founder approves every minor decision.",
                 "Nobody trusts the business data.",
                 "Teams run core operations on WhatsApp.",
                 "AI initiatives have no clear direction.",
-                "Technology decisions became expensive."
+                "Technology decisions became expensive.",
+                "The tech stack got chosen by whoever was available, not by strategy.",
+                "Every new hire learns operations differently — nothing is written down.",
+                "Growth outpaced the systems meant to support it."
               ].map((problem, idx) => (
                 <div key={idx} className="bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm flex items-start">
                   <AlertCircle className="w-6 h-6 text-red-400 mr-4 shrink-0 mt-0.5" />
@@ -205,8 +208,31 @@ export default function FounderPage() {
           <div className="max-w-[1200px] mx-auto px-6">
             <div className="max-w-4xl">
               <h2 className="text-[32px] md:text-[40px] font-extrabold text-black dark:text-white mb-6">Beyond Technology</h2>
+              <p className="text-[17px] md:text-[19px] text-neutral-700 dark:text-neutral-300 leading-relaxed mb-8">
+                A shared belief runs through this work outside DigiXPro: spiritual knowledge should be free, simple, and available to anyone without leaving home. Every path here follows that belief, offered at no cost.
+              </p>
+
+              <ul className="space-y-4 mb-8 text-[16px] md:text-[17px] text-neutral-800 dark:text-neutral-200 leading-relaxed">
+                <li className="flex items-start">
+                  <span className="text-neutral-400 dark:text-neutral-500 font-mono select-none mr-3.5 shrink-0">—</span>
+                  <span>Core team and teacher at <a href="https://www.nirvandham.in" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">Nirvandham</a> Online Gurukul, across multiple paths within its Advaita-based teaching tradition.</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-neutral-400 dark:text-neutral-500 font-mono select-none mr-3.5 shrink-0">—</span>
+                  <span>Teaches as a Trigyan Teacher at <a href="https://gyanmarg.guru" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">gyanmarg.guru</a>, a multilingual online gurukul.</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-neutral-400 dark:text-neutral-500 font-mono select-none mr-3.5 shrink-0">—</span>
+                  <span>Core team and teacher at <a href="https://www.yujfoundation.in" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">Yuj Foundation</a>, re-establishing the Yuj Gurukul tradition across multiple paths &mdash; alongside free startup consultancy and community initiatives including tree plantation.</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-neutral-400 dark:text-neutral-500 font-mono select-none mr-3.5 shrink-0">—</span>
+                  <span>Editor-in-Chief of <Link href="/evidence/muktibodh" className="font-bold text-[#009E73] hover:underline">Muktibodh</Link>, a free Advaita Vedanta and Upanishad-based Adhyatmik e-Magazine, reaching readers across borders in Hindi, English, and Nepali.</span>
+                </li>
+              </ul>
+
               <p className="text-[17px] md:text-[19px] text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                Community service, karma yoga, and Advaita-based teaching continue through <a href="https://www.nirvandham.in" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">Nirvandham</a>, spanning multiple paths within its gurukul tradition. <a href="https://www.yujfoundation.in" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">Yuj Foundation</a> extends this into structured life-education curriculum across several tracks. Teaching also continues within <a href="https://gyanmarg.guru" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">gyanmarg.guru</a>&apos;s gurukul, with structured oral and written assessment as part of its ongoing program. Across all three, the approach stays consistent: clarity built through practice and direct experience, not lecture.
+                Across all three gurukuls, the approach stays the same: clarity built through practice and direct experience, not lecture.
               </p>
             </div>
           </div>
