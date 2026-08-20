@@ -64,6 +64,8 @@ export interface RecommendationItem {
 export interface BriefReportData {
   summary: string;
   trust_note: string;
+  estimate_disclaimer_long?: string;
+  estimate_disclaimer_short?: string;
   bundle_estimate: string;
   recommendations: RecommendationItem[];
   closing_message: string;
@@ -335,6 +337,12 @@ export default function AuditClient() {
         trust_note:
           raw.trust_note ||
           "DigiXPro is an independent technology architecture and business systems advisory, already working with clinics, marketplaces, and knowledge platforms - the production evidence for this work is public and reviewable before any commitment is made.",
+        estimate_disclaimer_long:
+          raw.estimate_disclaimer_long ||
+          "Everything on this page is a system-generated estimate meant to give a general idea of the kind of investment being discussed - it is not a final quote. The actual scope and price are confirmed only during the 30-minute discovery call.",
+        estimate_disclaimer_short:
+          raw.estimate_disclaimer_short ||
+          "This report is an estimate to guide the conversation, not a final quote - the real scope gets confirmed on the call.",
         bundle_estimate:
           raw.bundle_estimate ||
           `By bundling custom web architecture with automated workflow systems through DigiXPro, we offer a consolidated package saving 35–45% compared to hiring separate agencies.`,
@@ -377,6 +385,8 @@ export default function AuditClient() {
       const fallbackReport: BriefReportData = {
         summary: `Based on your brief, ${formData.company || "your business"} has established strong growth in ${formData.industry || "your industry"}. Streamlining your operational handoffs and lead workflows will eliminate daily manual effort.`,
         trust_note: "DigiXPro is an independent technology architecture and business systems advisory, already working with clinics, marketplaces, and knowledge platforms - the production evidence for this work is public and reviewable before any commitment is made.",
+        estimate_disclaimer_long: "Everything on this page is a system-generated estimate meant to give a general idea of the kind of investment being discussed - it is not a final quote. The actual scope and price are confirmed only during the 30-minute discovery call.",
+        estimate_disclaimer_short: "This report is an estimate to guide the conversation, not a final quote - the real scope gets confirmed on the call.",
         bundle_estimate: "By bundling custom web architecture with automated workflow systems through DigiXPro, we offer a consolidated package saving 35–45% compared to hiring separate agencies.",
         recommendations: [
           {
@@ -1126,10 +1136,20 @@ export default function AuditClient() {
 
           {/* 2. trust_note - a distinct, calm callout box */}
           {briefReport.trust_note && (
-            <div className="bg-neutral-100/80 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 rounded-2xl p-5 mb-8 flex items-start gap-3.5 shadow-xs print:border-neutral-300 print:bg-neutral-50">
+            <div className="bg-neutral-100/80 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 rounded-2xl p-5 mb-4 flex items-start gap-3.5 shadow-xs print:border-neutral-300 print:bg-neutral-50">
               <ShieldCheck className="w-5 h-5 text-[#009E73] shrink-0 mt-0.5" aria-hidden="true" />
               <p className="text-xs text-neutral-700 dark:text-neutral-300 font-medium leading-relaxed print:text-black">
                 {briefReport.trust_note}
+              </p>
+            </div>
+          )}
+
+          {/* STEP 1: Full estimate_disclaimer_long Callout (Right after trust_note, before bundle_estimate) */}
+          {briefReport.estimate_disclaimer_long && (
+            <div className="bg-neutral-50 dark:bg-neutral-900/80 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 mb-8 flex items-start gap-3.5 shadow-xs print:border-neutral-300 print:bg-neutral-50">
+              <Info className="w-5 h-5 text-neutral-400 shrink-0 mt-0.5" aria-hidden="true" />
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 font-normal leading-relaxed print:text-neutral-700">
+                {briefReport.estimate_disclaimer_long}
               </p>
             </div>
           )}
@@ -1313,8 +1333,15 @@ export default function AuditClient() {
 
             {/* 5. closing_message paragraph */}
             {briefReport.closing_message && (
-              <p className="text-sm md:text-base text-neutral-300 max-w-2xl mx-auto mb-8 leading-relaxed font-normal">
+              <p className="text-sm md:text-base text-neutral-300 max-w-2xl mx-auto mb-6 leading-relaxed font-normal">
                 {briefReport.closing_message}
+              </p>
+            )}
+
+            {/* STEP 2: Short estimate_disclaimer_short reminder (Between closing_message and Discovery Call button) */}
+            {briefReport.estimate_disclaimer_short && (
+              <p className="text-xs font-mono text-neutral-400 dark:text-neutral-400 max-w-xl mx-auto mb-6 leading-normal font-normal">
+                {briefReport.estimate_disclaimer_short}
               </p>
             )}
 
