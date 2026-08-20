@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import FAQSchema from "@/components/seo/FAQSchema";
 import {
   ArrowRight,
   ArrowLeft,
@@ -517,7 +518,7 @@ export default function AuditClient() {
   ];
 
   return (
-    <div className="w-full">
+    <div id="audit-top" className="w-full">
       {/* ========================================================================= */}
       {/* COMPACT PRINT HEADER (Lean 1-2 Page Format) */}
       {/* ========================================================================= */}
@@ -1570,6 +1571,139 @@ export default function AuditClient() {
           </div>
         </section>
       )}
+
+      {/* 11-QUESTION PRICING FAQ SECTION WITH SCHEMA */}
+      <AuditFAQSection />
     </div>
+  );
+}
+
+const AUDIT_FAQS = [
+  {
+    question: "What does branding cost for a small business?",
+    answer: "A complete branding package - logo, color system, typography, and usage guidelines - typically costs ₹1.15 lakh to ₹7.5 lakh ($1,350 to $8,800) in India, depending on scope. This isn't just a logo file; it's a full identity system built to work consistently across signage, invoices, and digital platforms. DigiXPro's free Audit tool scopes this to your exact need in a few minutes.",
+  },
+  {
+    question: "What are typical SEO pricing packages in India?",
+    answer: "SEO packages in India typically range from ₹25,000 to ₹60,000 ($300 to $700) per month for focused local or service-business SEO, rising to ₹60,000 to ₹1.25 lakh ($700 to $1,500) per month for competitive, multi-location, or content-heavy programs. The right package depends heavily on competition and goals - DigiXPro's free Audit tool scopes this to your specific business.",
+  },
+  {
+    question: "What does IT consulting typically cost?",
+    answer: "IT consulting typically runs ₹3,500 to ₹6,500 ($40 to $75) per hour, or ₹1.9 lakh to ₹14 lakh ($2,200 to $16,500) for a defined project such as a technology audit or architecture review. DigiXPro's free Audit tool scopes this to your specific situation.",
+  },
+  {
+    question: "How much does AI automation cost for a business?",
+    answer: "AI automation projects - workflow automation, lead systems, custom integrations - typically range from ₹75,000 to ₹17 lakh ($900 to $20,000) depending on complexity. A free Audit gives a scoped estimate for your specific need.",
+  },
+  {
+    question: "How much does an AI chatbot cost?",
+    answer: "A business AI chatbot generally falls in the same ₹75,000 to ₹17 lakh ($900 to $20,000) range as other AI automation work, with cost driven mainly by how much it needs to understand, remember, and integrate with other systems. DigiXPro's free Audit tool scopes this precisely.",
+  },
+  {
+    question: "How much does social media management or automation cost?",
+    answer: "Ongoing AI-driven social media management - where content is written, brand-voice matched, and published automatically - typically runs ₹50,000 to ₹2.9 lakh ($600 to $3,400) per month depending on volume and platforms. This is different from basic scheduling tools, which only publish what you write yourself. DigiXPro's free Audit tool scopes this to your business.",
+  },
+  {
+    question: "How much does website design cost in India?",
+    answer: "A professional business website in India typically costs ₹90,000 to ₹2.3 lakh ($1,050 to $2,700) for a standard site, or ₹3 lakh to ₹11.5 lakh ($3,500 to $13,500) for a custom platform with advanced features. DigiXPro's free Audit tool gives a scoped estimate in a few minutes.",
+  },
+  {
+    question: "How much does a website cost?",
+    answer: "A professional website generally costs ₹90,000 to ₹2.3 lakh ($1,050 to $2,700) for a standard business site, or significantly more for custom-built platforms with advanced functionality. The real cost driver is complexity, not design alone - run a free Audit for a number scoped to your actual needs.",
+  },
+  {
+    question: "How much does a website cost per month if I'm not paying upfront?",
+    answer: "Website costs are usually a one-time build fee plus a small ongoing hosting/maintenance cost, rather than a pure monthly subscription - unless you choose a template platform. DigiXPro's free Audit tool breaks down what a realistic one-time-plus-monthly structure looks like for your case.",
+  },
+  {
+    question: "How much does a website cost for a small business specifically?",
+    answer: "Small businesses usually need the standard site tier (₹90,000 to ₹2.3 lakh / $1,050 to $2,700) rather than a custom platform, unless there's e-commerce or complex functionality involved. DigiXPro's free Audit tool tells you which tier actually fits your business.",
+  },
+  {
+    question: "What does business process automation pricing look like?",
+    answer: "Business process automation pricing depends heavily on how many systems need to connect and how complex the workflow is - it's typically scoped case by case rather than sold as a fixed package (usually starting around ₹1.5 lakh / $1,800). DigiXPro's free Audit tool gives an indicative starting estimate based on your specific process.",
+  },
+];
+
+function AuditFAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  const scrollToTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById("audit-top");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const renderAnswerWithLinks = (text: string) => {
+    const parts = text.split(/(free Audit tool|free Audit)/g);
+    return parts.map((part, i) => {
+      if (part === "free Audit tool" || part === "free Audit") {
+        return (
+          <a
+            key={i}
+            href="#audit-top"
+            onClick={scrollToTop}
+            className="text-[#009E73] font-semibold underline hover:text-[#007a5a] transition cursor-pointer"
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
+  return (
+    <section className="max-w-[1200px] mx-auto px-6 pt-12 pb-20 print:hidden border-t border-neutral-200 dark:border-neutral-800 mt-12">
+      <FAQSchema items={AUDIT_FAQS} />
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center mb-10">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#007a55] dark:text-[#4ade80] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-full inline-block mb-3">
+            Pricing &amp; Investment FAQ
+          </span>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-black dark:text-white tracking-tight">
+            Frequently Asked Questions About Service Pricing
+          </h2>
+        </div>
+
+        <div className="space-y-4">
+          {AUDIT_FAQS.map((faq, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <div
+                key={index}
+                className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden transition-all shadow-xs"
+              >
+                <button
+                  type="button"
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full text-left p-5 md:p-6 flex items-center justify-between gap-4 font-bold text-base md:text-lg text-black dark:text-white hover:text-[#009E73] dark:hover:text-[#4ade80] transition"
+                >
+                  <span>{faq.question}</span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-neutral-400 shrink-0 transition-transform duration-200 ${
+                      isOpen ? "rotate-180 text-[#009E73]" : ""
+                    }`}
+                  />
+                </button>
+                {isOpen && (
+                  <div className="px-5 pb-5 md:px-6 md:pb-6 text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium border-t border-neutral-100 dark:border-neutral-800/80 pt-4">
+                    {renderAnswerWithLinks(faq.answer)}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }
