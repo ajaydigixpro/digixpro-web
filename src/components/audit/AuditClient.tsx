@@ -24,6 +24,7 @@ import {
   CheckSquare,
   Square,
   Info,
+  HelpCircle,
 } from "lucide-react";
 
 export interface BriefFormData {
@@ -36,6 +37,7 @@ export interface BriefFormData {
   company_size: string;
   business_age: string;
   selectedSystems: string[];
+  selectedServices: string[];
 }
 
 export interface RecommendationItem {
@@ -66,6 +68,7 @@ export interface BriefReportData {
     company_size?: string;
     business_age?: string;
     current_systems?: string;
+    interested_services?: string;
   };
   generated_at?: string;
 }
@@ -159,11 +162,35 @@ function buildCurrentSystemsString(selectedOptions: string[]): string {
   return result.trim();
 }
 
+function buildInterestedServicesString(selectedOptions: string[]): string {
+  if (selectedOptions.length === 0 || selectedOptions.includes("not_sure")) {
+    return "Not sure yet — open to suggestions";
+  }
+
+  const servicesMap: Record<string, string> = {
+    website: "Website design or redesign",
+    branding: "Branding / visual identity",
+    consulting: "IT or AI consulting",
+    automation: "Business automation (workflows, chatbots, lead systems)",
+    seo: "SEO / organic growth",
+  };
+
+  const selectedLabels = selectedOptions
+    .map((key) => servicesMap[key])
+    .filter(Boolean);
+
+  if (selectedLabels.length === 0) {
+    return "Not sure yet — open to suggestions";
+  }
+
+  return selectedLabels.join(", ");
+}
+
 export default function AuditClient() {
-  // Step State (1 to 8)
+  // Step State (1 to 9)
   const [step, setStep] = useState<number>(1);
 
-  // Form State (9 flat keys)
+  // Form State (10 flat keys)
   const [formData, setFormData] = useState<BriefFormData>({
     name: "",
     email: "",
@@ -174,6 +201,7 @@ export default function AuditClient() {
     company_size: "",
     business_age: "",
     selectedSystems: [],
+    selectedServices: [],
   });
 
   // Submission, Brief Report & Rate Limit State
@@ -208,8 +236,25 @@ export default function AuditClient() {
     });
   };
 
+  const toggleServiceOption = (key: string) => {
+    setFormData((prev) => {
+      let current = [...prev.selectedServices];
+      if (key === "not_sure") {
+        return { ...prev, selectedServices: ["not_sure"] };
+      }
+
+      current = current.filter((item) => item !== "not_sure");
+      if (current.includes(key)) {
+        current = current.filter((item) => item !== key);
+      } else {
+        current.push(key);
+      }
+      return { ...prev, selectedServices: current };
+    });
+  };
+
   const handleNextStep = () => {
-    if (step < 8) {
+    if (step < 9) {
       setStep((prev) => prev + 1);
     }
   };
@@ -221,13 +266,14 @@ export default function AuditClient() {
   };
 
   // Primary Webhook Submit: audit-brief
-  // Sends EXACTLY 9 KEYS: name, email, company, product, market, industry, company_size, business_age, current_systems
+  // Sends EXACTLY 10 KEYS: name, email, company, product, market, industry, company_size, business_age, current_systems, interested_services
   const handleBriefSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmittingBrief(true);
     setRateLimitedNotice(null);
 
     const currentSystemsString = buildCurrentSystemsString(formData.selectedSystems);
+    const interestedServicesString = buildInterestedServicesString(formData.selectedServices);
 
     const payload = {
       name: formData.name,
@@ -239,6 +285,7 @@ export default function AuditClient() {
       company_size: formData.company_size,
       business_age: formData.business_age,
       current_systems: currentSystemsString,
+      interested_services: interestedServicesString,
     };
 
     try {
@@ -293,7 +340,7 @@ export default function AuditClient() {
             typical_market_cost: "₹20,000 – ₹60,000 initial setup + ₹2,000/mo cloud host",
             digixpro_service_name: "AI Automation",
             digixpro_service_url: "/services/ai-automation-agency",
-            digixpro_price_range: "USD 800-18,000 depending on complexity",
+            digixpro_price_range: "USD 800-18,000 (₹76,400-17,19,000)",
           },
         ],
         business_context: raw.business_context || {
@@ -304,6 +351,7 @@ export default function AuditClient() {
           company_size: formData.company_size,
           business_age: formData.business_age,
           current_systems: currentSystemsString,
+          interested_services: interestedServicesString,
         },
         generated_at: raw.generated_at || new Date().toISOString(),
       };
@@ -330,7 +378,7 @@ export default function AuditClient() {
             typical_market_cost: "₹20,000 – ₹60,000 initial setup + ₹2,000/mo cloud host",
             digixpro_service_name: "AI Automation",
             digixpro_service_url: "/services/ai-automation-agency",
-            digixpro_price_range: "USD 800-18,000 depending on complexity",
+            digixpro_price_range: "USD 800-18,000 (₹76,400-17,19,000)",
           },
         ],
         business_context: {
@@ -341,6 +389,7 @@ export default function AuditClient() {
           company_size: formData.company_size,
           business_age: formData.business_age,
           current_systems: currentSystemsString,
+          interested_services: interestedServicesString,
         },
         generated_at: new Date().toISOString(),
       };
@@ -469,6 +518,15 @@ export default function AuditClient() {
     { key: "none_manual", text: "None of these — it's mostly manual right now" },
   ];
 
+  const SERVICE_CHECKLIST_ITEMS = [
+    { key: "website", text: "Website design or redesign" },
+    { key: "branding", text: "Branding / visual identity" },
+    { key: "consulting", text: "IT or AI consulting" },
+    { key: "automation", text: "Business automation (workflows, chatbots, lead systems)" },
+    { key: "seo", text: "SEO / organic growth" },
+    { key: "not_sure", text: "Not sure yet — open to suggestions" },
+  ];
+
   return (
     <div className="w-full">
       {/* ========================================================================= */}
@@ -494,7 +552,7 @@ export default function AuditClient() {
       </div>
 
       {/* ========================================================================= */}
-      {/* PRIMARY FLOW: 8-STEP BRIEF FORM */}
+      {/* PRIMARY FLOW: 8-QUESTION BRIEF FORM + REPORT DELIVERY DETAILS (STEP 9) */}
       {/* ========================================================================= */}
       {!briefReport && !rateLimitedNotice && (
         <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-20 print:hidden">
@@ -518,20 +576,20 @@ export default function AuditClient() {
             {/* Stepped Progress Bar */}
             <div className="mb-8">
               <div className="flex items-center justify-between text-xs font-mono font-bold text-neutral-500 mb-2">
-                <span>QUESTION {step} OF 8</span>
-                <span>{Math.round((step / 8) * 100)}% COMPLETED</span>
+                <span>{step <= 8 ? `QUESTION ${step} OF 8` : "REPORT DELIVERY"}</span>
+                <span>{Math.round((step / 9) * 100)}% COMPLETED</span>
               </div>
               <div className="w-full bg-neutral-200 dark:bg-neutral-800 h-2 rounded-full overflow-hidden">
                 <div
                   className="bg-[#009E73] h-full transition-all duration-300"
-                  style={{ width: `${(step / 8) * 100}%` }}
+                  style={{ width: `${(step / 9) * 100}%` }}
                 ></div>
               </div>
             </div>
 
             {/* Form Card */}
             <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-10 shadow-xl">
-              <form onSubmit={step === 8 ? handleBriefSubmit : (e) => { e.preventDefault(); handleNextStep(); }}>
+              <form onSubmit={step === 9 ? handleBriefSubmit : (e) => { e.preventDefault(); handleNextStep(); }}>
                 
                 {/* QUESTION 1: Company Name */}
                 {step === 1 && (
@@ -744,7 +802,7 @@ export default function AuditClient() {
                   </div>
                 )}
 
-                {/* QUESTION 7: Multi-Select Checklist */}
+                {/* QUESTION 7: Current Systems Checklist */}
                 {step === 7 && (
                   <div className="space-y-6">
                     <div className="flex items-center gap-3">
@@ -790,8 +848,54 @@ export default function AuditClient() {
                   </div>
                 )}
 
-                {/* STEP 8: Report Delivery Details (Name & Email) */}
+                {/* QUESTION 8 (NEW): Interested Services Checklist */}
                 {step === 8 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                        <HelpCircle className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-extrabold text-black dark:text-white">
+                          8. Which of these are you specifically looking for help with?
+                        </h2>
+                        <p className="text-xs text-neutral-500 font-normal">Select all that apply, or skip if not sure yet.</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      {SERVICE_CHECKLIST_ITEMS.map((item) => {
+                        const isChecked = formData.selectedServices.includes(item.key);
+                        return (
+                          <button
+                            key={item.key}
+                            type="button"
+                            onClick={() => toggleServiceOption(item.key)}
+                            className={`w-full text-left p-4 rounded-2xl border transition-all flex items-center gap-3 ${
+                              isChecked
+                                ? "border-[#009E73] bg-emerald-50/70 dark:bg-emerald-950/40 ring-1 ring-[#009E73]"
+                                : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/50"
+                            }`}
+                          >
+                            <div className="shrink-0 text-[#009E73]">
+                              {isChecked ? (
+                                <CheckSquare className="w-5 h-5" />
+                              ) : (
+                                <Square className="w-5 h-5 text-neutral-400" />
+                              )}
+                            </div>
+                            <span className="text-sm font-medium text-black dark:text-white">
+                              {item.text}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 9: Report Delivery Details (Name & Email) */}
+                {step === 9 && (
                   <div className="space-y-6">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
@@ -799,7 +903,7 @@ export default function AuditClient() {
                       </div>
                       <div>
                         <h2 className="text-xl font-extrabold text-black dark:text-white">
-                          8. Where should we send your report?
+                          Where should we send your report?
                         </h2>
                         <p className="text-xs text-neutral-500 font-normal">Enter your details to generate and access your tailored assessment.</p>
                       </div>
@@ -855,7 +959,7 @@ export default function AuditClient() {
                     </button>
                   ) : <div />}
 
-                  {step < 8 ? (
+                  {step < 9 ? (
                     <button
                       type="button"
                       onClick={handleNextStep}
@@ -982,7 +1086,7 @@ export default function AuditClient() {
             </p>
           </div>
 
-          {/* FIX 2 — Dynamic Recommendations Cards with Specific Titles & Market Cost */}
+          {/* STEP 2 — Dual Price Comparison Recommendation Cards */}
           {briefReport.recommendations && briefReport.recommendations.length > 0 && (
             <div className="mb-12">
               <h3 className="text-xl font-extrabold text-black dark:text-white mb-6 print:text-black">
@@ -990,19 +1094,15 @@ export default function AuditClient() {
               </h3>
               <div className="space-y-6">
                 {briefReport.recommendations.map((rec: RecommendationItem, idx: number) => {
-                  // FIX 2: 1. Card Title MUST be automation_name (NEVER digixpro_service_name)
                   const cardTitle =
                     rec.automation_name || rec.service_name || rec.title || `Automated Solution #${idx + 1}`;
                   
-                  // FIX 2: 2. Body text = what_it_does then why_it_fits
                   const whatItDoes = rec.what_it_does || "";
                   const whyItFits = rec.why_it_fits || rec.reason || rec.description || "";
                   
-                  // FIX 2: 3. Typical market cost (PROMINENT primary budget line)
                   const typicalMarketCost =
                     rec.typical_market_cost || rec.price_range || "Scoped by operational complexity";
                   
-                  // FIX 2: 4. DigiXPro service name, URL, and price range (SMALLER secondary line)
                   const digixproServiceName =
                     rec.digixpro_service_name || rec.service_name || "Custom Architecture & Automation";
                   const digixproServiceUrl =
@@ -1041,29 +1141,43 @@ export default function AuditClient() {
                         )}
                       </div>
 
-                      {/* 3. Primary Budget Line: Typical market cost (PROMINENT) */}
-                      <div className="bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 rounded-2xl p-4 print:border-neutral-300 print:bg-neutral-50">
-                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block mb-1 print:text-neutral-700">
-                          Typical market cost:
-                        </span>
-                        <p className="text-base font-extrabold text-black dark:text-white print:text-black">
-                          {typicalMarketCost}
-                        </p>
-                      </div>
-
-                      {/* 4. Secondary Line: DigiXPro build scope & service link */}
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-neutral-100 dark:border-neutral-800 print:border-neutral-200">
-                        <div className="text-xs">
-                          <span className="text-neutral-500 dark:text-neutral-400 font-medium">DigiXPro scope: </span>
-                          <span className="font-bold text-[#009E73]">{digixproPriceRange}</span>
+                      {/* STEP 2: Dual Price Comparison Box (Generic Market Cost vs DigiXPro Scoped Offer) */}
+                      <div className="bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 rounded-2xl p-4 md:p-5 space-y-3 print:border-neutral-300 print:bg-neutral-50">
+                        {/* Line 1: Generic Service Market Cost */}
+                        <div>
+                          <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block mb-1 print:text-neutral-700">
+                            Typical cost to have this built (by an agency or freelancer):
+                          </span>
+                          <p className="text-base font-extrabold text-neutral-900 dark:text-neutral-100 print:text-black">
+                            {typicalMarketCost}
+                          </p>
                         </div>
 
+                        {/* Subtle Divider */}
+                        <div className="border-t border-neutral-200 dark:border-neutral-700/80 my-2 print:border-neutral-300"></div>
+
+                        {/* Line 2: DigiXPro Scoped Offer */}
+                        <div>
+                          <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#009E73] dark:text-[#4ade80] block mb-1">
+                            DigiXPro&apos;s approach for this:
+                          </span>
+                          <p className="text-base font-extrabold text-[#009E73] dark:text-[#4ade80]">
+                            {digixproPriceRange}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Service Link Footer */}
+                      <div className="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-800 print:border-neutral-200">
+                        <span className="text-xs text-neutral-500 font-mono">
+                          Track: {digixproServiceName}
+                        </span>
                         <div className="print:hidden">
                           <Link
                             href={digixproServiceUrl}
                             className="inline-flex items-center text-xs font-bold text-[#009E73] hover:underline gap-1"
                           >
-                            <span>DigiXPro can build this — {digixproServiceName}</span>
+                            <span>Explore Service Blueprint</span>
                             <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
                           </Link>
                         </div>
@@ -1097,7 +1211,7 @@ export default function AuditClient() {
             </div>
           </div>
 
-          {/* FIX 3 — Single Compact Print Footer Line */}
+          {/* Compact Print Footer Line */}
           <div className="hidden print:flex items-center justify-between text-xs font-mono text-neutral-500 pt-6 mt-8 border-t border-neutral-300">
             <span>DigiXPro Digital Solution • digixpro.in</span>
             <span>Report Generated: {new Date().toLocaleDateString()}</span>
