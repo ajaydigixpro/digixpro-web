@@ -170,7 +170,7 @@ function buildCurrentSystemsString(selectedOptions: string[], hasWebsite: "yes" 
     result += "Manual: " + manual.join(", ") + ". ";
   }
 
-  // CORRECTION: Direct Website Status Signal for Gemini Recommendation Engine
+  // Direct Website Status Signal for Gemini Recommendation Engine
   if (hasWebsite === "no") {
     result += "Website: No professional website.";
   } else if (hasWebsite === "yes") {
@@ -230,15 +230,20 @@ export default function AuditClient() {
   const [rateLimitedNotice, setRateLimitedNotice] = useState<string | null>(null);
   const [generationFailedNotice, setGenerationFailedNotice] = useState<string | null>(null);
 
-  // Secondary Technical Check State
-  const [isTechCheckExpanded, setIsTechCheckExpanded] = useState(false);
+  // On-Demand Technical Check State
   const [techUrlInput, setTechUrlInput] = useState("");
   const [isTechLoading, setIsTechLoading] = useState(false);
   const [techReport, setTechReport] = useState<TechnicalReportData | null>(null);
   const [techErrorNotice, setTechErrorNotice] = useState<string | null>(null);
 
   const updateForm = (key: keyof BriefFormData, value: string | string[]) => {
-    setFormData((prev) => ({ ...prev, [key]: value }));
+    setFormData((prev) => {
+      const next = { ...prev, [key]: value };
+      if (key === "websiteUrl" && typeof value === "string") {
+        setTechUrlInput(value);
+      }
+      return next;
+    });
   };
 
   const toggleChecklistOption = (key: string) => {
@@ -287,7 +292,7 @@ export default function AuditClient() {
     }
   };
 
-  // Primary Webhook Submit: audit-brief & parallel audit-run if website provided
+  // STEP 1: Single reliable submission to audit-brief
   const handleBriefSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setIsSubmittingBrief(true);
@@ -310,36 +315,27 @@ export default function AuditClient() {
       interested_services: interestedServicesString,
     };
 
-    const cleanWebsiteUrl = normalizeUrl(formData.websiteUrl);
-    const shouldRunTechCheck = formData.hasWebsite === "yes" && Boolean(cleanWebsiteUrl);
+    // Pre-fill techUrlInput if website URL was provided in Q8
+    if (formData.hasWebsite === "yes" && formData.websiteUrl) {
+      setTechUrlInput(normalizeUrl(formData.websiteUrl));
+    }
 
     try {
-      // STEP 2: Fire BOTH requests in parallel using Promise.all
-      const briefPromise = fetch("https://n8n.digixpro.in/webhook/audit-brief", {
+      const response = await fetch("https://n8n.digixpro.in/webhook/audit-brief", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      const techPromise = shouldRunTechCheck
-        ? fetch("https://n8n.digixpro.in/webhook/audit-run", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ url: cleanWebsiteUrl }),
-          })
-        : Promise.resolve(null);
-
-      const [briefRes, techRes] = await Promise.all([briefPromise, techPromise]);
-
-      if (!briefRes.ok) {
-        throw new Error(`Audit service returned HTTP status ${briefRes.status}`);
+      if (!response.ok) {
+        throw new Error(`Audit service returned HTTP status ${response.status}`);
       }
 
       let rawBrief: Record<string, any> = {};
-      const briefText = await briefRes.text();
-      if (briefText && briefText.trim()) {
+      const text = await response.text();
+      if (text && text.trim()) {
         try {
-          const data = JSON.parse(briefText);
+          const data = JSON.parse(text);
           rawBrief = Array.isArray(data) ? data[0] : data;
         } catch {
           rawBrief = {};
@@ -366,31 +362,6 @@ export default function AuditClient() {
           "Something went wrong generating your report - please try again in a moment."
         );
         return;
-      }
-
-      // Process parallel Technical Health findings if available
-      if (techRes && techRes.ok) {
-        try {
-          const techData = await techRes.json();
-          const rawTech = Array.isArray(techData) ? techData[0] : techData;
-          const rawFindings = rawTech.findings || rawTech.issues || rawTech.results || [];
-          const normalizedFindings: TechnicalFinding[] = rawFindings.map((f: Record<string, string>) => ({
-            problem: f.problem || f.issue || f.title || "Identified architecture issue",
-            impact: f.impact || f.severity || "High operational impact",
-            solution_name: f.solution_name || f.solution || "Architecture Advisory",
-            solution_url: f.solution_url || f.url || "/services/website-design-services",
-          }));
-
-          setTechReport({
-            url: cleanWebsiteUrl,
-            performance_score: Number(rawTech.performance_score ?? rawTech.performanceScore ?? 0),
-            seo_score: Number(rawTech.seo_score ?? rawTech.seoScore ?? 0),
-            accessibility_score: Number(rawTech.accessibility_score ?? rawTech.accessibilityScore ?? 0),
-            findings: normalizedFindings,
-          });
-        } catch {
-          // Skip tech report cleanly if transient parsing error
-        }
       }
 
       const generatedReport: BriefReportData = {
@@ -440,15 +411,14 @@ export default function AuditClient() {
     }
   };
 
-  // Secondary Webhook Submit: audit-run (Optional Speed & SEO Check Fallback)
+  // STEP 3: Separate On-Demand Technical Health Webhook Submit
   const handleTechCheckSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formattedUrl = normalizeUrl(techUrlInput);
+    const formattedUrl = normalizeUrl(techUrlInput || formData.websiteUrl);
     if (!formattedUrl) return;
 
     setIsTechLoading(true);
     setTechErrorNotice(null);
-    setTechReport(null);
 
     try {
       const response = await fetch("https://n8n.digixpro.in/webhook/audit-run", {
@@ -861,7 +831,7 @@ export default function AuditClient() {
                   </div>
                 )}
 
-                {/* STEP 1 & CORRECTION: QUESTION 8: Website Status & URL */}
+                {/* QUESTION 8: Website Status & URL */}
                 {step === 8 && (
                   <div className="space-y-6">
                     <div className="flex items-center gap-3">
@@ -872,7 +842,7 @@ export default function AuditClient() {
                         <h2 className="text-xl font-extrabold text-black dark:text-white">
                           8. Do you have an active website right now?
                         </h2>
-                        <p className="text-xs text-neutral-500">If yes, we will automatically run a parallel technical speed &amp; SEO health check.</p>
+                        <p className="text-xs text-neutral-500">Tell us if your business has an active website URL.</p>
                       </div>
                     </div>
 
@@ -887,7 +857,7 @@ export default function AuditClient() {
                         }`}
                       >
                         <span className="block text-base font-extrabold text-black dark:text-white mb-1">Yes, we have a website</span>
-                        <span className="block text-xs text-neutral-500 font-medium">Includes automated PageSpeed &amp; technical health analysis.</span>
+                        <span className="block text-xs text-neutral-500 font-medium">You can run a separate PageSpeed &amp; technical health check on your report.</span>
                       </button>
 
                       <button
@@ -895,6 +865,7 @@ export default function AuditClient() {
                         onClick={() => {
                           updateForm("hasWebsite", "no");
                           updateForm("websiteUrl", "");
+                          setTechUrlInput("");
                         }}
                         className={`p-5 rounded-2xl border text-left transition-all ${
                           formData.hasWebsite === "no"
@@ -1160,7 +1131,7 @@ export default function AuditClient() {
       )}
 
       {/* ========================================================================= */}
-      {/* UNIFIED REPORT VIEW: (STEP 3 UNIFIED ORDER) */}
+      {/* REPORT VIEW */}
       {/* ========================================================================= */}
       {briefReport && (
         <section className="max-w-[1200px] mx-auto px-6 py-12">
@@ -1405,9 +1376,9 @@ export default function AuditClient() {
             </div>
           )}
 
-          {/* STEP 3 UNIFIED REPORT: IF TECHNICAL CHECK RAN, RENDER SUBSECTION IN SAME VISUAL STYLE */}
+          {/* STEP 3: IF TECHNICAL CHECK HAS RUN, INSERT DIRECTLY INTO MAIN REPORT FLOW */}
           {techReport && (
-            <div className="mb-12 break-inside-avoid [page-break-inside:avoid]">
+            <div className="mb-12 break-inside-avoid [page-break-inside:avoid] animate-in fade-in duration-300">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
                   <Zap className="w-5 h-5" />
@@ -1422,7 +1393,7 @@ export default function AuditClient() {
                 </div>
               </div>
 
-              {/* Score Badges */}
+              {/* Scores Bar */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                 <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
                   <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Performance</span>
@@ -1482,6 +1453,65 @@ export default function AuditClient() {
             </div>
           )}
 
+          {/* STEP 2: SEPARATE CLEARLY-VISIBLE TECHNICAL CHECK OPTION CARD */}
+          <div className="mb-12 print:hidden">
+            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73] shrink-0">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-extrabold text-black dark:text-white">
+                    Check your website&apos;s technical health
+                  </h3>
+                  <p className="text-xs text-neutral-500">
+                    {formData.hasWebsite === "yes" && formData.websiteUrl
+                      ? "Run a PageSpeed & SEO health check for your website URL below."
+                      : "Audit a specific website URL for Core Web Vitals, schema tags, and performance metrics."}
+                  </p>
+                </div>
+              </div>
+
+              <form onSubmit={handleTechCheckSubmit} className="max-w-2xl">
+                <div className="flex flex-col sm:flex-row items-center gap-3 bg-neutral-50 dark:bg-neutral-800/80 border border-neutral-300 dark:border-neutral-700 p-2 rounded-2xl">
+                  <div className="flex items-center flex-1 w-full px-3 py-2">
+                    <Globe className="w-5 h-5 text-neutral-400 shrink-0 mr-3" />
+                    <input
+                      type="text"
+                      value={techUrlInput}
+                      onChange={(e) => setTechUrlInput(e.target.value)}
+                      placeholder="https://yourcompany.com"
+                      disabled={isTechLoading}
+                      className="w-full bg-transparent text-black dark:text-white placeholder:text-neutral-400 focus:outline-none text-sm font-medium"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isTechLoading || !techUrlInput.trim()}
+                    className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-xs rounded-xl transition shadow-sm shrink-0 disabled:opacity-50"
+                  >
+                    {isTechLoading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Auditing Website…
+                      </>
+                    ) : (
+                      <>
+                        Run Technical Check <ArrowRight className="w-4 h-4 ml-1.5" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+
+              {/* Technical Error Notice */}
+              {techErrorNotice && (
+                <div className="mt-4 p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-200 font-medium">
+                  {techErrorNotice}
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* 5. closing_message as a final paragraph & 6. "Book a 30-Min Discovery Call" CTA button directly below it */}
           <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-xl mb-16 print:border print:border-neutral-300 print:bg-white print:text-black print:p-6 print:shadow-none print:break-inside-avoid">
             <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#009E73] bg-emerald-950/60 print:bg-emerald-50 print:text-[#009E73] border border-emerald-800/80 print:border-emerald-300 px-3 py-1 rounded-full mb-4 inline-block">
@@ -1526,80 +1556,6 @@ export default function AuditClient() {
             <span>DigiXPro Digital Solution • digixpro.in</span>
             <span suppressHydrationWarning>Report Generated: {new Date().toLocaleDateString()}</span>
           </div>
-
-          {/* ========================================================================= */}
-          {/* FALLBACK ONLY: COLLAPSED TECHNICAL CHECK FOR "NO WEBSITE" VISITORS */}
-          {/* ========================================================================= */}
-          {formData.hasWebsite !== "yes" && !techReport && (
-            <div className="border-t border-neutral-200 dark:border-neutral-800 pt-10 print:hidden">
-              <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl overflow-hidden shadow-sm">
-                <button
-                  type="button"
-                  onClick={() => setIsTechCheckExpanded(!isTechCheckExpanded)}
-                  className="w-full p-6 text-left flex items-center justify-between bg-neutral-50/50 dark:bg-neutral-900 hover:bg-neutral-100/60 dark:hover:bg-neutral-800/50 transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
-                      <Zap className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-extrabold text-black dark:text-white">
-                        Optional: Run Technical Speed &amp; SEO Diagnostics
-                      </h3>
-                      <p className="text-xs text-neutral-500">
-                        Audit a specific website URL for Core Web Vitals, schema tags, and performance metrics.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-neutral-400">
-                    {isTechCheckExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                  </div>
-                </button>
-
-                {isTechCheckExpanded && (
-                  <div className="p-6 md:p-8 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-                    <form onSubmit={handleTechCheckSubmit} className="max-w-2xl mb-8">
-                      <div className="flex flex-col sm:flex-row items-center gap-3 bg-neutral-50 dark:bg-neutral-800/80 border border-neutral-300 dark:border-neutral-700 p-2 rounded-2xl">
-                        <div className="flex items-center flex-1 w-full px-3 py-2">
-                          <Globe className="w-5 h-5 text-neutral-400 shrink-0 mr-3" />
-                          <input
-                            type="text"
-                            value={techUrlInput}
-                            onChange={(e) => setTechUrlInput(e.target.value)}
-                            placeholder="https://yourcompany.com"
-                            disabled={isTechLoading}
-                            className="w-full bg-transparent text-black dark:text-white placeholder:text-neutral-400 focus:outline-none text-sm font-medium"
-                          />
-                        </div>
-                        <button
-                          type="submit"
-                          disabled={isTechLoading}
-                          className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-xs rounded-xl transition shadow-sm shrink-0 disabled:opacity-50"
-                        >
-                          {isTechLoading ? (
-                            <>
-                              <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Auditing…
-                            </>
-                          ) : (
-                            <>
-                              Run Speed Check <ArrowRight className="w-4 h-4 ml-1.5" />
-                            </>
-                          )}
-                        </button>
-                      </div>
-                    </form>
-
-                    {/* Technical Error Notice */}
-                    {techErrorNotice && (
-                      <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-200 font-medium">
-                        {techErrorNotice}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
         </section>
       )}
     </div>
