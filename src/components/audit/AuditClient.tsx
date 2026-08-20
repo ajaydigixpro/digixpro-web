@@ -44,38 +44,32 @@ export interface BriefFormData {
 }
 
 export interface ThreeTiers {
-  premium?: string;
-  digixpro?: string;
-  bootstrap?: string;
+  premium: string;
+  digixpro: string;
+  bootstrap: string;
 }
 
 export interface RecommendationItem {
-  automation_name?: string;
-  service_name?: string;
-  title?: string;
-  what_it_does?: string;
-  why_it_fits?: string;
-  reason?: string;
-  description?: string;
-  three_tiers?: ThreeTiers;
-  recommended_tier?: string;
-  explain_recommendation?: string;
-  typical_market_cost?: string;
-  digixpro_service_name?: string;
-  digixpro_service_url?: string;
-  service_url?: string;
-  url?: string;
-  digixpro_price_range?: string;
-  price_range?: string;
+  automation_name: string;
+  what_it_does: string;
+  why_it_fits: string;
+  three_tiers: ThreeTiers;
+  recommended_tier: "premium" | "digixpro" | "bootstrap" | string;
+  explain_recommendation: string;
+  digixpro_service_name: string;
+  digixpro_service_url: string;
+  digixpro_price_range: string;
 }
 
 export interface BriefReportData {
   summary: string;
-  trust_note?: string;
-  bundle_estimate?: string;
-  closing_message?: string;
+  trust_note: string;
+  bundle_estimate: string;
   recommendations: RecommendationItem[];
+  closing_message: string;
   business_context?: {
+    name?: string;
+    email?: string;
     company?: string;
     product?: string;
     market?: string;
@@ -340,46 +334,31 @@ export default function AuditClient() {
           `Based on your brief, ${formData.company || "your company"} is operating with ${formData.company_size || "your current team size"} in the ${formData.industry || "selected"} sector. Streamlining your operational handoffs and customer tracking will eliminate manual daily tasks.`,
         trust_note:
           raw.trust_note ||
-          "DigiXPro is an independent technology architecture advisory working across healthcare, marketplaces, and enterprise systems. Production evidence for our work is public and reviewable before any engagement.",
+          "DigiXPro is an independent technology architecture and business systems advisory, already working with clinics, marketplaces, and knowledge platforms - the production evidence for this work is public and reviewable before any commitment is made.",
         bundle_estimate:
           raw.bundle_estimate ||
           `By bundling custom web architecture with automated workflow systems through DigiXPro, we offer a consolidated package saving 35–45% compared to hiring separate agencies.`,
+        recommendations: (raw.recommendations || []).map((rec: any) => ({
+          automation_name: rec.automation_name || "Automated Solution",
+          what_it_does: rec.what_it_does || "",
+          why_it_fits: rec.why_it_fits || "",
+          three_tiers: {
+            premium: rec.three_tiers?.premium || "Enterprise agency setup",
+            digixpro: rec.three_tiers?.digixpro || rec.digixpro_price_range || "Scoped in discovery",
+            bootstrap: rec.three_tiers?.bootstrap || "DIY builder or self-managed tools",
+          },
+          recommended_tier: rec.recommended_tier || "digixpro",
+          explain_recommendation: rec.explain_recommendation || "Optimized architecture suited to your team scale and operational goals.",
+          digixpro_service_name: rec.digixpro_service_name || "Custom Architecture & Automation",
+          digixpro_service_url: rec.digixpro_service_url || "/services/ai-automation-agency",
+          digixpro_price_range: rec.digixpro_price_range || "Scoped in discovery",
+        })),
         closing_message:
           raw.closing_message ||
           "Bringing your website, brand identity, patient communications, and local search visibility under one coordinated plan will free your team to focus on core growth. A 30-minute discovery call is the natural next step to align priorities.",
-        recommendations: raw.recommendations || [
-          {
-            automation_name: "Patient-Friendly Booking Website",
-            what_it_does: "Gives your clinic a modern website where clients can view services and directly book appointments online.",
-            why_it_fits: "Fits your requirement for modern website architecture and automated inquiry routing.",
-            three_tiers: {
-              premium: "Elite healthcare design agencies: ₹3,00,000 – ₹6,00,000",
-              digixpro: "DigiXPro: USD 960–2,400 (₹91,680–₹2,29,200) standard; USD 3,000–12,000+ custom",
-              bootstrap: "DIY Builder: ₹1,500/mo self-managed without engineering support",
-            },
-            recommended_tier: "digixpro",
-            explain_recommendation: "Provides professional-grade engineering without agency overhead or DIY maintenance burden.",
-            digixpro_service_name: "Website Design and Architecture",
-            digixpro_service_url: "/services/website-design-services",
-            digixpro_price_range: "USD 960–2,400 (₹91,680–₹2,29,200)",
-          },
-          {
-            automation_name: "Smart Lead Tracker & WhatsApp Messaging Assistant",
-            what_it_does: "Automatically logs incoming inquiries and sends automated WhatsApp follow-up reminders.",
-            why_it_fits: "Eliminates manual lead tracking and ensures 24/7 instant response.",
-            three_tiers: {
-              premium: "Enterprise workflow agencies: ₹2,50,000 – ₹5,00,000 setup",
-              digixpro: "DigiXPro: Scoped in discovery based on exact workflow complexity",
-              bootstrap: "Manual WhatsApp Business app: Free, but requires daily copy-pasting",
-            },
-            recommended_tier: "digixpro",
-            explain_recommendation: "Automates repetitive inquiry tracking so your team stays focused on patient care.",
-            digixpro_service_name: "Business Process Automation",
-            digixpro_service_url: "/services/business-process-automation",
-            digixpro_price_range: "Scoped in discovery",
-          },
-        ],
         business_context: raw.business_context || {
+          name: formData.name,
+          email: formData.email,
           company: formData.company,
           product: formData.product,
           market: formData.market,
@@ -397,9 +376,8 @@ export default function AuditClient() {
       // Clean fallback if n8n webhook has a transient connection issue
       const fallbackReport: BriefReportData = {
         summary: `Based on your brief, ${formData.company || "your business"} has established strong growth in ${formData.industry || "your industry"}. Streamlining your operational handoffs and lead workflows will eliminate daily manual effort.`,
-        trust_note: "DigiXPro is an independent technology architecture advisory working across healthcare, marketplaces, and enterprise systems. Production evidence for our work is public and reviewable before any engagement.",
+        trust_note: "DigiXPro is an independent technology architecture and business systems advisory, already working with clinics, marketplaces, and knowledge platforms - the production evidence for this work is public and reviewable before any commitment is made.",
         bundle_estimate: "By bundling custom web architecture with automated workflow systems through DigiXPro, we offer a consolidated package saving 35–45% compared to hiring separate agencies.",
-        closing_message: "Bringing your website, brand identity, patient communications, and local search visibility under one coordinated plan will free your team to focus on core growth. A 30-minute discovery call is the natural next step to align priorities.",
         recommendations: [
           {
             automation_name: "Patient-Friendly Booking Website",
@@ -432,7 +410,10 @@ export default function AuditClient() {
             digixpro_price_range: "Scoped in discovery",
           },
         ],
+        closing_message: "Bringing your website, brand identity, patient communications, and local search visibility under one coordinated plan will free your team to focus on core growth. A 30-minute discovery call is the natural next step to align priorities.",
         business_context: {
+          name: formData.name,
+          email: formData.email,
           company: formData.company,
           product: formData.product,
           market: formData.market,
@@ -623,7 +604,7 @@ export default function AuditClient() {
                 Answer 8 simple questions about your business to get an instant, personalized system assessment report.
               </p>
 
-              {/* STEP 1: Always-Visible 24-Hour Notice Line */}
+              {/* 24-Hour Notice Line */}
               <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800/80 px-3.5 py-1.5 rounded-full border border-neutral-200 dark:border-neutral-700">
                 <Info className="w-3.5 h-3.5 text-[#009E73] shrink-0" />
                 <span>You can generate one report every 24 hours per email address — take a moment to answer thoughtfully.</span>
@@ -1091,7 +1072,7 @@ export default function AuditClient() {
       )}
 
       {/* ========================================================================= */}
-      {/* REPORT VIEW: DISPLAYED AFTER BRIEF SUBMISSION */}
+      {/* REPORT VIEW: REQUIRED LAYOUT (TOP TO BOTTOM) */}
       {/* ========================================================================= */}
       {briefReport && (
         <section className="max-w-[1200px] mx-auto px-6 py-12">
@@ -1133,7 +1114,7 @@ export default function AuditClient() {
             </div>
           </div>
 
-          {/* Executive Summary Card */}
+          {/* 1. summary paragraph */}
           <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-8 shadow-sm mb-6 print:border print:p-6">
             <h2 className="text-2xl font-extrabold text-black dark:text-white mb-3 print:text-black">
               Executive Systems Assessment
@@ -1143,7 +1124,7 @@ export default function AuditClient() {
             </p>
           </div>
 
-          {/* STEP 1: Trust Note Callout (Distinct, Calm Credibility Banner) */}
+          {/* 2. trust_note - a distinct, calm callout box */}
           {briefReport.trust_note && (
             <div className="bg-neutral-100/80 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 rounded-2xl p-5 mb-8 flex items-start gap-3.5 shadow-xs print:border-neutral-300 print:bg-neutral-50">
               <ShieldCheck className="w-5 h-5 text-[#009E73] shrink-0 mt-0.5" aria-hidden="true" />
@@ -1153,7 +1134,7 @@ export default function AuditClient() {
             </div>
           )}
 
-          {/* Bundle Estimate Block */}
+          {/* 3. bundle_estimate - a highlighted block */}
           {briefReport.bundle_estimate && (
             <div className="bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-6 md:p-8 mb-10 shadow-sm print:border-neutral-300 print:bg-emerald-50">
               <div className="flex items-center gap-2 mb-2 text-xs font-mono font-bold uppercase tracking-widest text-[#007a55] dark:text-[#4ade80]">
@@ -1166,7 +1147,7 @@ export default function AuditClient() {
             </div>
           )}
 
-          {/* STEP 2: All Recommendations (NO numeric limit/cap, variable stack) */}
+          {/* 4. For EACH item in recommendations (render ALL of them, NO limit, NO slice) */}
           {briefReport.recommendations && briefReport.recommendations.length > 0 && (
             <div className="mb-12">
               <h3 className="text-xl font-extrabold text-black dark:text-white mb-6 print:text-black">
@@ -1174,31 +1155,15 @@ export default function AuditClient() {
               </h3>
               <div className="space-y-8">
                 {briefReport.recommendations.map((rec: RecommendationItem, idx: number) => {
-                  const cardTitle =
-                    rec.automation_name || rec.service_name || rec.title || `Automated Solution #${idx + 1}`;
-                  
-                  const whatItDoes = rec.what_it_does || "";
-                  const whyItFits = rec.why_it_fits || rec.reason || rec.description || "";
-                  
-                  const threeTiers = rec.three_tiers || {};
-                  const premiumCost = threeTiers.premium || rec.typical_market_cost || "Enterprise Scoped";
-                  const digixproCost = threeTiers.digixpro || rec.digixpro_price_range || rec.price_range || "Scoped in discovery";
-                  const bootstrapCost = threeTiers.bootstrap || "DIY builders & self-managed tools";
-
+                  const cardTitle = rec.automation_name || `Automated Solution #${idx + 1}`;
                   const recTierRaw = (rec.recommended_tier || "digixpro").toLowerCase();
-                  const explainRec = rec.explain_recommendation || "Optimized architecture suited to your team scale and operational goals.";
-
-                  const digixproServiceName =
-                    rec.digixpro_service_name || rec.service_name || "Custom Architecture & Automation";
-                  const digixproServiceUrl =
-                    rec.digixpro_service_url || rec.service_url || rec.url || "/services/ai-automation-agency";
 
                   return (
                     <div
                       key={idx}
                       className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col gap-6 print:border print:border-neutral-300 print:bg-white print:p-5 break-inside-avoid [page-break-inside:avoid]"
                     >
-                      {/* 1. Title & Header */}
+                      {/* Card Title = automation_name */}
                       <div>
                         <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-[#009E73] border border-emerald-200 dark:border-emerald-800 print:border-neutral-300 print:text-black mb-2 inline-block">
                           Recommended Automation #{idx + 1}
@@ -1208,110 +1173,122 @@ export default function AuditClient() {
                         </h4>
                       </div>
 
-                      {/* 2. Body Text: what_it_does & why_it_fits */}
+                      {/* what_it_does, then why_it_fits */}
                       <div className="space-y-2 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed print:text-black font-normal">
-                        {whatItDoes && (
+                        {rec.what_it_does && (
                           <p>
                             <strong className="font-semibold text-black dark:text-white print:text-black">What it does: </strong>
-                            {whatItDoes}
+                            {rec.what_it_does}
                           </p>
                         )}
-                        {whyItFits && (
+                        {rec.why_it_fits && (
                           <p>
                             <strong className="font-semibold text-black dark:text-white print:text-black">Why it fits your business: </strong>
-                            {whyItFits}
+                            {rec.why_it_fits}
                           </p>
                         )}
                       </div>
 
-                      {/* 3-Tier Price Columns Layout */}
+                      {/* Three tier rows, clearly labeled */}
                       <div>
                         <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block mb-3 print:text-neutral-700">
                           Investment &amp; Implementation Options:
                         </span>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           
-                          {/* Tier 1: Premium Agency */}
-                          <div className={`rounded-2xl p-4 border transition-all ${
-                            recTierRaw.includes("premium")
-                              ? "border-amber-500 bg-amber-50/60 dark:bg-amber-950/30 ring-2 ring-amber-500"
+                          {/* Premium Agency */}
+                          <div className={`rounded-2xl p-4 border transition-all flex flex-col justify-between ${
+                            recTierRaw === "premium"
+                              ? "border-amber-500 bg-amber-50/70 dark:bg-amber-950/40 ring-2 ring-amber-500 shadow-sm"
                               : "border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/40"
                           }`}>
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="text-xs font-mono font-bold uppercase text-neutral-600 dark:text-neutral-400">
-                                Premium Agency
-                              </span>
-                              {recTierRaw.includes("premium") && (
-                                <Award className="w-4 h-4 text-amber-600 shrink-0" />
-                              )}
+                            <div>
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs font-mono font-bold uppercase text-neutral-600 dark:text-neutral-400">
+                                  Premium Agency
+                                </span>
+                                {recTierRaw === "premium" && (
+                                  <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-amber-500 text-white flex items-center gap-1">
+                                    <Award className="w-3 h-3" /> Recommended
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs text-neutral-800 dark:text-neutral-200 font-semibold leading-snug">
+                                {rec.three_tiers?.premium || "Enterprise agency setup"}
+                              </p>
                             </div>
-                            <p className="text-xs text-neutral-800 dark:text-neutral-200 font-semibold leading-snug">
-                              {premiumCost}
-                            </p>
                           </div>
 
-                          {/* Tier 2: DigiXPro (FEATURED / DIRECT OPTION) */}
-                          <div className={`rounded-2xl p-4 border-2 transition-all relative ${
-                            recTierRaw.includes("digixpro") || recTierRaw.includes("digix")
-                              ? "border-[#009E73] bg-emerald-50/80 dark:bg-emerald-950/50 shadow-md ring-2 ring-[#009E73]"
+                          {/* DigiXPro (FEATURED / DIRECT OPTION) */}
+                          <div className={`rounded-2xl p-4 border-2 transition-all flex flex-col justify-between ${
+                            recTierRaw === "digixpro" || recTierRaw === "digix"
+                              ? "border-[#009E73] bg-emerald-50/80 dark:bg-emerald-950/50 ring-2 ring-[#009E73] shadow-md"
                               : "border-[#009E73] bg-emerald-50/40 dark:bg-emerald-950/30"
                           }`}>
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="text-xs font-mono font-bold uppercase text-[#009E73] dark:text-[#4ade80] flex items-center gap-1">
-                                <Sparkles className="w-3.5 h-3.5" /> DigiXPro
-                              </span>
-                              <span className="text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded bg-[#009E73] text-white">
-                                Featured
-                              </span>
+                            <div>
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs font-mono font-bold uppercase text-[#009E73] dark:text-[#4ade80] flex items-center gap-1">
+                                  <Sparkles className="w-3.5 h-3.5" /> DigiXPro
+                                </span>
+                                <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-[#009E73] text-white">
+                                  {recTierRaw === "digixpro" || recTierRaw === "digix" ? "Recommended" : "Featured"}
+                                </span>
+                              </div>
+                              <p className="text-xs text-neutral-900 dark:text-neutral-100 font-extrabold leading-snug">
+                                {rec.three_tiers?.digixpro || rec.digixpro_price_range}
+                              </p>
                             </div>
-                            <p className="text-xs text-neutral-900 dark:text-neutral-100 font-extrabold leading-snug">
-                              {digixproCost}
-                            </p>
                           </div>
 
-                          {/* Tier 3: Bootstrap (DIY) */}
-                          <div className={`rounded-2xl p-4 border transition-all ${
-                            recTierRaw.includes("bootstrap") || recTierRaw.includes("diy")
-                              ? "border-blue-500 bg-blue-50/60 dark:bg-blue-950/30 ring-2 ring-blue-500"
+                          {/* Bootstrap (DIY) */}
+                          <div className={`rounded-2xl p-4 border transition-all flex flex-col justify-between ${
+                            recTierRaw === "bootstrap" || recTierRaw === "diy"
+                              ? "border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 ring-2 ring-blue-500 shadow-sm"
                               : "border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/40"
                           }`}>
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="text-xs font-mono font-bold uppercase text-neutral-600 dark:text-neutral-400">
-                                Bootstrap (DIY)
-                              </span>
-                              {recTierRaw.includes("bootstrap") && (
-                                <Award className="w-4 h-4 text-blue-600 shrink-0" />
-                              )}
+                            <div>
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs font-mono font-bold uppercase text-neutral-600 dark:text-neutral-400">
+                                  Bootstrap (DIY)
+                                </span>
+                                {(recTierRaw === "bootstrap" || recTierRaw === "diy") && (
+                                  <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-blue-500 text-white flex items-center gap-1">
+                                    <Award className="w-3 h-3" /> Recommended
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs text-neutral-800 dark:text-neutral-200 font-semibold leading-snug">
+                                {rec.three_tiers?.bootstrap || "DIY builder or self-managed tools"}
+                              </p>
                             </div>
-                            <p className="text-xs text-neutral-800 dark:text-neutral-200 font-semibold leading-snug">
-                              {bootstrapCost}
-                            </p>
                           </div>
 
                         </div>
                       </div>
 
-                      {/* Highlighted Recommendation Callout */}
-                      <div className="bg-emerald-50/90 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-700/80 rounded-2xl p-4 flex items-start gap-3 print:border-neutral-300 print:bg-emerald-50">
-                        <CheckCircle2 className="w-5 h-5 text-[#009E73] shrink-0 mt-0.5" />
-                        <div>
-                          <p className="text-xs font-mono font-bold uppercase tracking-wider text-[#007a55] dark:text-[#4ade80] mb-0.5">
-                            Recommended for you: {rec.recommended_tier ? (rec.recommended_tier.toLowerCase() === "digixpro" ? "DigiXPro Architecture" : rec.recommended_tier) : "DigiXPro Architecture"}
-                          </p>
-                          <p className="text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed">
-                            {explainRec}
-                          </p>
+                      {/* Highlighted badge on whichever tier row matches recommended_tier with explain_recommendation */}
+                      {rec.explain_recommendation && (
+                        <div className="bg-emerald-50/90 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-700/80 rounded-2xl p-4 flex items-start gap-3 print:border-neutral-300 print:bg-emerald-50">
+                          <CheckCircle2 className="w-5 h-5 text-[#009E73] shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs font-mono font-bold uppercase tracking-wider text-[#007a55] dark:text-[#4ade80] mb-0.5">
+                              Recommended tier for you: {rec.recommended_tier ? rec.recommended_tier.toUpperCase() : "DIGIXPRO"}
+                            </p>
+                            <p className="text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed">
+                              {rec.explain_recommendation}
+                            </p>
+                          </div>
                         </div>
-                      </div>
+                      )}
 
-                      {/* Service Link Footer */}
+                      {/* Link using digixpro_service_url / digixpro_service_name labeled "Explore Service Blueprint" */}
                       <div className="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-800 print:border-neutral-200">
                         <span className="text-xs text-neutral-500 font-mono">
-                          Service Track: {digixproServiceName}
+                          Service Track: {rec.digixpro_service_name}
                         </span>
                         <div className="print:hidden">
                           <Link
-                            href={digixproServiceUrl}
+                            href={rec.digixpro_service_url || "/services/ai-automation-agency"}
                             className="inline-flex items-center text-xs font-bold text-[#009E73] hover:underline gap-1"
                           >
                             <span>Explore Service Blueprint</span>
@@ -1326,13 +1303,13 @@ export default function AuditClient() {
             </div>
           )}
 
-          {/* STEP 3: Closing Message & Discovery Call CTA Box */}
+          {/* 5. closing_message as a final paragraph & 6. "Book a 30-Min Discovery Call" CTA button directly below it */}
           <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-xl mb-16 print:hidden">
             <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#009E73] bg-emerald-950/60 border border-emerald-800/80 px-3 py-1 rounded-full mb-4 inline-block">
               Architecture Next Step
             </span>
 
-            {/* Plain Closing Message Paragraph */}
+            {/* 5. closing_message paragraph */}
             {briefReport.closing_message && (
               <p className="text-sm md:text-base text-neutral-300 max-w-2xl mx-auto mb-8 leading-relaxed font-normal">
                 {briefReport.closing_message}
@@ -1343,12 +1320,13 @@ export default function AuditClient() {
               Schedule Your 30-Minute Discovery Call
             </h3>
 
+            {/* 6. "Book a 30-Min Discovery Call" CTA button */}
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center px-8 py-4 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-sm rounded-xl transition shadow-md"
               >
-                <Calendar className="w-4 h-4 mr-2" /> Book Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
+                <Calendar className="w-4 h-4 mr-2" /> Book a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
           </div>
