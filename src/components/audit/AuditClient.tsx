@@ -344,8 +344,7 @@ export default function AuditClient() {
           raw.estimate_disclaimer_short ||
           "This report is an estimate to guide the conversation, not a final quote - the real scope gets confirmed on the call.",
         bundle_estimate:
-          raw.bundle_estimate ||
-          `By bundling custom web architecture with automated workflow systems through DigiXPro, we offer a consolidated package saving 35–45% compared to hiring separate agencies.`,
+          raw.bundle_estimate || "",
         recommendations: (raw.recommendations || []).map((rec: any) => ({
           automation_name: rec.automation_name || "Automated Solution",
           what_it_does: rec.what_it_does || "",
@@ -387,7 +386,7 @@ export default function AuditClient() {
         trust_note: "DigiXPro is an independent technology architecture and business systems advisory, already working with clinics, marketplaces, and knowledge platforms - the production evidence for this work is public and reviewable before any commitment is made.",
         estimate_disclaimer_long: "Everything on this page is a system-generated estimate meant to give a general idea of the kind of investment being discussed - it is not a final quote. The actual scope and price are confirmed only during the 30-minute discovery call.",
         estimate_disclaimer_short: "This report is an estimate to guide the conversation, not a final quote - the real scope gets confirmed on the call.",
-        bundle_estimate: "By bundling custom web architecture with automated workflow systems through DigiXPro, we offer a consolidated package saving 35–45% compared to hiring separate agencies.",
+        bundle_estimate: "Custom web architecture bundled with automated workflow systems through DigiXPro.",
         recommendations: [
           {
             automation_name: "Patient-Friendly Booking Website",
