@@ -13,7 +13,7 @@ export default function Footer() {
   const hideTopCTA = pathname?.startsWith('/services/') || hubPages.some((page) => pathname === page || pathname?.startsWith(page + '/'));
 
   return (
-    <footer aria-label="Site footer" className="bg-[#0A0A0A] text-white pt-20 pb-8 px-6 overflow-hidden mt-auto">
+    <footer aria-label="Site footer" className="bg-[#0A0A0A] text-white pt-20 pb-8 px-6 overflow-hidden mt-auto print:hidden">
       <div className="max-w-[1200px] mx-auto">
         
         {/* Top Section: Primary Discovery Call CTA (Only rendered on general pages without dedicated CTAs) */}

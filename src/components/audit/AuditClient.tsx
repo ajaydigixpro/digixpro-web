@@ -11,6 +11,8 @@ import {
   Users,
   Target,
   Clock,
+  User,
+  Mail,
   Loader2,
   ChevronDown,
   ChevronUp,
@@ -21,9 +23,12 @@ import {
   Calendar,
   CheckSquare,
   Square,
+  Info,
 } from "lucide-react";
 
 export interface BriefFormData {
+  name: string;
+  email: string;
   company: string;
   product: string;
   market: string;
@@ -34,13 +39,20 @@ export interface BriefFormData {
 }
 
 export interface RecommendationItem {
+  automation_name?: string;
   service_name?: string;
   title?: string;
-  service_url?: string;
-  url?: string;
-  price_range?: string;
+  what_it_does?: string;
+  why_it_fits?: string;
   reason?: string;
   description?: string;
+  typical_market_cost?: string;
+  digixpro_service_name?: string;
+  digixpro_service_url?: string;
+  service_url?: string;
+  url?: string;
+  digixpro_price_range?: string;
+  price_range?: string;
 }
 
 export interface BriefReportData {
@@ -148,11 +160,13 @@ function buildCurrentSystemsString(selectedOptions: string[]): string {
 }
 
 export default function AuditClient() {
-  // Step State (1 to 7)
+  // Step State (1 to 8)
   const [step, setStep] = useState<number>(1);
 
-  // Form State
+  // Form State (9 flat keys)
   const [formData, setFormData] = useState<BriefFormData>({
+    name: "",
+    email: "",
     company: "",
     product: "",
     market: "",
@@ -162,9 +176,10 @@ export default function AuditClient() {
     selectedSystems: [],
   });
 
-  // Submission & Brief Report State
+  // Submission, Brief Report & Rate Limit State
   const [isSubmittingBrief, setIsSubmittingBrief] = useState(false);
   const [briefReport, setBriefReport] = useState<BriefReportData | null>(null);
+  const [rateLimitedNotice, setRateLimitedNotice] = useState<string | null>(null);
 
   // Secondary Optional Tech Check State
   const [isTechCheckExpanded, setIsTechCheckExpanded] = useState(false);
@@ -194,7 +209,7 @@ export default function AuditClient() {
   };
 
   const handleNextStep = () => {
-    if (step < 7) {
+    if (step < 8) {
       setStep((prev) => prev + 1);
     }
   };
@@ -206,14 +221,17 @@ export default function AuditClient() {
   };
 
   // Primary Webhook Submit: audit-brief
-  // Sends EXACTLY the 7 required keys: company, product, market, industry, company_size, business_age, current_systems
+  // Sends EXACTLY 9 KEYS: name, email, company, product, market, industry, company_size, business_age, current_systems
   const handleBriefSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmittingBrief(true);
+    setRateLimitedNotice(null);
 
     const currentSystemsString = buildCurrentSystemsString(formData.selectedSystems);
 
     const payload = {
+      name: formData.name,
+      email: formData.email,
       company: formData.company,
       product: formData.product,
       market: formData.market,
@@ -245,22 +263,37 @@ export default function AuditClient() {
         }
       }
 
+      // Check if the response returned a rate_limited message shape
+      if (raw.rate_limited === true || raw.rate_limited === "true") {
+        setRateLimitedNotice(
+          raw.message ||
+            "You have recently generated an audit report. Please review your existing report or schedule a direct discovery call below."
+        );
+        return;
+      }
+
       const generatedReport: BriefReportData = {
         summary:
           raw.summary ||
-          `Based on your input, ${formData.company || "your company"} is operating with ${formData.company_size || "your current team size"} in the ${formData.industry || "selected"} sector. Connecting your operational workflows will reduce daily manual effort.`,
+          `Based on your brief, ${formData.company || "your company"} is operating with ${formData.company_size || "your current team size"} in the ${formData.industry || "selected"} sector. Streamlining your operational handoffs and customer tracking will eliminate manual daily tasks.`,
         recommendations: raw.recommendations || [
           {
-            service_name: "Business Process Automation",
-            service_url: "/services/business-process-automation",
-            price_range: "Scoped in discovery",
-            reason: "Connect lead capture and operational tracking to eliminate manual data entry across departments.",
+            automation_name: "Automated Lead Tracker & Smart Inquiry Workflow",
+            what_it_does: "Automatically captures, organizes, and routes new inquiries into a central database.",
+            why_it_fits: "Connects your lead sources into one organized system without manual copy-pasting.",
+            typical_market_cost: "₹15,000 – ₹45,000 one-time setup",
+            digixpro_service_name: "Business Process Automation",
+            digixpro_service_url: "/services/business-process-automation",
+            digixpro_price_range: "Scoped in discovery",
           },
           {
-            service_name: "IT Architecture Consulting",
-            service_url: "/services/it-consulting-services",
-            price_range: "Project-based or retainer",
-            reason: "Establish a clear software roadmap to eliminate subscription waste and simplify your business OS.",
+            automation_name: "AI-Powered Customer Assistant & WhatsApp Response System",
+            what_it_does: "Greets prospective clients instantly, answers common questions, and books appointments.",
+            why_it_fits: "Provides 24/7 instant response so potential clients do not slip away.",
+            typical_market_cost: "₹20,000 – ₹60,000 initial setup + ₹2,000/mo cloud host",
+            digixpro_service_name: "AI Automation",
+            digixpro_service_url: "/services/ai-automation-agency",
+            digixpro_price_range: "USD 800-18,000 depending on complexity",
           },
         ],
         business_context: raw.business_context || {
@@ -282,16 +315,22 @@ export default function AuditClient() {
         summary: `Based on your brief, ${formData.company || "your business"} has established strong growth in ${formData.industry || "your industry"}. Streamlining your operational handoffs and lead workflows will eliminate daily manual effort.`,
         recommendations: [
           {
-            service_name: "Business Process Automation",
-            service_url: "/services/business-process-automation",
-            price_range: "Scoped in discovery",
-            reason: "Connect lead capture and operational tracking to eliminate manual data entry across departments.",
+            automation_name: "Automated Lead Tracker & Smart Inquiry Workflow",
+            what_it_does: "Automatically captures, organizes, and routes new inquiries into a central database.",
+            why_it_fits: "Connects your lead sources into one organized system without manual copy-pasting.",
+            typical_market_cost: "₹15,000 – ₹45,000 one-time setup",
+            digixpro_service_name: "Business Process Automation",
+            digixpro_service_url: "/services/business-process-automation",
+            digixpro_price_range: "Scoped in discovery",
           },
           {
-            service_name: "IT Architecture Consulting",
-            service_url: "/services/it-consulting-services",
-            price_range: "Project-based or retainer",
-            reason: "Establish a clear software roadmap to eliminate subscription waste and simplify your business OS.",
+            automation_name: "AI-Powered Customer Assistant & WhatsApp Response System",
+            what_it_does: "Greets prospective clients instantly, answers common questions, and books appointments.",
+            why_it_fits: "Provides 24/7 instant response so potential clients do not slip away.",
+            typical_market_cost: "₹20,000 – ₹60,000 initial setup + ₹2,000/mo cloud host",
+            digixpro_service_name: "AI Automation",
+            digixpro_service_url: "/services/ai-automation-agency",
+            digixpro_price_range: "USD 800-18,000 depending on complexity",
           },
         ],
         business_context: {
@@ -433,34 +472,31 @@ export default function AuditClient() {
   return (
     <div className="w-full">
       {/* ========================================================================= */}
-      {/* PRINT HEADER */}
+      {/* COMPACT PRINT HEADER (Lean 1-2 Page Format) */}
       {/* ========================================================================= */}
-      <div className="hidden print:block mb-8 pb-6 border-b-2 border-black">
-        <div className="flex items-center justify-between mb-4">
+      <div className="hidden print:block mb-6 pb-4 border-b border-black">
+        <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-extrabold tracking-tight text-black">
+            <span className="text-xl font-extrabold tracking-tight text-black">
               DigiXPro<span className="text-[#009E73]">.</span>
             </span>
             <span className="text-xs font-mono uppercase tracking-widest text-neutral-600 pl-2 border-l border-neutral-300">
-              Architecture Audit Report
+              Systems Audit Report
             </span>
           </div>
           <span className="text-xs text-neutral-500 font-mono">
             {new Date().toLocaleDateString()}
           </span>
         </div>
-        <h1 className="text-xl font-bold text-black mb-1">
-          Business Systems &amp; Architecture Audit Report
-        </h1>
         <p className="text-xs font-mono text-neutral-700">
-          Organization: <span className="font-bold">{briefReport?.business_context?.company || formData.company}</span>
+          Organization: <span className="font-bold text-black">{briefReport?.business_context?.company || formData.company}</span>
         </p>
       </div>
 
       {/* ========================================================================= */}
-      {/* PRIMARY FLOW: 7-QUESTION PLAIN-LANGUAGE BRIEF FORM */}
+      {/* PRIMARY FLOW: 8-STEP BRIEF FORM */}
       {/* ========================================================================= */}
-      {!briefReport && (
+      {!briefReport && !rateLimitedNotice && (
         <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-20 print:hidden">
           <div className="max-w-3xl mx-auto">
             {/* Header */}
@@ -475,27 +511,27 @@ export default function AuditClient() {
                 Find Your Automation &amp; System Bottlenecks.
               </h1>
               <p className="text-[16px] md:text-[19px] font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                Answer 7 simple questions about your business to get an instant, personalized system assessment report.
+                Answer 8 simple questions about your business to get an instant, personalized system assessment report.
               </p>
             </div>
 
             {/* Stepped Progress Bar */}
             <div className="mb-8">
               <div className="flex items-center justify-between text-xs font-mono font-bold text-neutral-500 mb-2">
-                <span>QUESTION {step} OF 7</span>
-                <span>{Math.round((step / 7) * 100)}% COMPLETED</span>
+                <span>QUESTION {step} OF 8</span>
+                <span>{Math.round((step / 8) * 100)}% COMPLETED</span>
               </div>
               <div className="w-full bg-neutral-200 dark:bg-neutral-800 h-2 rounded-full overflow-hidden">
                 <div
                   className="bg-[#009E73] h-full transition-all duration-300"
-                  style={{ width: `${(step / 7) * 100}%` }}
+                  style={{ width: `${(step / 8) * 100}%` }}
                 ></div>
               </div>
             </div>
 
             {/* Form Card */}
             <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-10 shadow-xl">
-              <form onSubmit={step === 7 ? handleBriefSubmit : (e) => { e.preventDefault(); handleNextStep(); }}>
+              <form onSubmit={step === 8 ? handleBriefSubmit : (e) => { e.preventDefault(); handleNextStep(); }}>
                 
                 {/* QUESTION 1: Company Name */}
                 {step === 1 && (
@@ -708,7 +744,7 @@ export default function AuditClient() {
                   </div>
                 )}
 
-                {/* QUESTION 7: Concrete Multi-Select Checklist */}
+                {/* QUESTION 7: Multi-Select Checklist */}
                 {step === 7 && (
                   <div className="space-y-6">
                     <div className="flex items-center gap-3">
@@ -754,6 +790,58 @@ export default function AuditClient() {
                   </div>
                 )}
 
+                {/* STEP 8: Report Delivery Details (Name & Email) */}
+                {step === 8 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                        <Mail className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-extrabold text-black dark:text-white">
+                          8. Where should we send your report?
+                        </h2>
+                        <p className="text-xs text-neutral-500 font-normal">Enter your details to generate and access your tailored assessment.</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                          Your name
+                        </label>
+                        <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-3">
+                          <User className="w-4 h-4 text-neutral-400 mr-2.5 shrink-0" />
+                          <input
+                            type="text"
+                            value={formData.name}
+                            onChange={(e) => updateForm("name", e.target.value)}
+                            placeholder="e.g. Dr. Ajay Shukla"
+                            className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                          Email address *
+                        </label>
+                        <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-3">
+                          <Mail className="w-4 h-4 text-neutral-400 mr-2.5 shrink-0" />
+                          <input
+                            type="email"
+                            required
+                            value={formData.email}
+                            onChange={(e) => updateForm("email", e.target.value)}
+                            placeholder="name@company.com"
+                            className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Step Controls */}
                 <div className="flex items-center justify-between pt-8 border-t border-neutral-100 dark:border-neutral-800 mt-8">
                   {step > 1 ? (
@@ -767,7 +855,7 @@ export default function AuditClient() {
                     </button>
                   ) : <div />}
 
-                  {step < 7 ? (
+                  {step < 8 ? (
                     <button
                       type="button"
                       onClick={handleNextStep}
@@ -786,22 +874,56 @@ export default function AuditClient() {
                   ) : (
                     <button
                       type="submit"
-                      disabled={isSubmittingBrief}
+                      disabled={isSubmittingBrief || !formData.email}
                       className="inline-flex items-center px-8 py-3.5 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-sm rounded-xl transition shadow-md disabled:opacity-50"
                     >
                       {isSubmittingBrief ? (
                         <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Compiling Report…
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Generating Report…
                         </>
                       ) : (
                         <>
-                          Generate Audit Report <Sparkles className="w-4 h-4 ml-2" />
+                          Get My Report <Sparkles className="w-4 h-4 ml-2" />
                         </>
                       )}
                     </button>
                   )}
                 </div>
               </form>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ========================================================================= */}
+      {/* RATE LIMITED FRIENDLY INFORMATIONAL NOTICE */}
+      {/* ========================================================================= */}
+      {rateLimitedNotice && (
+        <section className="max-w-[1200px] mx-auto px-6 py-16 print:hidden">
+          <div className="max-w-2xl mx-auto bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-8 shadow-sm text-center">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73] mx-auto mb-4">
+              <Info className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-extrabold text-black dark:text-white mb-2">
+              Audit Report Rate Limit
+            </h3>
+            <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-6 font-medium">
+              {rateLimitedNotice}
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => { setRateLimitedNotice(null); setStep(1); }}
+                className="inline-flex items-center px-5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-700 dark:text-neutral-300 hover:border-black dark:hover:border-white transition"
+              >
+                Back to Form
+              </button>
+              <Link
+                href="/contact"
+                className="inline-flex items-center px-5 py-2.5 rounded-xl bg-[#009E73] text-white text-xs font-bold hover:bg-[#007a5a] transition"
+              >
+                Schedule Discovery Call <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+              </Link>
             </div>
           </div>
         </section>
@@ -852,54 +974,99 @@ export default function AuditClient() {
 
           {/* Executive Summary Card */}
           <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-8 shadow-sm mb-10 print:border print:p-6">
-            <h2 className="text-2xl font-extrabold text-black dark:text-white mb-3">
+            <h2 className="text-2xl font-extrabold text-black dark:text-white mb-3 print:text-black">
               Executive Systems Assessment
             </h2>
-            <p className="text-base text-neutral-700 dark:text-neutral-300 leading-relaxed font-medium">
+            <p className="text-base text-neutral-700 dark:text-neutral-300 leading-relaxed font-medium print:text-black">
               {briefReport.summary}
             </p>
           </div>
 
-          {/* Dynamic Webhook Recommendations & Prices */}
+          {/* FIX 2 — Dynamic Recommendations Cards with Specific Titles & Market Cost */}
           {briefReport.recommendations && briefReport.recommendations.length > 0 && (
             <div className="mb-12">
-              <h3 className="text-xl font-extrabold text-black dark:text-white mb-6">
+              <h3 className="text-xl font-extrabold text-black dark:text-white mb-6 print:text-black">
                 Recommended Architecture Solutions &amp; Investment Scope
               </h3>
-              <div className="space-y-4">
-                {briefReport.recommendations.map((rec: any, idx) => {
-                  const serviceTitle = rec.digixpro_service_name || rec.automation_name || rec.service_name || rec.title || "Advisory Solution";
-                  const serviceUrl = rec.digixpro_service_url || rec.service_url || rec.url || "/contact";
-                  const priceRange = rec.digixpro_price_range || rec.price_range || rec.typical_market_cost || "Scoped in discovery";
-                  const description = rec.why_it_fits || rec.what_it_does || rec.reason || rec.description || "Identified architecture optimization.";
+              <div className="space-y-6">
+                {briefReport.recommendations.map((rec: RecommendationItem, idx: number) => {
+                  // FIX 2: 1. Card Title MUST be automation_name (NEVER digixpro_service_name)
+                  const cardTitle =
+                    rec.automation_name || rec.service_name || rec.title || `Automated Solution #${idx + 1}`;
+                  
+                  // FIX 2: 2. Body text = what_it_does then why_it_fits
+                  const whatItDoes = rec.what_it_does || "";
+                  const whyItFits = rec.why_it_fits || rec.reason || rec.description || "";
+                  
+                  // FIX 2: 3. Typical market cost (PROMINENT primary budget line)
+                  const typicalMarketCost =
+                    rec.typical_market_cost || rec.price_range || "Scoped by operational complexity";
+                  
+                  // FIX 2: 4. DigiXPro service name, URL, and price range (SMALLER secondary line)
+                  const digixproServiceName =
+                    rec.digixpro_service_name || rec.service_name || "Custom Architecture & Automation";
+                  const digixproServiceUrl =
+                    rec.digixpro_service_url || rec.service_url || rec.url || "/services/ai-automation-agency";
+                  const digixproPriceRange =
+                    rec.digixpro_price_range || rec.price_range || "Scoped in discovery";
 
                   return (
                     <div
                       key={idx}
-                      className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 print:border print:p-5 break-inside-avoid [page-break-inside:avoid]"
+                      className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col gap-5 print:border print:border-neutral-300 print:bg-white print:p-5 break-inside-avoid [page-break-inside:avoid]"
                     >
-                      <div className="max-w-2xl">
-                        <div className="flex items-center gap-2.5 mb-2">
-                          <span className="text-[11px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-[#009E73] border border-emerald-200 dark:border-emerald-800 print:border-neutral-300 print:text-black">
-                            Price: {priceRange}
-                          </span>
-                        </div>
-                        <h4 className="text-lg font-bold text-black dark:text-white mb-2 print:text-black">
-                          {serviceTitle}
+                      {/* 1. Specific Card Title */}
+                      <div>
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-[#009E73] border border-emerald-200 dark:border-emerald-800 print:border-neutral-300 print:text-black mb-2 inline-block">
+                          Recommended Automation #{idx + 1}
+                        </span>
+                        <h4 className="text-xl font-extrabold text-black dark:text-white print:text-black leading-snug">
+                          {cardTitle}
                         </h4>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed print:text-black">
-                          {description}
+                      </div>
+
+                      {/* 2. Body text: what_it_does then why_it_fits */}
+                      <div className="space-y-2 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed print:text-black font-normal">
+                        {whatItDoes && (
+                          <p>
+                            <strong className="font-semibold text-black dark:text-white print:text-black">What it does: </strong>
+                            {whatItDoes}
+                          </p>
+                        )}
+                        {whyItFits && (
+                          <p>
+                            <strong className="font-semibold text-black dark:text-white print:text-black">Why it fits your business: </strong>
+                            {whyItFits}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* 3. Primary Budget Line: Typical market cost (PROMINENT) */}
+                      <div className="bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 rounded-2xl p-4 print:border-neutral-300 print:bg-neutral-50">
+                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block mb-1 print:text-neutral-700">
+                          Typical market cost:
+                        </span>
+                        <p className="text-base font-extrabold text-black dark:text-white print:text-black">
+                          {typicalMarketCost}
                         </p>
                       </div>
 
-                      <div className="shrink-0 print:hidden">
-                        <Link
-                          href={serviceUrl}
-                          className="inline-flex items-center justify-center px-5 py-2.5 bg-[#009E73] hover:bg-[#007a5a] text-white text-xs font-bold rounded-xl transition shadow-sm gap-1.5"
-                        >
-                          <span>Explore Solution</span>
-                          <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-                        </Link>
+                      {/* 4. Secondary Line: DigiXPro build scope & service link */}
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-neutral-100 dark:border-neutral-800 print:border-neutral-200">
+                        <div className="text-xs">
+                          <span className="text-neutral-500 dark:text-neutral-400 font-medium">DigiXPro scope: </span>
+                          <span className="font-bold text-[#009E73]">{digixproPriceRange}</span>
+                        </div>
+
+                        <div className="print:hidden">
+                          <Link
+                            href={digixproServiceUrl}
+                            className="inline-flex items-center text-xs font-bold text-[#009E73] hover:underline gap-1"
+                          >
+                            <span>DigiXPro can build this — {digixproServiceName}</span>
+                            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   );
@@ -928,6 +1095,12 @@ export default function AuditClient() {
                 <Calendar className="w-4 h-4 mr-2" /> Book Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
+          </div>
+
+          {/* FIX 3 — Single Compact Print Footer Line */}
+          <div className="hidden print:flex items-center justify-between text-xs font-mono text-neutral-500 pt-6 mt-8 border-t border-neutral-300">
+            <span>DigiXPro Digital Solution • digixpro.in</span>
+            <span>Report Generated: {new Date().toLocaleDateString()}</span>
           </div>
 
           {/* ========================================================================= */}
