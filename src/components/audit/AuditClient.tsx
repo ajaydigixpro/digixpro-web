@@ -187,10 +187,16 @@ function buildInterestedServicesString(selectedOptions: string[]): string {
 
   const servicesMap: Record<string, string> = {
     website: "Website design or redesign",
-    branding: "Branding / visual identity",
-    consulting: "IT or AI consulting",
-    automation: "Business automation (workflows, chatbots, lead systems)",
-    seo: "SEO / organic growth",
+    branding: "Branding / visual identity (logo, brand system)",
+    graphic_design: "Graphic design (ongoing creative/design work)",
+    seo: "SEO / organic search growth",
+    ai_automation: "AI automation (chatbots, AI-driven workflows, lead systems)",
+    process_automation: "Business process automation (non-AI internal workflows)",
+    it_consulting: "IT consulting (technology audits, architecture decisions)",
+    ai_consulting: "AI consulting (AI strategy, governance, roadmap)",
+    erp_consulting: "ERP consulting (SAP, Odoo, NetSuite, inventory/supply chain)",
+    fractional_cto: "Fractional CTO (part-time technical leadership)",
+    fractional_ceo: "Fractional CEO (part-time executive/business leadership)",
   };
 
   const selectedLabels = selectedOptions
@@ -497,10 +503,16 @@ export default function AuditClient() {
 
   const SERVICE_CHECKLIST_ITEMS = [
     { key: "website", text: "Website design or redesign" },
-    { key: "branding", text: "Branding / visual identity" },
-    { key: "consulting", text: "IT or AI consulting" },
-    { key: "automation", text: "Business automation (workflows, chatbots, lead systems)" },
-    { key: "seo", text: "SEO / organic growth" },
+    { key: "branding", text: "Branding / visual identity (logo, brand system)" },
+    { key: "graphic_design", text: "Graphic design (ongoing creative/design work)" },
+    { key: "seo", text: "SEO / organic search growth" },
+    { key: "ai_automation", text: "AI automation (chatbots, AI-driven workflows, lead systems)" },
+    { key: "process_automation", text: "Business process automation (non-AI internal workflows)" },
+    { key: "it_consulting", text: "IT consulting (technology audits, architecture decisions)" },
+    { key: "ai_consulting", text: "AI consulting (AI strategy, governance, roadmap)" },
+    { key: "erp_consulting", text: "ERP consulting (SAP, Odoo, NetSuite, inventory/supply chain)" },
+    { key: "fractional_cto", text: "Fractional CTO (part-time technical leadership)" },
+    { key: "fractional_ceo", text: "Fractional CEO (part-time executive/business leadership)" },
     { key: "not_sure", text: "Not sure yet — open to suggestions" },
   ];
 
@@ -908,7 +920,7 @@ export default function AuditClient() {
                       </div>
                     </div>
 
-                    <div className="space-y-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {SERVICE_CHECKLIST_ITEMS.map((item) => {
                         const isChecked = formData.selectedServices.includes(item.key);
                         return (
@@ -916,7 +928,7 @@ export default function AuditClient() {
                             key={item.key}
                             type="button"
                             onClick={() => toggleServiceOption(item.key)}
-                            className={`w-full text-left p-4 rounded-2xl border transition-all flex items-center gap-3 ${
+                            className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-center gap-3 ${
                               isChecked
                                 ? "border-[#009E73] bg-emerald-50/70 dark:bg-emerald-950/40 ring-1 ring-[#009E73]"
                                 : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/50"
@@ -929,7 +941,7 @@ export default function AuditClient() {
                                 <Square className="w-5 h-5 text-neutral-400" />
                               )}
                             </div>
-                            <span className="text-sm font-medium text-black dark:text-white">
+                            <span className="text-xs sm:text-sm font-medium text-black dark:text-white leading-snug">
                               {item.text}
                             </span>
                           </button>
