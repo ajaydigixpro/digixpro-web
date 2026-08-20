@@ -234,8 +234,16 @@ export default function AuditClient() {
         throw new Error(`Audit service returned HTTP status ${response.status}`);
       }
 
-      const data = await response.json();
-      const raw = Array.isArray(data) ? data[0] : data;
+      let raw: Record<string, any> = {};
+      const text = await response.text();
+      if (text && text.trim()) {
+        try {
+          const data = JSON.parse(text);
+          raw = Array.isArray(data) ? data[0] : data;
+        } catch {
+          raw = {};
+        }
+      }
 
       const generatedReport: BriefReportData = {
         summary:
