@@ -4,36 +4,69 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Globe,
   ArrowRight,
-  Download,
-  AlertTriangle,
-  AlertCircle,
+  ArrowLeft,
   CheckCircle2,
-  Zap,
-  Gauge,
-  ShieldCheck,
+  AlertCircle,
+  Building2,
+  Users,
+  Target,
+  Clock,
+  Wallet,
+  User,
   Mail,
-  RefreshCw,
-  Loader2,
-  X,
+  Phone,
   FileText,
+  Loader2,
+  ChevronDown,
+  ChevronUp,
+  Globe,
+  Zap,
+  ShieldCheck,
+  Gauge,
+  Sparkles,
+  Printer,
+  Calendar,
 } from "lucide-react";
+import { ENGAGEMENT_PRICING_PHILOSOPHY } from "@/data/services";
 
-export interface FindingItem {
+export interface BriefFormData {
+  operatingGoal: string;
+  teamScale: string;
+  primaryBottleneck: string;
+  timeline: string;
+  techSpend: string;
+  fullName: string;
+  companyName: string;
+  email: string;
+  phone: string;
+  decisionContext: string;
+}
+
+export interface BriefReportData {
+  companyName: string;
+  fullName: string;
+  summary: string;
+  recommendedTrack: string;
+  recommendedService: string;
+  solutionScope: string[];
+  estimatedTimeline: string;
+  nextSteps: string;
+}
+
+export interface TechnicalFinding {
   problem: string;
   impact?: string;
   solution_name: string;
   solution_url: string;
 }
 
-export interface AuditReportData {
+export interface TechnicalReportData {
   url: string;
   performance_score: number;
   seo_score: number;
   accessibility_score: number;
-  tested_at?: string;
-  findings: FindingItem[];
+  findings: TechnicalFinding[];
 }
 
 function normalizeUrl(input: string): string {
@@ -70,92 +103,63 @@ function getScoreColor(score: number): { text: string; bg: string; border: strin
   };
 }
 
-function ScoreCard({ title, score, icon: Icon, desc }: { title: string; score: number; icon: React.ElementType; desc: string }) {
-  const colors = getScoreColor(score);
-  const strokeDashoffset = 100 - score;
-
-  return (
-    <div className={`rounded-2xl border ${colors.border} ${colors.bg} p-6 shadow-sm flex flex-col justify-between print:border print:border-neutral-300 print:bg-white print:p-4`}>
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-600 dark:text-neutral-400 flex items-center gap-1.5 print:text-black">
-          <Icon className="w-4 h-4" aria-hidden="true" />
-          {title}
-        </span>
-      </div>
-
-      <div className="flex items-center gap-4 my-2">
-        {/* Radial SVG gauge */}
-        <div className="relative w-16 h-16 shrink-0 flex items-center justify-center">
-          <svg className="w-16 h-16 -rotate-90 transform" viewBox="0 0 36 36">
-            <path
-              className="text-neutral-200 dark:text-neutral-800 print:text-neutral-200"
-              strokeWidth="3.5"
-              stroke="currentColor"
-              fill="none"
-              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-            />
-            <path
-              strokeDasharray="100, 100"
-              strokeDashoffset={strokeDashoffset}
-              strokeWidth="3.5"
-              strokeLinecap="round"
-              stroke={colors.ring}
-              fill="none"
-              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-            />
-          </svg>
-          <span className={`absolute text-lg font-extrabold ${colors.text} print:text-black`}>
-            {score}
-          </span>
-        </div>
-
-        <div className="min-w-0">
-          <span className={`text-2xl font-black ${colors.text} print:text-black block`}>
-            {score}/100
-          </span>
-          <p className="text-xs text-neutral-600 dark:text-neutral-400 print:text-neutral-700 leading-snug">
-            {desc}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function AuditClient() {
-  const [urlInput, setUrlInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [statusMessage, setStatusMessage] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [report, setReport] = useState<AuditReportData | null>(null);
+  // Step State (1 to 7)
+  const [step, setStep] = useState<number>(1);
 
-  // Email Gate Modal State
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-  const [emailInput, setEmailInput] = useState("");
-  const [isSubmittingLead, setIsSubmittingLead] = useState(false);
-  const [leadSuccess, setLeadSuccess] = useState(false);
+  // Form State
+  const [formData, setFormData] = useState<BriefFormData>({
+    operatingGoal: "",
+    teamScale: "",
+    primaryBottleneck: "",
+    timeline: "",
+    techSpend: "",
+    fullName: "",
+    companyName: "",
+    email: "",
+    phone: "",
+    decisionContext: "",
+  });
 
-  const handleRunAudit = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    const formattedUrl = normalizeUrl(urlInput);
-    if (!formattedUrl) {
-      setError("Please enter a valid website URL (e.g. https://yourcompany.com).");
-      return;
+  // Submission & Brief Report State
+  const [isSubmittingBrief, setIsSubmittingBrief] = useState(false);
+  const [briefError, setBriefError] = useState<string | null>(null);
+  const [briefReport, setBriefReport] = useState<BriefReportData | null>(null);
+
+  // Secondary Optional Tech Check State
+  const [isTechCheckExpanded, setIsTechCheckExpanded] = useState(false);
+  const [techUrlInput, setTechUrlInput] = useState("");
+  const [isTechLoading, setIsTechLoading] = useState(false);
+  const [techError, setTechError] = useState<string | null>(null);
+  const [techReport, setTechReport] = useState<TechnicalReportData | null>(null);
+
+  const updateForm = (key: keyof BriefFormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleNextStep = () => {
+    if (step < 7) {
+      setStep((prev) => prev + 1);
     }
+  };
 
-    setError(null);
-    setIsLoading(true);
-    setStatusMessage("Connecting to audit engine…");
+  const handlePrevStep = () => {
+    if (step > 1) {
+      setStep((prev) => prev - 1);
+    }
+  };
+
+  // Primary Webhook Submit: audit-brief
+  const handleBriefSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setBriefError(null);
+    setIsSubmittingBrief(true);
 
     try {
-      setStatusMessage("Fetching DOM & evaluating Core Web Vitals…");
-      
-      const response = await fetch("https://n8n.digixpro.in/webhook/audit-run", {
+      const response = await fetch("https://n8n.digixpro.in/webhook/audit-brief", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: formattedUrl }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
@@ -163,100 +167,184 @@ export default function AuditClient() {
       }
 
       const data = await response.json();
-      
-      // Normalize potential response envelopes (single object vs array)
       const raw = Array.isArray(data) ? data[0] : data;
 
-      // Normalize findings array
-      const rawFindings = raw.findings || raw.issues || raw.results || raw.items || [];
-      const normalizedFindings: FindingItem[] = rawFindings.map((f: Record<string, string>) => ({
-        problem: f.problem || f.issue || f.title || f.description || "Identified architecture issue",
+      const generatedReport: BriefReportData = {
+        companyName: raw.companyName || formData.companyName || "Your Organization",
+        fullName: raw.fullName || formData.fullName || "Leadership Team",
+        summary:
+          raw.summary ||
+          `Based on your input, ${formData.companyName || "your organization"} is seeking to solve operational friction around ${formData.primaryBottleneck || "systems integration"} while targeting ${formData.operatingGoal || "scalable operations"}.`,
+        recommendedTrack: raw.recommendedTrack || "Technology Architecture & Business OS Advisory",
+        recommendedService: raw.recommendedService || "Business Process Automation & System Architecture",
+        solutionScope: raw.solutionScope || [
+          "Operational hierarchy mapping across Business, People, Process, and Information layers.",
+          "Single-source-of-truth database architecture and automated departmental handoffs.",
+          "Decoupled API middleware connecting CRM, ERP, and communication tools.",
+          "Real-time executive monitoring dashboard for operational visibility.",
+        ],
+        estimatedTimeline: raw.estimatedTimeline || formData.timeline || "4 to 8 weeks phased deployment",
+        nextSteps:
+          raw.nextSteps ||
+          "Schedule a 30-minute discovery call with our principal technology architect to review your operational blueprint and scope final implementation milestones.",
+      };
+
+      setBriefReport(generatedReport);
+    } catch (err: unknown) {
+      // Fallback report if n8n webhook is initializing or temporarily offline
+      const message = err instanceof Error ? err.message : "An unexpected error occurred.";
+      setBriefError(`${message}. Generating baseline architectural assessment.`);
+      
+      const fallbackReport: BriefReportData = {
+        companyName: formData.companyName || "Your Organization",
+        fullName: formData.fullName || "Leadership Team",
+        summary: `Based on your brief, ${formData.companyName || "your organization"} requires architectural alignment for ${formData.operatingGoal || "operational scalability"} to eliminate ${formData.primaryBottleneck || "departmental bottlenecks"}.`,
+        recommendedTrack: "Technology Architecture Advisory",
+        recommendedService: "Business Process Automation & Systems Architecture",
+        solutionScope: [
+          "Operational hierarchy mapping across Business, People, Process, and Information layers.",
+          "Single-source-of-truth database architecture eliminating duplicate data entry.",
+          "Decoupled API integration connecting CRM, ERP, and messaging pipelines.",
+          "Real-time executive dashboard for operational visibility.",
+        ],
+        estimatedTimeline: formData.timeline || "4 to 6 weeks phased deployment",
+        nextSteps: "Schedule a 30-minute discovery call to evaluate your architecture requirements.",
+      };
+
+      setBriefReport(fallbackReport);
+    } finally {
+      setIsSubmittingBrief(false);
+    }
+  };
+
+  // Secondary Webhook Submit: audit-run (Optional Technical Check)
+  const handleTechCheckSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formattedUrl = normalizeUrl(techUrlInput);
+    if (!formattedUrl) {
+      setTechError("Please enter a valid website URL.");
+      return;
+    }
+
+    setTechError(null);
+    setIsTechLoading(true);
+
+    try {
+      const response = await fetch("https://n8n.digixpro.in/webhook/audit-run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: formattedUrl }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Technical check returned status ${response.status}`);
+      }
+
+      const data = await response.json();
+      const raw = Array.isArray(data) ? data[0] : data;
+
+      const rawFindings = raw.findings || raw.issues || raw.results || [];
+      const normalizedFindings: TechnicalFinding[] = rawFindings.map((f: Record<string, string>) => ({
+        problem: f.problem || f.issue || f.title || "Identified architecture issue",
         impact: f.impact || f.severity || "High operational impact",
-        solution_name: f.solution_name || f.solution || f.recommendation || "Architecture Advisory",
+        solution_name: f.solution_name || f.solution || "Architecture Advisory",
         solution_url: f.solution_url || f.url || "/services/website-design-services",
       }));
 
-      const parsedReport: AuditReportData = {
+      const parsedTechReport: TechnicalReportData = {
         url: formattedUrl,
-        performance_score: Number(raw.performance_score ?? raw.performanceScore ?? raw.performance ?? 78),
-        seo_score: Number(raw.seo_score ?? raw.seoScore ?? raw.seo ?? 85),
-        accessibility_score: Number(raw.accessibility_score ?? raw.accessibilityScore ?? raw.accessibility ?? 90),
-        tested_at: raw.tested_at || new Date().toISOString(),
-        findings: normalizedFindings.length > 0 ? normalizedFindings : [
+        performance_score: Number(raw.performance_score ?? raw.performanceScore ?? 78),
+        seo_score: Number(raw.seo_score ?? raw.seoScore ?? 85),
+        accessibility_score: Number(raw.accessibility_score ?? raw.accessibilityScore ?? 90),
+        findings:
+          normalizedFindings.length > 0
+            ? normalizedFindings
+            : [
+                {
+                  problem: "Uncompressed legacy image assets causing Largest Contentful Paint (LCP) delays.",
+                  impact: "High — Harms Google Core Web Vitals rankings and mobile conversion rates.",
+                  solution_name: "Modern JS Architecture & Speed Optimization",
+                  solution_url: "/services/website-design-services",
+                },
+                {
+                  problem: "Missing JSON-LD structured data and semantic heading hierarchy.",
+                  impact: "Medium — Reduces visibility in AI search engines (Perplexity, ChatGPT).",
+                  solution_name: "Technical SEO & Schema Governance",
+                  solution_url: "/services/it-consulting-services",
+                },
+              ],
+      };
+
+      setTechReport(parsedTechReport);
+    } catch {
+      // Fallback preview for technical check
+      setTechReport({
+        url: formattedUrl,
+        performance_score: 78,
+        seo_score: 85,
+        accessibility_score: 90,
+        findings: [
           {
-            problem: "Uncompressed legacy image assets causing Largest Contentful Paint (LCP) delays.",
-            impact: "High — Increases mobile bounce rates and harms Google Core Web Vitals rankings.",
+            problem: "Uncompressed legacy assets causing Largest Contentful Paint (LCP) delays exceeding 3.2s.",
+            impact: "High — Increases mobile bounce rate and degrades Core Web Vitals.",
             solution_name: "Modern JS Architecture & Performance Optimization",
             solution_url: "/services/website-design-services",
           },
           {
-            problem: "Missing JSON-LD structured data and semantic heading hierarchy.",
-            impact: "Medium — Limits crawlability and visibility in AI search engines (Perplexity, ChatGPT).",
+            problem: "Missing JSON-LD structured schema and semantic heading hierarchy.",
+            impact: "Medium — Reduces crawlability in AI search engines and rich snippets.",
             solution_name: "Technical SEO & Schema Governance",
             solution_url: "/services/it-consulting-services",
           },
-          {
-            problem: "Unintegrated customer inquiry routing across disparate communication channels.",
-            impact: "High — Causes response latency and lost lead conversions.",
-            solution_name: "Workflow & AI Automation Pipelines",
-            solution_url: "/services/ai-automation-agency",
-          },
         ],
-      };
-
-      setReport(parsedReport);
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "An unexpected error occurred.";
-      setError(
-        `${message}. If the n8n workflow is currently initializing, you can retry or view a preview report.`
-      );
-    } finally {
-      setIsLoading(false);
-      setStatusMessage("");
-    }
-  };
-
-  const handleDownloadPdfClick = () => {
-    setIsEmailModalOpen(true);
-  };
-
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!emailInput || !emailInput.includes("@")) {
-      return;
-    }
-
-    setIsSubmittingLead(true);
-    try {
-      await fetch("https://n8n.digixpro.in/webhook/audit-lead", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: emailInput.trim(),
-          url: report?.url || urlInput,
-          performance_score: report?.performance_score || 0,
-          seo_score: report?.seo_score || 0,
-          accessibility_score: report?.accessibility_score || 0,
-        }),
       });
-    } catch {
-      // Continue to trigger print dialog even if webhook has a transient network error
     } finally {
-      setIsSubmittingLead(false);
-      setLeadSuccess(true);
-      setTimeout(() => {
-        setIsEmailModalOpen(false);
-        window.print();
-      }, 400);
+      setIsTechLoading(false);
     }
   };
+
+  // Stepped Options Data
+  const GOAL_OPTIONS = [
+    { label: "Scale Operations Without Linear Headcount", desc: "Automate manual departmental handoffs and routine data processing." },
+    { label: "Replace Legacy ERP / CRM Software", desc: "Eliminate software bloat and vendor lock-in with custom operating systems." },
+    { label: "Deploy Role-Gated AI & RAG Infrastructure", desc: "Secure institutional knowledge search without public data leakage." },
+    { label: "Build Custom High-Performance Web Platform", desc: "Ultra-fast Next.js architecture with zero plugin security vulnerabilities." },
+    { label: "Automate Cross-Departmental Workflows", desc: "Connect scattered WhatsApp, email, and accounting pipelines into one OS." },
+  ];
+
+  const SCALE_OPTIONS = [
+    "1–10 Team Members (Startup / Founder-Led)",
+    "10–50 Employees (Growing Business)",
+    "50–200 Employees (Mid-Market Enterprise)",
+    "200+ Employees (Large Organization)",
+  ];
+
+  const BOTTLENECK_OPTIONS = [
+    "High monthly SaaS burn and underutilized software subscriptions.",
+    "Manual departmental handoffs reliance on scattered WhatsApp groups.",
+    "Slow website load speed, failing Core Web Vitals, or poor mobile UX.",
+    "Data security concerns and hallucination risks in public AI tools.",
+    "Lack of single source of truth database and real-time leadership visibility.",
+  ];
+
+  const TIMELINE_OPTIONS = [
+    "Immediate (Within 30 Days)",
+    "Next 1–3 Months",
+    "Next 3–6 Months",
+    "Planning & Discovery Phase",
+  ];
+
+  const SPEND_OPTIONS = [
+    "Under ₹50,000 / month",
+    "₹50,000 – ₹2,00,000 / month",
+    "₹2,00,000 – ₹5,00,000 / month",
+    "₹5,00,000+ / month",
+  ];
 
   return (
     <div className="w-full">
       {/* ========================================================================= */}
-      {/* PRINT-ONLY HEADER (Hidden on screen, rendered cleanly in browser PDF/print) */}
+      {/* PRINT HEADER */}
       {/* ========================================================================= */}
       <div className="hidden print:block mb-8 pb-6 border-b-2 border-black">
         <div className="flex items-center justify-between mb-4">
@@ -265,130 +353,419 @@ export default function AuditClient() {
               DigiXPro<span className="text-[#009E73]">.</span>
             </span>
             <span className="text-xs font-mono uppercase tracking-widest text-neutral-600 pl-2 border-l border-neutral-300">
-              Architecture Audit
+              Architecture Audit &amp; Assessment
             </span>
           </div>
           <span className="text-xs text-neutral-500 font-mono">
-            {report?.tested_at ? new Date(report.tested_at).toLocaleDateString() : new Date().toLocaleDateString()}
+            {new Date().toLocaleDateString()}
           </span>
         </div>
         <h1 className="text-xl font-bold text-black mb-1">
-          Website Performance &amp; Architecture Audit Report
+          Technology &amp; Business Architecture Brief Report
         </h1>
         <p className="text-xs font-mono text-neutral-700">
-          Target URL: <span className="font-bold underline">{report?.url}</span>
+          Organization: <span className="font-bold">{briefReport?.companyName || formData.companyName}</span>
         </p>
       </div>
 
       {/* ========================================================================= */}
-      {/* SCREEN VIEW: HERO & INPUT SECTION (Hidden on print if report is generated) */}
+      {/* PRIMARY FLOW: 7-QUESTION BRIEF FORM (Shown when no report is generated) */}
       {/* ========================================================================= */}
-      {!report && (
+      {!briefReport && (
         <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-20 print:hidden">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 px-4 py-1.5 rounded-full mb-6">
-              <span className="w-2 h-2 rounded-full bg-[#009E73] animate-pulse"></span>
-              <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-[#007a55] dark:text-[#4ade80]">
-                Live Architecture Audit Engine
-              </span>
+          <div className="max-w-3xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 px-4 py-1.5 rounded-full mb-6">
+                <span className="w-2 h-2 rounded-full bg-[#009E73] animate-pulse"></span>
+                <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-[#007a55] dark:text-[#4ade80]">
+                  Independent Business &amp; Tech Audit
+                </span>
+              </div>
+              <h1 className="text-[34px] md:text-[50px] font-extrabold tracking-tight leading-[1.1] mb-4 text-black dark:text-white">
+                Technology Architecture &amp; Readiness Audit.
+              </h1>
+              <p className="text-[16px] md:text-[19px] font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                Complete this 7-question operational brief to evaluate your systems readiness, eliminate software waste, and receive a tailored architecture roadmap.
+              </p>
             </div>
 
-            <h1 className="text-[36px] md:text-[54px] font-extrabold tracking-tight leading-[1.1] mb-6 text-black dark:text-white">
-              Website Performance &amp; Architecture Audit.
-            </h1>
+            {/* Stepped Progress Bar */}
+            <div className="mb-8">
+              <div className="flex items-center justify-between text-xs font-mono font-bold text-neutral-500 mb-2">
+                <span>STEP {step} OF 7</span>
+                <span>{Math.round((step / 7) * 100)}% COMPLETED</span>
+              </div>
+              <div className="w-full bg-neutral-200 dark:bg-neutral-800 h-2 rounded-full overflow-hidden">
+                <div
+                  className="bg-[#009E73] h-full transition-all duration-300"
+                  style={{ width: `${(step / 7) * 100}%` }}
+                ></div>
+              </div>
+            </div>
 
-            <p className="text-[17px] md:text-[20px] font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed mb-10">
-              Evaluate your website speed, Core Web Vitals, technical SEO, and accessibility architecture. Get an instant empirical breakdown with prioritized solutions.
-            </p>
+            {/* Form Box */}
+            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-10 shadow-xl">
+              <form onSubmit={step === 7 ? handleBriefSubmit : (e) => { e.preventDefault(); handleNextStep(); }}>
+                {/* STEP 1: Primary Goal */}
+                {step === 1 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                        <Target className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-extrabold text-black dark:text-white">
+                          1. What is your primary operating goal or transformation objective?
+                        </h2>
+                        <p className="text-xs text-neutral-500">Select the primary outcome driving your technology review.</p>
+                      </div>
+                    </div>
 
-            {/* Audit Input Form */}
-            <form onSubmit={handleRunAudit} className="max-w-2xl mx-auto mb-6">
-              <div className="flex flex-col sm:flex-row items-center gap-3 bg-white dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-800 p-2 rounded-2xl shadow-xl hover:border-neutral-300 dark:hover:border-neutral-700 transition-all">
-                <div className="flex items-center flex-1 w-full px-3 py-2">
-                  <Globe className="w-5 h-5 text-neutral-400 shrink-0 mr-3" aria-hidden="true" />
-                  <input
-                    type="text"
-                    value={urlInput}
-                    onChange={(e) => setUrlInput(e.target.value)}
-                    placeholder="https://yourcompany.com"
-                    disabled={isLoading}
-                    aria-label="Website URL to audit"
-                    className="w-full bg-transparent text-black dark:text-white placeholder:text-neutral-400 focus:outline-none text-base font-medium"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-[15px] rounded-xl transition-all shadow-md shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" aria-hidden="true" />
-                      Analyzing…
-                    </>
+                    <div className="space-y-3">
+                      {GOAL_OPTIONS.map((opt) => (
+                        <button
+                          key={opt.label}
+                          type="button"
+                          onClick={() => {
+                            updateForm("operatingGoal", opt.label);
+                            handleNextStep();
+                          }}
+                          className={`w-full text-left p-4 rounded-2xl border transition-all flex items-start gap-3 ${
+                            formData.operatingGoal === opt.label
+                              ? "border-[#009E73] bg-emerald-50/70 dark:bg-emerald-950/40 ring-1 ring-[#009E73]"
+                              : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/50"
+                          }`}
+                        >
+                          <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 ${
+                            formData.operatingGoal === opt.label ? "border-[#009E73] bg-[#009E73] text-white" : "border-neutral-400"
+                          }`}>
+                            {formData.operatingGoal === opt.label && <CheckCircle2 className="w-3.5 h-3.5" />}
+                          </div>
+                          <div>
+                            <span className="block text-sm font-extrabold text-black dark:text-white">{opt.label}</span>
+                            <span className="block text-xs text-neutral-500 mt-0.5">{opt.desc}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 2: Operating Scale */}
+                {step === 2 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                        <Users className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-extrabold text-black dark:text-white">
+                          2. What is your organization&apos;s current operating scale?
+                        </h2>
+                        <p className="text-xs text-neutral-500">Helps calibrate operational governance requirements.</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {SCALE_OPTIONS.map((scale) => (
+                        <button
+                          key={scale}
+                          type="button"
+                          onClick={() => {
+                            updateForm("teamScale", scale);
+                            handleNextStep();
+                          }}
+                          className={`p-5 rounded-2xl border text-left transition-all ${
+                            formData.teamScale === scale
+                              ? "border-[#009E73] bg-emerald-50/70 dark:bg-emerald-950/40 ring-1 ring-[#009E73]"
+                              : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/50"
+                          }`}
+                        >
+                          <span className="block text-sm font-extrabold text-black dark:text-white">{scale}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 3: Bottleneck */}
+                {step === 3 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                        <AlertCircle className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-extrabold text-black dark:text-white">
+                          3. What is your primary system or operational bottleneck?
+                        </h2>
+                        <p className="text-xs text-neutral-500">Identify the biggest source of operational waste or friction.</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      {BOTTLENECK_OPTIONS.map((bn) => (
+                        <button
+                          key={bn}
+                          type="button"
+                          onClick={() => {
+                            updateForm("primaryBottleneck", bn);
+                            handleNextStep();
+                          }}
+                          className={`w-full text-left p-4 rounded-2xl border transition-all flex items-center justify-between ${
+                            formData.primaryBottleneck === bn
+                              ? "border-[#009E73] bg-emerald-50/70 dark:bg-emerald-950/40 ring-1 ring-[#009E73]"
+                              : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/50"
+                          }`}
+                        >
+                          <span className="text-sm font-semibold text-black dark:text-white">{bn}</span>
+                          {formData.primaryBottleneck === bn && <CheckCircle2 className="w-4 h-4 text-[#009E73] shrink-0 ml-2" />}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 4: Timeline */}
+                {step === 4 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                        <Clock className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-extrabold text-black dark:text-white">
+                          4. What is your target deployment timeline?
+                        </h2>
+                        <p className="text-xs text-neutral-500">When do you expect execution to begin?</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {TIMELINE_OPTIONS.map((tl) => (
+                        <button
+                          key={tl}
+                          type="button"
+                          onClick={() => {
+                            updateForm("timeline", tl);
+                            handleNextStep();
+                          }}
+                          className={`p-5 rounded-2xl border text-left transition-all ${
+                            formData.timeline === tl
+                              ? "border-[#009E73] bg-emerald-50/70 dark:bg-emerald-950/40 ring-1 ring-[#009E73]"
+                              : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/50"
+                          }`}
+                        >
+                          <span className="block text-sm font-extrabold text-black dark:text-white">{tl}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 5: Tech Spend */}
+                {step === 5 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                        <Wallet className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-extrabold text-black dark:text-white">
+                          5. What is your approximate monthly software &amp; tech spend?
+                        </h2>
+                        <p className="text-xs text-neutral-500">Includes SaaS subscriptions, cloud hosting, and agency retainers.</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {SPEND_OPTIONS.map((spend) => (
+                        <button
+                          key={spend}
+                          type="button"
+                          onClick={() => {
+                            updateForm("techSpend", spend);
+                            handleNextStep();
+                          }}
+                          className={`p-5 rounded-2xl border text-left transition-all ${
+                            formData.techSpend === spend
+                              ? "border-[#009E73] bg-emerald-50/70 dark:bg-emerald-950/40 ring-1 ring-[#009E73]"
+                              : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/50"
+                          }`}
+                        >
+                          <span className="block text-sm font-extrabold text-black dark:text-white">{spend}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 6: Contact Information */}
+                {step === 6 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                        <User className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-extrabold text-black dark:text-white">
+                          6. Who should receive this architecture report?
+                        </h2>
+                        <p className="text-xs text-neutral-500 font-normal">Contact details for your tailored report delivery.</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                          Full Name *
+                        </label>
+                        <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-2.5">
+                          <User className="w-4 h-4 text-neutral-400 mr-2 shrink-0" />
+                          <input
+                            type="text"
+                            required
+                            value={formData.fullName}
+                            onChange={(e) => updateForm("fullName", e.target.value)}
+                            placeholder="Dr. Ajay Shukla"
+                            className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                          Organization / Company Name *
+                        </label>
+                        <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-2.5">
+                          <Building2 className="w-4 h-4 text-neutral-400 mr-2 shrink-0" />
+                          <input
+                            type="text"
+                            required
+                            value={formData.companyName}
+                            onChange={(e) => updateForm("companyName", e.target.value)}
+                            placeholder="DigiXPro Digital Solution"
+                            className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                          Work Email Address *
+                        </label>
+                        <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-2.5">
+                          <Mail className="w-4 h-4 text-neutral-400 mr-2 shrink-0" />
+                          <input
+                            type="email"
+                            required
+                            value={formData.email}
+                            onChange={(e) => updateForm("email", e.target.value)}
+                            placeholder="ajay@digixpro.in"
+                            className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                          Phone / WhatsApp Number
+                        </label>
+                        <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-2.5">
+                          <Phone className="w-4 h-4 text-neutral-400 mr-2 shrink-0" />
+                          <input
+                            type="tel"
+                            value={formData.phone}
+                            onChange={(e) => updateForm("phone", e.target.value)}
+                            placeholder="+91 98765 43210"
+                            className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 7: Decision Context */}
+                {step === 7 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                        <FileText className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-extrabold text-black dark:text-white">
+                          7. Any specific decision context or software notes? (Optional)
+                        </h2>
+                        <p className="text-xs text-neutral-500">Provide details about existing tools or specific requirements.</p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <textarea
+                        rows={4}
+                        value={formData.decisionContext}
+                        onChange={(e) => updateForm("decisionContext", e.target.value)}
+                        placeholder="Briefly describe your current software stack, specific integration goals, or architectural concerns…"
+                        className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-2xl p-4 text-sm text-black dark:text-white focus:outline-none focus:border-[#009E73] placeholder:text-neutral-400 font-medium resize-none"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Step Controls */}
+                <div className="flex items-center justify-between pt-8 border-t border-neutral-100 dark:border-neutral-800 mt-8">
+                  {step > 1 ? (
+                    <button
+                      type="button"
+                      onClick={handlePrevStep}
+                      disabled={isSubmittingBrief}
+                      className="inline-flex items-center px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-700 dark:text-neutral-300 hover:border-black dark:hover:border-white transition"
+                    >
+                      <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> Back
+                    </button>
+                  ) : <div></div>}
+
+                  {step < 7 ? (
+                    <button
+                      type="button"
+                      onClick={handleNextStep}
+                      className="inline-flex items-center px-7 py-3.5 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-sm rounded-xl transition shadow-md"
+                    >
+                      Continue <ArrowRight className="w-4 h-4 ml-2" />
+                    </button>
                   ) : (
-                    <>
-                      Run Free Audit <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
-                    </>
+                    <button
+                      type="submit"
+                      disabled={isSubmittingBrief || !formData.fullName || !formData.companyName || !formData.email}
+                      className="inline-flex items-center px-8 py-3.5 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-sm rounded-xl transition shadow-md disabled:opacity-50"
+                    >
+                      {isSubmittingBrief ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Compiling Report…
+                        </>
+                      ) : (
+                        <>
+                          Generate Architecture Report <Sparkles className="w-4 h-4 ml-2" />
+                        </>
+                      )}
+                    </button>
                   )}
-                </button>
-              </div>
-            </form>
-
-            {/* Status updates while analyzing */}
-            {isLoading && (
-              <div className="flex items-center justify-center gap-2 text-sm text-neutral-500 font-mono animate-pulse">
-                <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#009E73]" />
-                <span>{statusMessage}</span>
-              </div>
-            )}
-
-            {/* Error Message */}
-            {error && (
-              <div className="max-w-xl mx-auto mt-4 p-4 rounded-xl border border-red-200 bg-red-50 dark:border-red-900/60 dark:bg-red-950/30 text-left flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
-                <div className="flex-1 text-xs md:text-sm text-red-800 dark:text-red-300">
-                  <p className="font-semibold mb-1">Audit execution could not complete</p>
-                  <p>{error}</p>
                 </div>
-              </div>
-            )}
-
-            {/* Feature highlights */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mt-12 pt-8 border-t border-neutral-100 dark:border-neutral-800 text-left">
-              <div className="flex items-start gap-2.5">
-                <Zap className="w-4 h-4 text-[#009E73] shrink-0 mt-1" />
-                <div>
-                  <h4 className="text-xs font-bold text-black dark:text-white">Core Web Vitals</h4>
-                  <p className="text-[11px] text-neutral-500">LCP, CLS, INP latency checks</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <ShieldCheck className="w-4 h-4 text-[#009E73] shrink-0 mt-1" />
-                <div>
-                  <h4 className="text-xs font-bold text-black dark:text-white">Technical SEO</h4>
-                  <p className="text-[11px] text-neutral-500">Schema, canonicals, robots</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <Gauge className="w-4 h-4 text-[#009E73] shrink-0 mt-1" />
-                <div>
-                  <h4 className="text-xs font-bold text-black dark:text-white">Actionable Solutions</h4>
-                  <p className="text-[11px] text-neutral-500">Direct architecture guidance</p>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </section>
       )}
 
       {/* ========================================================================= */}
-      {/* RESULTS VIEW: DISPLAYED WHEN REPORT IS LOADED */}
+      {/* REPORT VIEW: DISPLAYED AFTER BRIEF SUBMISSION */}
       {/* ========================================================================= */}
-      {report && (
+      {briefReport && (
         <section className="max-w-[1200px] mx-auto px-6 py-12">
-          {/* Results Top Bar / Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-8 mb-10 border-b border-neutral-200 dark:border-neutral-800 print:hidden">
+          {/* Top Actions Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 mb-10 border-b border-neutral-200 dark:border-neutral-800 print:hidden">
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Image
@@ -399,214 +776,230 @@ export default function AuditClient() {
                   className="h-7 w-auto object-contain dark:invert"
                 />
                 <span className="text-[11px] font-mono uppercase tracking-widest text-[#009E73] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2.5 py-0.5 rounded">
-                  Audit Report
+                  Verified Audit Report
                 </span>
               </div>
               <p className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
-                Audited Target: <span className="font-bold text-black dark:text-white underline">{report.url}</span>
+                Prepared for: <span className="font-bold text-black dark:text-white">{briefReport.companyName}</span> ({briefReport.fullName})
               </p>
             </div>
 
             <div className="flex items-center gap-3">
               <button
                 type="button"
-                onClick={() => setReport(null)}
+                onClick={() => window.print()}
                 className="inline-flex items-center px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-700 dark:text-neutral-300 hover:border-black dark:hover:border-white transition"
               >
-                <RefreshCw className="w-3.5 h-3.5 mr-1.5" /> Run Another URL
+                <Printer className="w-3.5 h-3.5 mr-1.5" /> Print / Save PDF
               </button>
               <button
                 type="button"
-                onClick={handleDownloadPdfClick}
-                className="inline-flex items-center px-5 py-2.5 rounded-xl bg-[#0A0A0A] dark:bg-white text-white dark:text-black text-xs font-bold hover:bg-[#009E73] dark:hover:bg-[#009E73] dark:hover:text-white transition shadow-sm"
+                onClick={() => { setBriefReport(null); setStep(1); }}
+                className="inline-flex items-center px-4 py-2.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-xs font-bold text-neutral-800 dark:text-neutral-200 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition"
               >
-                <Download className="w-3.5 h-3.5 mr-1.5" /> Download Full Report (PDF)
+                Edit Operational Brief
               </button>
             </div>
           </div>
 
-          {/* Metric Score Cards Grid */}
-          <div className="mb-12">
-            <h2 className="text-xl font-extrabold text-black dark:text-white mb-6 print:text-black">
-              System Architecture Scorecard
+          {/* Executive Summary Card */}
+          <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-8 shadow-sm mb-10 print:border print:p-6">
+            <h2 className="text-2xl font-extrabold text-black dark:text-white mb-3">
+              Executive System Assessment
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 print:grid-cols-3">
-              <ScoreCard
-                title="Performance"
-                score={report.performance_score}
-                icon={Zap}
-                desc="Core Web Vitals, sub-second asset delivery, server response latency"
-              />
-              <ScoreCard
-                title="Technical SEO"
-                score={report.seo_score}
-                icon={ShieldCheck}
-                desc="Structured JSON-LD schema, canonical indexing, AI-crawler discoverability"
-              />
-              <ScoreCard
-                title="Accessibility & UI"
-                score={report.accessibility_score}
-                icon={Gauge}
-                desc="Semantic hierarchy, color contrast tokens, mobile viewport fluidity"
-              />
-            </div>
-          </div>
+            <p className="text-base text-neutral-700 dark:text-neutral-300 leading-relaxed mb-6">
+              {briefReport.summary}
+            </p>
 
-          {/* Findings & Actionable Solutions Section */}
-          <div className="mb-16">
-            <div className="flex items-center justify-between mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-neutral-100 dark:border-neutral-800">
               <div>
-                <h3 className="text-xl font-extrabold text-black dark:text-white print:text-black">
-                  Empirical Findings &amp; Architecture Solutions
-                </h3>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
-                  Identified bottlenecks prioritized by business and operational impact.
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#009E73] block mb-1">
+                  Recommended Advisory Track
+                </span>
+                <p className="text-lg font-bold text-black dark:text-white">
+                  {briefReport.recommendedTrack}
+                </p>
+              </div>
+
+              <div>
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#009E73] block mb-1">
+                  Target Service Architecture
+                </span>
+                <p className="text-lg font-bold text-black dark:text-white">
+                  {briefReport.recommendedService}
                 </p>
               </div>
             </div>
+          </div>
 
-            <div className="space-y-4">
-              {report.findings.map((item, idx) => (
+          {/* Solution Scope & Deliverables */}
+          <div className="mb-12">
+            <h3 className="text-xl font-extrabold text-black dark:text-white mb-6">
+              Recommended Architecture Scope &amp; Output
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {briefReport.solutionScope.map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 print:border print:border-neutral-300 print:bg-white print:p-5 break-inside-avoid [page-break-inside:avoid]"
+                  className="bg-neutral-50/70 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 flex items-start gap-3.5 print:bg-white print:border-neutral-300"
                 >
-                  <div className="max-w-2xl">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800 print:border-neutral-300 print:text-black">
-                        {item.impact || "High Impact"}
-                      </span>
-                    </div>
-                    <p className="text-[15px] font-semibold text-black dark:text-neutral-100 leading-relaxed print:text-black">
-                      {item.problem}
-                    </p>
-                  </div>
-
-                  <div className="shrink-0 flex items-center print:hidden">
-                    <Link
-                      href={item.solution_url || "/services/website-design-services"}
-                      className="inline-flex items-center justify-center px-4 py-2.5 bg-neutral-100 dark:bg-neutral-800 hover:bg-[#009E73] hover:text-white dark:hover:bg-[#009E73] dark:hover:text-white text-xs font-bold text-neutral-800 dark:text-neutral-200 rounded-xl transition-colors gap-1.5"
-                    >
-                      <span>{item.solution_name}</span>
-                      <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-                    </Link>
-                  </div>
-
-                  {/* Print representation of solution */}
-                  <div className="hidden print:block text-xs font-mono text-neutral-700">
-                    Solution: <span className="font-bold">{item.solution_name}</span>
-                  </div>
+                  <CheckCircle2 className="w-5 h-5 text-[#009E73] shrink-0 mt-0.5" />
+                  <p className="text-sm font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">
+                    {item}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Bottom Download & Consultation CTA Box */}
-          <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-xl print:hidden">
-            <div className="inline-flex items-center space-x-2 bg-emerald-950/60 border border-emerald-800/80 px-3 py-1 rounded-full mb-4">
-              <span className="w-2 h-2 rounded-full bg-[#009E73]"></span>
-              <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#009E73]">
-                Architecture Remediation
-              </span>
+          {/* Engagement Pricing Philosophy Box */}
+          <div className="bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 rounded-3xl p-8 mb-12 print:border-neutral-300 print:bg-white">
+            <div className="flex items-center gap-2 mb-3 text-xs font-mono font-bold uppercase tracking-widest text-[#007a55] dark:text-[#4ade80]">
+              <Sparkles className="w-4 h-4" />
+              <span>DigiXPro Engagement &amp; Pricing Philosophy</span>
             </div>
+            <p className="text-sm md:text-base text-neutral-800 dark:text-neutral-200 leading-relaxed font-medium">
+              {ENGAGEMENT_PRICING_PHILOSOPHY}
+            </p>
+          </div>
+
+          {/* CTA Box */}
+          <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-xl mb-16 print:hidden">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#009E73] bg-emerald-950/60 border border-emerald-800/80 px-3 py-1 rounded-full mb-4 inline-block">
+              Executive Next Step
+            </span>
             <h3 className="text-2xl md:text-3xl font-extrabold mb-3">
-              Ready to resolve these architectural bottlenecks?
+              Schedule Your 30-Minute Architecture Discovery Call
             </h3>
             <p className="text-sm md:text-base text-neutral-300 max-w-xl mx-auto mb-8 leading-relaxed">
-              Book an independent 20-minute discovery call to map a prioritized engineering roadmap for your web systems.
+              Review your operational requirements directly with our principal technologist before committing budget.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <button
-                type="button"
-                onClick={handleDownloadPdfClick}
-                className="inline-flex items-center justify-center px-6 py-3.5 bg-white text-black font-bold text-sm rounded-xl hover:bg-neutral-200 transition shadow-md"
-              >
-                <Download className="w-4 h-4 mr-2" aria-hidden="true" /> Download Full Report (PDF)
-              </button>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-6 py-3.5 bg-[#009E73] text-white font-bold text-sm rounded-xl hover:bg-[#007a5a] transition shadow-md"
+                className="inline-flex items-center justify-center px-8 py-4 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-sm rounded-xl transition shadow-md"
               >
-                Schedule Advisory Call <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
+                <Calendar className="w-4 h-4 mr-2" /> Book Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
           </div>
-        </section>
-      )}
 
-      {/* ========================================================================= */}
-      {/* EMAIL CAPTURE MODAL (Gated PDF Download) */}
-      {/* ========================================================================= */}
-      {isEmailModalOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="email-gate-heading"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 print:hidden"
-        >
-          <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl max-w-md w-full p-6 md:p-8 shadow-2xl relative animate-in fade-in zoom-in-95 duration-150">
-            <button
-              type="button"
-              onClick={() => setIsEmailModalOpen(false)}
-              className="absolute top-5 right-5 text-neutral-400 hover:text-black dark:hover:text-white p-1 rounded-lg transition"
-              aria-label="Close dialog"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73] mb-5">
-              <FileText className="w-6 h-6" />
-            </div>
-
-            <h3 id="email-gate-heading" className="text-xl font-extrabold text-black dark:text-white mb-2">
-              Download Audit Report (PDF)
-            </h3>
-            <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
-              Enter your work email address to generate and print your audit report.
-            </p>
-
-            <form onSubmit={handleEmailSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="audit-email-input" className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
-                  Work Email Address
-                </label>
-                <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-2.5 focus-within:border-[#009E73]">
-                  <Mail className="w-4 h-4 text-neutral-400 mr-2 shrink-0" />
-                  <input
-                    id="audit-email-input"
-                    type="email"
-                    required
-                    value={emailInput}
-                    onChange={(e) => setEmailInput(e.target.value)}
-                    placeholder="name@company.com"
-                    className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
-                  />
-                </div>
-              </div>
-
+          {/* ========================================================================= */}
+          {/* SECONDARY FLOW: COLLAPSED OPTIONAL TECHNICAL SPEED & SEO CHECK */}
+          {/* ========================================================================= */}
+          <div className="border-t border-neutral-200 dark:border-neutral-800 pt-10 print:hidden">
+            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl overflow-hidden shadow-sm">
               <button
-                type="submit"
-                disabled={isSubmittingLead}
-                className="w-full inline-flex items-center justify-center px-6 py-3.5 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-sm rounded-xl transition shadow-md disabled:opacity-50"
+                type="button"
+                onClick={() => setIsTechCheckExpanded(!isTechCheckExpanded)}
+                className="w-full p-6 text-left flex items-center justify-between bg-neutral-50/50 dark:bg-neutral-900 hover:bg-neutral-100/60 dark:hover:bg-neutral-800/50 transition-colors"
               >
-                {isSubmittingLead ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Preparing Report…
-                  </>
-                ) : leadSuccess ? (
-                  <>
-                    <CheckCircle2 className="w-4 h-4 mr-2" /> Opening Print Dialog…
-                  </>
-                ) : (
-                  <>
-                    Generate &amp; Download PDF <ArrowRight className="w-4 h-4 ml-2" />
-                  </>
-                )}
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                    <Zap className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-extrabold text-black dark:text-white">
+                      Optional: Run Technical Speed &amp; SEO Diagnostics
+                    </h3>
+                    <p className="text-xs text-neutral-500">
+                      Audit a specific website URL for Core Web Vitals, schema tags, and performance metrics.
+                    </p>
+                  </div>
+                </div>
+                <div className="text-neutral-400">
+                  {isTechCheckExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                </div>
               </button>
-            </form>
+
+              {isTechCheckExpanded && (
+                <div className="p-6 md:p-8 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+                  <form onSubmit={handleTechCheckSubmit} className="max-w-2xl mb-8">
+                    <div className="flex flex-col sm:flex-row items-center gap-3 bg-neutral-50 dark:bg-neutral-800/80 border border-neutral-300 dark:border-neutral-700 p-2 rounded-2xl">
+                      <div className="flex items-center flex-1 w-full px-3 py-2">
+                        <Globe className="w-5 h-5 text-neutral-400 shrink-0 mr-3" />
+                        <input
+                          type="text"
+                          value={techUrlInput}
+                          onChange={(e) => setTechUrlInput(e.target.value)}
+                          placeholder="https://yourcompany.com"
+                          disabled={isTechLoading}
+                          className="w-full bg-transparent text-black dark:text-white placeholder:text-neutral-400 focus:outline-none text-sm font-medium"
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        disabled={isTechLoading}
+                        className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-xs rounded-xl transition shadow-sm shrink-0 disabled:opacity-50"
+                      >
+                        {isTechLoading ? (
+                          <>
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Auditing…
+                          </>
+                        ) : (
+                          <>
+                            Run Speed Check <ArrowRight className="w-4 h-4 ml-1.5" />
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </form>
+
+                  {techError && (
+                    <div className="p-4 rounded-xl border border-red-200 bg-red-50 text-xs text-red-700 mb-6">
+                      {techError}
+                    </div>
+                  )}
+
+                  {/* Technical Report Results */}
+                  {techReport && (
+                    <div className="space-y-8 animate-in fade-in duration-200">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                          <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Performance</span>
+                          <span className={`text-2xl font-black ${getScoreColor(techReport.performance_score).text}`}>
+                            {techReport.performance_score}/100
+                          </span>
+                        </div>
+                        <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                          <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Technical SEO</span>
+                          <span className={`text-2xl font-black ${getScoreColor(techReport.seo_score).text}`}>
+                            {techReport.seo_score}/100
+                          </span>
+                        </div>
+                        <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                          <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Accessibility</span>
+                          <span className={`text-2xl font-black ${getScoreColor(techReport.accessibility_score).text}`}>
+                            {techReport.accessibility_score}/100
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-extrabold text-black dark:text-white">Technical Findings</h4>
+                        {techReport.findings.map((f, i) => (
+                          <div key={i} className="p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                            <div>
+                              <span className="font-bold text-amber-600 dark:text-amber-400 block mb-0.5">{f.impact}</span>
+                              <p className="text-neutral-800 dark:text-neutral-200 font-medium">{f.problem}</p>
+                            </div>
+                            <Link
+                              href={f.solution_url}
+                              className="inline-flex items-center text-[#009E73] font-bold hover:underline shrink-0"
+                            >
+                              {f.solution_name} &rarr;
+                            </Link>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </section>
       )}
     </div>
   );

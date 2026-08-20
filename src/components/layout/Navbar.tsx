@@ -13,7 +13,6 @@ const navLinks = [
   { href: '/design-services', label: 'Design Services' },
   { href: '/how-we-work', label: 'How We Work' },
   { href: '/evidence', label: 'Evidence' },
-  { href: '/studio', label: 'Studio' },
   { href: '/audit', label: 'Audit' },
   { href: '/knowledge', label: 'Knowledge' },
   { href: '/founder', label: 'Founder' },

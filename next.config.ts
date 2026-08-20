@@ -18,6 +18,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/studio',
+        destination: '/',
+        permanent: false,
+      },
+      {
         source: '/services/unlimited-graphic-design',
         destination: '/services/branding-services',
         permanent: true,
