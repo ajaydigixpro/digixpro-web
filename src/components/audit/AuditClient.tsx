@@ -28,6 +28,8 @@ import {
   PackageCheck,
   Award,
   ShieldCheck,
+  AlertTriangle,
+  RotateCcw,
 } from "lucide-react";
 
 export interface BriefFormData {
@@ -215,16 +217,18 @@ export default function AuditClient() {
     selectedServices: [],
   });
 
-  // Submission, Brief Report & Rate Limit State
+  // Submission, Brief Report, Rate Limit & Generation Failure State
   const [isSubmittingBrief, setIsSubmittingBrief] = useState(false);
   const [briefReport, setBriefReport] = useState<BriefReportData | null>(null);
   const [rateLimitedNotice, setRateLimitedNotice] = useState<string | null>(null);
+  const [generationFailedNotice, setGenerationFailedNotice] = useState<string | null>(null);
 
   // Secondary Optional Tech Check State
   const [isTechCheckExpanded, setIsTechCheckExpanded] = useState(false);
   const [techUrlInput, setTechUrlInput] = useState("");
   const [isTechLoading, setIsTechLoading] = useState(false);
   const [techReport, setTechReport] = useState<TechnicalReportData | null>(null);
+  const [techErrorNotice, setTechErrorNotice] = useState<string | null>(null);
 
   const updateForm = (key: keyof BriefFormData, value: string | string[]) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
@@ -278,10 +282,11 @@ export default function AuditClient() {
 
   // Primary Webhook Submit: audit-brief
   // Sends EXACTLY 10 KEYS: name, email, company, product, market, industry, company_size, business_age, current_systems, interested_services
-  const handleBriefSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleBriefSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setIsSubmittingBrief(true);
     setRateLimitedNotice(null);
+    setGenerationFailedNotice(null);
 
     const currentSystemsString = buildCurrentSystemsString(formData.selectedSystems);
     const interestedServicesString = buildInterestedServicesString(formData.selectedServices);
@@ -321,7 +326,7 @@ export default function AuditClient() {
         }
       }
 
-      // Check if the response returned a rate_limited message shape
+      // TASK 1: Handle rate_limited or generation_failed flags explicitly
       if (raw.rate_limited === true || raw.rate_limited === "true") {
         setRateLimitedNotice(
           raw.message ||
@@ -330,39 +335,43 @@ export default function AuditClient() {
         return;
       }
 
+      if (raw.generation_failed === true || raw.generation_failed === "true") {
+        setGenerationFailedNotice(
+          raw.message || "Something went wrong generating your report - please try again in a moment."
+        );
+        return;
+      }
+
+      // Verify that essential summary or recommendations were returned
+      if (!raw.summary && (!raw.recommendations || raw.recommendations.length === 0)) {
+        setGenerationFailedNotice(
+          "Something went wrong generating your report - please try again in a moment."
+        );
+        return;
+      }
+
       const generatedReport: BriefReportData = {
-        summary:
-          raw.summary ||
-          `Based on your brief, ${formData.company || "your company"} is operating with ${formData.company_size || "your current team size"} in the ${formData.industry || "selected"} sector. Streamlining your operational handoffs and customer tracking will eliminate manual daily tasks.`,
-        trust_note:
-          raw.trust_note ||
-          "DigiXPro is an independent technology architecture and business systems advisory, already working with clinics, marketplaces, and knowledge platforms - the production evidence for this work is public and reviewable before any commitment is made.",
-        estimate_disclaimer_long:
-          raw.estimate_disclaimer_long ||
-          "Everything on this page is a system-generated estimate meant to give a general idea of the kind of investment being discussed - it is not a final quote. The actual scope and price are confirmed only during the 30-minute discovery call.",
-        estimate_disclaimer_short:
-          raw.estimate_disclaimer_short ||
-          "This report is an estimate to guide the conversation, not a final quote - the real scope gets confirmed on the call.",
-        bundle_estimate:
-          raw.bundle_estimate || "",
+        summary: raw.summary || "",
+        trust_note: raw.trust_note || "",
+        estimate_disclaimer_long: raw.estimate_disclaimer_long || "",
+        estimate_disclaimer_short: raw.estimate_disclaimer_short || "",
+        bundle_estimate: raw.bundle_estimate || "",
         recommendations: (raw.recommendations || []).map((rec: any) => ({
-          automation_name: rec.automation_name || "Automated Solution",
+          automation_name: rec.automation_name || "",
           what_it_does: rec.what_it_does || "",
           why_it_fits: rec.why_it_fits || "",
           three_tiers: {
-            premium: rec.three_tiers?.premium || "Enterprise agency setup",
-            digixpro: rec.three_tiers?.digixpro || rec.digixpro_price_range || "Scoped in discovery",
-            bootstrap: rec.three_tiers?.bootstrap || "DIY builder or self-managed tools",
+            premium: rec.three_tiers?.premium || "",
+            digixpro: rec.three_tiers?.digixpro || rec.digixpro_price_range || "",
+            bootstrap: rec.three_tiers?.bootstrap || "",
           },
           recommended_tier: rec.recommended_tier || "digixpro",
-          explain_recommendation: rec.explain_recommendation || "Optimized architecture suited to your team scale and operational goals.",
+          explain_recommendation: rec.explain_recommendation || "",
           digixpro_service_name: rec.digixpro_service_name || "Custom Architecture & Automation",
           digixpro_service_url: rec.digixpro_service_url || "/services/ai-automation-agency",
-          digixpro_price_range: rec.digixpro_price_range || "Scoped in discovery",
+          digixpro_price_range: rec.digixpro_price_range || "",
         })),
-        closing_message:
-          raw.closing_message ||
-          "Bringing your website, brand identity, patient communications, and local search visibility under one coordinated plan will free your team to focus on core growth. A 30-minute discovery call is the natural next step to align priorities.",
+        closing_message: raw.closing_message || "",
         business_context: raw.business_context || {
           name: formData.name,
           email: formData.email,
@@ -380,62 +389,10 @@ export default function AuditClient() {
 
       setBriefReport(generatedReport);
     } catch {
-      // Clean fallback if n8n webhook has a transient connection issue
-      const fallbackReport: BriefReportData = {
-        summary: `Based on your brief, ${formData.company || "your business"} has established strong growth in ${formData.industry || "your industry"}. Streamlining your operational handoffs and lead workflows will eliminate daily manual effort.`,
-        trust_note: "DigiXPro is an independent technology architecture and business systems advisory, already working with clinics, marketplaces, and knowledge platforms - the production evidence for this work is public and reviewable before any commitment is made.",
-        estimate_disclaimer_long: "Everything on this page is a system-generated estimate meant to give a general idea of the kind of investment being discussed - it is not a final quote. The actual scope and price are confirmed only during the 30-minute discovery call.",
-        estimate_disclaimer_short: "This report is an estimate to guide the conversation, not a final quote - the real scope gets confirmed on the call.",
-        bundle_estimate: "Custom web architecture bundled with automated workflow systems through DigiXPro.",
-        recommendations: [
-          {
-            automation_name: "Patient-Friendly Booking Website",
-            what_it_does: "Gives your clinic a modern website where clients can view services and directly book appointments online.",
-            why_it_fits: "Fits your requirement for modern website architecture and automated inquiry routing.",
-            three_tiers: {
-              premium: "Elite healthcare design agencies: ₹3,00,000 – ₹6,00,000",
-              digixpro: "DigiXPro: USD 960–2,400 (₹91,680–₹2,29,200) standard; USD 3,000–12,000+ custom",
-              bootstrap: "DIY Builder: ₹1,500/mo self-managed without engineering support",
-            },
-            recommended_tier: "digixpro",
-            explain_recommendation: "Provides professional-grade engineering without agency overhead or DIY maintenance burden.",
-            digixpro_service_name: "Website Design and Architecture",
-            digixpro_service_url: "/services/website-design-services",
-            digixpro_price_range: "USD 960–2,400 (₹91,680–₹2,29,200)",
-          },
-          {
-            automation_name: "Smart Lead Tracker & WhatsApp Messaging Assistant",
-            what_it_does: "Automatically logs incoming inquiries and sends automated WhatsApp follow-up reminders.",
-            why_it_fits: "Eliminates manual lead tracking and ensures 24/7 instant response.",
-            three_tiers: {
-              premium: "Enterprise workflow agencies: ₹2,50,000 – ₹5,00,000 setup",
-              digixpro: "DigiXPro: Scoped in discovery based on exact workflow complexity",
-              bootstrap: "Manual WhatsApp Business app: Free, but requires daily copy-pasting",
-            },
-            recommended_tier: "digixpro",
-            explain_recommendation: "Automates repetitive inquiry tracking so your team stays focused on patient care.",
-            digixpro_service_name: "Business Process Automation",
-            digixpro_service_url: "/services/business-process-automation",
-            digixpro_price_range: "Scoped in discovery",
-          },
-        ],
-        closing_message: "Bringing your website, brand identity, patient communications, and local search visibility under one coordinated plan will free your team to focus on core growth. A 30-minute discovery call is the natural next step to align priorities.",
-        business_context: {
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          product: formData.product,
-          market: formData.market,
-          industry: formData.industry,
-          company_size: formData.company_size,
-          business_age: formData.business_age,
-          current_systems: currentSystemsString,
-          interested_services: interestedServicesString,
-        },
-        generated_at: new Date().toISOString(),
-      };
-
-      setBriefReport(fallbackReport);
+      // TASK 2: Honest error handling (No fabricated fallback report content)
+      setGenerationFailedNotice(
+        "Something went wrong generating your report - please try again in a moment."
+      );
     } finally {
       setIsSubmittingBrief(false);
     }
@@ -448,6 +405,8 @@ export default function AuditClient() {
     if (!formattedUrl) return;
 
     setIsTechLoading(true);
+    setTechErrorNotice(null);
+    setTechReport(null);
 
     try {
       const response = await fetch("https://n8n.digixpro.in/webhook/audit-run", {
@@ -473,48 +432,13 @@ export default function AuditClient() {
 
       setTechReport({
         url: formattedUrl,
-        performance_score: Number(raw.performance_score ?? raw.performanceScore ?? 78),
-        seo_score: Number(raw.seo_score ?? raw.seoScore ?? 85),
-        accessibility_score: Number(raw.accessibility_score ?? raw.accessibilityScore ?? 90),
-        findings:
-          normalizedFindings.length > 0
-            ? normalizedFindings
-            : [
-                {
-                  problem: "Uncompressed legacy image assets causing Largest Contentful Paint (LCP) delays.",
-                  impact: "High — Harms Google Core Web Vitals rankings and mobile conversion rates.",
-                  solution_name: "Modern JS Architecture & Speed Optimization",
-                  solution_url: "/services/website-design-services",
-                },
-                {
-                  problem: "Missing JSON-LD structured data and semantic heading hierarchy.",
-                  impact: "Medium — Reduces visibility in AI search engines (Perplexity, ChatGPT).",
-                  solution_name: "Technical SEO & Schema Governance",
-                  solution_url: "/services/it-consulting-services",
-                },
-              ],
+        performance_score: Number(raw.performance_score ?? raw.performanceScore ?? 0),
+        seo_score: Number(raw.seo_score ?? raw.seoScore ?? 0),
+        accessibility_score: Number(raw.accessibility_score ?? raw.accessibilityScore ?? 0),
+        findings: normalizedFindings,
       });
     } catch {
-      setTechReport({
-        url: formattedUrl,
-        performance_score: 78,
-        seo_score: 85,
-        accessibility_score: 90,
-        findings: [
-          {
-            problem: "Uncompressed legacy assets causing Largest Contentful Paint (LCP) delays exceeding 3.2s.",
-            impact: "High — Increases mobile bounce rate and degrades Core Web Vitals.",
-            solution_name: "Modern JS Architecture & Performance Optimization",
-            solution_url: "/services/website-design-services",
-          },
-          {
-            problem: "Missing JSON-LD structured schema and semantic heading hierarchy.",
-            impact: "Medium — Reduces crawlability in AI search engines and rich snippets.",
-            solution_name: "Technical SEO & Schema Governance",
-            solution_url: "/services/it-consulting-services",
-          },
-        ],
-      });
+      setTechErrorNotice("Technical check could not be completed for this URL right now. Please verify the URL and try again.");
     } finally {
       setIsTechLoading(false);
     }
@@ -595,7 +519,7 @@ export default function AuditClient() {
       {/* ========================================================================= */}
       {/* PRIMARY FLOW: 8-QUESTION BRIEF FORM + REPORT DELIVERY DETAILS (STEP 9) */}
       {/* ========================================================================= */}
-      {!briefReport && !rateLimitedNotice && (
+      {!briefReport && !rateLimitedNotice && !generationFailedNotice && (
         <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-20 print:hidden">
           <div className="max-w-3xl mx-auto">
             {/* Header */}
@@ -1047,6 +971,50 @@ export default function AuditClient() {
       )}
 
       {/* ========================================================================= */}
+      {/* TASK 1: GENERATION FAILED HONEST ERROR NOTICE WITH RETRY BUTTON */}
+      {/* ========================================================================= */}
+      {generationFailedNotice && (
+        <section className="max-w-[1200px] mx-auto px-6 py-16 print:hidden">
+          <div className="max-w-2xl mx-auto bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-3xl p-8 shadow-sm text-center">
+            <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/60 border border-amber-300 dark:border-amber-700 flex items-center justify-center text-amber-600 dark:text-amber-400 mx-auto mb-4">
+              <AlertTriangle className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-extrabold text-black dark:text-white mb-2">
+              Report Generation Interrupted
+            </h3>
+            <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed mb-6 font-medium">
+              {generationFailedNotice}
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => handleBriefSubmit()}
+                disabled={isSubmittingBrief}
+                className="inline-flex items-center px-6 py-3 rounded-xl bg-[#009E73] text-white text-xs font-bold hover:bg-[#007a5a] transition shadow-sm disabled:opacity-50"
+              >
+                {isSubmittingBrief ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Retrying…
+                  </>
+                ) : (
+                  <>
+                    <RotateCcw className="w-4 h-4 mr-2" /> Try Again
+                  </>
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() => { setGenerationFailedNotice(null); setStep(9); }}
+                className="inline-flex items-center px-5 py-3 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-700 dark:text-neutral-300 hover:border-black dark:hover:border-white transition"
+              >
+                Edit Form Details
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ========================================================================= */}
       {/* RATE LIMITED FRIENDLY INFORMATIONAL NOTICE */}
       {/* ========================================================================= */}
       {rateLimitedNotice && (
@@ -1124,14 +1092,16 @@ export default function AuditClient() {
           </div>
 
           {/* 1. summary paragraph */}
-          <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-8 shadow-sm mb-6 print:border print:p-6">
-            <h2 className="text-2xl font-extrabold text-black dark:text-white mb-3 print:text-black">
-              Executive Systems Assessment
-            </h2>
-            <p className="text-base text-neutral-700 dark:text-neutral-300 leading-relaxed font-medium print:text-black">
-              {briefReport.summary}
-            </p>
-          </div>
+          {briefReport.summary && (
+            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-8 shadow-sm mb-6 print:border print:p-6">
+              <h2 className="text-2xl font-extrabold text-black dark:text-white mb-3 print:text-black">
+                Executive Systems Assessment
+              </h2>
+              <p className="text-base text-neutral-700 dark:text-neutral-300 leading-relaxed font-medium print:text-black">
+                {briefReport.summary}
+              </p>
+            </div>
+          )}
 
           {/* 2. trust_note - a distinct, calm callout box */}
           {briefReport.trust_note && (
@@ -1233,7 +1203,7 @@ export default function AuditClient() {
                                 )}
                               </div>
                               <p className="text-xs text-neutral-800 dark:text-neutral-200 font-semibold leading-snug">
-                                {rec.three_tiers?.premium || "Enterprise agency setup"}
+                                {rec.three_tiers?.premium || "Scoped in discovery"}
                               </p>
                             </div>
                           </div>
@@ -1256,7 +1226,7 @@ export default function AuditClient() {
                                 )}
                               </div>
                               <p className="text-xs text-neutral-900 dark:text-neutral-100 font-extrabold leading-snug">
-                                {rec.three_tiers?.digixpro || rec.digixpro_price_range}
+                                {rec.three_tiers?.digixpro || rec.digixpro_price_range || "Scoped in discovery"}
                               </p>
                             </div>
                           </div>
@@ -1279,7 +1249,7 @@ export default function AuditClient() {
                                 )}
                               </div>
                               <p className="text-xs text-neutral-800 dark:text-neutral-200 font-semibold leading-snug">
-                                {rec.three_tiers?.bootstrap || "DIY builder or self-managed tools"}
+                                {rec.three_tiers?.bootstrap || "Self-managed workaround"}
                               </p>
                             </div>
                           </div>
@@ -1430,6 +1400,13 @@ export default function AuditClient() {
                     </div>
                   </form>
 
+                  {/* Technical Error Notice */}
+                  {techErrorNotice && (
+                    <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-200 font-medium">
+                      {techErrorNotice}
+                    </div>
+                  )}
+
                   {/* Technical Report Results */}
                   {techReport && (
                     <div className="space-y-8 animate-in fade-in duration-200">
@@ -1454,23 +1431,25 @@ export default function AuditClient() {
                         </div>
                       </div>
 
-                      <div className="space-y-3">
-                        <h4 className="text-sm font-extrabold text-black dark:text-white">Technical Findings</h4>
-                        {techReport.findings.map((f, i) => (
-                          <div key={i} className="p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                            <div>
-                              <span className="font-bold text-amber-600 dark:text-amber-400 block mb-0.5">{f.impact}</span>
-                              <p className="text-neutral-800 dark:text-neutral-200 font-medium">{f.problem}</p>
+                      {techReport.findings && techReport.findings.length > 0 && (
+                        <div className="space-y-3">
+                          <h4 className="text-sm font-extrabold text-black dark:text-white">Technical Findings</h4>
+                          {techReport.findings.map((f, i) => (
+                            <div key={i} className="p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                              <div>
+                                <span className="font-bold text-amber-600 dark:text-amber-400 block mb-0.5">{f.impact}</span>
+                                <p className="text-neutral-800 dark:text-neutral-200 font-medium">{f.problem}</p>
+                              </div>
+                              <Link
+                                href={f.solution_url}
+                                className="inline-flex items-center text-[#009E73] font-bold hover:underline shrink-0"
+                              >
+                                {f.solution_name} &rarr;
+                              </Link>
                             </div>
-                            <Link
-                              href={f.solution_url}
-                              className="inline-flex items-center text-[#009E73] font-bold hover:underline shrink-0"
-                            >
-                              {f.solution_name} &rarr;
-                            </Link>
-                          </div>
-                        ))}
-                      </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
