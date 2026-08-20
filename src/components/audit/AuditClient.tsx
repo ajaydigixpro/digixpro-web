@@ -1219,20 +1219,22 @@ export default function AuditClient() {
                             </div>
                           </div>
 
-                          {/* DigiXPro (FEATURED / DIRECT OPTION) */}
-                          <div className={`rounded-2xl p-4 border-2 transition-all flex flex-col justify-between ${
+                          {/* DigiXPro */}
+                          <div className={`rounded-2xl p-4 border transition-all flex flex-col justify-between ${
                             recTierRaw === "digixpro" || recTierRaw === "digix"
                               ? "border-[#009E73] bg-emerald-50/80 dark:bg-emerald-950/50 ring-2 ring-[#009E73] shadow-md"
-                              : "border-[#009E73] bg-emerald-50/40 dark:bg-emerald-950/30"
+                              : "border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/40"
                           }`}>
                             <div>
                               <div className="flex items-center justify-between mb-2">
                                 <span className="text-xs font-mono font-bold uppercase text-[#009E73] dark:text-[#4ade80] flex items-center gap-1">
                                   <Sparkles className="w-3.5 h-3.5" /> DigiXPro
                                 </span>
-                                <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-[#009E73] text-white">
-                                  {recTierRaw === "digixpro" || recTierRaw === "digix" ? "Recommended" : "Featured"}
-                                </span>
+                                {(recTierRaw === "digixpro" || recTierRaw === "digix") && (
+                                  <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-[#009E73] text-white flex items-center gap-1">
+                                    <Award className="w-3 h-3" /> Recommended
+                                  </span>
+                                )}
                               </div>
                               <p className="text-xs text-neutral-900 dark:text-neutral-100 font-extrabold leading-snug">
                                 {rec.three_tiers?.digixpro || rec.digixpro_price_range}
