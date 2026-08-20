@@ -532,37 +532,31 @@ export default function AuditClient() {
       {/* PRIMARY FLOW: 9-QUESTION BRIEF FORM + REPORT DELIVERY DETAILS (STEP 10) */}
       {/* ========================================================================= */}
       {!briefReport && !rateLimitedNotice && !generationFailedNotice && (
-        <section className="max-w-[1200px] mx-auto px-4 sm:px-6 pt-2 md:pt-4 pb-12 print:hidden">
+        <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-16 pb-16 print:hidden">
           <div className="max-w-3xl mx-auto">
             {/* Header */}
-            <div className="text-center mb-3 md:mb-4">
-              <div className="inline-flex items-center space-x-1.5 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 px-3 py-0.5 rounded-full mb-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#009E73] animate-pulse"></span>
-                <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-widest text-[#007a55] dark:text-[#4ade80]">
-                  Free Business Audit + Price Quote
-                </span>
-              </div>
-              <h1 className="text-lg sm:text-2xl md:text-3xl font-extrabold tracking-tight leading-tight mb-1 text-black dark:text-white whitespace-nowrap">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight mb-3 text-black dark:text-white">
                 Free Audit &amp; Price Quote
               </h1>
-              <p className="text-[11px] sm:text-xs md:text-sm font-medium text-neutral-600 dark:text-neutral-300 leading-tight mb-2 whitespace-nowrap">
-                7 questions. Real audit. Real pricing. No guesswork.
+              <p className="text-base md:text-lg font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4 max-w-2xl mx-auto">
+                7 quick questions. A real systems audit and a clear price idea to work from.
               </p>
 
-              {/* 24-Hour Notice Line */}
-              <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-mono font-semibold text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800/80 px-2.5 py-0.5 rounded-full border border-neutral-200 dark:border-neutral-700 max-w-full">
-                <Info className="w-3 h-3 text-[#009E73] shrink-0" />
-                <span className="truncate">One report per 24h per email — answer thoughtfully.</span>
-              </div>
+              {/* 24-Hour Notice Line (Plain small muted text) */}
+              <p className="text-xs font-mono text-neutral-500 dark:text-neutral-400 flex items-center justify-center gap-1.5">
+                <Info className="w-3.5 h-3.5 text-[#009E73] shrink-0" />
+                <span>One report per 24 hours per email address — please answer thoughtfully.</span>
+              </p>
             </div>
 
             {/* Stepped Progress Bar */}
-            <div className="mb-3 md:mb-4">
-              <div className="flex items-center justify-between text-[10px] sm:text-xs font-mono font-bold text-neutral-500 mb-1">
+            <div className="mb-8">
+              <div className="flex items-center justify-between text-xs font-mono font-bold text-neutral-500 mb-2">
                 <span>{step <= 9 ? `QUESTION ${step} OF 9` : "REPORT DELIVERY"}</span>
                 <span>{Math.round((step / 10) * 100)}% COMPLETED</span>
               </div>
-              <div className="w-full bg-neutral-200 dark:bg-neutral-800 h-1.5 rounded-full overflow-hidden">
+              <div className="w-full bg-neutral-200 dark:bg-neutral-800 h-2 rounded-full overflow-hidden">
                 <div
                   className="bg-[#009E73] h-full transition-all duration-300"
                   style={{ width: `${(step / 10) * 100}%` }}
@@ -571,30 +565,30 @@ export default function AuditClient() {
             </div>
 
             {/* Form Card */}
-            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 shadow-xl">
+            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-10 shadow-xl">
               <form onSubmit={step === 10 ? handleBriefSubmit : (e) => { e.preventDefault(); handleNextStep(); }}>
                 
                 {/* QUESTION 1: Company Name */}
                 {step === 1 && (
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
-                        <Building2 className="w-4 h-4" />
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                        <Building2 className="w-5 h-5" />
                       </div>
                       <div>
-                        <h2 className="text-base sm:text-lg font-extrabold text-black dark:text-white">
+                        <h2 className="text-xl font-extrabold text-black dark:text-white">
                           1. What is your business called?
                         </h2>
-                        <p className="text-[11px] text-neutral-500">Your company or organization name.</p>
+                        <p className="text-xs text-neutral-500">Your company or organization name.</p>
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1">
+                      <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
                         Company / Business Name *
                       </label>
-                      <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3 py-2.5">
-                        <Building2 className="w-4 h-4 text-neutral-400 mr-2 shrink-0" />
+                      <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-3">
+                        <Building2 className="w-4 h-4 text-neutral-400 mr-2.5 shrink-0" />
                         <input
                           type="text"
                           required
