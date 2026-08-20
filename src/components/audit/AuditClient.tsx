@@ -1119,12 +1119,14 @@ export default function AuditClient() {
               >
                 Back to Form
               </button>
-              <Link
-                href="/contact"
+              <a
+                href="https://calendly.com/shukla-ajay05/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center px-5 py-2.5 rounded-xl bg-[#009E73] text-white text-xs font-bold hover:bg-[#007a5a] transition"
               >
                 Schedule Discovery Call <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-              </Link>
+              </a>
             </div>
           </div>
         </section>
@@ -1538,16 +1540,20 @@ export default function AuditClient() {
 
             {/* 6. "Book a 30-Min Discovery Call" CTA button */}
             <div className="flex flex-wrap items-center justify-center gap-4 print:hidden">
-              <Link
-                href="/contact"
+              <a
+                href="https://calendly.com/shukla-ajay05/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-4 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-sm rounded-xl transition shadow-md"
               >
                 <Calendar className="w-4 h-4 mr-2" /> Book a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
+              </a>
             </div>
 
             <div className="hidden print:block text-xs font-mono font-bold text-[#009E73]">
-              Book online: digixpro.in/contact
+              <a href="https://calendly.com/shukla-ajay05/30min" target="_blank" rel="noopener noreferrer" className="underline">
+                Book online: calendly.com/shukla-ajay05/30min
+              </a>
             </div>
           </div>
 
