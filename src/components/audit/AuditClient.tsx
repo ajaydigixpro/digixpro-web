@@ -1195,25 +1195,12 @@ export default function AuditClient() {
             </div>
           )}
 
-          {/* Full estimate_disclaimer_long Callout (Right after trust_note, before bundle_estimate) */}
+          {/* Full estimate_disclaimer_long Callout (Right after trust_note) */}
           {briefReport.estimate_disclaimer_long && (
             <div className="bg-neutral-50 dark:bg-neutral-900/80 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 mb-8 flex items-start gap-3.5 shadow-xs print:border-neutral-300 print:bg-neutral-50">
               <Info className="w-5 h-5 text-neutral-400 shrink-0 mt-0.5" aria-hidden="true" />
               <p className="text-xs text-neutral-600 dark:text-neutral-400 font-normal leading-relaxed print:text-neutral-700">
                 {briefReport.estimate_disclaimer_long}
-              </p>
-            </div>
-          )}
-
-          {/* 3. bundle_estimate - a highlighted block */}
-          {briefReport.bundle_estimate && (
-            <div className="bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-6 md:p-8 mb-10 shadow-sm print:border-neutral-300 print:bg-emerald-50">
-              <div className="flex items-center gap-2 mb-2 text-xs font-mono font-bold uppercase tracking-widest text-[#007a55] dark:text-[#4ade80]">
-                <PackageCheck className="w-4 h-4 text-[#009E73]" />
-                <span>Bundled through DigiXPro</span>
-              </div>
-              <p className="text-base md:text-lg font-bold text-neutral-900 dark:text-neutral-100 print:text-black leading-relaxed">
-                {briefReport.bundle_estimate}
               </p>
             </div>
           )}
@@ -1511,6 +1498,19 @@ export default function AuditClient() {
               )}
             </div>
           </div>
+
+          {/* RELOCATED bundle_estimate - highlighted summary block right before closing_message */}
+          {briefReport.bundle_estimate && (
+            <div className="bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-6 md:p-8 mb-12 shadow-sm print:border-neutral-300 print:bg-emerald-50 max-w-3xl mx-auto text-center">
+              <div className="flex items-center justify-center gap-2 mb-2 text-xs font-mono font-bold uppercase tracking-widest text-[#007a55] dark:text-[#4ade80]">
+                <PackageCheck className="w-4 h-4 text-[#009E73]" />
+                <span>Bundled Package Estimate</span>
+              </div>
+              <p className="text-base md:text-lg font-bold text-neutral-900 dark:text-neutral-100 print:text-black leading-relaxed">
+                {briefReport.bundle_estimate}
+              </p>
+            </div>
+          )}
 
           {/* 5. closing_message as a final paragraph & 6. "Book a 30-Min Discovery Call" CTA button directly below it */}
           <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-xl mb-16 print:border print:border-neutral-300 print:bg-white print:text-black print:p-6 print:shadow-none print:break-inside-avoid">
