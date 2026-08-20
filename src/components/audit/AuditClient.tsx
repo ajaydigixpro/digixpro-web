@@ -507,7 +507,7 @@ export default function AuditClient() {
               Systems Audit Report
             </span>
           </div>
-          <span className="text-xs text-neutral-500 font-mono">
+          <span className="text-xs text-neutral-500 font-mono" suppressHydrationWarning>
             {new Date().toLocaleDateString()}
           </span>
         </div>
@@ -1336,7 +1336,7 @@ export default function AuditClient() {
           {/* Compact Print Footer Line */}
           <div className="hidden print:flex items-center justify-between text-xs font-mono text-neutral-500 pt-6 mt-8 border-t border-neutral-300">
             <span>DigiXPro Digital Solution • digixpro.in</span>
-            <span>Report Generated: {new Date().toLocaleDateString()}</span>
+            <span suppressHydrationWarning>Report Generated: {new Date().toLocaleDateString()}</span>
           </div>
 
           {/* ========================================================================= */}
