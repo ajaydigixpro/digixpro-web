@@ -7,20 +7,15 @@ import {
   ArrowRight,
   ArrowLeft,
   CheckCircle2,
-  AlertCircle,
   Building2,
   Users,
   Target,
   Clock,
-  User,
-  Mail,
   Loader2,
   ChevronDown,
   ChevronUp,
   Globe,
   Zap,
-  ShieldCheck,
-  Gauge,
   Sparkles,
   Printer,
   Calendar,
@@ -36,8 +31,6 @@ export interface BriefFormData {
   company_size: string;
   business_age: string;
   selectedSystems: string[];
-  fullName: string;
-  email: string;
 }
 
 export interface RecommendationItem {
@@ -167,8 +160,6 @@ export default function AuditClient() {
     company_size: "",
     business_age: "",
     selectedSystems: [],
-    fullName: "",
-    email: "",
   });
 
   // Submission & Brief Report State
@@ -230,8 +221,6 @@ export default function AuditClient() {
       company_size: formData.company_size,
       business_age: formData.business_age,
       current_systems: currentSystemsString,
-      fullName: formData.fullName,
-      email: formData.email,
     };
 
     try {
@@ -478,7 +467,7 @@ export default function AuditClient() {
                 Find Your Automation &amp; System Bottlenecks.
               </h1>
               <p className="text-[16px] md:text-[19px] font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                Answer 7 simple questions about your business to get a instant, personalized system assessment report.
+                Answer 7 simple questions about your business to get an instant, personalized system assessment report.
               </p>
             </div>
 
@@ -500,7 +489,7 @@ export default function AuditClient() {
             <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-10 shadow-xl">
               <form onSubmit={step === 7 ? handleBriefSubmit : (e) => { e.preventDefault(); handleNextStep(); }}>
                 
-                {/* QUESTION 1: Company & Contact */}
+                {/* QUESTION 1: Company Name */}
                 {step === 1 && (
                   <div className="space-y-6">
                     <div className="flex items-center gap-3">
@@ -511,62 +500,24 @@ export default function AuditClient() {
                         <h2 className="text-xl font-extrabold text-black dark:text-white">
                           1. What is your business called?
                         </h2>
-                        <p className="text-xs text-neutral-500">Your company name and contact details.</p>
+                        <p className="text-xs text-neutral-500">Your company or organization name.</p>
                       </div>
                     </div>
 
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
-                          Company / Business Name *
-                        </label>
-                        <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-2.5">
-                          <Building2 className="w-4 h-4 text-neutral-400 mr-2 shrink-0" />
-                          <input
-                            type="text"
-                            required
-                            value={formData.company}
-                            onChange={(e) => updateForm("company", e.target.value)}
-                            placeholder="DigiXPro Digital Solution"
-                            className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
-                            Your Full Name *
-                          </label>
-                          <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-2.5">
-                            <User className="w-4 h-4 text-neutral-400 mr-2 shrink-0" />
-                            <input
-                              type="text"
-                              required
-                              value={formData.fullName}
-                              onChange={(e) => updateForm("fullName", e.target.value)}
-                              placeholder="Dr. Ajay Shukla"
-                              className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
-                            Work Email Address *
-                          </label>
-                          <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-2.5">
-                            <Mail className="w-4 h-4 text-neutral-400 mr-2 shrink-0" />
-                            <input
-                              type="email"
-                              required
-                              value={formData.email}
-                              onChange={(e) => updateForm("email", e.target.value)}
-                              placeholder="ajay@digixpro.in"
-                              className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
-                            />
-                          </div>
-                        </div>
+                    <div>
+                      <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                        Company / Business Name *
+                      </label>
+                      <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-3">
+                        <Building2 className="w-4 h-4 text-neutral-400 mr-2.5 shrink-0" />
+                        <input
+                          type="text"
+                          required
+                          value={formData.company}
+                          onChange={(e) => updateForm("company", e.target.value)}
+                          placeholder="e.g. DigiXPro Digital Solution"
+                          className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
+                        />
                       </div>
                     </div>
                   </div>
@@ -813,7 +764,7 @@ export default function AuditClient() {
                       type="button"
                       onClick={handleNextStep}
                       disabled={
-                        (step === 1 && (!formData.company || !formData.fullName || !formData.email)) ||
+                        (step === 1 && !formData.company) ||
                         (step === 2 && !formData.product) ||
                         (step === 3 && !formData.market) ||
                         (step === 4 && !formData.industry) ||
@@ -901,7 +852,7 @@ export default function AuditClient() {
             </p>
           </div>
 
-          {/* Dynamic Webhook Recommendations & Prices (NO Hardcoded Pricing Block) */}
+          {/* Dynamic Webhook Recommendations & Prices */}
           {briefReport.recommendations && briefReport.recommendations.length > 0 && (
             <div className="mb-12">
               <h3 className="text-xl font-extrabold text-black dark:text-white mb-6">
