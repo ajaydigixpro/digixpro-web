@@ -41,6 +41,8 @@ export interface BriefFormData {
   industry: string;
   company_size: string;
   business_age: string;
+  hasWebsite: "yes" | "no" | "";
+  websiteUrl: string;
   selectedSystems: string[];
   selectedServices: string[];
 }
@@ -132,11 +134,7 @@ function getScoreColor(score: number): { text: string; bg: string; border: strin
   };
 }
 
-function buildCurrentSystemsString(selectedOptions: string[]): string {
-  if (selectedOptions.length === 0 || selectedOptions.includes("none_manual")) {
-    return "Social media posting is manual, no chat assistant on website, no automatic lead tracking system, no automated follow-up messages.";
-  }
-
+function buildCurrentSystemsString(selectedOptions: string[], hasWebsite: "yes" | "no" | ""): string {
   const automated: string[] = [];
   const manual: string[] = [];
 
@@ -169,7 +167,14 @@ function buildCurrentSystemsString(selectedOptions: string[]): string {
     result += "Automated: " + automated.join(", ") + ". ";
   }
   if (manual.length > 0) {
-    result += "Manual: " + manual.join(", ") + ".";
+    result += "Manual: " + manual.join(", ") + ". ";
+  }
+
+  // CORRECTION: Direct Website Status Signal for Gemini Recommendation Engine
+  if (hasWebsite === "no") {
+    result += "Website: No professional website.";
+  } else if (hasWebsite === "yes") {
+    result += "Website: Has a professional website.";
   }
 
   return result.trim();
@@ -200,10 +205,10 @@ function buildInterestedServicesString(selectedOptions: string[]): string {
 }
 
 export default function AuditClient() {
-  // Step State (1 to 9)
+  // Step State (1 to 10)
   const [step, setStep] = useState<number>(1);
 
-  // Form State (10 flat keys)
+  // Form State (10 flat keys + Website URL & Status)
   const [formData, setFormData] = useState<BriefFormData>({
     name: "",
     email: "",
@@ -213,6 +218,8 @@ export default function AuditClient() {
     industry: "",
     company_size: "",
     business_age: "",
+    hasWebsite: "",
+    websiteUrl: "",
     selectedSystems: [],
     selectedServices: [],
   });
@@ -223,7 +230,7 @@ export default function AuditClient() {
   const [rateLimitedNotice, setRateLimitedNotice] = useState<string | null>(null);
   const [generationFailedNotice, setGenerationFailedNotice] = useState<string | null>(null);
 
-  // Secondary Optional Tech Check State
+  // Secondary Technical Check State
   const [isTechCheckExpanded, setIsTechCheckExpanded] = useState(false);
   const [techUrlInput, setTechUrlInput] = useState("");
   const [isTechLoading, setIsTechLoading] = useState(false);
@@ -269,7 +276,7 @@ export default function AuditClient() {
   };
 
   const handleNextStep = () => {
-    if (step < 9) {
+    if (step < 10) {
       setStep((prev) => prev + 1);
     }
   };
@@ -280,15 +287,14 @@ export default function AuditClient() {
     }
   };
 
-  // Primary Webhook Submit: audit-brief
-  // Sends EXACTLY 10 KEYS: name, email, company, product, market, industry, company_size, business_age, current_systems, interested_services
+  // Primary Webhook Submit: audit-brief & parallel audit-run if website provided
   const handleBriefSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setIsSubmittingBrief(true);
     setRateLimitedNotice(null);
     setGenerationFailedNotice(null);
 
-    const currentSystemsString = buildCurrentSystemsString(formData.selectedSystems);
+    const currentSystemsString = buildCurrentSystemsString(formData.selectedSystems, formData.hasWebsite);
     const interestedServicesString = buildInterestedServicesString(formData.selectedServices);
 
     const payload = {
@@ -304,59 +310,96 @@ export default function AuditClient() {
       interested_services: interestedServicesString,
     };
 
+    const cleanWebsiteUrl = normalizeUrl(formData.websiteUrl);
+    const shouldRunTechCheck = formData.hasWebsite === "yes" && Boolean(cleanWebsiteUrl);
+
     try {
-      const response = await fetch("https://n8n.digixpro.in/webhook/audit-brief", {
+      // STEP 2: Fire BOTH requests in parallel using Promise.all
+      const briefPromise = fetch("https://n8n.digixpro.in/webhook/audit-brief", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error(`Audit service returned HTTP status ${response.status}`);
+      const techPromise = shouldRunTechCheck
+        ? fetch("https://n8n.digixpro.in/webhook/audit-run", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url: cleanWebsiteUrl }),
+          })
+        : Promise.resolve(null);
+
+      const [briefRes, techRes] = await Promise.all([briefPromise, techPromise]);
+
+      if (!briefRes.ok) {
+        throw new Error(`Audit service returned HTTP status ${briefRes.status}`);
       }
 
-      let raw: Record<string, any> = {};
-      const text = await response.text();
-      if (text && text.trim()) {
+      let rawBrief: Record<string, any> = {};
+      const briefText = await briefRes.text();
+      if (briefText && briefText.trim()) {
         try {
-          const data = JSON.parse(text);
-          raw = Array.isArray(data) ? data[0] : data;
+          const data = JSON.parse(briefText);
+          rawBrief = Array.isArray(data) ? data[0] : data;
         } catch {
-          raw = {};
+          rawBrief = {};
         }
       }
 
-      // TASK 1: Handle rate_limited or generation_failed flags explicitly
-      if (raw.rate_limited === true || raw.rate_limited === "true") {
+      if (rawBrief.rate_limited === true || rawBrief.rate_limited === "true") {
         setRateLimitedNotice(
-          raw.message ||
+          rawBrief.message ||
             "You have recently generated an audit report. Please review your existing report or schedule a direct discovery call below."
         );
         return;
       }
 
-      if (raw.generation_failed === true || raw.generation_failed === "true") {
+      if (rawBrief.generation_failed === true || rawBrief.generation_failed === "true") {
         setGenerationFailedNotice(
-          raw.message || "Something went wrong generating your report - please try again in a moment."
+          rawBrief.message || "Something went wrong generating your report - please try again in a moment."
         );
         return;
       }
 
-      // Verify that essential summary or recommendations were returned
-      if (!raw.summary && (!raw.recommendations || raw.recommendations.length === 0)) {
+      if (!rawBrief.summary && (!rawBrief.recommendations || rawBrief.recommendations.length === 0)) {
         setGenerationFailedNotice(
           "Something went wrong generating your report - please try again in a moment."
         );
         return;
       }
 
+      // Process parallel Technical Health findings if available
+      if (techRes && techRes.ok) {
+        try {
+          const techData = await techRes.json();
+          const rawTech = Array.isArray(techData) ? techData[0] : techData;
+          const rawFindings = rawTech.findings || rawTech.issues || rawTech.results || [];
+          const normalizedFindings: TechnicalFinding[] = rawFindings.map((f: Record<string, string>) => ({
+            problem: f.problem || f.issue || f.title || "Identified architecture issue",
+            impact: f.impact || f.severity || "High operational impact",
+            solution_name: f.solution_name || f.solution || "Architecture Advisory",
+            solution_url: f.solution_url || f.url || "/services/website-design-services",
+          }));
+
+          setTechReport({
+            url: cleanWebsiteUrl,
+            performance_score: Number(rawTech.performance_score ?? rawTech.performanceScore ?? 0),
+            seo_score: Number(rawTech.seo_score ?? rawTech.seoScore ?? 0),
+            accessibility_score: Number(rawTech.accessibility_score ?? rawTech.accessibilityScore ?? 0),
+            findings: normalizedFindings,
+          });
+        } catch {
+          // Skip tech report cleanly if transient parsing error
+        }
+      }
+
       const generatedReport: BriefReportData = {
-        summary: raw.summary || "",
-        trust_note: raw.trust_note || "",
-        estimate_disclaimer_long: raw.estimate_disclaimer_long || "",
-        estimate_disclaimer_short: raw.estimate_disclaimer_short || "",
-        bundle_estimate: raw.bundle_estimate || "",
-        recommendations: (raw.recommendations || []).map((rec: any) => ({
+        summary: rawBrief.summary || "",
+        trust_note: rawBrief.trust_note || "",
+        estimate_disclaimer_long: rawBrief.estimate_disclaimer_long || "",
+        estimate_disclaimer_short: rawBrief.estimate_disclaimer_short || "",
+        bundle_estimate: rawBrief.bundle_estimate || "",
+        recommendations: (rawBrief.recommendations || []).map((rec: any) => ({
           automation_name: rec.automation_name || "",
           what_it_does: rec.what_it_does || "",
           why_it_fits: rec.why_it_fits || "",
@@ -371,8 +414,8 @@ export default function AuditClient() {
           digixpro_service_url: rec.digixpro_service_url || "/services/ai-automation-agency",
           digixpro_price_range: rec.digixpro_price_range || "",
         })),
-        closing_message: raw.closing_message || "",
-        business_context: raw.business_context || {
+        closing_message: rawBrief.closing_message || "",
+        business_context: rawBrief.business_context || {
           name: formData.name,
           email: formData.email,
           company: formData.company,
@@ -384,12 +427,11 @@ export default function AuditClient() {
           current_systems: currentSystemsString,
           interested_services: interestedServicesString,
         },
-        generated_at: raw.generated_at || new Date().toISOString(),
+        generated_at: rawBrief.generated_at || new Date().toISOString(),
       };
 
       setBriefReport(generatedReport);
     } catch {
-      // TASK 2: Honest error handling (No fabricated fallback report content)
       setGenerationFailedNotice(
         "Something went wrong generating your report - please try again in a moment."
       );
@@ -398,7 +440,7 @@ export default function AuditClient() {
     }
   };
 
-  // Secondary Webhook Submit: audit-run (Optional Speed & SEO Check)
+  // Secondary Webhook Submit: audit-run (Optional Speed & SEO Check Fallback)
   const handleTechCheckSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formattedUrl = normalizeUrl(techUrlInput);
@@ -444,7 +486,7 @@ export default function AuditClient() {
     }
   };
 
-  // Plain-Language Question Options
+  // Options
   const MARKET_OPTIONS = [
     "B2B Companies & Businesses",
     "Individual Consumers (B2C)",
@@ -517,7 +559,7 @@ export default function AuditClient() {
       </div>
 
       {/* ========================================================================= */}
-      {/* PRIMARY FLOW: 8-QUESTION BRIEF FORM + REPORT DELIVERY DETAILS (STEP 9) */}
+      {/* PRIMARY FLOW: 9-QUESTION BRIEF FORM + REPORT DELIVERY DETAILS (STEP 10) */}
       {/* ========================================================================= */}
       {!briefReport && !rateLimitedNotice && !generationFailedNotice && (
         <section className="max-w-[1200px] mx-auto px-6 pt-12 md:pt-20 pb-20 print:hidden">
@@ -534,7 +576,7 @@ export default function AuditClient() {
                 Find Your Automation &amp; System Bottlenecks.
               </h1>
               <p className="text-[16px] md:text-[19px] font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
-                Answer 8 simple questions about your business to get an instant, personalized system assessment report.
+                Answer a few simple questions about your business to get an instant, personalized system assessment report.
               </p>
 
               {/* 24-Hour Notice Line */}
@@ -547,20 +589,20 @@ export default function AuditClient() {
             {/* Stepped Progress Bar */}
             <div className="mb-8">
               <div className="flex items-center justify-between text-xs font-mono font-bold text-neutral-500 mb-2">
-                <span>{step <= 8 ? `QUESTION ${step} OF 8` : "REPORT DELIVERY"}</span>
-                <span>{Math.round((step / 9) * 100)}% COMPLETED</span>
+                <span>{step <= 9 ? `QUESTION ${step} OF 9` : "REPORT DELIVERY"}</span>
+                <span>{Math.round((step / 10) * 100)}% COMPLETED</span>
               </div>
               <div className="w-full bg-neutral-200 dark:bg-neutral-800 h-2 rounded-full overflow-hidden">
                 <div
                   className="bg-[#009E73] h-full transition-all duration-300"
-                  style={{ width: `${(step / 9) * 100}%` }}
+                  style={{ width: `${(step / 10) * 100}%` }}
                 ></div>
               </div>
             </div>
 
             {/* Form Card */}
             <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-10 shadow-xl">
-              <form onSubmit={step === 9 ? handleBriefSubmit : (e) => { e.preventDefault(); handleNextStep(); }}>
+              <form onSubmit={step === 10 ? handleBriefSubmit : (e) => { e.preventDefault(); handleNextStep(); }}>
                 
                 {/* QUESTION 1: Company Name */}
                 {step === 1 && (
@@ -819,8 +861,75 @@ export default function AuditClient() {
                   </div>
                 )}
 
-                {/* QUESTION 8: Interested Services Checklist */}
+                {/* STEP 1 & CORRECTION: QUESTION 8: Website Status & URL */}
                 {step === 8 && (
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                        <Globe className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-extrabold text-black dark:text-white">
+                          8. Do you have an active website right now?
+                        </h2>
+                        <p className="text-xs text-neutral-500">If yes, we will automatically run a parallel technical speed &amp; SEO health check.</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <button
+                        type="button"
+                        onClick={() => updateForm("hasWebsite", "yes")}
+                        className={`p-5 rounded-2xl border text-left transition-all ${
+                          formData.hasWebsite === "yes"
+                            ? "border-[#009E73] bg-emerald-50/70 dark:bg-emerald-950/40 ring-1 ring-[#009E73]"
+                            : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/50"
+                        }`}
+                      >
+                        <span className="block text-base font-extrabold text-black dark:text-white mb-1">Yes, we have a website</span>
+                        <span className="block text-xs text-neutral-500 font-medium">Includes automated PageSpeed &amp; technical health analysis.</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          updateForm("hasWebsite", "no");
+                          updateForm("websiteUrl", "");
+                        }}
+                        className={`p-5 rounded-2xl border text-left transition-all ${
+                          formData.hasWebsite === "no"
+                            ? "border-[#009E73] bg-emerald-50/70 dark:bg-emerald-950/40 ring-1 ring-[#009E73]"
+                            : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/50"
+                        }`}
+                      >
+                        <span className="block text-base font-extrabold text-black dark:text-white mb-1">No, not yet</span>
+                        <span className="block text-xs text-neutral-500 font-medium">We rely on social media or direct inquiries right now.</span>
+                      </button>
+                    </div>
+
+                    {/* Revealed URL field when Yes */}
+                    {formData.hasWebsite === "yes" && (
+                      <div className="pt-4 border-t border-neutral-100 dark:border-neutral-800 animate-in fade-in duration-200">
+                        <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-1.5">
+                          What is your website URL? *
+                        </label>
+                        <div className="flex items-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl px-3.5 py-3">
+                          <Globe className="w-4 h-4 text-neutral-400 mr-2.5 shrink-0" />
+                          <input
+                            type="text"
+                            value={formData.websiteUrl}
+                            onChange={(e) => updateForm("websiteUrl", e.target.value)}
+                            placeholder="https://yourcompany.com"
+                            className="w-full bg-transparent text-sm text-black dark:text-white focus:outline-none placeholder:text-neutral-400 font-medium"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* QUESTION 9: Interested Services Checklist */}
+                {step === 9 && (
                   <div className="space-y-6">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
@@ -828,7 +937,7 @@ export default function AuditClient() {
                       </div>
                       <div>
                         <h2 className="text-xl font-extrabold text-black dark:text-white">
-                          8. Which of these are you specifically looking for help with?
+                          9. Which of these are you specifically looking for help with?
                         </h2>
                         <p className="text-xs text-neutral-500 font-normal">Select all that apply, or skip if not sure yet.</p>
                       </div>
@@ -865,8 +974,8 @@ export default function AuditClient() {
                   </div>
                 )}
 
-                {/* STEP 9: Report Delivery Details (Name & Email) */}
-                {step === 9 && (
+                {/* STEP 10: Report Delivery Details (Name & Email) */}
+                {step === 10 && (
                   <div className="space-y-6">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
@@ -930,7 +1039,7 @@ export default function AuditClient() {
                     </button>
                   ) : <div />}
 
-                  {step < 9 ? (
+                  {step < 10 ? (
                     <button
                       type="button"
                       onClick={handleNextStep}
@@ -940,7 +1049,9 @@ export default function AuditClient() {
                         (step === 3 && !formData.market) ||
                         (step === 4 && !formData.industry) ||
                         (step === 5 && !formData.company_size) ||
-                        (step === 6 && !formData.business_age)
+                        (step === 6 && !formData.business_age) ||
+                        (step === 8 && !formData.hasWebsite) ||
+                        (step === 8 && formData.hasWebsite === "yes" && !formData.websiteUrl)
                       }
                       className="inline-flex items-center px-7 py-3.5 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-sm rounded-xl transition shadow-md disabled:opacity-50"
                     >
@@ -1004,7 +1115,7 @@ export default function AuditClient() {
               </button>
               <button
                 type="button"
-                onClick={() => { setGenerationFailedNotice(null); setStep(9); }}
+                onClick={() => { setGenerationFailedNotice(null); setStep(10); }}
                 className="inline-flex items-center px-5 py-3 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-700 dark:text-neutral-300 hover:border-black dark:hover:border-white transition"
               >
                 Edit Form Details
@@ -1049,7 +1160,7 @@ export default function AuditClient() {
       )}
 
       {/* ========================================================================= */}
-      {/* REPORT VIEW: REQUIRED LAYOUT (TOP TO BOTTOM) */}
+      {/* UNIFIED REPORT VIEW: (STEP 3 UNIFIED ORDER) */}
       {/* ========================================================================= */}
       {briefReport && (
         <section className="max-w-[1200px] mx-auto px-6 py-12">
@@ -1113,7 +1224,7 @@ export default function AuditClient() {
             </div>
           )}
 
-          {/* STEP 1: Full estimate_disclaimer_long Callout (Right after trust_note, before bundle_estimate) */}
+          {/* Full estimate_disclaimer_long Callout (Right after trust_note, before bundle_estimate) */}
           {briefReport.estimate_disclaimer_long && (
             <div className="bg-neutral-50 dark:bg-neutral-900/80 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 mb-8 flex items-start gap-3.5 shadow-xs print:border-neutral-300 print:bg-neutral-50">
               <Info className="w-5 h-5 text-neutral-400 shrink-0 mt-0.5" aria-hidden="true" />
@@ -1136,7 +1247,7 @@ export default function AuditClient() {
             </div>
           )}
 
-          {/* 4. For EACH item in recommendations (render ALL of them, NO limit, NO slice) */}
+          {/* 4. For EACH item in recommendations (render ALL business recommendation cards) */}
           {briefReport.recommendations && briefReport.recommendations.length > 0 && (
             <div className="mb-12">
               <h3 className="text-xl font-extrabold text-black dark:text-white mb-6 print:text-black">
@@ -1294,6 +1405,83 @@ export default function AuditClient() {
             </div>
           )}
 
+          {/* STEP 3 UNIFIED REPORT: IF TECHNICAL CHECK RAN, RENDER SUBSECTION IN SAME VISUAL STYLE */}
+          {techReport && (
+            <div className="mb-12 break-inside-avoid [page-break-inside:avoid]">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-extrabold text-black dark:text-white print:text-black">
+                    Your Website&apos;s Technical Health
+                  </h3>
+                  <p className="text-xs text-neutral-500 font-mono">
+                    URL Audited: {techReport.url}
+                  </p>
+                </div>
+              </div>
+
+              {/* Score Badges */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Performance</span>
+                  <span className={`text-2xl font-black ${getScoreColor(techReport.performance_score).text}`}>
+                    {techReport.performance_score}/100
+                  </span>
+                </div>
+                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Technical SEO</span>
+                  <span className={`text-2xl font-black ${getScoreColor(techReport.seo_score).text}`}>
+                    {techReport.seo_score}/100
+                  </span>
+                </div>
+                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Accessibility</span>
+                  <span className={`text-2xl font-black ${getScoreColor(techReport.accessibility_score).text}`}>
+                    {techReport.accessibility_score}/100
+                  </span>
+                </div>
+              </div>
+
+              {/* Technical Findings Cards (Same visual style as business recommendations) */}
+              {techReport.findings && techReport.findings.length > 0 && (
+                <div className="space-y-6">
+                  {techReport.findings.map((f, i) => (
+                    <div
+                      key={i}
+                      className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col gap-4 print:border print:border-neutral-300 print:bg-white print:p-5"
+                    >
+                      <div>
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800 mb-2 inline-block">
+                          Technical Finding #{i + 1} • {f.impact}
+                        </span>
+                        <h4 className="text-lg font-extrabold text-black dark:text-white print:text-black leading-snug">
+                          {f.problem}
+                        </h4>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-800 print:border-neutral-200">
+                        <span className="text-xs text-neutral-500 font-mono">
+                          Recommended Solution: {f.solution_name}
+                        </span>
+                        <div className="print:hidden">
+                          <Link
+                            href={f.solution_url || "/services/website-design-services"}
+                            className="inline-flex items-center text-xs font-bold text-[#009E73] hover:underline gap-1"
+                          >
+                            <span>Explore Blueprint</span>
+                            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* 5. closing_message as a final paragraph & 6. "Book a 30-Min Discovery Call" CTA button directly below it */}
           <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-xl mb-16 print:border print:border-neutral-300 print:bg-white print:text-black print:p-6 print:shadow-none print:break-inside-avoid">
             <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#009E73] bg-emerald-950/60 print:bg-emerald-50 print:text-[#009E73] border border-emerald-800/80 print:border-emerald-300 px-3 py-1 rounded-full mb-4 inline-block">
@@ -1307,7 +1495,7 @@ export default function AuditClient() {
               </p>
             )}
 
-            {/* STEP 2: Short estimate_disclaimer_short reminder (Between closing_message and Discovery Call button) */}
+            {/* Short estimate_disclaimer_short reminder */}
             {briefReport.estimate_disclaimer_short && (
               <p className="text-xs font-mono text-neutral-400 dark:text-neutral-400 print:text-neutral-600 max-w-xl mx-auto mb-6 leading-normal font-normal">
                 {briefReport.estimate_disclaimer_short}
@@ -1340,122 +1528,78 @@ export default function AuditClient() {
           </div>
 
           {/* ========================================================================= */}
-          {/* SECONDARY FLOW: COLLAPSED OPTIONAL TECHNICAL SPEED & SEO CHECK */}
+          {/* FALLBACK ONLY: COLLAPSED TECHNICAL CHECK FOR "NO WEBSITE" VISITORS */}
           {/* ========================================================================= */}
-          <div className="border-t border-neutral-200 dark:border-neutral-800 pt-10 print:hidden">
-            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl overflow-hidden shadow-sm">
-              <button
-                type="button"
-                onClick={() => setIsTechCheckExpanded(!isTechCheckExpanded)}
-                className="w-full p-6 text-left flex items-center justify-between bg-neutral-50/50 dark:bg-neutral-900 hover:bg-neutral-100/60 dark:hover:bg-neutral-800/50 transition-colors"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
-                    <Zap className="w-5 h-5" />
+          {formData.hasWebsite !== "yes" && !techReport && (
+            <div className="border-t border-neutral-200 dark:border-neutral-800 pt-10 print:hidden">
+              <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl overflow-hidden shadow-sm">
+                <button
+                  type="button"
+                  onClick={() => setIsTechCheckExpanded(!isTechCheckExpanded)}
+                  className="w-full p-6 text-left flex items-center justify-between bg-neutral-50/50 dark:bg-neutral-900 hover:bg-neutral-100/60 dark:hover:bg-neutral-800/50 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                      <Zap className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-extrabold text-black dark:text-white">
+                        Optional: Run Technical Speed &amp; SEO Diagnostics
+                      </h3>
+                      <p className="text-xs text-neutral-500">
+                        Audit a specific website URL for Core Web Vitals, schema tags, and performance metrics.
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-extrabold text-black dark:text-white">
-                      Optional: Run Technical Speed &amp; SEO Diagnostics
-                    </h3>
-                    <p className="text-xs text-neutral-500">
-                      Audit a specific website URL for Core Web Vitals, schema tags, and performance metrics.
-                    </p>
+                  <div className="text-neutral-400">
+                    {isTechCheckExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                   </div>
-                </div>
-                <div className="text-neutral-400">
-                  {isTechCheckExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                </div>
-              </button>
+                </button>
 
-              {isTechCheckExpanded && (
-                <div className="p-6 md:p-8 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-                  <form onSubmit={handleTechCheckSubmit} className="max-w-2xl mb-8">
-                    <div className="flex flex-col sm:flex-row items-center gap-3 bg-neutral-50 dark:bg-neutral-800/80 border border-neutral-300 dark:border-neutral-700 p-2 rounded-2xl">
-                      <div className="flex items-center flex-1 w-full px-3 py-2">
-                        <Globe className="w-5 h-5 text-neutral-400 shrink-0 mr-3" />
-                        <input
-                          type="text"
-                          value={techUrlInput}
-                          onChange={(e) => setTechUrlInput(e.target.value)}
-                          placeholder="https://yourcompany.com"
+                {isTechCheckExpanded && (
+                  <div className="p-6 md:p-8 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+                    <form onSubmit={handleTechCheckSubmit} className="max-w-2xl mb-8">
+                      <div className="flex flex-col sm:flex-row items-center gap-3 bg-neutral-50 dark:bg-neutral-800/80 border border-neutral-300 dark:border-neutral-700 p-2 rounded-2xl">
+                        <div className="flex items-center flex-1 w-full px-3 py-2">
+                          <Globe className="w-5 h-5 text-neutral-400 shrink-0 mr-3" />
+                          <input
+                            type="text"
+                            value={techUrlInput}
+                            onChange={(e) => setTechUrlInput(e.target.value)}
+                            placeholder="https://yourcompany.com"
+                            disabled={isTechLoading}
+                            className="w-full bg-transparent text-black dark:text-white placeholder:text-neutral-400 focus:outline-none text-sm font-medium"
+                          />
+                        </div>
+                        <button
+                          type="submit"
                           disabled={isTechLoading}
-                          className="w-full bg-transparent text-black dark:text-white placeholder:text-neutral-400 focus:outline-none text-sm font-medium"
-                        />
+                          className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-xs rounded-xl transition shadow-sm shrink-0 disabled:opacity-50"
+                        >
+                          {isTechLoading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Auditing…
+                            </>
+                          ) : (
+                            <>
+                              Run Speed Check <ArrowRight className="w-4 h-4 ml-1.5" />
+                            </>
+                          )}
+                        </button>
                       </div>
-                      <button
-                        type="submit"
-                        disabled={isTechLoading}
-                        className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-xs rounded-xl transition shadow-sm shrink-0 disabled:opacity-50"
-                      >
-                        {isTechLoading ? (
-                          <>
-                            <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Auditing…
-                          </>
-                        ) : (
-                          <>
-                            Run Speed Check <ArrowRight className="w-4 h-4 ml-1.5" />
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  </form>
+                    </form>
 
-                  {/* Technical Error Notice */}
-                  {techErrorNotice && (
-                    <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-200 font-medium">
-                      {techErrorNotice}
-                    </div>
-                  )}
-
-                  {/* Technical Report Results */}
-                  {techReport && (
-                    <div className="space-y-8 animate-in fade-in duration-200">
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
-                          <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Performance</span>
-                          <span className={`text-2xl font-black ${getScoreColor(techReport.performance_score).text}`}>
-                            {techReport.performance_score}/100
-                          </span>
-                        </div>
-                        <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
-                          <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Technical SEO</span>
-                          <span className={`text-2xl font-black ${getScoreColor(techReport.seo_score).text}`}>
-                            {techReport.seo_score}/100
-                          </span>
-                        </div>
-                        <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
-                          <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Accessibility</span>
-                          <span className={`text-2xl font-black ${getScoreColor(techReport.accessibility_score).text}`}>
-                            {techReport.accessibility_score}/100
-                          </span>
-                        </div>
+                    {/* Technical Error Notice */}
+                    {techErrorNotice && (
+                      <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-200 font-medium">
+                        {techErrorNotice}
                       </div>
-
-                      {techReport.findings && techReport.findings.length > 0 && (
-                        <div className="space-y-3">
-                          <h4 className="text-sm font-extrabold text-black dark:text-white">Technical Findings</h4>
-                          {techReport.findings.map((f, i) => (
-                            <div key={i} className="p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                              <div>
-                                <span className="font-bold text-amber-600 dark:text-amber-400 block mb-0.5">{f.impact}</span>
-                                <p className="text-neutral-800 dark:text-neutral-200 font-medium">{f.problem}</p>
-                              </div>
-                              <Link
-                                href={f.solution_url}
-                                className="inline-flex items-center text-[#009E73] font-bold hover:underline shrink-0"
-                              >
-                                {f.solution_name} &rarr;
-                              </Link>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </section>
       )}
     </div>
