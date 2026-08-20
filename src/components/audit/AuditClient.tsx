@@ -867,11 +867,11 @@ export default function AuditClient() {
                 Recommended Architecture Solutions &amp; Investment Scope
               </h3>
               <div className="space-y-4">
-                {briefReport.recommendations.map((rec, idx) => {
-                  const serviceTitle = rec.service_name || rec.title || "Advisory Solution";
-                  const serviceUrl = rec.service_url || rec.url || "/contact";
-                  const priceRange = rec.price_range || "Scoped in discovery";
-                  const description = rec.reason || rec.description || "Identified architecture optimization.";
+                {briefReport.recommendations.map((rec: any, idx) => {
+                  const serviceTitle = rec.digixpro_service_name || rec.automation_name || rec.service_name || rec.title || "Advisory Solution";
+                  const serviceUrl = rec.digixpro_service_url || rec.service_url || rec.url || "/contact";
+                  const priceRange = rec.digixpro_price_range || rec.price_range || rec.typical_market_cost || "Scoped in discovery";
+                  const description = rec.why_it_fits || rec.what_it_does || rec.reason || rec.description || "Identified architecture optimization.";
 
                   return (
                     <div
