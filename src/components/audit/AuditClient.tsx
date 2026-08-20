@@ -1326,37 +1326,41 @@ export default function AuditClient() {
           )}
 
           {/* 5. closing_message as a final paragraph & 6. "Book a 30-Min Discovery Call" CTA button directly below it */}
-          <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-xl mb-16 print:hidden">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#009E73] bg-emerald-950/60 border border-emerald-800/80 px-3 py-1 rounded-full mb-4 inline-block">
+          <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-xl mb-16 print:border print:border-neutral-300 print:bg-white print:text-black print:p-6 print:shadow-none print:break-inside-avoid">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#009E73] bg-emerald-950/60 print:bg-emerald-50 print:text-[#009E73] border border-emerald-800/80 print:border-emerald-300 px-3 py-1 rounded-full mb-4 inline-block">
               Architecture Next Step
             </span>
 
             {/* 5. closing_message paragraph */}
             {briefReport.closing_message && (
-              <p className="text-sm md:text-base text-neutral-300 max-w-2xl mx-auto mb-6 leading-relaxed font-normal">
+              <p className="text-sm md:text-base text-neutral-300 dark:text-neutral-300 print:text-neutral-900 max-w-2xl mx-auto mb-6 leading-relaxed font-normal">
                 {briefReport.closing_message}
               </p>
             )}
 
             {/* STEP 2: Short estimate_disclaimer_short reminder (Between closing_message and Discovery Call button) */}
             {briefReport.estimate_disclaimer_short && (
-              <p className="text-xs font-mono text-neutral-400 dark:text-neutral-400 max-w-xl mx-auto mb-6 leading-normal font-normal">
+              <p className="text-xs font-mono text-neutral-400 dark:text-neutral-400 print:text-neutral-600 max-w-xl mx-auto mb-6 leading-normal font-normal">
                 {briefReport.estimate_disclaimer_short}
               </p>
             )}
 
-            <h3 className="text-2xl md:text-3xl font-extrabold mb-6">
+            <h3 className="text-2xl md:text-3xl font-extrabold mb-6 print:text-black">
               Schedule Your 30-Minute Discovery Call
             </h3>
 
             {/* 6. "Book a 30-Min Discovery Call" CTA button */}
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 print:hidden">
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center px-8 py-4 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-sm rounded-xl transition shadow-md"
               >
                 <Calendar className="w-4 h-4 mr-2" /> Book a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
+            </div>
+
+            <div className="hidden print:block text-xs font-mono font-bold text-[#009E73]">
+              Book online: digixpro.in/contact
             </div>
           </div>
 
