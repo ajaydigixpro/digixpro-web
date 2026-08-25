@@ -107,8 +107,8 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
           </p>
 
           {article.image && (
-            <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-10 border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-800">
-              <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+            <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-10 border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
+              <img src={article.image} alt={article.title} className="w-full h-full object-cover object-center" />
             </div>
           )}
 
