@@ -117,6 +117,12 @@ export default function KnowledgePage() {
                 {article.title}
               </h3>
               
+              {article.image && (
+                <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden mb-5 border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-800">
+                  <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                </div>
+              )}
+
               <p className="text-[16px] text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
                 {article.summary}
               </p>

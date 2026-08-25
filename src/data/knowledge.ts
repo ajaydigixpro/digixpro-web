@@ -5,6 +5,7 @@ export interface KnowledgeArticle {
   summary: string;
   date: string;
   content: string;
+  image?: string;
 }
 
 export const knowledgeArticles: KnowledgeArticle[] = [

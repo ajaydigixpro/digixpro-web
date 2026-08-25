@@ -60,11 +60,11 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
   const articleUrl = `https://www.digixpro.in/knowledge/${article.id}`;
   const sanitizedContent = DOMPurify.sanitize(article.content, {
     ALLOWED_TAGS: [
-      'a', 'blockquote', 'br', 'code', 'div', 'em', 'h2', 'h3', 'h4', 'li',
+      'a', 'blockquote', 'br', 'code', 'div', 'em', 'h2', 'h3', 'h4', 'img', 'li',
       'ol', 'p', 'section', 'span', 'strong', 'table', 'tbody', 'td', 'th',
       'thead', 'tr', 'ul',
     ],
-    ALLOWED_ATTR: ['class', 'colspan', 'href', 'rel', 'rowspan', 'target'],
+    ALLOWED_ATTR: ['alt', 'class', 'colspan', 'href', 'rel', 'rowspan', 'src', 'target', 'width', 'height'],
   });
 
   return (
@@ -105,6 +105,12 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
           <p className="text-[20px] font-medium text-neutral-700 dark:text-neutral-300 leading-relaxed pb-8 border-b border-neutral-200 dark:border-neutral-800 mb-10">
             {article.summary}
           </p>
+
+          {article.image && (
+            <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-10 border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-800">
+              <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+            </div>
+          )}
 
           {/* Article Body Content */}
           <div className="prose prose-neutral dark:prose-invert max-w-none text-[17px] text-neutral-800 dark:text-neutral-200 leading-[1.8] space-y-6">
