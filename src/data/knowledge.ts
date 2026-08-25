@@ -10,6 +10,15 @@ export interface KnowledgeArticle {
 
 export const knowledgeArticles: KnowledgeArticle[] = [
   {
+    id: "asynchronous-event-queues-decoupling-monoliths-for-high-throughput-enterprise-architecture",
+    pillar: "Operations & Automation",
+    title: "Asynchronous Event Queues: Decoupling Monoliths for High-Throughput Enterprise Architecture",
+    summary: "Decoupling monolithic enterprise systems through asynchronous event queues prevents transactional database locking and guarantees high-throughput workload handling. Technology Advisory by Dr. Ajay Shukla at DigiXPro Digital Solution delivers resilient event-driven frameworks tailored for mission-critical operations across the United States, United Kingdom, Australia, and Singapore.",
+    date: "2026-08-25",
+    content: "# Asynchronous Event Queues: Decoupling Monoliths for High-Throughput Enterprise Architecture\n\nEnterprise architectures targeting markets in the United States, United Kingdom, Australia, and Singapore often experience severe degradation when database operations lock main transactional loops. Under Technology Advisory by Dr. Ajay Shukla at DigiXPro Digital Solution, decoupled event-driven queues isolate long-running workloads to maintain system responsiveness and resilience.\n\n## 7-Step Architecture Hierarchy\n\n1. Identify synchronous transactional bottlenecks within monolithic core systems.\n2. Define standardized event schemas and publish-subscribe payloads.\n3. Deploy distributed message broker queues to isolate database operations.\n4. Enforce strict idempotency across all downstream consumer services.\n5. Implement dead-letter queue (DLQ) automated routing and recovery protocols.\n6. Integrate end-to-end distributed tracing and real-time telemetry metrics.\n7. Execute dynamic scaling rules and validate system failover resilience.",
+    image: "/blog-images/asynchronous-event-queues-decoupling-monoliths-for-high-throughput-enterprise-architecture.png"
+  },
+  {
     id: "why-a-custom-business-operating-system-outperforms-generic-erp-templates",
     pillar: "Business Systems",
     title: "Why a Custom Business Operating System Outperforms Generic ERP Templates",
