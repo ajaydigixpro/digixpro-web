@@ -10,6 +10,15 @@ export interface KnowledgeArticle {
 
 export const knowledgeArticles: KnowledgeArticle[] = [
   {
+    id: "scaling-past-the-human-bottleneck-why-manual-approvals-stifle-modern-enterprise-architecture",
+    pillar: "Operations & Automation",
+    title: "Scaling Past the Human Bottleneck: Why Manual Approvals Stifle Modern Enterprise Architecture",
+    summary: "As enterprises scale, manual gates in release management, resource provisioning, and access control introduce operational latency, compliance risks, and systemic bottlenecks that only automated governance can resolve.",
+    date: "Architecture Decision",
+    content: "In rapidly growing enterprises, architectural complexity often outpaces operational execution. The primary driver of this friction is the persistent reliance on manual approvals across critical workstreams, such as continuous integration and continuous deployment (CI/CD) pipelines, Identity and Access Management (IAM) provisioning, and infrastructure configuration changes. What functioned as a simple safety check at a smaller scale transforms into a critical bottleneck under enterprise-level volume. When every deployment or configuration change requires human intervention, the lead time for changes increases significantly, stalling feature delivery and reducing overall organizational agility.\n\nFrom an infrastructure and systems design perspective, manual approval gates introduce significant configuration drift and operational risk. Relying on asynchronous human communication—such as email threads or chat channels—to authorize technical actions breaks the chain of custody and limits auditability. Instead of maintaining an immutable ledger of automated, declarative state changes, organizations are left with fragmented, untraceable manual interventions. This lack of automated governance often leads to out-of-band modifications, making root-cause analysis during system incidents highly complex and time-consuming.\n\nMitigating these bottlenecks requires an architectural shift toward policy-as-code and event-driven automation. By replacing manual sign-offs with automated evaluation engines, enterprises can validate security, compliance, and budget parameters in real time within the deployment pipeline. Human intervention must be reserved exclusively for high-risk, exceptional anomalies, while standard, low-risk operations transition to fully automated, self-healing workflows. Standardizing on this modern architectural framework allows scaling organizations to maintain velocity without sacrificing operational control or governance.",
+    image: "/blog-images/scaling-past-the-human-bottleneck-why-manual-approvals-stifle-modern-enterprise-architecture.png"
+  },
+  {
     id: "whatsapp-is-not-an-os",
     pillar: "Operations & Automation",
     title: "Why WhatsApp isn't a scalable operating system.",
