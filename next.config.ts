@@ -29,7 +29,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/services/erp-consultant-services',
-        destination: '/services/business-process-automation',
+        destination: '/advisory/business-systems-process-architecture',
+        permanent: true,
+      },
+      {
+        source: '/services/it-consulting-services',
+        destination: '/advisory/it-consulting-technology-strategy',
         permanent: true,
       },
       {
@@ -54,7 +59,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/services/fractional-cto-services',
-        destination: '/advisory',
+        destination: '/advisory/fractional-cto-technology-leadership',
         permanent: true,
       },
       {

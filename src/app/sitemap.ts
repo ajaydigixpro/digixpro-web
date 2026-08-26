@@ -3,6 +3,7 @@ import { knowledgeArticles } from '@/data/knowledge';
 import { evidenceItems } from '@/data/evidence';
 import { services } from '@/data/services';
 import { designSubServices } from '@/data/designServicesData';
+import { ADVISORY_SERVICES } from '@/data/advisoryServicesData';
 
 export const dynamic = 'force-static';
 
@@ -92,7 +93,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 2. Commercial Design Sub-Service Slugs
+  // 2. Commercial Advisory Sub-Service Slugs
+  const advisorySubServiceRoutes: MetadataRoute.Sitemap = ADVISORY_SERVICES.map((advisoryService) => ({
+    url: `${baseUrl}/advisory/${advisoryService.slug}`,
+    lastModified: new Date('2026-08-26'),
+    changeFrequency: 'weekly' as const,
+    priority: 0.85,
+  }));
+
+  // 3. Commercial Design Sub-Service Slugs
   const designSubServiceRoutes: MetadataRoute.Sitemap = designSubServices.map((subService) => ({
     url: `${baseUrl}/design-services/${subService.slug}`,
     lastModified: new Date('2026-08-26'),
@@ -100,7 +109,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
-  // 3. TRUE Dynamic Service Slugs (From SSOT)
+  // 4. TRUE Dynamic Service Slugs (From SSOT)
   const serviceSlugs: MetadataRoute.Sitemap = services.map((service) => ({
     url: `${baseUrl}/services/${service.slug}`,
     lastModified: new Date(service.lastUpdated),
@@ -108,7 +117,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // 4. TRUE Dynamic Knowledge Slugs (From SSOT)
+  // 5. TRUE Dynamic Knowledge Slugs (From SSOT)
   const knowledgeSlugs: MetadataRoute.Sitemap = knowledgeArticles.map((article) => ({
     url: `${baseUrl}/knowledge/${article.id}`,
     lastModified: new Date('2026-08-26'),
@@ -116,7 +125,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  // 5. TRUE Dynamic Evidence Slugs (From SSOT)
+  // 6. TRUE Dynamic Evidence Slugs (From SSOT)
   const evidenceSlugs: MetadataRoute.Sitemap = evidenceItems.map((item) => ({
     url: `${baseUrl}/evidence/${item.id}`,
     lastModified: new Date(item.lastUpdated),
@@ -124,5 +133,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...routes, ...designSubServiceRoutes, ...serviceSlugs, ...knowledgeSlugs, ...evidenceSlugs];
+  return [...routes, ...advisorySubServiceRoutes, ...designSubServiceRoutes, ...serviceSlugs, ...knowledgeSlugs, ...evidenceSlugs];
 }

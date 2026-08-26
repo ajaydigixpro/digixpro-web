@@ -53,63 +53,7 @@ export const ENGAGEMENT_PRICING_PHILOSOPHY = {
 
 export const services: ServiceItem[] = [
   // =========================================================================
-  // CORE SERVICE 01: IT & TECHNICAL SEO ARCHITECTURE CONSULTING
-  // =========================================================================
-  {
-    slug: "it-consulting-services",
-    title: "IT Consulting & Technical SEO Architecture",
-    primaryKeyword: "IT consulting services",
-    supportingKeyword: "technical SEO consulting",
-    keywords: [
-      "IT consulting services",
-      "technical SEO consulting",
-      "IT architecture consulting",
-      "enterprise IT strategy",
-      "systems integration consulting",
-      "technical SEO audit"
-    ],
-    category: "Architecture & Infrastructure",
-    track: "tech",
-    badgeText: "Systems & SEO Infrastructure",
-    heroHeading: "IT Architecture Consulting & Technical SEO Advisory.",
-    heroSubheading: "We diagnose complex enterprise software stacks, eliminate technical debt, audit search crawlability, and design resilient systems infrastructure.",
-    shortDesc: "Independent IT architecture consulting, technical SEO crawlability audits, system integration blueprints, and legacy software modernizations.",
-    problemHeading: "Technical Debt & Infrastructure Bottlenecks We Fix",
-    problemPoints: [
-      "Fragmented software systems creating data silos and reporting inconsistencies across departments.",
-      "Legacy IT infrastructure with high maintenance costs, security risks, and poor scalability.",
-      "Search engine crawlability failures, broken canonical structures, and indexing bottlenecks.",
-      "Vendor lock-in and high recurring software license overhead without clear ROI."
-    ],
-    solutionHeading: "IT Architecture & Technical SEO Deliverables",
-    solutionDeliverables: [
-      { title: "Enterprise Systems Blueprint", desc: "Mapping software integrations, data flows, and infrastructure dependencies across your business." },
-      { title: "Technical SEO Crawlability Audit", desc: "Diagnosing canonical tags, indexation barriers, DOM hierarchy, and Core Web Vitals speed bottlenecks." },
-      { title: "Vendor-Neutral Stack Optimization", desc: "Audit existing SaaS licenses to remove duplicate subscriptions and streamline technical overhead." },
-      { title: "Security & API Integration Standards", desc: "Establishing decoupled API webhooks and security protocols for reliable data exchange." }
-    ],
-    faqs: [
-      {
-        question: "How does IT architecture consulting differ from standard IT support or agency maintenance?",
-        answer: "IT support fixes day-to-day hardware/software bugs, whereas IT architecture consulting designs the overarching operating system, software integrations, data security standards, and search infrastructure required for long-term business scalability."
-      },
-      {
-        question: "What does a technical SEO architecture audit cover?",
-        answer: "We inspect search crawler access, dynamic XML sitemaps, JSON-LD structured data, canonical integrity, semantic HTML5 markup, and Core Web Vitals performance benchmarks to ensure error-free indexability."
-      },
-      {
-        question: "Can DigiXPro work with our existing IT vendors or internal engineering team?",
-        answer: "Yes. We act as independent technical architects. We provide clear specification blueprints and decision-support governance, enabling internal teams or external vendors to execute cleanly."
-      }
-    ],
-    ctaHeading: "Facing technical debt, broken software integrations, or search indexing issues?",
-    ctaButtonText: "Book an IT Architecture Audit",
-    ctaSubtext: "Schedule a 30-minute discovery call to evaluate your IT infrastructure and search architecture requirements.",
-    lastUpdated: "2026-08-26"
-  },
-
-  // =========================================================================
-  // CORE SERVICE 02: AI CONSULTING & GEO / AI SEARCH OPTIMIZATION
+  // CORE SERVICE 01: AI CONSULTING & GEO / AI SEARCH OPTIMIZATION
   // =========================================================================
   {
     slug: "ai-consulting-services",
@@ -165,7 +109,7 @@ export const services: ServiceItem[] = [
   },
 
   // =========================================================================
-  // CORE SERVICE 03: AI & WORKFLOW AUTOMATION AGENCY
+  // CORE SERVICE 02: AI & WORKFLOW AUTOMATION AGENCY
   // =========================================================================
   {
     slug: "ai-automation-agency",
@@ -221,7 +165,7 @@ export const services: ServiceItem[] = [
   },
 
   // =========================================================================
-  // CORE SERVICE 04: BUSINESS PROCESS AUTOMATION
+  // CORE SERVICE 03: BUSINESS PROCESS AUTOMATION
   // =========================================================================
   {
     slug: "business-process-automation",

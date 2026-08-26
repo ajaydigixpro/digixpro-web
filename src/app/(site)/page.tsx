@@ -247,9 +247,9 @@ export default function HomePage() {
                   icon: <RefreshCw className="w-5 h-5 text-[#16a34a]" />
                 },
                 {
-                  title: "Technical SEO",
-                  desc: "Crawlability & search architecture",
-                  href: "/services/it-consulting-services",
+                  title: "IT Consulting & Technology Strategy",
+                  desc: "Independent architecture & IT direction",
+                  href: "/advisory/it-consulting-technology-strategy",
                   icon: <Search className="w-5 h-5 text-[#16a34a]" />
                 },
                 {
@@ -277,9 +277,9 @@ export default function HomePage() {
                   icon: <Briefcase className="w-5 h-5 text-[#16a34a]" />
                 },
                 {
-                  title: "Lead Generation & Conversion Systems",
-                  desc: "Conversion pathway architecture",
-                  href: "/design-services/landing-page-lead-generation",
+                  title: "Technology Due Diligence & Vendor Evaluation",
+                  desc: "Build-vs-buy & vendor risk assessment",
+                  href: "/advisory/technology-due-diligence-vendor-evaluation",
                   icon: <FileText className="w-5 h-5 text-[#16a34a]" />
                 }
               ].map((cap) => (
