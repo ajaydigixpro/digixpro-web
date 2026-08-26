@@ -247,7 +247,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <div className="text-xs font-mono text-[#16a34a] font-bold uppercase tracking-wider mb-2">02 &bull; Lead Automation</div>
               <h3 className="text-lg font-bold text-white mb-2">Production n8n Webhook Engine</h3>
               <p className="text-sm text-neutral-400 leading-relaxed mb-4">Forms and Sales Concierge route lead payloads live to n8n webhook endpoints without human re-entry.</p>
-              <Link href="/services/ai-automation-agency" className="text-xs font-bold text-[#16a34a] hover:underline inline-flex items-center">View Automation Agency <ArrowRight className="w-3 h-3 ml-1" /></Link>
+              <Link href="/search-automation/workflow-ai-automation" className="text-xs font-bold text-[#16a34a] hover:underline inline-flex items-center">View Automation Service <ArrowRight className="w-3 h-3 ml-1" /></Link>
             </div>
 
             <div className="bg-neutral-950 p-6 rounded-2xl border border-neutral-800">

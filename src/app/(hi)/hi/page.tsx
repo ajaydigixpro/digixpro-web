@@ -3,11 +3,13 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import ProfessionalServiceSchema from '@/components/seo/ProfessionalServiceSchema';
 import DeferredStickyMobileCTA from '@/components/layout/DeferredStickyMobileCTA';
-import { services } from '@/data/services';
+import { ADVISORY_SERVICES } from '@/data/advisoryServicesData';
+import { designSubServices } from '@/data/designServicesData';
+import { SEARCH_AUTOMATION_SERVICES } from '@/data/searchAutomationData';
 import {
   ArrowRight, ShieldCheck, Cpu, Code2, Briefcase, FileText, Map,
   XCircle, MessageSquareWarning, Eye, RefreshCw, Users, Settings,
-  Database, Network, Palette,
+  Database, Network, Palette, Bot
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -30,49 +32,6 @@ export const metadata: Metadata = {
   },
 };
 
-const hindiServiceCopy: Record<string, { category: string; title: string; shortDesc: string }> = {
-  'it-consulting-services': {
-    category: 'Technology Architecture', title: 'स्वतंत्र IT Consulting Services',
-    shortDesc: 'स्वतंत्र technical due diligence, technology stack evaluation और architecture blueprint से software waste कम करें।',
-  },
-  'ai-consulting-services': {
-    category: 'Artificial Intelligence', title: 'AI Consulting Services',
-    shortDesc: 'व्यावहारिक AI strategy, readiness assessment और governed implementation roadmap के लिए स्पष्ट सलाह।',
-  },
-  'ai-automation-agency': {
-    category: 'Automation', title: 'AI Automation Services',
-    shortDesc: 'दोहराए जाने वाले manual काम, cross-platform data sync और workflow bottlenecks को automate करें।',
-  },
-  'fractional-cto-services': {
-    category: 'Strategic Leadership', title: 'Fractional CTO Services',
-    shortDesc: 'पूर्णकालिक नियुक्ति के बिना strategic technology leadership, architecture oversight और engineering governance।',
-  },
-  'fractional-ceo-services': {
-    category: 'Strategic Leadership', title: 'Fractional CEO Services',
-    shortDesc: 'Growth, operating design और leadership decisions के लिए focused fractional executive support।',
-  },
-  'business-process-automation': {
-    category: 'Business Automation', title: 'Business Process Automation',
-    shortDesc: 'बिखरे workflows को connected, reliable और मापने योग्य operating systems में बदलें।',
-  },
-  'website-design-services': {
-    category: 'Digital Experience', title: 'Website Design Services',
-    shortDesc: 'तेज, भरोसेमंद और conversion-focused websites जो आपके business systems से जुड़ी हों।',
-  },
-  'social-media-campaign-strategy': {
-    category: 'Campaign Strategy', title: 'Social Media और Campaign Strategy Services',
-    shortDesc: 'Social media strategy, campaign creative, landing-page alignment और measurement framework से marketing activity को एक स्पष्ट customer journey से जोड़ें।',
-  },
-  'branding-services': {
-    category: 'Brand Strategy', title: 'Branding Services',
-    shortDesc: 'स्पष्ट positioning, visual identity और हर touchpoint पर consistent brand system।',
-  },
-  'website-design-for-trades-and-contractors': {
-    category: 'Trade Digital Experience', title: 'Trades & Contractors के लिए Website Design & SEO',
-    shortDesc: 'Trade businesses और contractors के लिए fast, mobile-optimized website development, local SEO infrastructure और lead capture workflows।',
-  },
-};
-
 const problemPoints = [
   'Core operations WhatsApp groups पर चल रहे हैं।',
   'हर जगह Excel sheets हैं और सच के 10 अलग-अलग version मौजूद हैं।',
@@ -91,9 +50,6 @@ const deliverables = [
 ];
 
 export default function HindiHomePage() {
-  const techServices = services.filter((service) => service.track === 'tech');
-  const designServices = services.filter((service) => service.track === 'design');
-
   const discoverySteps = [
     { title: 'Founder से बातचीत', icon: <MessageSquareWarning className="w-5 h-5 mr-3 text-neutral-400" /> },
     { title: 'Departments के साथ बैठकें', icon: <Users className="w-5 h-5 mr-3 text-neutral-400" /> },
@@ -131,50 +87,91 @@ export default function HindiHomePage() {
           </div>
         </section>
 
+        {/* 3 CANONICAL SEGMENT HUBS */}
         <section className="defer-below-fold py-24 bg-neutral-50 dark:bg-neutral-900/50 border-y border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">क्या बनाया जाता है</div>
-              <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6 text-black dark:text-white">Service Pillars और System Capabilities</h2>
-              <p className="text-[18px] text-neutral-600 dark:text-neutral-400">Structured technology advisory और digital experience design के प्रमुख pillars देखें।</p>
+              <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">Commercial Architecture</div>
+              <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6 text-black dark:text-white">DigiXPro Core Service Hubs</h2>
+              <p className="text-[18px] text-neutral-600 dark:text-neutral-400">हमारे 3 मुख्य व्यवसाय खंड: Advisory, Design &amp; Code Engineering, और Search, AI &amp; Automation।</p>
             </div>
 
+            {/* SEGMENT 1: ADVISORY */}
             <div className="mb-16">
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
-                <div><p className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-2">Technology Advisory Track</p><h3 className="text-[28px] font-extrabold text-black dark:text-white">Core Technology Pillars</h3></div>
-                <span className="text-sm font-bold text-neutral-500 dark:text-neutral-400">Business systems और technology decisions के लिए</span>
+                <div>
+                  <p className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-2">Segment 01 • Advisory Services</p>
+                  <h3 className="text-[28px] font-extrabold text-black dark:text-white">Independent Technology Advisory</h3>
+                </div>
+                <Link href="/advisory" className="text-sm font-bold text-[#16a34a] hover:underline flex items-center">
+                  सभी Advisory Services देखें <ArrowRight className="w-4 h-4 ml-1" />
+                </Link>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {techServices.map((service) => {
-                  const copy = hindiServiceCopy[service.slug];
-                  return <div key={service.slug} className="group bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-7 shadow-sm hover:border-[#16a34a]/50 transition-colors flex flex-col">
-                    <div className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#16a34a] mb-4">{copy.category}</div>
-                    <h4 className="text-[20px] font-extrabold text-black dark:text-white mb-3">{copy.title}</h4>
-                    <p className="text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-400 flex-1">{copy.shortDesc}</p>
-                    <Link href={`/services/${service.slug}`} className="inline-flex items-center text-xs font-bold text-black dark:text-neutral-200 group-hover:text-[#16a34a] transition-colors pt-5 mt-5 border-t border-neutral-100 dark:border-neutral-800">Service Blueprint देखें <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" /></Link>
-                  </div>;
-                })}
+                {ADVISORY_SERVICES.map((service) => (
+                  <div key={service.slug} className="group bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-7 shadow-sm hover:border-[#16a34a]/50 transition-colors flex flex-col">
+                    <div className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#16a34a] mb-4">{service.category}</div>
+                    <h4 className="text-[20px] font-extrabold text-black dark:text-white mb-3">{service.title}</h4>
+                    <p className="text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-400 flex-1">{service.shortDesc}</p>
+                    <Link href={`/advisory/${service.slug}`} className="inline-flex items-center text-xs font-bold text-black dark:text-neutral-200 group-hover:text-[#16a34a] transition-colors pt-5 mt-5 border-t border-neutral-100 dark:border-neutral-800">
+                      Explore Advisory Blueprint <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div>
+            {/* SEGMENT 2: DESIGN & BUILD */}
+            <div className="mb-16">
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
-                <div><p className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-2">Design और Digital Experience Track</p><h3 className="text-[28px] font-extrabold text-black dark:text-white">Design System Pillars</h3></div>
-                <span className="text-sm font-bold text-neutral-500 dark:text-neutral-400">समान प्राथमिकता: Design Systems और Visual Communication</span>
+                <div>
+                  <p className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-2">Segment 02 • Design &amp; Code Engineering</p>
+                  <h3 className="text-[28px] font-extrabold text-black dark:text-white">Custom Web Engineering &amp; Design</h3>
+                </div>
+                <Link href="/design-services" className="text-sm font-bold text-[#16a34a] hover:underline flex items-center">
+                  सभी Design Services देखें <ArrowRight className="w-4 h-4 ml-1" />
+                </Link>
               </div>
-              <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
-                {designServices.map((service) => {
-                  const copy = hindiServiceCopy[service.slug];
-                  return <div key={service.slug} className="group bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-7 shadow-sm hover:border-[#16a34a]/50 transition-colors flex flex-col">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {designSubServices.map((service) => (
+                  <div key={service.slug} className="group bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-7 shadow-sm hover:border-[#16a34a]/50 transition-colors flex flex-col">
                     <Palette className="w-6 h-6 text-[#16a34a] mb-4" />
-                    <div className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#16a34a] mb-4">{copy.category}</div>
-                    <h4 className="text-[20px] font-extrabold text-black dark:text-white mb-3">{copy.title}</h4>
-                    <p className="text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-400 flex-1">{copy.shortDesc}</p>
-                    <Link href={`/services/${service.slug}`} className="inline-flex items-center text-xs font-bold text-black dark:text-neutral-200 group-hover:text-[#16a34a] transition-colors pt-5 mt-5 border-t border-neutral-100 dark:border-neutral-800">Design Blueprint देखें <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" /></Link>
-                  </div>;
-                })}
+                    <h4 className="text-[20px] font-extrabold text-black dark:text-white mb-3">{service.title}</h4>
+                    <p className="text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-400 flex-1">{service.shortDesc}</p>
+                    <Link href={`/design-services/${service.slug}`} className="inline-flex items-center text-xs font-bold text-black dark:text-neutral-200 group-hover:text-[#16a34a] transition-colors pt-5 mt-5 border-t border-neutral-100 dark:border-neutral-800">
+                      Explore Design Blueprint <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                ))}
               </div>
             </div>
+
+            {/* SEGMENT 3: SEARCH, AI & AUTOMATION */}
+            <div>
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+                <div>
+                  <p className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-2">Segment 03 • Search, AI &amp; Automation</p>
+                  <h3 className="text-[28px] font-extrabold text-black dark:text-white">Commercial Acquisition &amp; Automation</h3>
+                </div>
+                <Link href="/search-automation" className="text-sm font-bold text-[#16a34a] hover:underline flex items-center">
+                  सभी Search &amp; Automation Services देखें <ArrowRight className="w-4 h-4 ml-1" />
+                </Link>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {SEARCH_AUTOMATION_SERVICES.map((service) => (
+                  <div key={service.slug} className="group bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-7 shadow-sm hover:border-[#16a34a]/50 transition-colors flex flex-col">
+                    <Bot className="w-6 h-6 text-[#16a34a] mb-4" />
+                    <div className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#16a34a] mb-4">{service.category}</div>
+                    <h4 className="text-[20px] font-extrabold text-black dark:text-white mb-3">{service.title}</h4>
+                    <p className="text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-400 flex-1">{service.shortDesc}</p>
+                    <Link href={`/search-automation/${service.slug}`} className="inline-flex items-center text-xs font-bold text-black dark:text-neutral-200 group-hover:text-[#16a34a] transition-colors pt-5 mt-5 border-t border-neutral-100 dark:border-neutral-800">
+                      Explore Automation Blueprint <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </section>
 

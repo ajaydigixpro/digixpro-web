@@ -99,7 +99,7 @@ export default function SearchAutomationPage() {
     },
     {
       question: "Does DigiXPro provide guarantees on SEO rankings or lead volume?",
-      answer: "We guarantee technical code compliance, commercial keyword architecture, robust automation logic, and empirical visibility growth. No legitimate agency guarantees exact search positions due to autonomous search algorithms."
+      answer: "We focus on rigorous technical code compliance, commercial keyword architecture, robust automation logic, and systematic visibility optimization. Search engine algorithms operate autonomously, so our framework emphasizes verifiable engineering standards rather than speculative marketing promises."
     },
     {
       question: "Can these services be customized for international markets?",

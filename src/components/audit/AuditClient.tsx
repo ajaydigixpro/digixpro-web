@@ -197,7 +197,6 @@ function buildInterestedServicesString(selectedOptions: string[]): string {
     ai_consulting: "AI consulting (AI strategy, governance, roadmap)",
     erp_consulting: "ERP consulting (SAP, Odoo, NetSuite, inventory/supply chain)",
     fractional_cto: "Fractional CTO (part-time technical leadership)",
-    fractional_ceo: "Fractional CEO (part-time executive/business leadership)",
   };
 
   const selectedLabels = selectedOptions
@@ -389,7 +388,7 @@ export default function AuditClient() {
           recommended_tier: rec.recommended_tier || "digixpro",
           explain_recommendation: rec.explain_recommendation || "",
           digixpro_service_name: rec.digixpro_service_name || "Custom Architecture & Automation",
-          digixpro_service_url: rec.digixpro_service_url || "/services/ai-automation-agency",
+          digixpro_service_url: rec.digixpro_service_url || "/search-automation/workflow-ai-automation",
           digixpro_price_range: rec.digixpro_price_range || "",
         })),
         closing_message: rawBrief.closing_message || "",
@@ -513,7 +512,6 @@ export default function AuditClient() {
     { key: "ai_consulting", text: "AI consulting (AI strategy, governance, roadmap)" },
     { key: "erp_consulting", text: "ERP consulting (SAP, Odoo, NetSuite, inventory/supply chain)" },
     { key: "fractional_cto", text: "Fractional CTO (part-time technical leadership)" },
-    { key: "fractional_ceo", text: "Fractional CEO (part-time executive/business leadership)" },
     { key: "not_sure", text: "Not sure yet — open to suggestions" },
   ];
 
@@ -1357,7 +1355,7 @@ export default function AuditClient() {
                         </span>
                         <div className="print:hidden">
                           <Link
-                            href={rec.digixpro_service_url || "/services/ai-automation-agency"}
+                            href={rec.digixpro_service_url || "/search-automation/workflow-ai-automation"}
                             className="inline-flex items-center text-xs font-bold text-[#009E73] hover:underline gap-1"
                           >
                             <span>Explore Service Blueprint</span>

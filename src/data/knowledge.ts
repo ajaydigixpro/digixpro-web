@@ -189,7 +189,7 @@ A modular monolith enforces strict code boundaries, directory isolation, and dom
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">Build Resilient, Scalable Web Architecture</h3>
 
-Stop wasting developer velocity on unnecessary distributed systems overhead. Review the <a href="/services/ai-automation-agency" class="font-bold text-[#009E73] hover:underline">DigiXPro AI Automation & Agency Services Blueprint</a> to see how clean system architecture powers automated, reliable business operations.`
+Stop wasting developer velocity on unnecessary distributed systems overhead. Review the <a href="/search-automation/workflow-ai-automation" class="font-bold text-[#009E73] hover:underline">DigiXPro Workflow & AI Automation Blueprint</a> to see how clean system architecture powers automated, reliable business operations.`
   },
   {
     id: "crm-vs-erp",
@@ -295,7 +295,7 @@ Under the guidance of Technology Architect Dr. Ajay Shukla, DigiXPro establishes
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">Align Your Technology Investments With Operational Reality</h3>
 
-Stop buying software based on vendor marketing claims. Review the full <a href="/services/business-process-automation" class="font-bold text-[#009E73] hover:underline">DigiXPro Business Process Automation Blueprint</a> to discover how independent technology advisory supports system alignment.`
+Stop buying software based on vendor marketing claims. Review the full <a href="/advisory/business-systems-process-architecture" class="font-bold text-[#009E73] hover:underline">DigiXPro Business Systems & Process Architecture Blueprint</a> to discover how independent technology advisory supports system alignment.`
   },
 
   {
@@ -361,7 +361,7 @@ By completing deep process discovery before signing vendor contracts, organizati
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">Take Control of Your Enterprise Architecture</h3>
 
-Before committing your capital to an expensive software license or signing a multi-year vendor contract, audit your current operational readiness. Explore the <a href="/services/business-process-automation" class="font-bold text-[#009E73] hover:underline">DigiXPro Business Process Automation Blueprint</a> to discover how independent technology advisory supports operational clarity and execution.
+Before committing your capital to an expensive software license or signing a multi-year vendor contract, audit your current operational readiness. Explore the <a href="/advisory/business-systems-process-architecture" class="font-bold text-[#009E73] hover:underline">DigiXPro Business Systems & Process Architecture Blueprint</a> to discover how independent technology advisory supports operational clarity and execution.
 
 <p class="text-xs text-neutral-500 font-mono mt-8 pt-4 border-t border-neutral-200 dark:border-neutral-800">Source: Panorama Consulting Group, 2025 ERP Report</p>`
   },

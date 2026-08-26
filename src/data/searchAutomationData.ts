@@ -96,7 +96,7 @@ export const SEARCH_AUTOMATION_SERVICES: SearchAutomationServiceItem[] = [
       },
       {
         question: "Does DigiXPro guarantee first-page Google rankings?",
-        answer: "No legitimate agency can guarantee exact search engine positions because Google algorithm updates are autonomous. We guarantee technical SEO compliance, commercial keyword optimization, and empirical search performance growth."
+        answer: "No legitimate agency can guarantee exact search engine positions because search engine algorithms update autonomously. We deliver technical SEO compliance, commercial keyword architecture, and systematic search performance optimization."
       },
       {
         question: "Can DigiXPro handle SEO for businesses operating in multiple regions?",
@@ -398,7 +398,7 @@ export const SEARCH_AUTOMATION_SERVICES: SearchAutomationServiceItem[] = [
       { title: "Production n8n Workflow Pipelines", desc: "Self-hosted, secure automation workflows connecting web forms, CRMs, Notion, email, and messaging platforms." },
       { title: "Direct API & Webhook Integrations", desc: "Custom HTTP webhook triggers ensuring instant, sub-second data handoffs between core software tools." },
       { title: "AI Model & Document Processing Connections", desc: "Integrating LLM APIs (OpenAI, Anthropic) to extract structured data from unstructured emails, PDFs, and forms." },
-      { title: "Resilient Error Handling & Monitoring", desc: "Engineering retry logic, failover queues, and automated alerts to guarantee zero dropped transactions." }
+      { title: "Resilient Error Handling & Monitoring", desc: "Engineering retry logic, failover queues, and automated alerts to prevent dropped transactions and ensure system resilience." }
     ],
     evidenceTitle: "DigiXPro n8n Webhook Infrastructure",
     evidenceText: "DigiXPro operates its own production lead pipeline using self-hosted n8n webhooks: web forms -> n8n webhook -> instant Notion database routing & notification feeds.",

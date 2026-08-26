@@ -161,7 +161,7 @@ export default function DrAggarwalClient() {
               </div>
               <div className="flex items-start gap-2.5">
                 <span className="text-red-400 font-bold shrink-0">✕</span>
-                <span><strong>No Guaranteed #1 Ranking Promises:</strong> We did not make artificial search ranking guarantees. We engineered clean technical SEO, structured schemas, and Google Maps trust signals.</span>
+                <span><strong>No Speculative Ranking Promises:</strong> We avoided artificial search ranking promises. Instead, we engineered clean technical SEO, structured schemas, and Google Maps trust signals.</span>
               </div>
               <div className="flex items-start gap-2.5">
                 <span className="text-red-400 font-bold shrink-0">✕</span>
