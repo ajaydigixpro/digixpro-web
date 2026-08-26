@@ -5,13 +5,16 @@ interface ArticleSchemaProps {
   title: string;
   description: string;
   url: string;
-  publishedAt: string;
-  updatedAt: string;
+  publishedAt?: string;
+  updatedAt?: string;
   imageUrl?: string;
 }
 
 export default function ArticleSchema({ title, description, url, publishedAt, updatedAt, imageUrl = "https://www.digixpro.in/opengraph-image.png" }: ArticleSchemaProps) {
-  const schema = {
+  const publishedDate = publishedAt;
+  const modifiedDate = updatedAt || publishedAt;
+
+  const schema: Record<string, any> = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "@id": `${url}#article`,
@@ -24,13 +27,18 @@ export default function ArticleSchema({ title, description, url, publishedAt, up
     "publisher": {
       "@id": "https://www.digixpro.in/#organization"
     },
-    "datePublished": publishedAt,
-    "dateModified": updatedAt,
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": url
     }
   };
+
+  if (publishedDate) {
+    schema["datePublished"] = publishedDate;
+  }
+  if (modifiedDate) {
+    schema["dateModified"] = modifiedDate;
+  }
 
   return <Script id={`article-schema-${url.split('/').pop()}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
 }

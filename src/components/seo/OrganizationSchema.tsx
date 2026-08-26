@@ -29,7 +29,13 @@ export default function OrganizationSchema() {
       "@type": "ContactPoint",
       "contactType": "customer support",
       "email": "consult@digixpro.in",
-      "areaServed": "IN",
+      "areaServed": [
+        { "@type": "Country", "name": "India" },
+        { "@type": "Country", "name": "United States" },
+        { "@type": "Country", "name": "United Kingdom" },
+        { "@type": "Country", "name": "Australia" },
+        { "@type": "Country", "name": "Singapore" }
+      ],
       "availableLanguage": ["English", "Hindi"]
     },
     "sameAs": [

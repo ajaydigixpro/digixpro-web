@@ -17,8 +17,8 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Brand & Digital Design Services',
-  description: 'Structured visual communication, custom modern website design, and strategic branding services for growing organizations.',
+  title: 'Website Design & Strategic Branding Services | DigiXPro',
+  description: 'Custom website design services, modern web development, and strategic branding services for enterprise clients.',
   keywords: [
     'website design services',
     'branding services',

@@ -10,8 +10,8 @@ export default function ProfessionalServiceSchema() {
     "url": "https://www.digixpro.in",
     "description": "Independent Technology Architecture & Business Operating Systems Advisory for growing businesses and founders.",
     "serviceType": "Technology Architecture Advisory",
-    "currenciesAccepted": "INR",
-    "paymentAccepted": "Cash, Bank Transfer, UPI",
+    "currenciesAccepted": "INR, USD, GBP, AUD, SGD",
+    "paymentAccepted": "Bank Transfer, Wire Transfer",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Noida",
@@ -20,10 +20,11 @@ export default function ProfessionalServiceSchema() {
     },
     "email": "consult@digixpro.in",
     "areaServed": [
-      {
-        "@type": "Country",
-        "name": "India"
-      }
+      { "@type": "Country", "name": "India" },
+      { "@type": "Country", "name": "United States" },
+      { "@type": "Country", "name": "United Kingdom" },
+      { "@type": "Country", "name": "Australia" },
+      { "@type": "Country", "name": "Singapore" }
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",

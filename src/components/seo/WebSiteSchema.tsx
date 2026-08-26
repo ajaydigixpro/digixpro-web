@@ -12,14 +12,6 @@ export default function WebSiteSchema() {
     "inLanguage": "en-IN",
     "publisher": {
       "@id": "https://www.digixpro.in/#organization"
-    },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://www.digixpro.in/knowledge?q={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
     }
   };
 

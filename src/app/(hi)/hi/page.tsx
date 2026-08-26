@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.digixpro.in"),
   title: 'स्वतंत्र IT Consulting और Business Process Automation | DigiXPro',
   description: 'बढ़ते व्यवसायों के लिए स्वतंत्र IT Consulting, Business Process Automation, Fractional CTO सलाह और आधुनिक web design systems।',
   alternates: {
@@ -65,6 +66,10 @@ const hindiServiceCopy: Record<string, { category: string; title: string; shortD
   'branding-services': {
     category: 'Brand Strategy', title: 'Branding Services',
     shortDesc: 'स्पष्ट positioning, visual identity और हर touchpoint पर consistent brand system।',
+  },
+  'website-design-for-trades-and-contractors': {
+    category: 'Trade Digital Experience', title: 'Trades & Contractors के लिए Website Design & SEO',
+    shortDesc: 'Trade businesses और contractors के लिए fast, mobile-optimized website development, local SEO infrastructure और lead capture workflows।',
   },
 };
 

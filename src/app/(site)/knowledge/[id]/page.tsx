@@ -73,8 +73,8 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
         title={article.title}
         description={article.summary}
         url={articleUrl}
-        publishedAt="2026-01-01"
-        updatedAt="2026-01-01"
+        publishedAt={article.publishedIsoDate}
+        updatedAt={article.updatedIsoDate}
       />
 
       <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#009E73]/20 pb-24 transition-colors duration-200">

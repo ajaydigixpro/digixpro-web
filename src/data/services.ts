@@ -41,59 +41,60 @@ export const services: ServiceItem[] = [
     slug: "it-consulting-services",
     title: "IT Consulting Services",
     primaryKeyword: "IT consulting services",
-    supportingKeyword: "it consulting for small business",
+    supportingKeyword: "technical SEO and technology architecture",
     keywords: [
       "IT consulting services",
       "it consulting for small business",
-      "healthcare it consulting",
+      "technical SEO strategy",
+      "AI SEO and GEO architecture",
       "types of it consulting services",
-      "managed it consulting services",
       "independent IT consultant",
       "technology architecture review",
+      "remote technology consulting USA UK Australia Singapore"
     ],
     category: "Technology Architecture",
     track: "tech",
     badgeText: "Independent Tech Advisory",
-    heroHeading: "Independent IT Consulting Services for Growing Businesses.",
-    heroSubheading: "We evaluate your technology architecture, eliminate software waste, and align systems with operational reality before you make major capital commitments.",
-    shortDesc: "Independent technical due diligence, evaluating types of IT consulting services, technology stack reviews, and healthcare IT consulting architectures to eliminate software waste.",
+    heroHeading: "Independent IT Consulting & Technology Architecture Advisory.",
+    heroSubheading: "Independent evaluation of software architecture, technical SEO infrastructure, and enterprise data workflows for organizations operating in India, the United States, United Kingdom, Australia, and Singapore.",
+    shortDesc: "Independent technical due diligence, technology stack reviews, technical SEO architecture, and systems integration advisory delivered remotely for international growth enterprises.",
     problemHeading: "Common IT Alignment Bottlenecks",
     problemPoints: [
       "Software platforms purchased without mapping actual operational workflows.",
       "Fragmented data silos across departments with zero single source of truth.",
       "High monthly SaaS burn with underutilized platform licenses.",
       "Vendor lock-in and dependency on expensive third-party implementation agencies.",
-      "Frustration among small business leaders evaluating IT consulting for small business that delivers unbiased technology advice rather than pushing vendor software licenses."
+      "Legacy website setups suffering from poor Core Web Vitals and lack of technical SEO infrastructure required for international search discoverability."
     ],
-    solutionHeading: "What Our IT Consulting Delivers",
+    solutionHeading: "IT Consulting Architecture Outputs",
     solutionDeliverables: [
-      { title: "Architecture Due-Diligence", desc: "Complete audit of your existing software stack, data pipelines, infrastructure vulnerabilities, and managed IT consulting services dependencies." },
-      { title: "Technology Roadmap", desc: "Prioritized 12-to-36 month architecture blueprint designed for operational scalability." },
-      { title: "Vendor & Stack Selection", desc: "Unbiased, vendor-neutral evaluation of platforms based strictly on business fit." },
-      { title: "Cost Optimization Report", desc: "Identification of redundant subscriptions, license waste, and architectural inefficiency." }
+      { title: "Architecture Due-Diligence", desc: "Complete audit of existing software stacks, data pipelines, security posture, and infrastructure dependencies." },
+      { title: "Technology Roadmap", desc: "Prioritized 12-to-36 month architecture blueprint designed for operational scalability and international expansion." },
+      { title: "Technical SEO & Data Schema Architecture", desc: "Foundational structured data schemas, canonical tagging, and search infrastructure required for AI search visibility (GEO) and global indexability." },
+      { title: "Cost & Stack Optimization Report", desc: "Identification of redundant subscriptions, license waste, and architectural inefficiency prior to capital commitment." }
     ],
     faqs: [
       {
         question: "What makes DigiXPro IT consulting services independent and vendor-neutral?",
-        answer: "DigiXPro does not sell software licenses, accept vendor referral fees, or partner with technology providers, ensuring all advisory recommendations remain strictly aligned with client operating goals. Technical architectures, software stacks, and cloud services are evaluated exclusively on functional requirements, team capability, and total cost of ownership. This independence eliminates premature software purchases and biased implementation recommendations."
+        answer: "DigiXPro does not sell software licenses, accept vendor referral commissions, or partner with proprietary platform vendors. Advisory recommendations remain strictly aligned with client operating objectives. Technical architectures, software stacks, web platforms, and cloud infrastructure are evaluated exclusively on functional requirements, team capability, and total cost of ownership."
+      },
+      {
+        question: "How does independent IT consulting support international technical SEO and search visibility?",
+        answer: "Technical SEO strategy evaluates crawl efficiency, page speed, structured data schemas, clean canonical URL hierarchies, and server response times. Establishing robust web engineering principles ensures modern web applications rank effectively in competitive search environments across the United States, United Kingdom, Australia, Singapore, and India."
       },
       {
         question: "How does IT consulting differ from custom software development outsourcing?",
-        answer: "IT consulting evaluates whether software should be built, bought, or configured, whereas software development outsourcing focuses strictly on writing code to predetermined specifications. Architecture advisory designs the underlying business operating system, validates integration workflows across departments, and governs engineering teams to prevent costly architectural rebuilds. Development agencies implement features, while technology consultants ensure those investments generate measurable operational return."
+        answer: "IT consulting evaluates whether software should be built, bought, or configured, whereas software development outsourcing focuses strictly on writing code to predetermined specifications. Architecture advisory designs the underlying business operating system, validates integration workflows across departments, and governs engineering teams to prevent costly architectural rebuilds."
       },
       {
-        question: "What types of IT consulting services are most valuable for small and mid-sized businesses?",
-        answer: "Technology stack due-diligence, business process mapping, and healthcare IT consulting architectures deliver the highest return for growing enterprises by eliminating software waste and data silos. These reviews establish centralized data schemas, audit high monthly SaaS subscriptions, and create a prioritized 12-to-36-month technology roadmap before capital is committed. Managed IT consulting services oversight ensures external engineering vendors adhere to strict security and architectural standards."
-      },
-      {
-        question: "When should a growing company hire an IT consulting consultant?",
-        answer: "Organizations should engage an IT consultant before committing to major enterprise software contracts, experiencing cross-departmental data inconsistencies, or planning rapid operational headcount scaling. Independent advisory prevents expensive trial-and-error platform deployments and identifies redundant subscription waste across existing software systems. Early architectural validation ensures technology platforms scale seamlessly alongside transaction volume."
+        question: "How are IT consulting engagements delivered for remote international clients?",
+        answer: "Consulting engagements operate via a structured remote delivery cadence, utilizing asynchronous code audits, video architectural reviews, and shared documentation pipelines. Remote delivery provides enterprise clients across North America, Europe, Australia, and Asia-Pacific direct access to tier-one technology advisory without regional agency markup."
       }
     ],
     ctaHeading: "Evaluating major technology decisions or struggling with software waste?",
     ctaButtonText: "Book an Independent IT Architecture Review",
-    ctaSubtext: "If your technology decisions feel unaligned with business goals, book a 20-minute architecture review before committing further capital.",
-    lastUpdated: "2026-08-18"
+    ctaSubtext: "If technology decisions feel unaligned with business goals, book a 20-minute architecture review before committing further capital.",
+    lastUpdated: "2026-08-26"
   },
   {
     slug: "ai-consulting-services",
@@ -373,59 +374,63 @@ export const services: ServiceItem[] = [
     slug: "website-design-services",
     title: "Website Design Services",
     primaryKeyword: "website design services",
-    supportingKeyword: "custom website design",
+    supportingKeyword: "custom web development",
     keywords: [
       "website design services",
-      "custom website design",
-      "small business website design",
-      "wordpress website design",
-      "responsive website design",
-      "e-commerce website design",
-      "website redesign cost",
+      "website design",
+      "website development",
+      "custom website development",
+      "business website",
+      "high-performance website",
+      "conversion-focused website",
+      "custom website redesign",
+      "business systems integration",
+      "technical SEO",
+      "custom web development USA UK Australia Singapore"
     ],
     category: "Digital Experience",
     track: "design",
     badgeText: "Custom Modern JS Architecture",
-    heroHeading: "High-Performance Modern Website Design Services.",
-    heroSubheading: "We design and build ultra-fast, accessible web platforms using modern JavaScript stacks (Next.js, React, TailwindCSS) engineered for speed, SEO, and conversion.",
-    shortDesc: "High-performance custom website design, responsive website design engineering, accessible UI/UX, e-commerce website design, and modern JS architecture.",
+    heroHeading: "High-Performance Website Design & Custom Web Development.",
+    heroSubheading: "Engineering ultra-fast, accessible web platforms using modern JavaScript stacks (Next.js, React, TailwindCSS) engineered for speed, technical SEO, conversion, and business systems integration. Delivered remotely for enterprise clients in India, the United States, United Kingdom, Australia, and Singapore.",
+    shortDesc: "High-performance custom web development, conversion-focused business website design, technical SEO infrastructure, accessible UI/UX, e-commerce web development, and decoupled Next.js architecture.",
     problemHeading: "Why Traditional Website Builds Underperform",
     problemPoints: [
-      "Heavy legacy monoliths and bloated WordPress website design setups suffering from slow page load speeds and plugin security risks.",
-      "Generic template layouts that fail to communicate technical authority and brand trust.",
-      "Inconsistent responsive website design across mobile viewports, high layout shift, and failing Core Web Vitals scores.",
-      "Fragile security postures vulnerable to continuous plugin updates and script exploits.",
-      "Uncertainty when evaluating small business website design options, custom website design costs, or complex e-commerce website design architectures."
+      "Heavy legacy monoliths and bloated CMS setups suffering from slow page load speeds, high layout shift, and plugin security vulnerabilities.",
+      "Generic template layouts that fail to communicate technical authority, brand distinction, and enterprise capability.",
+      "Failing Core Web Vitals scores and poor mobile responsiveness that degrade search engine rankings and lower conversion rates.",
+      "Lack of built-in technical SEO schema, canonical tags, and clean semantic URL structures required for international search discoverability.",
+      "Inability to integrate custom web forms directly with backend business process automation and CRM pipelines."
     ],
-    solutionHeading: "Modern Web Engineering Architecture",
+    solutionHeading: "Modern Web Engineering & SEO Architecture",
     solutionDeliverables: [
-      { title: "Custom Next.js & React Frontend", desc: "Bespoke, decoupled web applications built for lightning speed and optimal Core Web Vitals performance." },
-      { title: "TailwindCSS Design System", desc: "Responsive, accessible design tokens and UI components styled for brand distinction." },
-      { title: "Comprehensive Technical SEO & Schema", desc: "Built-in JSON-LD structured data, dynamic XML sitemap, and semantic HTML5 hierarchy." },
-      { title: "Edge Deployment & Security", desc: "Global CDN hosting with static pre-rendering, zero plugin vulnerabilities, and instant loads." }
+      { title: "Custom Next.js & React Web Application", desc: "Bespoke, decoupled web applications engineered for sub-second load times, instant hydration, and flawless Core Web Vitals." },
+      { title: "TailwindCSS UI/UX Design System", desc: "Responsive, accessible design tokens and UI components styled for enterprise brand authority and high conversion." },
+      { title: "Built-In Technical SEO & Schema Architecture", desc: "Automated JSON-LD structured data, dynamic XML sitemaps, canonical tags, and semantic HTML5 hierarchy for search engine dominance." },
+      { title: "Automated Business Systems Integration", desc: "Direct API webhooks connecting web lead capture forms with CRM platforms, WhatsApp notifications, and workflow automation systems." }
     ],
     faqs: [
       {
-        question: "Why does DigiXPro engineer custom Next.js websites instead of traditional WordPress templates?",
-        answer: "Custom Next.js and React web architectures deliver instant sub-second page loads, uncompromised cybersecurity, zero plugin vulnerabilities, and optimal Google Core Web Vitals performance that monolithic CMS templates cannot match. Decoupling the frontend user experience from backend content storage prevents script bloat and ensures seamless custom API integrations. High-performance modern web engineering elevates brand authority and significantly improves organic search conversion rates."
+        question: "Why does DigiXPro engineer custom Next.js websites instead of traditional monolithic CMS templates?",
+        answer: "Custom Next.js and React web architectures deliver sub-second page loads, enhanced cybersecurity, zero plugin vulnerabilities, and optimal Google Core Web Vitals performance that monolithic CMS templates cannot match. Decoupling the frontend user experience from backend content storage prevents script bloat and ensures seamless custom API integrations with CRM and business automation systems. High-performance modern web engineering elevates brand authority and significantly improves organic search conversion rates across international markets."
       },
       {
-        question: "How does responsive website design impact search rankings and customer conversion?",
-        answer: "Responsive website design ensures fluid typographic scaling, touch-optimized UI controls, and zero layout shift across mobile, tablet, and desktop viewports, which directly satisfies Google mobile-first indexing standards. Clean semantic HTML5 hierarchy combined with pre-rendered static assets guarantees lightning-fast rendering on all mobile network conditions. Frictionless mobile browsing experiences reduce bounce rates and maximize user inquiry conversion."
+        question: "How does technical SEO and AI search visibility (GEO) integrate with custom web development?",
+        answer: "Custom web development incorporates technical SEO from day one, including automated dynamic XML sitemaps, JSON-LD structured data schemas, canonical URL management, OpenGraph metadata, and optimized semantic HTML5 hierarchy. Fast server response times, pre-rendered static assets, and automated WebP image delivery ensure search engines and AI engines (ChatGPT, Claude, Perplexity) crawl and index every page efficiently."
       },
       {
-        question: "What technical SEO capabilities are built into custom website design engagements?",
-        answer: "Custom web architecture incorporates comprehensive technical SEO from day one, including automated dynamic XML sitemaps, JSON-LD structured data schemas, canonical tag management, and optimized OpenGraph metadata. Semantic heading structures, fast server response times, and automated WebP image delivery ensure search engine crawlers index every page efficiently. Built-in technical hygiene establishes an enduring foundation for organic search dominance."
+        question: "How are custom web development projects executed remotely for international clients in the US, UK, Australia, and Singapore?",
+        answer: "Web engineering engagements follow a structured remote delivery cadence, utilizing collaborative design tokens, staging previews, asynchronous code reviews, and transparent milestone tracking. Enterprise clients across North America, Europe, Australia, and Asia-Pacific receive direct tier-one technical execution without requiring local agency overhead."
       },
       {
-        question: "What factors determine the total website redesign cost for custom modern JavaScript platforms?",
-        answer: "Custom website redesign cost is governed by frontend component complexity, interactive workflow requirements, third-party API and CRM integrations, and specialized content migration needs. Investing in custom Next.js engineering eliminates ongoing third-party plugin subscription fees, emergency security patch maintenance, and premature platform rebuilds. Transparent milestone scoping ensures clients receive enduring, high-performance digital assets."
+        question: "What factors determine total custom website redesign cost?",
+        answer: "Custom website redesign cost is governed by frontend component complexity, interactive workflow requirements, third-party API and CRM integrations, and specialized content migration needs. Building on modern Next.js architecture eliminates ongoing third-party plugin subscription fees, emergency security patch maintenance, and premature platform rebuilds."
       }
     ],
     ctaHeading: "Planning a website redesign and tired of bloated, insecure templates?",
     ctaButtonText: "Book a Custom Web Architecture Discovery Call",
-    ctaSubtext: "If your legacy website suffers from slow load speeds or poor Core Web Vitals, discover how custom JS architecture elevates your brand.",
-    lastUpdated: "2026-08-18"
+    ctaSubtext: "If your website suffers from slow load speeds, poor Core Web Vitals, or weak conversion, discover how custom JS architecture elevates your brand.",
+    lastUpdated: "2026-08-26"
   },
   {
     slug: "social-media-campaign-strategy",
@@ -543,5 +548,76 @@ export const services: ServiceItem[] = [
     ctaButtonText: "Book a Strategic Branding Architecture Review",
     ctaSubtext: "If your brand identity lacks enterprise guidelines or editorial publication layout authority, build an enduring visual system.",
     lastUpdated: "2026-08-18"
+  },
+  {
+    slug: "website-design-for-trades-and-contractors",
+    title: "Custom Website Design & SEO for Trades & Contractors",
+    primaryKeyword: "website design for trades and contractors",
+    supportingKeyword: "SEO for contractors and trade businesses",
+    keywords: [
+      "website design for trades and contractors",
+      "website design for contractors",
+      "SEO for trade businesses",
+      "electrician website design",
+      "plumbing website development",
+      "HVAC contractor website design",
+      "builder website development",
+      "trade business lead capture"
+    ],
+    category: "Digital Experience",
+    track: "design",
+    badgeText: "Trade Industry Web & SEO Architecture",
+    heroHeading: "High-Performance Website Design & SEO for Trades & Contractors.",
+    heroSubheading: "Tailored web development, technical SEO, and conversion-focused lead capture systems for field-service companies, builders, electricians, plumbers, HVAC, and trade contractors operating remotely in Australia, the United Kingdom, United States, and India.",
+    shortDesc: "Custom website design, technical SEO and lead-capture systems for trades, contractors and field-service businesses serving Australia, the UK, US and India.",
+    problemHeading: "Operational & Search Bottlenecks in Trade Business Websites",
+    problemPoints: [
+      "Template websites loading slowly on mobile devices, causing potential homeowners and commercial clients to bounce before requesting a quote.",
+      "Lack of structured service-area landing pages and technical SEO hygiene, rendering trade businesses hard to find in local and regional search results.",
+      "Unstructured contact forms and phone links failing to capture job scope, site location, or urgency details required for fast quoting.",
+      "Over-reliance on third-party lead generation directories charging high per-lead fees while distributing inquiries to multiple competing contractors.",
+      "Disconnected website forms forcing office managers to manually copy customer details into scheduling software or CRM databases."
+    ],
+    solutionHeading: "Web Engineering & Lead Capture System for Contractors",
+    solutionDeliverables: [
+      {
+        title: "Mobile-Optimized Trade Web Application",
+        desc: "Decoupled Next.js website architecture engineered for fast mobile page loads, clear service navigation, and touch-friendly quote requests."
+      },
+      {
+        title: "Service-Area & Technical SEO Architecture",
+        desc: "Structured service schemas, canonical tags, and clean semantic page hierarchies designed for organic search visibility across target operating regions."
+      },
+      {
+        title: "Structured Inquiry & Quote Capture",
+        desc: "Interactive inquiry forms capturing job scope, service category, location, and preferred call-back times without user friction."
+      },
+      {
+        title: "Optional CRM & Workflow Integration",
+        desc: "Automated webhook pipelines connecting lead capture forms to business systems, notification channels, CRM platforms, or scheduling tools where supported."
+      }
+    ],
+    faqs: [
+      {
+        question: "Why do trade and contracting businesses require custom web development instead of generic templates?",
+        answer: "Custom web development provides a stronger foundation for mobile performance and Core Web Vitals when properly implemented. Decoupled Next.js architecture reduces reliance on third-party plugins and their associated maintenance and security risks, allowing custom inquiry forms to connect cleanly with operational tools."
+      },
+      {
+        question: "How does technical SEO improve search visibility for builders, plumbers, electricians, and HVAC contractors?",
+        answer: "Technical SEO establishes clean URL hierarchies, structured JSON-LD schemas, automated sitemaps, and fast server response times that search engines require to crawl and index service capabilities effectively. Structuring service pages around specific trade offerings supports organic search visibility when property owners search for qualified contractors in target markets."
+      },
+      {
+        question: "How are website development and SEO projects delivered remotely for international contractors in Australia, the UK, and the US?",
+        answer: "Engagements operate via a structured remote delivery workflow, using asynchronous design reviews, staging previews, and digital milestone handoffs. Remote execution provides trade businesses across Australia, the United Kingdom, United States, and India access to structured web engineering without requiring an on-site agency."
+      },
+      {
+        question: "Can inquiry forms on a contractor website connect directly to operational CRMs or notification channels?",
+        answer: "Web inquiry forms connect directly to automated webhook endpoints, notification pipelines, CRM platforms, or scheduling tools where supported. Automated lead routing ensures customer quote requests are captured efficiently to prevent delayed responses."
+      }
+    ],
+    ctaHeading: "Ready to upgrade your trade business website and search visibility?",
+    ctaButtonText: "Discuss a Trades Website Project",
+    ctaSubtext: "Evaluate how custom web architecture and technical SEO improve inquiry conversion for your contracting business.",
+    lastUpdated: "2026-08-26"
   }
 ];

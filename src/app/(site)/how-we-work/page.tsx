@@ -15,8 +15,8 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Our Methodology — How We Work',
-  description: 'Our 7-step architecture hierarchy and independent advisory methodology. We design business operating systems before you spend money on software. Business, People, Process, Information, Automation, Technology, Software.',
+  title: 'Engineering Methodology & Operating Rhythms | DigiXPro',
+  description: 'The 7-step architecture hierarchy and independent advisory methodology. Designing business operating systems prior to technology investment: Business, People, Process, Information, Automation, Technology, Software.',
   keywords: [
     'technology architecture methodology',
     'business operating system design',

@@ -4,6 +4,8 @@ export interface KnowledgeArticle {
   title: string;
   summary: string;
   date: string;
+  publishedIsoDate?: string;
+  updatedIsoDate?: string;
   content: string;
   image?: string;
 }
@@ -33,6 +35,8 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     title: "Why a Custom Business Operating System Outperforms Generic ERP Templates",
     summary: "Adopting a custom Business Operating System allows growing enterprises to decouple bounded contexts, enforce domain governance, and achieve horizontal scalability unmatched by rigid, off-the-shelf ERP templates.",
     date: "Architecture Decision",
+    publishedIsoDate: "2026-08-25",
+    updatedIsoDate: "2026-08-25",
     content: "# Why a Custom Business Operating System Outperforms Generic ERP Templates\n\nMany growing enterprises in Noida / Delhi-NCR / India struggle when attempting to scale core workflows using off-the-shelf ERP templates or fragmented messaging tools like WhatsApp. While generic platforms promise rapid deployment, they enforce rigid process constraints that fail to accommodate unique operational models.\n\nUnder Technology Advisory by Dr. Ajay Shukla at DigiXPro Digital Solution, enterprise clients are guided toward custom Business Operating Systems that decouple bounded contexts, enforce strict domain governance, and automate cross-functional data pipelines.\n\n## Generic ERP Templates vs Custom Operating System\n\n| Architectural Dimension | Generic ERP Template | Custom Business Operating System |\n| :--- | :--- | :--- |\n| **Workflow Alignment** | Forces business into template constraints | Custom-built around actual business domain logic |\n| **Data Governance** | Shared monolithic database table schema | Decoupled bounded contexts with strict API contracts |\n| **Scalability Limit** | High license cost per tier upgrade | Horizontal modular scaling without per-user penalty |\n| **Integration Flexibility** | Limited proprietary webhook connectors | Open REST / GraphQL / Event-driven pipeline architecture |\n\n## 7-Step Architecture Hierarchy\n\n1. **Domain Boundary Mapping**: Isolate core business functions into distinct bounded contexts before writing software.\n2. **Data Pipeline Standardisation**: Replace unstructured messaging threads with schema-validated API payloads.\n3. **Role-Based Governance**: Hardcode granular access controls and audit trails directly into backend services.\n4. **Asynchronous Workflow Integration**: Decouple long-running operations using event-driven queues to maintain UI responsiveness.\n5. **Real-time Operational Dashboards**: Expose unified metrics across inventory, finance, and client management.\n6. **Automated Exception Handling**: Configure policy-as-code guardrails for automatic error recovery.\n7. **Continuous Optimization Loop**: Iteratively refine workflow performance using production telemetry.",
     image: "/blog-images/why-a-custom-business-operating-system-outperforms-generic-erp-templates.png"
   },
@@ -42,6 +46,8 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     title: "Scaling Past the Human Bottleneck: Why Manual Approvals Stifle Modern Enterprise Architecture",
     summary: "As enterprises scale, manual gates in release management, resource provisioning, and access control introduce operational latency, compliance risks, and systemic bottlenecks that only automated governance can resolve.",
     date: "Architecture Decision",
+    publishedIsoDate: "2026-08-25",
+    updatedIsoDate: "2026-08-25",
     content: "In rapidly growing enterprises, architectural complexity often outpaces operational execution. The primary driver of this friction is the persistent reliance on manual approvals across critical workstreams, such as continuous integration and continuous deployment (CI/CD) pipelines, Identity and Access Management (IAM) provisioning, and infrastructure configuration changes. What functioned as a simple safety check at a smaller scale transforms into a critical bottleneck under enterprise-level volume. When every deployment or configuration change requires human intervention, the lead time for changes increases significantly, stalling feature delivery and reducing overall organizational agility.\n\nFrom an infrastructure and systems design perspective, manual approval gates introduce significant configuration drift and operational risk. Relying on asynchronous human communication—such as email threads or chat channels—to authorize technical actions breaks the chain of custody and limits auditability. Instead of maintaining an immutable ledger of automated, declarative state changes, organizations are left with fragmented, untraceable manual interventions. This lack of automated governance often leads to out-of-band modifications, making root-cause analysis during system incidents highly complex and time-consuming.\n\nMitigating these bottlenecks requires an architectural shift toward policy-as-code and event-driven automation. By replacing manual sign-offs with automated evaluation engines, enterprises can validate security, compliance, and budget parameters in real time within the deployment pipeline. Human intervention must be reserved exclusively for high-risk, exceptional anomalies, while standard, low-risk operations transition to fully automated, self-healing workflows. Standardizing on this modern architectural framework allows scaling organizations to maintain velocity without sacrificing operational control or governance.",
     image: "/blog-images/scaling-past-the-human-bottleneck-why-manual-approvals-stifle-modern-enterprise-architecture.png"
   },
@@ -51,6 +57,8 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     title: "Why WhatsApp isn't a scalable operating system.",
     summary: "Exploring the hidden cost of running core business operations on fragmented messaging apps instead of centralized workflows.",
     date: "Architecture Decision",
+    publishedIsoDate: "2026-07-30",
+    updatedIsoDate: "2026-08-07",
     content: "Running core business operations on WhatsApp groups feels fast in the beginning, but as team size and client volume grow, it becomes a major operational bottleneck...\n\nWhen data, approvals, and customer histories are scattered across private chats and unindexed threads, accountability dies. Critical decisions get buried, and founders are forced to manually intervene in every operational loop.\n\nAn operating system requires structured data capture, role-based visibility, and automated workflow triggers. WhatsApp provides none of these. Before scaling operations, businesses must transition from conversational chaos to structured software pipelines."
   },
   {
@@ -59,6 +67,8 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     title: "Why decoupled inventory scales better than spreadsheet inventory.",
     summary: "A breakdown of the marketplace architecture used in 'Buy Second Hand Books' to isolate OMS from stock management.",
     date: "Production Evidence",
+    publishedIsoDate: "2026-07-30",
+    updatedIsoDate: "2026-08-07",
     content: "In multi-vendor marketplaces, coupling inventory directly with the order management system (OMS) creates catastrophic race conditions during high-traffic events...\n\nDuring the architecture design for 'Buy Second Hand Books', we enforced a strict decoupling pattern. The inventory engine operates as an independent bounded context, while the order processing layer communicates through asynchronous events.\n\nThis ensures that stock inconsistencies, concurrent checkouts, and vendor updates never lock down the core transactional pipeline, enabling seamless horizontal scalability without data corruption."
   },
   {
@@ -67,6 +77,8 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     title: "Why tenant isolation should be designed before AI integration.",
     summary: "Lessons from SattvaOS: The architectural prerequisites for building governed, secure, multi-tenant AI systems.",
     date: "Production Evidence",
+    publishedIsoDate: "2026-07-30",
+    updatedIsoDate: "2026-08-07",
     content: "Integrating Large Language Models (LLMs) or retrieval-augmented generation (RAG) systems into a multi-tenant application introduces severe security and data privacy risks if tenant boundaries are porous...\n\nDuring our work on SattvaOS, a foundational rule was established: data governance and multi-tenant isolation must be hardcoded at the database and execution layer before any AI context injection is built.\n\nWithout strict schema-level or row-level security boundaries, AI prompt contexts can inadvertently leak cross-tenant information, violating institutional trust and data compliance mandates."
   },
   {
@@ -75,6 +87,8 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     title: "Why patient data should never share operational storage.",
     summary: "Security and architectural principles derived from deploying healthcare knowledge systems and diagnostic networks.",
     date: "Production Evidence",
+    publishedIsoDate: "2026-07-30",
+    updatedIsoDate: "2026-08-07",
     content: "Healthcare platforms and diagnostic discovery networks (such as 'Scan Centre Near Me') handle sensitive Protected Health Information (PHI). A common architectural mistake is mixing transactional operational data with patient medical records in a single database instance...\n\nTo maintain absolute regulatory compliance and system resilience, we enforce strict data partitioning. Operational logs, user sessions, and scheduling workflows are decoupled entirely from encrypted diagnostic records.\n\nThis separation ensures that performance spikes in daily operations never compromise the security, encryption standards, or isolation required for medical data archives."
   },
   {
@@ -83,6 +97,8 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     title: "Monolith vs Microservices: When to Actually Split Your Codebase",
     summary: "Stop over-engineering. A pragmatic framework for deciding when a monolithic architecture is actually the right business decision vs premature microservices adoption.",
     date: "Architecture Decision",
+    publishedIsoDate: "2026-07-30",
+    updatedIsoDate: "2026-08-07",
     content: `The tech industry often pressures growing startups into premature microservices adoption, resulting in extreme operational overhead, complex distributed debugging, and deployment friction. Evaluating Monolith vs Microservices requires evaluating organizational team structure and network complexity: a well-architected modular monolith provides domain boundary isolation within a single deployable unit without paying the distributed systems tax prematurely. Splitting a codebase into microservices is only justified when independent domain teams require decoupled deployment velocity and distinct database scaling limits.
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">The Microservices Trap: Why Premature Codebase Splitting Kills Startup Speed</h3>
@@ -181,6 +197,8 @@ Stop wasting developer velocity on unnecessary distributed systems overhead. Rev
     title: "CRM vs ERP: What You Actually Need to Fix Your Operations",
     summary: "Before you buy another software license, understand the fundamental difference between tracking relationships and managing resources.",
     date: "Advisory Insight",
+    publishedIsoDate: "2026-07-30",
+    updatedIsoDate: "2026-08-07",
     content: `Founders frequently burn capital on complex Enterprise Resource Planning (ERP) tools when their actual operational bottleneck is merely disorganized lead handling—or vice versa. Understanding CRM vs ERP architecture is the critical first step before purchasing software licenses: a CRM optimizes front-office customer pipelines, while an ERP governs back-office inventory, supply chain, and financial accounting. Diagnosing your exact operational friction point prevents costly software shelf-ware and ensures technology investments directly accelerate business growth.
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">The Fundamental Distinction: CRM vs ERP</h3>
@@ -286,6 +304,8 @@ Stop buying software based on vendor marketing claims. Review the full <a href="
     title: "Why Most ERP Implementations Fail (And How to Avoid It)",
     summary: "An architectural analysis of ERP implementation failure rates, software shelf-ware, and how DigiXPro maps business processes before software procurement.",
     date: "Advisory Insight",
+    publishedIsoDate: "2026-08-07",
+    updatedIsoDate: "2026-08-07",
     content: `Most ERP implementations fail because organizations attempt to force off-the-shelf software workflows onto unmapped, chaotic operational processes instead of modeling the business first. When software procurement precedes process architecture, companies incur massive customization debt, employee resistance, and data corruption. Avoiding ERP implementation failure requires an independent architectural audit that decouples business process engineering from software vendor sales pitches.
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">The Real Root Causes of ERP Implementation Failure</h3>
@@ -352,6 +372,8 @@ Before committing your capital to an expensive software license or signing a mul
     title: "What Does a Website Redesign Actually Cost in 2026?",
     summary: "A realistic breakdown of modern website redesign cost factors, custom JS architecture vs template debt, and strategic ROI for growing enterprises.",
     date: "Architecture Decision",
+    publishedIsoDate: "2026-08-07",
+    updatedIsoDate: "2026-08-07",
     content: `Evaluating a modern website redesign cost requires looking beyond surface graphics to underlying software architecture, security isolation, Core Web Vitals engineering, and custom modern JS stack performance. Industry benchmarks show that cut-rate template redesigns create hidden technical debt that costs significantly more in lost search visibility, security vulnerabilities, and slow page loads.
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">Deconstructing the Factors Behind Website Redesign Cost</h3>
@@ -449,6 +471,8 @@ Do not compromise your brand reputation with bloated, insecure legacy templates.
     title: "The Most Common Branding Mistakes Growing Businesses Make",
     summary: "Identifying critical visual communication traps, fragmented design assets, and how systematic brand guidelines build enterprise market authority.",
     date: "Design Insight",
+    publishedIsoDate: "2026-08-07",
+    updatedIsoDate: "2026-08-07",
     content: `The most common branding mistakes growing businesses make stem from treating brand identity as merely a logo exercise rather than a systematic visual communication system. Failing to establish strict typographic hierarchies, inconsistent multi-channel assets, and disjointed publication layouts erode market trust and brand equity. Building enduring enterprise authority requires a unified design system that spans digital applications, pitch decks, and editorial publication collateral.
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">Analyzing the 5 Fatal Branding Mistakes</h3>
@@ -513,6 +537,8 @@ Eliminate visual inconsistency and elevate your brand authority across every cha
     title: "Fractional CTO Cost: What to Actually Expect",
     summary: "A comprehensive guide to fractional CTO cost structures, executive compensation benchmarks, and how on-demand technical leadership prevents million-rupee architecture mistakes.",
     date: "Advisory Insight",
+    publishedIsoDate: "2026-08-07",
+    updatedIsoDate: "2026-08-07",
     content: `According to executive compensation benchmarks in India (sourced from Crescendo Global Executive Search and Glassdoor India surveys), hiring a full-time Chief Technology Officer (CTO) requires an annual compensation package ranging from ₹45 Lakh to ₹1.2 Crore+, alongside equity grants and lengthy recruitment cycles. Engaging a Fractional CTO provides growing companies with senior executive technology leadership at a fraction of full-time executive overhead. This model allows founders to eliminate technical debt, evaluate vendor proposals, and govern engineering teams without budget bloat.
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">Understanding Market Compensation vs Fractional Advisory</h3>

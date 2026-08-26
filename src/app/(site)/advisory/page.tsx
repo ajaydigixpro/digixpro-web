@@ -17,11 +17,11 @@ import {
 
 export const metadata: Metadata = {
   title: 'IT Consulting & Technology Advisory Services | DigiXPro',
-  description: 'Independent IT consulting services and technology architecture advisory for growing businesses. We work with founders before major technology decisions are made to reduce risk, eliminate waste, and design operational clarity.',
+  description: 'Independent IT consulting services and technology architecture advisory for growing enterprises. Independent advisory guides leadership before major technology decisions are made to reduce risk, eliminate waste, and design operational clarity.',
   keywords: [
     'IT consulting services',
     'technology architecture advisory',
-    'independent tech consultant India',
+    'independent tech consultant',
     'AI infrastructure advisory',
     'ERP CRM advisory',
     'business workflow automation',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'IT Consulting & Technology Advisory Services | DigiXPro',
-    description: 'Independent technology architecture advisory for growing businesses. We work with founders before major technology decisions are made.',
+    description: 'Independent technology architecture advisory for growing businesses. Independent evaluation before major technology commitments.',
     url: 'https://www.digixpro.in/advisory',
     type: 'website',
     images: [

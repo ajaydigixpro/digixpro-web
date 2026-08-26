@@ -14,8 +14,8 @@ import {
 import { knowledgeArticles } from '@/data/knowledge';
 
 export const metadata: Metadata = {
-  title: 'The Decision Library | Architecture Insights',
-  description: 'Real lessons from production systems, consulting engagements, and architecture decisions by DigiXPro.',
+  title: 'The Decision Library — Web Engineering, Technical SEO & Systems Architecture | DigiXPro',
+  description: 'Documented architecture decisions, custom website engineering principles, technical SEO strategy, and workflow automation lessons from production systems.',
   alternates: {
     canonical: 'https://www.digixpro.in/knowledge',
   },
