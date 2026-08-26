@@ -4,6 +4,7 @@ import BuySecondhandBookClient from './BuySecondhandBookClient';
 import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import ArticleSchema from '@/components/seo/ArticleSchema';
+import FAQSchema from '@/components/seo/FAQSchema';
 
 export const metadata: Metadata = {
   title: 'Buy Secondhand Book Case Study',
@@ -33,6 +34,17 @@ export const metadata: Metadata = {
   },
 };
 
+const faqs = [
+  {
+    question: "Why migrate away from WordPress/WooCommerce to a custom PHP engine?",
+    answer: "When a commerce site accumulates 40+ plugins, page load times slow down on mobile devices and security vulnerability surfaces expand. A custom lean engine eliminates plugin bloat and delivers 99/100 PageSpeed scores."
+  },
+  {
+    question: "What are dark pattern guidelines in e-commerce pricing?",
+    answer: "India's Consumer Protection (Dark Patterns) Guidelines, 2023 restrict fake strike-through discounts and manufactured urgency. Prices must reflect genuine MRP and verified discounts."
+  }
+];
+
 export default function BuySecondhandBookEvidence() {
   return (
     <>
@@ -51,6 +63,7 @@ export default function BuySecondhandBookEvidence() {
         updatedAt="2026-08-13"
         imageUrl="https://www.digixpro.in/evidence/buy-secondhand-book/Homepage.png"
       />
+      <FAQSchema items={faqs} />
       <BuySecondhandBookClient />
       <StickyMobileCTA />
     </>

@@ -2,6 +2,8 @@ import React from 'react';
 import { Metadata } from 'next';
 import NirvandhamClient from './NirvandhamClient';
 import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import FAQSchema from '@/components/seo/FAQSchema';
 
 export const metadata: Metadata = {
   title: 'Nirvandham Platform Architecture Evidence',
@@ -24,9 +26,24 @@ export const metadata: Metadata = {
   },
 };
 
+const faqs = [
+  {
+    question: "What is a digital institution platform?",
+    answer: "A digital institution platform unifies publishing, digital libraries, member accounts, multilingual search, and governed AI retrieval into a single integrated digital ecosystem."
+  }
+];
+
 export default function NirvandhamEvidence() {
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://www.digixpro.in' },
+          { name: 'Operational Evidence', url: 'https://www.digixpro.in/evidence' },
+          { name: 'Nirvandham', url: 'https://www.digixpro.in/evidence/nirvandham' },
+        ]}
+      />
+      <FAQSchema items={faqs} />
       <NirvandhamClient />
       <StickyMobileCTA />
     </>

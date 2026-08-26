@@ -209,13 +209,13 @@ export default function FounderPage() {
             <div className="max-w-4xl">
               <h2 className="text-[32px] md:text-[40px] font-extrabold text-black dark:text-white mb-6">Beyond Technology</h2>
               <p className="text-[17px] md:text-[19px] text-neutral-700 dark:text-neutral-300 leading-relaxed mb-8">
-                A shared belief runs through this work outside DigiXPro: spiritual knowledge should be free, simple, and available to anyone without leaving home. Every path here follows that belief, offered at no cost.
+                Beyond technology, I am committed to restoring the Sanatan Gurukul Parampara in India and making meaningful education accessible without barriers. Through YUJ Foundation and other voluntary initiatives, I contribute as a core team member and advisor, teach across Gurukuls, and support free education, publishing, and technology initiatives.
               </p>
 
               <ul className="space-y-4 mb-8 text-[16px] md:text-[17px] text-neutral-800 dark:text-neutral-200 leading-relaxed">
                 <li className="flex items-start">
                   <span className="text-neutral-400 dark:text-neutral-500 font-mono select-none mr-3.5 shrink-0">—</span>
-                  <span>Core team and teacher at <a href="https://www.nirvandham.in" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">Nirvandham</a> Online Gurukul, across multiple paths within its Advaita-based teaching tradition.</span>
+                  <span>Core team member and teacher at <a href="https://www.nirvandham.in" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">Nirvandham</a> Online Gurukul, supporting its Advaita-based teaching tradition.</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-neutral-400 dark:text-neutral-500 font-mono select-none mr-3.5 shrink-0">—</span>
@@ -223,16 +223,16 @@ export default function FounderPage() {
                 </li>
                 <li className="flex items-start">
                   <span className="text-neutral-400 dark:text-neutral-500 font-mono select-none mr-3.5 shrink-0">—</span>
-                  <span>Core team and teacher at <a href="https://www.yujfoundation.in" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">Yuj Foundation</a>, re-establishing the Yuj Gurukul tradition across multiple paths &mdash; alongside free startup consultancy and community initiatives including tree plantation.</span>
+                  <span>Core team member and advisor at <a href="https://www.yujfoundation.in" target="_blank" rel="noopener noreferrer" className="font-bold text-[#009E73] hover:underline">Yuj Foundation</a>, supporting the Yuj Gurukul tradition, free startup guidance, and community initiatives.</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-neutral-400 dark:text-neutral-500 font-mono select-none mr-3.5 shrink-0">—</span>
-                  <span>Editor-in-Chief of <Link href="/evidence/muktibodh" className="font-bold text-[#009E73] hover:underline">Muktibodh</Link>, a free Advaita Vedanta and Upanishad-based Adhyatmik e-Magazine, reaching readers across borders in Hindi, English, and Nepali.</span>
+                  <span>Editor-in-Chief of <Link href="/evidence/muktibodh" className="font-bold text-[#009E73] hover:underline">Muktibodh</Link>, a free Advaita Vedanta and Upanishad-based Adhyatmik e-Magazine reaching readers in Hindi, English, and Nepali.</span>
                 </li>
               </ul>
 
               <p className="text-[17px] md:text-[19px] text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                Across all three gurukuls, the approach stays the same: clarity built through practice and direct experience, not lecture.
+                Across all voluntary initiatives, the approach stays the same: clarity built through practice and direct experience, not lecture.
               </p>
             </div>
           </div>

@@ -2,6 +2,8 @@ import React from 'react';
 import { Metadata } from 'next';
 import DigiXProClient from './DigiXProClient';
 import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import FAQSchema from '@/components/seo/FAQSchema';
 
 export const metadata: Metadata = {
   title: 'DigiXPro Architecture Evidence | Autonomous Production Systems',
@@ -24,9 +26,24 @@ export const metadata: Metadata = {
   },
 };
 
+const faqs = [
+  {
+    question: "What is deterministic tag substitution in AI bots?",
+    answer: "Deterministic tag substitution forces the AI model to output placeholder tokens (e.g. [CONTACT_LINK]) instead of raw URLs, allowing frontend code to parse and replace tokens with exact, verified application links."
+  }
+];
+
 export default function DigiXProArchitecture() {
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://www.digixpro.in' },
+          { name: 'Operational Evidence', url: 'https://www.digixpro.in/evidence' },
+          { name: 'DigiXPro Self-Architecture', url: 'https://www.digixpro.in/evidence/digixpro' },
+        ]}
+      />
+      <FAQSchema items={faqs} />
       <DigiXProClient />
       <StickyMobileCTA />
     </>

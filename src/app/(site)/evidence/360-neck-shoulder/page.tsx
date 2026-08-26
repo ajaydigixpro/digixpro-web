@@ -2,6 +2,8 @@ import React from 'react';
 import { Metadata } from 'next';
 import NeckShoulderClient from './NeckShoulderClient';
 import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import FAQSchema from '@/components/seo/FAQSchema';
 
 export const metadata: Metadata = {
   title: '360 Neck & Shoulder Care Case Study',
@@ -24,9 +26,24 @@ export const metadata: Metadata = {
   },
 };
 
+const faqs = [
+  {
+    question: "Why separate specialist clinic branding from general practice websites?",
+    answer: "Specialist clinic branding signals focused expertise to acute sufferers, establishing higher perceived clinical value than generic multi-specialty marketing."
+  }
+];
+
 export default function NeckShoulderEvidence() {
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://www.digixpro.in' },
+          { name: 'Operational Evidence', url: 'https://www.digixpro.in/evidence' },
+          { name: '360 Neck & Shoulder Care', url: 'https://www.digixpro.in/evidence/360-neck-shoulder' },
+        ]}
+      />
+      <FAQSchema items={faqs} />
       <NeckShoulderClient />
       <StickyMobileCTA />
     </>
