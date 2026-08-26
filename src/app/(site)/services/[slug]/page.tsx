@@ -222,8 +222,46 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </div>
       </section>
 
+      {/* 3.5 LIVE OPERATIONAL PROOF SECTION */}
+      <section className="bg-neutral-900 text-white py-20 border-y border-neutral-800">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-3xl mb-12">
+            <span className="text-xs font-mono text-[#16a34a] font-bold uppercase tracking-widest block mb-2">Live Production Proof</span>
+            <h2 className="text-[28px] md:text-[40px] font-extrabold mb-4 text-white">
+              DigiXPro Operates On The Same Principles We Architect For Clients
+            </h2>
+            <p className="text-[16px] text-neutral-400">
+              Our website is not a static brochure. It is a live demonstration of decoupled web engineering, technical SEO, and automated lead infrastructure.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-neutral-950 p-6 rounded-2xl border border-neutral-800">
+              <div className="text-xs font-mono text-[#16a34a] font-bold uppercase tracking-wider mb-2">01 &bull; Web Engineering</div>
+              <h3 className="text-lg font-bold text-white mb-2">Decoupled Next.js Static Export</h3>
+              <p className="text-sm text-neutral-400 leading-relaxed mb-4">51 prerendered static pages compiled cleanly with zero monolithic CMS template bloat or third-party plugin taxes.</p>
+              <Link href="/evidence/digixpro" className="text-xs font-bold text-[#16a34a] hover:underline inline-flex items-center">View DigiXPro Architecture <ArrowRight className="w-3 h-3 ml-1" /></Link>
+            </div>
+
+            <div className="bg-neutral-950 p-6 rounded-2xl border border-neutral-800">
+              <div className="text-xs font-mono text-[#16a34a] font-bold uppercase tracking-wider mb-2">02 &bull; Lead Automation</div>
+              <h3 className="text-lg font-bold text-white mb-2">Production n8n Webhook Engine</h3>
+              <p className="text-sm text-neutral-400 leading-relaxed mb-4">Forms and Sales Concierge route lead payloads live to n8n webhook endpoints without human re-entry.</p>
+              <Link href="/services/ai-automation-agency" className="text-xs font-bold text-[#16a34a] hover:underline inline-flex items-center">View Automation Agency <ArrowRight className="w-3 h-3 ml-1" /></Link>
+            </div>
+
+            <div className="bg-neutral-950 p-6 rounded-2xl border border-neutral-800">
+              <div className="text-xs font-mono text-[#16a34a] font-bold uppercase tracking-wider mb-2">03 &bull; AI Search &amp; Discovery</div>
+              <h3 className="text-lg font-bold text-white mb-2">Machine-Readable Context</h3>
+              <p className="text-sm text-neutral-400 leading-relaxed mb-4">Standardized root llms.txt context, dynamic sitemaps, and Schema.org JSON-LD stack powering AI discoverability.</p>
+              <Link href="/knowledge/technical-seo-checklist-for-enterprise-nextjs" className="text-xs font-bold text-[#16a34a] hover:underline inline-flex items-center">Read Technical Checklist <ArrowRight className="w-3 h-3 ml-1" /></Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 4. FREQUENTLY ASKED QUESTIONS (FAQ) */}
-      <section className="bg-neutral-50 dark:bg-neutral-900/50 py-24 border-y border-neutral-200 dark:border-neutral-800">
+      <section className="bg-neutral-50 dark:bg-neutral-900/50 py-24 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="max-w-3xl mb-16">
             <div className="flex items-center space-x-2 text-xs font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
@@ -268,6 +306,18 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <p className="text-[16px] md:text-[18px] text-neutral-400 max-w-2xl mx-auto mb-6 leading-relaxed">
             {service.ctaSubtext}
           </p>
+
+          {/* 30-MIN CALL EXPECTATION EXPLANATION CARD */}
+          <div className="bg-neutral-900/90 dark:bg-neutral-800/60 border border-neutral-800 dark:border-neutral-700/80 p-6 md:p-8 rounded-2xl max-w-2xl mx-auto mb-8 text-left shadow-inner">
+            <h4 className="text-sm font-mono font-bold uppercase tracking-wider text-[#16a34a] mb-2">What Happens During The 30-Minute Architecture Call</h4>
+            <p className="text-[14px] text-neutral-300 leading-relaxed mb-4">
+              Use the 30-minute call to explain your current business problem, existing technology setup, and desired outcomes. The discussion determines whether a system redesign, web engineering, technical SEO, automation, or executive advisory engagement is appropriate.
+            </p>
+            <p className="text-[13px] text-neutral-400 font-mono">
+              Zero sales pitches &bull; Independent vendor-neutral advice &bull; Scoped after discovery
+            </p>
+          </div>
+
           <p className="text-[14px] md:text-[15px] text-neutral-300 bg-neutral-900/90 dark:bg-neutral-800/60 border border-neutral-800 dark:border-neutral-700/80 p-5 md:p-6 rounded-2xl max-w-2xl mx-auto mb-8 leading-relaxed text-left md:text-center shadow-inner">
             {ENGAGEMENT_PRICING_PHILOSOPHY}
           </p>
