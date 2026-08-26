@@ -10,7 +10,7 @@ export default function ProfessionalServiceSchema() {
     "url": "https://www.digixpro.in",
     "description": "Independent Technology Architecture & Business Operating Systems Advisory for growing businesses and founders.",
     "serviceType": "Technology Architecture Advisory",
-    "currenciesAccepted": "INR, USD, GBP, AUD, SGD",
+    "currenciesAccepted": "USD, GBP, AUD, SGD, INR",
     "paymentAccepted": "Bank Transfer, Wire Transfer",
     "address": {
       "@type": "PostalAddress",

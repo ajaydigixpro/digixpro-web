@@ -133,7 +133,7 @@ export const services: ServiceItem[] = [
     faqs: [
       {
         question: "How do enterprise AI consulting services prevent proprietary data leakage?",
-        answer: "Governed AI consulting architectures enforce tenant-level isolation, private vector database instances, and self-hosted open-weight language models to ensure confidential business data never trains public AI platforms. Role-based access controls gate all data retrieval pipelines before information reaches the inference layer. This approach guarantees full intellectual property protection, compliance with data privacy mandates, and zero cross-tenant data contamination."
+        answer: "Governed AI consulting architectures enforce tenant-level isolation, private vector database instances, and self-hosted open-weight language models to ensure confidential business data never trains public AI platforms. Role-based access controls gate all data retrieval pipelines before information reaches the inference layer. This architecture supports intellectual property protection, compliance with data privacy mandates, and cross-tenant data isolation."
       },
       {
         question: "What is Retrieval-Augmented Generation (RAG) and why is it essential for business AI?",
@@ -347,7 +347,7 @@ export const services: ServiceItem[] = [
     faqs: [
       {
         question: "Why should a company refine business processes before purchasing automation software?",
-        answer: "Automating an inefficient or broken workflow merely accelerates operational errors, increases technical complexity, and magnifies departmental confusion across customer touchpoints. Mapping Business, People, Process, and Information layers prior to technology deployment ensures that underlying workflows are optimized for speed and clarity before code is connected. Process-first architecture guarantees that business automation tools deliver genuine efficiency rather than software bloat."
+        answer: "Automating an inefficient or broken workflow merely accelerates operational errors, increases technical complexity, and magnifies departmental confusion across customer touchpoints. Mapping Business, People, Process, and Information layers prior to technology deployment ensures that underlying workflows are optimized for speed and clarity before code is connected. Process-first architecture helps ensure business automation tools deliver genuine efficiency rather than software bloat."
       },
       {
         question: "How does an experienced business process automation consultant identify workflow bottlenecks?",
@@ -413,11 +413,11 @@ export const services: ServiceItem[] = [
     faqs: [
       {
         question: "Why does DigiXPro engineer custom Next.js websites instead of traditional monolithic CMS templates?",
-        answer: "Custom Next.js and React web architectures deliver sub-second page loads, enhanced cybersecurity, zero plugin vulnerabilities, and optimal Google Core Web Vitals performance that monolithic CMS templates cannot match. Decoupling the frontend user experience from backend content storage prevents script bloat and ensures seamless custom API integrations with CRM and business automation systems. High-performance modern web engineering elevates brand authority and significantly improves organic search conversion rates across international markets."
+        answer: "Custom Next.js and React web architectures provide fast page rendering, enhanced security architecture, reduced reliance on third-party plugins, and strong Core Web Vitals foundations. Decoupling the frontend user experience from backend content storage reduces script bloat and supports custom API integrations with CRM and business automation systems. Modern web engineering elevates brand authority and supports conversion rate optimization across international markets."
       },
       {
         question: "How does technical SEO and AI search visibility (GEO) integrate with custom web development?",
-        answer: "Custom web development incorporates technical SEO from day one, including automated dynamic XML sitemaps, JSON-LD structured data schemas, canonical URL management, OpenGraph metadata, and optimized semantic HTML5 hierarchy. Fast server response times, pre-rendered static assets, and automated WebP image delivery ensure search engines and AI engines (ChatGPT, Claude, Perplexity) crawl and index every page efficiently."
+        answer: "Custom web development incorporates technical SEO from day one, including automated dynamic XML sitemaps, JSON-LD structured data schemas, canonical URL management, OpenGraph metadata, and optimized semantic HTML5 hierarchy. Uses pre-rendered HTML, structured metadata, and sitemap architecture to provide a machine-readable foundation for search engines and AI-enabled discovery systems."
       },
       {
         question: "How are custom web development projects executed remotely for international clients in the US, UK, Australia, and Singapore?",
@@ -425,7 +425,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: "What factors determine total custom website redesign cost?",
-        answer: "Custom website redesign cost is governed by frontend component complexity, interactive workflow requirements, third-party API and CRM integrations, and specialized content migration needs. Building on modern Next.js architecture eliminates ongoing third-party plugin subscription fees, emergency security patch maintenance, and premature platform rebuilds."
+        answer: "Custom website redesign cost is governed by frontend component complexity, interactive workflow requirements, third-party API and CRM integrations, and specialized content migration needs. Building on modern Next.js architecture reduces reliance on third-party plugin subscriptions, minimizes plugin security maintenance overhead, and can reduce the likelihood of premature platform rebuilds."
       }
     ],
     ctaHeading: "Planning a website redesign and tired of bloated, insecure templates?",
