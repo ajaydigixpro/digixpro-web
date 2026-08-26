@@ -33,10 +33,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   const url = `https://www.digixpro.in/services/${service.slug}`;
+  const metaDesc = service.metaDescription || service.heroSubheading;
 
   return {
     title: `${service.title} | DigiXPro`,
-    description: service.heroSubheading,
+    description: metaDesc,
     keywords: service.keywords || [
       service.primaryKeyword,
       service.supportingKeyword,
@@ -50,7 +51,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     openGraph: {
       title: `${service.title} | DigiXPro Advisory`,
-      description: service.heroSubheading,
+      description: metaDesc,
       url,
       type: 'website',
       images: [
@@ -66,7 +67,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     twitter: {
       card: 'summary_large_image',
       title: `${service.title} | DigiXPro Advisory`,
-      description: service.heroSubheading,
+      description: metaDesc,
       images: ['/twitter-image.png'],
     },
   };

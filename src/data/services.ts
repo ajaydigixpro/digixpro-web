@@ -19,6 +19,7 @@ export interface ServiceItem {
   badgeText: string;
   heroHeading: string;
   heroSubheading: string;
+  metaDescription?: string;
   shortDesc: string;
   problemHeading: string;
   problemPoints: string[];
@@ -569,6 +570,7 @@ export const services: ServiceItem[] = [
     badgeText: "Trade Industry Web & SEO Architecture",
     heroHeading: "High-Performance Website Design & SEO for Trades & Contractors.",
     heroSubheading: "Tailored web development, technical SEO, and conversion-focused lead capture systems for field-service companies, builders, electricians, plumbers, HVAC, and trade contractors operating remotely in Australia, the United Kingdom, United States, and India.",
+    metaDescription: "Custom website design, technical SEO and lead-capture systems for trades, contractors and field-service businesses serving Australia, the UK, US and India.",
     shortDesc: "Custom website design, technical SEO and lead-capture systems for trades, contractors and field-service businesses serving Australia, the UK, US and India.",
     problemHeading: "Operational & Search Bottlenecks in Trade Business Websites",
     problemPoints: [
