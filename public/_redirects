@@ -1,4 +1,4 @@
-# Cloudflare Pages 301 Permanent Redirects for Legacy Routes (19 Rules)
+# Cloudflare Pages 301 Permanent Redirects for Legacy & Merged Routes
 /testimonials /evidence 301
 /testimonials/* /evidence 301
 /reviews /evidence 301
@@ -20,7 +20,11 @@
 /operating-systems /evidence/sattvaos 301
 /services/unlimited-graphic-design /design-services 301
 /services/erp-consultant-services /services/business-process-automation 301
-/services/social-media-campaign-strategy /services/website-design-services 301
-/services/branding-services /design-services 301
-/services/fractional-ceo-services /services/business-process-automation 301
+/services/website-design-services /design-services 301
+/services/website-design-services/* /design-services 301
+/services/social-media-campaign-strategy /design-services/landing-page-lead-generation 301
+/services/branding-services /design-services/custom-business-website-design 301
+/services/website-design-for-trades-and-contractors /design-services/small-business-websites 301
+/services/fractional-cto-services /advisory 301
+/services/fractional-ceo-services /advisory 301
 /studio / 307

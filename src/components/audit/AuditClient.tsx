@@ -446,7 +446,7 @@ export default function AuditClient() {
         problem: f.problem || f.issue || f.title || "Identified architecture issue",
         impact: f.impact || f.severity || "High operational impact",
         solution_name: f.solution_name || f.solution || "Architecture Advisory",
-        solution_url: f.solution_url || f.url || "/services/website-design-services",
+        solution_url: f.solution_url || f.url || "/design-services",
       }));
 
       setTechReport({
@@ -1434,7 +1434,7 @@ export default function AuditClient() {
                         </span>
                         <div className="print:hidden">
                           <Link
-                            href={f.solution_url || "/services/website-design-services"}
+                            href={f.solution_url || "/design-services"}
                             className="inline-flex items-center text-xs font-bold text-[#009E73] hover:underline gap-1"
                           >
                             <span>Explore Blueprint</span>

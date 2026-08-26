@@ -33,18 +33,33 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/services/social-media-campaign-strategy',
-        destination: '/services/website-design-services',
-        permanent: true,
-      },
-      {
-        source: '/services/branding-services',
+        source: '/services/website-design-services',
         destination: '/design-services',
         permanent: true,
       },
       {
+        source: '/services/social-media-campaign-strategy',
+        destination: '/design-services/landing-page-lead-generation',
+        permanent: true,
+      },
+      {
+        source: '/services/branding-services',
+        destination: '/design-services/custom-business-website-design',
+        permanent: true,
+      },
+      {
+        source: '/services/website-design-for-trades-and-contractors',
+        destination: '/design-services/small-business-websites',
+        permanent: true,
+      },
+      {
+        source: '/services/fractional-cto-services',
+        destination: '/advisory',
+        permanent: true,
+      },
+      {
         source: '/services/fractional-ceo-services',
-        destination: '/services/business-process-automation',
+        destination: '/advisory',
         permanent: true,
       },
     ];

@@ -319,7 +319,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           </div>
 
           <p className="text-[14px] md:text-[15px] text-neutral-300 bg-neutral-900/90 dark:bg-neutral-800/60 border border-neutral-800 dark:border-neutral-700/80 p-5 md:p-6 rounded-2xl max-w-2xl mx-auto mb-8 leading-relaxed text-left md:text-center shadow-inner">
-            {ENGAGEMENT_PRICING_PHILOSOPHY}
+            {ENGAGEMENT_PRICING_PHILOSOPHY.subheading}
           </p>
           <Link
             href="/contact"

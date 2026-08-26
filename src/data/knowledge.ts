@@ -460,7 +460,7 @@ Understanding what drives a website redesign cost requires looking beneath visua
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">Engineer a High-Performance Digital Footprint</h3>
 
-Do not compromise your brand reputation with bloated, insecure legacy templates. Review the full <a href="/services/website-design-services" class="font-bold text-[#009E73] hover:underline">DigiXPro Website Design Services Blueprint</a> or <a href="/contact" class="font-bold text-[#009E73] hover:underline">Book a discovery call to get a scoped rate</a>.
+Do not compromise your brand reputation with bloated, insecure legacy templates. Review the full <a href="/design-services" class="font-bold text-[#009E73] hover:underline">DigiXPro Website Design Services Blueprint</a> or <a href="/contact" class="font-bold text-[#009E73] hover:underline">Book a discovery call to get a scoped rate</a>.
 
 <p class="text-xs text-neutral-500 font-mono mt-8 pt-4 border-t border-neutral-200 dark:border-neutral-800">Source: Akamai State of the Online Retail Performance & Google Mobile Speed Benchmark</p>`
   },
@@ -528,7 +528,7 @@ A complete brand identity system engineered by DigiXPro consists of structured d
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">Build an Enduring Brand Architecture</h3>
 
-Eliminate visual inconsistency and elevate your brand authority across every channel. Explore the <a href="/services/branding-services" class="font-bold text-[#009E73] hover:underline">DigiXPro Strategic Branding Services Blueprint</a> to establish a unified visual identity.`
+Eliminate visual inconsistency and elevate your brand authority across every channel. Explore the <a href="/design-services/custom-business-website-design" class="font-bold text-[#009E73] hover:underline">DigiXPro Strategic Branding & Custom Website Design Blueprint</a> to establish a unified visual identity.`
   },
 
   {
@@ -623,7 +623,7 @@ DigiXPro's fractional engagement model is priced after a discovery call, not aga
 
 <h3 class="text-[22px] font-extrabold text-black dark:text-white mt-8 mb-3">Access Strategic Executive Leadership Today</h3>
 
-Protect your organization from costly software rebuilds and gain executive technical oversight. Review the full <a href="/services/fractional-cto-services" class="font-bold text-[#009E73] hover:underline">DigiXPro Fractional CTO Services Blueprint</a> or <a href="/contact" class="font-bold text-[#009E73] hover:underline">Book a discovery call to get a scoped rate</a>.
+Protect your organization from costly software rebuilds and gain executive technical oversight. Review the full <a href="/advisory" class="font-bold text-[#009E73] hover:underline">DigiXPro Technology Advisory Blueprint</a> or <a href="/contact" class="font-bold text-[#009E73] hover:underline">Book a discovery call to get a scoped rate</a>.
 
 <p class="text-xs text-neutral-500 font-mono mt-8 pt-4 border-t border-neutral-200 dark:border-neutral-800">Source: Crescendo Global Executive Search & Glassdoor India Compensation Surveys</p>`
   }
