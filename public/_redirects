@@ -21,9 +21,12 @@
 /services/unlimited-graphic-design /design-services 301
 /services/erp-consultant-services /advisory/business-systems-process-architecture 301
 /services/it-consulting-services /advisory/it-consulting-technology-strategy 301
+/services/ai-consulting-services /search-automation/ai-search-optimization-geo 301
+/services/ai-automation-agency /search-automation/workflow-ai-automation 301
+/services/business-process-automation /search-automation/workflow-ai-automation 301
 /services/website-design-services /design-services 301
 /services/website-design-services/* /design-services 301
-/services/social-media-campaign-strategy /design-services/landing-page-lead-generation 301
+/services/social-media-campaign-strategy /search-automation/social-media-management 301
 /services/branding-services /design-services/custom-business-website-design 301
 /services/website-design-for-trades-and-contractors /design-services/small-business-websites 301
 /services/fractional-cto-services /advisory/fractional-cto-technology-leadership 301

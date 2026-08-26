@@ -207,7 +207,7 @@ export default function HomePage() {
                     Combine technical SEO, AI Search Optimization, workflow automation and AI systems to improve discoverability and connect digital operations with business processes.
                   </p>
                 </div>
-                <Link href="/services/ai-automation-agency" className="inline-flex items-center text-xs font-bold text-[#16a34a] hover:underline pt-4 border-t border-neutral-200 dark:border-neutral-800">
+                <Link href="/search-automation" className="inline-flex items-center text-xs font-bold text-[#16a34a] hover:underline pt-4 border-t border-neutral-200 dark:border-neutral-800">
                   Explore Search &amp; Automation &rarr;
                 </Link>
               </div>
@@ -255,19 +255,19 @@ export default function HomePage() {
                 {
                   title: "AI Search Optimization",
                   desc: "GEO, AEO & LLM discoverability",
-                  href: "/services/ai-consulting-services",
+                  href: "/search-automation/ai-search-optimization-geo",
                   icon: <Bot className="w-5 h-5 text-[#16a34a]" />
                 },
                 {
-                  title: "AI & Workflow Automation",
+                  title: "Workflow & AI Automation",
                   desc: "Connected multi-tool pipelines",
-                  href: "/services/ai-automation-agency",
+                  href: "/search-automation/workflow-ai-automation",
                   icon: <Zap className="w-5 h-5 text-[#16a34a]" />
                 },
                 {
-                  title: "Business Process Automation",
-                  desc: "Eliminate manual team overhead",
-                  href: "/services/business-process-automation",
+                  title: "Lead Capture & Sales Automation",
+                  desc: "Instant routing & CRM OS",
+                  href: "/search-automation/lead-capture-crm-sales-automation",
                   icon: <Network className="w-5 h-5 text-[#16a34a]" />
                 },
                 {

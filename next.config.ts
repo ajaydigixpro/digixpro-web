@@ -38,13 +38,28 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/services/ai-consulting-services',
+        destination: '/search-automation/ai-search-optimization-geo',
+        permanent: true,
+      },
+      {
+        source: '/services/ai-automation-agency',
+        destination: '/search-automation/workflow-ai-automation',
+        permanent: true,
+      },
+      {
+        source: '/services/business-process-automation',
+        destination: '/search-automation/workflow-ai-automation',
+        permanent: true,
+      },
+      {
         source: '/services/website-design-services',
         destination: '/design-services',
         permanent: true,
       },
       {
         source: '/services/social-media-campaign-strategy',
-        destination: '/design-services/landing-page-lead-generation',
+        destination: '/search-automation/social-media-management',
         permanent: true,
       },
       {

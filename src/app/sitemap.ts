@@ -4,13 +4,14 @@ import { evidenceItems } from '@/data/evidence';
 import { services } from '@/data/services';
 import { designSubServices } from '@/data/designServicesData';
 import { ADVISORY_SERVICES } from '@/data/advisoryServicesData';
+import { SEARCH_AUTOMATION_SERVICES } from '@/data/searchAutomationData';
 
 export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.digixpro.in';
 
-  // 1. Static Core Pages
+  // 1. Static Core Pages & Segment Hubs
   const routes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}`,
@@ -26,6 +27,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/design-services`,
+      lastModified: new Date('2026-08-26'),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/search-automation`,
       lastModified: new Date('2026-08-26'),
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -109,12 +116,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
-  // 4. TRUE Dynamic Service Slugs (From SSOT)
-  const serviceSlugs: MetadataRoute.Sitemap = services.map((service) => ({
-    url: `${baseUrl}/services/${service.slug}`,
-    lastModified: new Date(service.lastUpdated),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
+  // 4. Commercial Search & Automation Sub-Service Slugs
+  const searchAutomationSubServiceRoutes: MetadataRoute.Sitemap = SEARCH_AUTOMATION_SERVICES.map((service) => ({
+    url: `${baseUrl}/search-automation/${service.slug}`,
+    lastModified: new Date('2026-08-26'),
+    changeFrequency: 'weekly' as const,
+    priority: 0.85,
   }));
 
   // 5. TRUE Dynamic Knowledge Slugs (From SSOT)
@@ -133,5 +140,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...routes, ...advisorySubServiceRoutes, ...designSubServiceRoutes, ...serviceSlugs, ...knowledgeSlugs, ...evidenceSlugs];
+  return [
+    ...routes, 
+    ...advisorySubServiceRoutes, 
+    ...designSubServiceRoutes, 
+    ...searchAutomationSubServiceRoutes, 
+    ...knowledgeSlugs, 
+    ...evidenceSlugs
+  ];
 }
