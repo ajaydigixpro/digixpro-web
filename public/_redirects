@@ -18,6 +18,9 @@
 /schedule /contact 301
 /book /contact 301
 /operating-systems /evidence/sattvaos 301
-/services/unlimited-graphic-design /services/branding-services 301
+/services/unlimited-graphic-design /design-services 301
 /services/erp-consultant-services /services/business-process-automation 301
+/services/social-media-campaign-strategy /services/website-design-services 301
+/services/branding-services /design-services 301
+/services/fractional-ceo-services /services/business-process-automation 301
 /studio / 307

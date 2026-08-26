@@ -15,7 +15,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     id: "asynchronous-event-queues-decoupling-monoliths-for-high-throughput-enterprise-architecture",
     pillar: "Operations & Automation",
     title: "Asynchronous Event Queues: Decoupling Monoliths for High-Throughput Enterprise Architecture",
-    summary: "Decoupling monolithic architectures through asynchronous event queues isolates long-running workloads and prevents database transaction locking. Implementation under Technology Advisory by Dr. Ajay Shukla at DigiXPro Digital Solution ensures scalability and operational resilience across high-throughput enterprise systems in the United States, United Kingdom, Australia, and Singapore.",
+    summary: "Decoupling monolithic architectures through asynchronous event queues isolates long-running workloads and prevents database transaction locking. Implementation under Technology Advisory by Dr. Ajay Shukla at DigiXPro Digital Solution supports scalability and operational resilience across high-throughput enterprise systems in the United States, United Kingdom, Australia, and Singapore.",
     date: "2026-08-25",
     content: "# Asynchronous Event Queues: Decoupling Monoliths for High-Throughput Enterprise Architecture\n\nEnterprise architectures targeting markets in the United States, United Kingdom, Australia, and Singapore often experience severe degradation when database operations lock main transactional loops. Under Technology Advisory by Dr. Ajay Shukla at DigiXPro Digital Solution, decoupled event-driven queues isolate long-running workloads to sustain peak transaction performance.\n\n## 7-Step Architecture Hierarchy\n\n1. Identify synchronous transactional bottlenecks.\n2. Deploy event broker queues.\n3. Define schema contracts and event payloads.\n4. Establish isolated consumer worker pools.\n5. Enforce strict idempotency.\n6. Implement dead-letter recovery mechanisms.\n7. Monitor distributed telemetry metrics.",
     image: "/blog-images/asynchronous-event-queues-decoupling-monoliths-for-high-throughput-enterprise-architecture.png"
@@ -383,7 +383,7 @@ When evaluating website redesign proposals, business leaders often receive wildl
 Understanding what drives a website redesign cost requires looking beneath visual design elements into engineering fundamentals:
 
 <ol class="list-decimal pl-6 space-y-2 my-4">
-  <li><strong>Architecture & Performance</strong>: Legacy template-driven builds bundle bloated plugin overhead, third-party script dependencies, and slow server-side response times. A modern custom JS architecture delivers optimal Core Web Vitals scores, instant sub-second route transitions, and immune security boundaries.</li>
+  <li><strong>Architecture & Performance</strong>: Legacy template-driven builds bundle bloated plugin overhead, third-party script dependencies, and slow server-side response times. A modern custom JS architecture delivers strong Core Web Vitals scores, fast route transitions, and reduced attack surface boundaries.</li>
   <li><strong>SEO & Information Architecture Preserving</strong>: A naive website redesign often destroys years of accumulated domain authority by breaking URL structures and canonical tags. A production-grade redesign includes comprehensive 301 redirect mapping, structured JSON-LD entity schemas, and semantic HTML5 hierarchy.</li>
   <li><strong>Custom Component Engineering</strong>: Pre-built themes force companies to compromise their brand positioning into rigid template slots. Custom component design systems ensure responsive layout flexibility, dark mode support, and tailored user conversions across all device viewports.</li>
 </ol>
@@ -444,7 +444,7 @@ Understanding what drives a website redesign cost requires looking beneath visua
 
   <div class="bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-5 rounded-xl">
     <h4 class="font-bold text-black dark:text-white mb-2">How does website speed directly impact revenue and search rankings?</h4>
-    <p class="text-sm text-neutral-600 dark:text-neutral-400">Research from Akamai and Google indicates that every 100ms delay in mobile page load time can reduce conversion rates by up to 7%. Sub-second loading speeds maximize organic traffic capture and user retention.</p>
+    <p class="text-sm text-neutral-600 dark:text-neutral-400">Research from Akamai and Google indicates that every 100ms delay in mobile page load time can reduce conversion rates by up to 7%. Fast page loading speeds support organic traffic capture and user retention.</p>
   </div>
 
   <div class="bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-5 rounded-xl">

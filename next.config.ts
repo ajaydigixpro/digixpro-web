@@ -24,11 +24,26 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/services/unlimited-graphic-design',
-        destination: '/services/branding-services',
+        destination: '/design-services',
         permanent: true,
       },
       {
         source: '/services/erp-consultant-services',
+        destination: '/services/business-process-automation',
+        permanent: true,
+      },
+      {
+        source: '/services/social-media-campaign-strategy',
+        destination: '/services/website-design-services',
+        permanent: true,
+      },
+      {
+        source: '/services/branding-services',
+        destination: '/design-services',
+        permanent: true,
+      },
+      {
+        source: '/services/fractional-ceo-services',
         destination: '/services/business-process-automation',
         permanent: true,
       },

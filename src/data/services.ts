@@ -298,7 +298,7 @@ export const services: ServiceItem[] = [
       },
       {
         question: "How does fractional executive leadership prepare a company for sustainable scaling?",
-        answer: "Establishing standardized operating systems, documented delegation matrices, and single-source-of-truth reporting dashboards eliminates founder dependency and prevents operational breakdowns during periods of rapid growth. Cross-functional workflows between sales, operations, and finance are systematized to maintain cashflow predictability and delivery quality. Scalable governance structures ensure the business expands without administrative bottlenecks."
+        answer: "Establishing standardized operating systems, documented delegation matrices, and single-source-of-truth reporting dashboards reduces founder dependency and helps prevent operational breakdowns during periods of rapid growth. Cross-functional workflows between sales, operations, and finance are systematized to maintain cashflow predictability and delivery quality. Scalable governance structures ensure the business expands without administrative bottlenecks."
       },
       {
         question: "What size of organization benefits most from Fractional CEO advisory?",
@@ -405,7 +405,7 @@ export const services: ServiceItem[] = [
     ],
     solutionHeading: "Modern Web Engineering & SEO Architecture",
     solutionDeliverables: [
-      { title: "Custom Next.js & React Web Application", desc: "Bespoke, decoupled web applications engineered for sub-second load times, instant hydration, and flawless Core Web Vitals." },
+      { title: "Custom Next.js & React Web Application", desc: "Bespoke, decoupled web applications engineered for fast page rendering, responsive user interaction, and strong Core Web Vitals performance." },
       { title: "TailwindCSS UI/UX Design System", desc: "Responsive, accessible design tokens and UI components styled for enterprise brand authority and high conversion." },
       { title: "Built-In Technical SEO & Schema Architecture", desc: "Automated JSON-LD structured data, dynamic XML sitemaps, canonical tags, and semantic HTML5 hierarchy for search engine dominance." },
       { title: "Automated Business Systems Integration", desc: "Direct API webhooks connecting web lead capture forms with CRM platforms, WhatsApp notifications, and workflow automation systems." }

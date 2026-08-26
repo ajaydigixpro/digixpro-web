@@ -4,7 +4,7 @@
 
 > DigiXPro is an Independent Technology Architecture Advisory firm based in Noida, India.
 > Founded by Dr. Ajay Shukla (20+ years in systems engineering), DigiXPro designs Business Operating Systems for growing organisations before they spend money on the wrong software.
-> We do NOT sell software. We sell clarity, architecture, and accountability.
+> DigiXPro provides independent technology architecture advisory, custom web engineering, technical SEO, and AI/workflow automation systems.
 
 ## Site Map
 
