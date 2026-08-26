@@ -96,7 +96,7 @@ export const SEARCH_AUTOMATION_SERVICES: SearchAutomationServiceItem[] = [
       },
       {
         question: "Does DigiXPro guarantee first-page Google rankings?",
-        answer: "No legitimate agency can guarantee exact search engine positions because search engine algorithms update autonomously. We deliver technical SEO compliance, commercial keyword architecture, and systematic search performance optimization."
+        answer: "Search engine algorithms operate autonomously, so exact search positions cannot be promised by any provider. We focus on technical SEO compliance, commercial keyword architecture, and systematic search performance optimization."
       },
       {
         question: "Can DigiXPro handle SEO for businesses operating in multiple regions?",

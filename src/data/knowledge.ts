@@ -33,7 +33,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     id: "why-a-custom-business-operating-system-outperforms-generic-erp-templates",
     pillar: "Business Systems",
     title: "Why a Custom Business Operating System Outperforms Generic ERP Templates",
-    summary: "Adopting a custom Business Operating System allows growing enterprises to decouple bounded contexts, enforce domain governance, and achieve horizontal scalability unmatched by rigid, off-the-shelf ERP templates.",
+    summary: "Adopting a custom Business Operating System allows growing enterprises to decouple bounded contexts, enforce domain governance, and achieve horizontal scalability beyond the constraints of monolithic ERP templates.",
     date: "Architecture Decision",
     publishedIsoDate: "2026-08-25",
     updatedIsoDate: "2026-08-25",
@@ -64,7 +64,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
   {
     id: "decoupled-inventory-scaling",
     pillar: "Lessons from Production",
-    title: "Why decoupled inventory scales better than spreadsheet inventory.",
+    title: "Decoupled Inventory Architecture vs Spreadsheet Inventory Management",
     summary: "A breakdown of the marketplace architecture used in 'Buy Second Hand Books' to isolate OMS from stock management.",
     date: "Production Evidence",
     publishedIsoDate: "2026-07-30",

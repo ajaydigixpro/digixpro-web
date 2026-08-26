@@ -172,7 +172,7 @@ export default function SattvaOSEvidence() {
                 <div className="text-center text-purple-600 font-bold">↓ Replaced By ↓</div>
                 <div className="flex items-center justify-between bg-[#0A0A0A] text-white p-3.5 rounded font-bold">
                   <span>SattvaOS (Governed AI Infrastructure)</span>
-                  <span className="text-[#22C55E]">Zero Risk Architecture</span>
+                  <span className="text-[#22C55E]">Governed Sandboxed Architecture</span>
                 </div>
               </div>
             </section>

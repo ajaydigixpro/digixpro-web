@@ -436,7 +436,7 @@ export default function HomePage() {
                 We Don&apos;t Guess.
               </h2>
               <p className="text-[18px] text-neutral-400 leading-relaxed">
-                Systems are never recommended without understanding the business first. Discovery starts with actual operating reality.
+                Systems are recommended after understanding the business first. Discovery starts with actual operating reality.
               </p>
             </div>
 

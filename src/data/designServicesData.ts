@@ -253,8 +253,8 @@ export const designSubServices: DesignServiceItem[] = [
         answer: "A service business website requires a clear value proposition statement, detailed service packaging, transparent methodology blueprints, social proof/evidence, accessible contact options, and automated lead capture webhooks."
       },
       {
-        question: "Why is a custom service business website better than a cheap website template?",
-        answer: "Cheap templates focus on visual placeholder blocks rather than conversion architecture. Custom web engineering tailors page structures around your specific sales process, optimizes Core Web Vitals for search rankings, and eliminates security vulnerabilities."
+        question: "How does a custom service business website compare to generic website templates?",
+        answer: "Generic templates focus on visual placeholder blocks rather than sales workflow alignment. Custom web engineering tailors page structures around your specific sales process, optimizes Core Web Vitals for search performance, and eliminates CMS plugin vulnerabilities."
       },
       {
         question: "Can a small business website rank effectively in competitive local and global search markets?",
@@ -498,8 +498,8 @@ export const designSubServices: DesignServiceItem[] = [
         answer: "Technical SEO consulting focuses on auditing, diagnosing, and optimizing existing websites. SEO-Ready Web Engineering builds search indexability, canonical integrity, automated JSON-LD schemas, and Core Web Vitals speed directly into a new or rebuilt web application during development."
       },
       {
-        question: "Why is technical SEO engineered into the codebase better than using SEO plugins?",
-        answer: "SEO plugins add unnecessary JavaScript/PHP script weight, slow down server response times, and frequently create security vulnerabilities. Engineering search plumbing natively into Next.js delivers faster load speeds and error-free structured data."
+        question: "How does codebase-level technical SEO compare to relying on CMS plugins?",
+        answer: "SEO plugins add unnecessary script weight, slow down server response times, and frequently introduce security vulnerabilities. Engineering search plumbing natively into Next.js delivers faster load speeds and error-free structured data."
       },
       {
         question: "How does an SEO-ready website support AI search engines (GEO, AEO, ChatGPT)?",

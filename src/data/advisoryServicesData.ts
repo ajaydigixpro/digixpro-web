@@ -143,7 +143,7 @@ export const ADVISORY_SERVICES: AdvisoryServiceItem[] = [
       },
       {
         question: "How does DigiXPro conduct a build-vs-buy assessment?",
-        answer: "We analyze your functional requirements, internal technical capabilities, long-term maintenance costs, and integration requirements to determine whether configuring commercial software or building a custom application delivers superior ROI."
+        answer: "We analyze your functional requirements, internal technical capabilities, long-term maintenance costs, and integration requirements to determine whether configuring commercial software or building a custom application delivers better long-term value and operational fit."
       },
       {
         question: "Can DigiXPro review a vendor proposal we have already received?",

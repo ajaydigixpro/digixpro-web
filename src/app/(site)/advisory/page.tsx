@@ -365,7 +365,7 @@ export default function AdvisoryPage() {
               Process-First Architecture
             </h2>
             <p className="text-[17px] text-neutral-400 leading-relaxed mb-10">
-              We never prescribe software without understanding operational reality first. Discovery follows our proven operating hierarchy:
+              Software is prescribed only after understanding operational reality. Discovery follows our 7-step operating hierarchy:
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 font-mono text-sm font-bold">
               <span className="bg-neutral-900 border border-neutral-800 px-4 py-2 rounded-xl">Business Goals</span>
