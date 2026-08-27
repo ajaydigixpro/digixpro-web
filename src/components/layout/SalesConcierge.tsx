@@ -543,6 +543,11 @@ export default function SalesConcierge() {
     const visitorMessage = rawMessage.trim();
     if (!visitorMessage || isSending) return;
 
+    if (visitorMessage.length > 2000) {
+      setError("Message exceeds maximum length of 2,000 characters. Please shorten your query.");
+      return;
+    }
+
     const visitorEntry: ChatMessage = {
       id: nextMessageId("visitor"),
       role: "visitor",
@@ -765,6 +770,7 @@ export default function SalesConcierge() {
                   }}
                   placeholder="Ask in your language…"
                   rows={2}
+                  maxLength={2000}
                   disabled={isSending}
                   className="min-h-11 flex-1 resize-none rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm leading-5 text-[#0A0A0A] placeholder:text-neutral-500 focus:border-[#009E73] focus:outline-none dark:border-neutral-700 dark:bg-[#0A0A0A] dark:text-white dark:placeholder:text-neutral-500"
                 />
