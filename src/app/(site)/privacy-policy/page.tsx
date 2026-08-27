@@ -33,15 +33,15 @@ export default function PrivacyPolicyPage() {
       <div className="prose prose-neutral max-w-none space-y-8 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
 
         <section>
-          <h2 className="text-base font-bold text-black dark:text-white mb-3">1. Who We Are</h2>
+          <h2 className="text-base font-bold text-black dark:text-white mb-3">1. Organization &amp; Data Controller</h2>
           <p>
-            DigiXPro Digital Solution (&ldquo;DigiXPro&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) is an Independent Technology Architecture Advisory &amp; Commercial Web Engineering firm based in Noida, Uttar Pradesh, India. Our website is <a href="https://www.digixpro.in" className="text-[#009E73] hover:underline font-semibold">www.digixpro.in</a>. You may contact us at <a href="mailto:consult@digixpro.in" className="text-[#009E73] hover:underline font-semibold">consult@digixpro.in</a>.
+            DigiXPro Digital Solution (&ldquo;DigiXPro&rdquo;) is an Independent Technology Architecture Advisory &amp; Commercial Web Engineering firm based in Noida, Uttar Pradesh, India. Our website is <a href="https://www.digixpro.in" className="text-[#009E73] hover:underline font-semibold">www.digixpro.in</a>. You may contact us at <a href="mailto:ajay@digixpro.in" className="text-[#009E73] hover:underline font-semibold">ajay@digixpro.in</a>.
           </p>
         </section>
 
         <section>
           <h2 className="text-base font-bold text-black dark:text-white mb-3">2. Information We Collect &amp; Process</h2>
-          <p>We process information necessary to deliver our technology advisory, web engineering, SEO, and workflow automation services:</p>
+          <p>Information is processed as necessary to deliver technology advisory, web engineering, SEO, and workflow automation services:</p>
           <ul className="list-disc pl-5 space-y-2 mt-2">
             <li><strong>Enquiry &amp; Lead Capture Data</strong> — Name, business email address, phone number, organisation name, UTM parameters, and project context submitted via contact forms, discovery qualification forms, or our interactive SalesConcierge widget.</li>
             <li><strong>Client Operational &amp; Project Data</strong> — Technical documentation, process workflows, software inventory, API keys, and credential access provided during active advisory, web engineering, or automation engagements.</li>
@@ -50,20 +50,20 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-bold text-black dark:text-white mb-3">3. How We Use Your Information</h2>
+          <h2 className="text-base font-bold text-black dark:text-white mb-3">3. How Information Is Used</h2>
           <p>Information is processed strictly to:</p>
           <ul className="list-disc pl-5 space-y-2 mt-2">
             <li>Schedule and conduct 30-minute discovery and architecture calls.</li>
             <li>Architect target technology blueprints, engineer Next.js web applications, build n8n automation pipelines, and optimize search visibility.</li>
-            <li>Route inbound lead notifications instantaneously to our internal management databases via automated webhooks.</li>
+            <li>Route inbound lead notifications instantaneously to internal management databases via automated webhooks.</li>
             <li>Comply with statutory legal and accounting obligations.</li>
           </ul>
-          <p className="mt-3 font-semibold text-black dark:text-white">We do not sell, rent, trade, or monetize your personal or business data to third parties for marketing purposes.</p>
+          <p className="mt-3 font-semibold text-black dark:text-white">DigiXPro does not sell, rent, trade, or monetize personal or business data to third parties for marketing purposes.</p>
         </section>
 
         <section>
           <h2 className="text-base font-bold text-black dark:text-white mb-3">4. Infrastructure &amp; Third-Party Service Providers</h2>
-          <p>Our website and operational systems utilize selected third-party infrastructure providers:</p>
+          <p>Website and operational systems utilize selected third-party infrastructure providers:</p>
           <ul className="list-disc pl-5 space-y-2 mt-2">
             <li><strong>Hosting &amp; Content Delivery</strong> — Served via Cloudflare Pages and Vercel static pre-rendering networks.</li>
             <li><strong>Workflow &amp; Webhook Lead Automation</strong> — Self-hosted n8n automation pipelines and Notion lead management databases for secure, encrypted form routing.</li>
@@ -75,14 +75,14 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2 className="text-base font-bold text-black dark:text-white mb-3">5. Confidentiality &amp; Data Security</h2>
           <p>
-            Client business data, internal process blueprints, and API credentials shared with DigiXPro are treated as strictly confidential. We enforce HTTPS encryption in transit, encrypted environment secret management, and restricted team access.
+            Client business data, internal process blueprints, and API credentials shared with DigiXPro are treated as strictly confidential. HTTPS encryption in transit, encrypted environment secret management, and restricted access controls are enforced.
           </p>
         </section>
 
         <section>
           <h2 className="text-base font-bold text-black dark:text-white mb-3">6. Cookies &amp; Tracking</h2>
           <p>
-            We use minimal cookies required for security and functional site operation. We do not deploy third-party cross-site advertising cookies. Performance monitoring relies on privacy-respecting server metrics.
+            Minimal cookies required for security and functional site operation are utilized. Third-party cross-site advertising cookies are not deployed. Performance monitoring relies on privacy-respecting server metrics.
           </p>
         </section>
 
@@ -95,15 +95,15 @@ export default function PrivacyPolicyPage() {
 
         <section>
           <h2 className="text-base font-bold text-black dark:text-white mb-3">8. Your Data Rights</h2>
-          <p>You have the right to request access to, correction of, or deletion of your personal data held by DigiXPro. Requests should be sent to <a href="mailto:consult@digixpro.in" className="text-[#009E73] hover:underline font-semibold">consult@digixpro.in</a> and will be addressed within 30 days.</p>
+          <p>You have the right to request access to, correction of, or deletion of your personal data held by DigiXPro. Requests should be sent to <a href="mailto:ajay@digixpro.in" className="text-[#009E73] hover:underline font-semibold">ajay@digixpro.in</a> and will be addressed within 30 days.</p>
         </section>
 
         <section>
-          <h2 className="text-base font-bold text-black dark:text-white mb-3">9. Contact Us</h2>
+          <h2 className="text-base font-bold text-black dark:text-white mb-3">9. Contact Information</h2>
           <p>
             <strong>DigiXPro Digital Solution</strong><br />
             Noida, Uttar Pradesh, India<br />
-            Email: <a href="mailto:consult@digixpro.in" className="text-[#009E73] hover:underline font-semibold">consult@digixpro.in</a>
+            Email: <a href="mailto:ajay@digixpro.in" className="text-[#009E73] hover:underline font-semibold">ajay@digixpro.in</a>
           </p>
         </section>
 

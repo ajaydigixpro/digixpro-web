@@ -87,7 +87,7 @@ export const ADVISORY_SERVICES: AdvisoryServiceItem[] = [
       },
       {
         question: "Can DigiXPro work alongside our internal IT team or existing software vendors?",
-        answer: "Yes. We act as independent technical advisors. We provide objective architectural decision support, enabling internal teams or external vendors to execute with clarity."
+        answer: "Yes. DigiXPro acts as an independent technical advisory, providing objective architectural decision support that enables internal teams or external vendors to execute with clarity."
       }
     ],
     ctaHeading: "Unsure if your current technology direction aligns with business goals?",

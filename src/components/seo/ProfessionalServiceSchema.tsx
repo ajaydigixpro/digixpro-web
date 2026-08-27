@@ -18,7 +18,7 @@ export default function ProfessionalServiceSchema() {
       "addressRegion": "Uttar Pradesh",
       "addressCountry": "IN"
     },
-    "email": "consult@digixpro.in",
+    "email": "ajay@digixpro.in",
     "areaServed": [
       { "@type": "Country", "name": "India" },
       { "@type": "Country", "name": "United States" },

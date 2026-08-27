@@ -209,7 +209,7 @@ export default function FounderPage() {
             <div className="max-w-4xl">
               <h2 className="text-[32px] md:text-[40px] font-extrabold text-black dark:text-white mb-6">Beyond Technology</h2>
               <p className="text-[17px] md:text-[19px] text-neutral-700 dark:text-neutral-300 leading-relaxed mb-8">
-                Beyond technology, I am committed to restoring the Sanatan Gurukul Parampara in India and making meaningful education accessible without barriers. Through YUJ Foundation and other voluntary initiatives, I contribute as a core team member and advisor, teach across Gurukuls, and support free education, publishing, and technology initiatives.
+                Beyond enterprise technology lies a broader commitment to restoring the Sanatan Gurukul Parampara in India and making meaningful education accessible without barriers. Through Yuj Foundation and related voluntary initiatives, this work extends across core-team and advisory responsibilities, teaching across Gurukuls, and supporting free education, publishing, and open technology platforms.
               </p>
 
               <ul className="space-y-4 mb-8 text-[16px] md:text-[17px] text-neutral-800 dark:text-neutral-200 leading-relaxed">

@@ -88,7 +88,7 @@ export default function DisclaimerPage() {
           <p>
             <strong>DigiXPro Digital Solution</strong><br />
             Noida, Uttar Pradesh, India<br />
-            Email: <a href="mailto:consult@digixpro.in" className="text-[#009E73] hover:underline font-semibold">consult@digixpro.in</a>
+            Email: <a href="mailto:ajay@digixpro.in" className="text-[#009E73] hover:underline font-semibold">ajay@digixpro.in</a>
           </p>
         </section>
 

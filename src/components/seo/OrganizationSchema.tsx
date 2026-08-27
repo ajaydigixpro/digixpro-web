@@ -8,7 +8,7 @@ export default function OrganizationSchema() {
     "@id": "https://www.digixpro.in/#organization",
     "name": "DigiXPro Digital Solution",
     "alternateName": "DigiXPro",
-    "description": "Independent Technology Architecture Advisory. We design business operating systems before you spend money on software.",
+    "description": "Independent Technology Architecture Advisory. DigiXPro designs business operating systems before clients allocate software budgets.",
     "url": "https://www.digixpro.in",
     "foundingDate": "2018",
     "logo": {
@@ -24,11 +24,11 @@ export default function OrganizationSchema() {
       "addressRegion": "Uttar Pradesh",
       "addressCountry": "IN"
     },
-    "email": "consult@digixpro.in",
+    "email": "ajay@digixpro.in",
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer support",
-      "email": "consult@digixpro.in",
+      "email": "ajay@digixpro.in",
       "areaServed": [
         { "@type": "Country", "name": "India" },
         { "@type": "Country", "name": "United States" },

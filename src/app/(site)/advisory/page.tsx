@@ -65,19 +65,19 @@ export default function AdvisoryPage() {
   const advisoryFaqs = [
     {
       question: "Do I need a new system or should we fix our existing one?",
-      answer: "We diagnose before prescribing. We evaluate your current software codebases, data hygiene, and operational workflows to determine whether a targeted integration or a new architecture is required."
+      answer: "DigiXPro diagnoses before prescribing. The practice evaluates current software codebases, data hygiene, and operational workflows to determine whether a targeted integration or a new architecture is required."
     },
     {
       question: "Can DigiXPro review software and vendors we are already considering?",
-      answer: "Yes. We conduct vendor-neutral technology due diligence. We review software proposals, architecture claims, total cost of ownership, and contract terms to protect you from vendor lock-in."
+      answer: "Yes. DigiXPro conducts vendor-neutral technology due diligence, reviewing software proposals, architecture claims, total cost of ownership, and contract terms to protect clients from vendor lock-in."
     },
     {
       question: "Can you work alongside our existing internal IT or engineering team?",
-      answer: "Yes. We act as independent technology architects and decision-support advisors. We provide objective specification blueprints and roadmaps, allowing internal teams or external vendors to execute with clarity."
+      answer: "Yes. DigiXPro acts as an independent technology architecture advisory. The practice provides objective specification blueprints and roadmaps, allowing internal teams or external vendors to execute with clarity."
     },
     {
       question: "What happens if we already have a CRM or ERP software?",
-      answer: "We evaluate your existing CRM or ERP stack to eliminate duplicate SaaS subscriptions, resolve departmental data silos, and automate handoffs rather than pushing unnecessary software replacements."
+      answer: "DigiXPro evaluates existing CRM or ERP stacks to eliminate duplicate SaaS subscriptions, resolve departmental data silos, and automate handoffs rather than pushing unnecessary software replacements."
     },
     {
       question: "How does a technology due diligence review work?",

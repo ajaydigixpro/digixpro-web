@@ -40,7 +40,7 @@ export default function CallbackRequestForm() {
     event.preventDefault();
     if (!name.trim()) {
       setStatus("error");
-      setError("Please provide your name so we know who we're speaking with.");
+      setError("Please provide your name so DigiXPro can confirm who to address.");
       return;
     }
     if (!phone.trim() && !email.trim()) {
