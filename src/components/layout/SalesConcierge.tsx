@@ -34,45 +34,45 @@ type QuickStart = {
 
 const QUICK_STARTS: QuickStart[] = [
   {
-    label: "Learn & explore",
-    detail: "Articles, frameworks and examples",
+    label: "Advisory & Strategy",
+    detail: "Technology roadmaps, vendor evaluation, Fractional CTO",
     message:
-      "I am looking for information and practical guidance before I decide whether I need a service. Please direct me to the most relevant DigiXPro Decision Library article or production evidence.",
-    icon: FolderOpen,
-  },
-  {
-    label: "Independent advisory",
-    detail: "Decide the right approach or vendor",
-    message:
-      "I need independent advisory before choosing a solution, platform, or implementation partner. Please help me identify the right decision path.",
+      "I need independent technology advisory, vendor evaluation, or fractional CTO leadership before committing budget to a platform.",
     icon: Bot,
   },
   {
-    label: "Work with DigiXPro Studio",
-    detail: "Plan and execute a scoped engagement",
+    label: "Website Design & Engineering",
+    detail: "Custom Next.js design, redesign migration, SEO-ready web",
     message:
-      "I want DigiXPro Studio to plan and execute work. Please help me choose the most relevant service area: website, SEO, IT systems, branding, social-media campaign creative, or AI Automation.",
-    icon: Sparkles,
-  },
-  {
-    label: "Website & SEO",
-    detail: "Performance, redesign or organic visibility",
-    message:
-      "I am exploring a website or redesign. Please ask me one question: which investment band—below ₹1.5L, ₹1.5L-₹5L, or above ₹5L—before suggesting WordPress versus custom.",
+      "I am evaluating a custom website design, website redesign, or SEO-ready web engineering project.",
     icon: Globe2,
   },
   {
-    label: "IT systems & Automation",
-    detail: "IT consulting, CRM, ERP or AI workflows",
+    label: "Search, AI & Automation",
+    detail: "SEO, AI search (GEO), local leads, workflow automation",
     message:
-      "I need guidance on IT consulting, CRM, ERP, operations, or AI Automation. Please help identify the most appropriate path.",
+      "I need guidance on SEO, AI search optimization (GEO), local lead visibility, n8n workflow automation, or CRM sales pipelines.",
     icon: Workflow,
   },
   {
-    label: "Brand & campaign creative",
-    detail: "Branding, social assets or ad creative",
+    label: "Audit Follow-up",
+    detail: "Review your completed DigiXPro audit recommendations",
     message:
-      "I need help with brand identity, social-media creative assets, campaign collateral, or ad-banner design. Please clarify the appropriate DigiXPro service scope.",
+      "I completed the DigiXPro Systems Audit. Can we discuss the recommendations for my business?",
+    icon: Sparkles,
+  },
+  {
+    label: "Production Evidence",
+    detail: "Case studies, live platforms, verified outcomes",
+    message:
+      "Please show me relevant DigiXPro client case studies and verified production evidence.",
+    icon: FolderOpen,
+  },
+  {
+    label: "How We Work",
+    detail: "Engagement process & diagnostic methodology",
+    message:
+      "How does a DigiXPro engagement work—from initial diagnosis to architecture and implementation?",
     icon: MessageCircle,
   },
 ];
@@ -172,6 +172,318 @@ function MarkdownReply({ text }: { text: string }) {
   return <>{parts}</>;
 }
 
+type MarketContext = {
+  country: string;
+  currency: string;
+  currency_symbol: string;
+  language: string;
+};
+
+type ConversationStage = "EXPLORE" | "UNDERSTAND" | "EVALUATE" | "VALIDATE" | "READY" | "HANDOFF";
+
+function detectVisitorMarketContext(): MarketContext {
+  let country = "Global";
+  let currency = "USD";
+  let currency_symbol = "$";
+  let language = "en";
+
+  if (typeof window !== "undefined") {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      const lang = navigator.language || "en";
+      language = lang.split("-")[0];
+
+      if (tz.includes("Kolkata") || tz.includes("Calcutta")) {
+        country = "India";
+        currency = "INR";
+        currency_symbol = "₹";
+      } else if (tz.includes("London") || tz.includes("Belfast")) {
+        country = "United Kingdom";
+        currency = "GBP";
+        currency_symbol = "£";
+      } else if (tz.includes("Australia")) {
+        country = "Australia";
+        currency = "AUD";
+        currency_symbol = "A$";
+      } else if (tz.includes("Singapore")) {
+        country = "Singapore";
+        currency = "SGD";
+        currency_symbol = "S$";
+      } else if (tz.includes("New_York") || tz.includes("Chicago") || tz.includes("Los_Angeles") || tz.includes("Denver") || tz.includes("America")) {
+        country = "United States";
+        currency = "USD";
+        currency_symbol = "$";
+      }
+    } catch {
+      // fallback
+    }
+  }
+
+  return { country, currency, currency_symbol, language };
+}
+
+function inferConversationStage(messages: ChatMessage[], latestInput: string): ConversationStage {
+  const text = (latestInput + " " + messages.map(m => m.text).join(" ")).toLowerCase();
+
+  if (text.includes("book") || text.includes("call") || text.includes("calendly") || text.includes("speak to founder") || text.includes("human")) {
+    return "HANDOFF";
+  }
+  if (text.includes("cost") || text.includes("pricing") || text.includes("quote") || text.includes("how soon") || text.includes("timeline")) {
+    return "READY";
+  }
+  if (text.includes("have you done") || text.includes("case study") || text.includes("proof") || text.includes("example") || text.includes("client")) {
+    return "VALIDATE";
+  }
+  if (text.includes("our business") || text.includes("we need") || text.includes("clinic") || text.includes("ecommerce") || text.includes("leads")) {
+    return "EVALUATE";
+  }
+  if (messages.length > 2) {
+    return "UNDERSTAND";
+  }
+  return "EXPLORE";
+}
+
+function countPriceResistanceTurns(messages: ChatMessage[], latestInput: string): number {
+  const combinedText = (messages.map(m => m.text).join(" ") + " " + latestInput).toLowerCase();
+  const resistanceKeywords = [
+    "50 k", "50k", "50,000", "30k", "30,000", "budget nahi hai", "price bahut zyada hai",
+    "price bahutsyada hai", "service start nahi hoti", "chahiye hi nahi", "too expensive",
+    "out of budget", "can't afford", "cannot afford", "price is high", "mera budget"
+  ];
+
+  let count = 0;
+  for (const kw of resistanceKeywords) {
+    if (combinedText.includes(kw)) count++;
+  }
+  return count;
+}
+
+function sanitizeAssistantReply(rawText: string, messages: ChatMessage[] = [], latestVisitorInput: string = ""): string {
+  let cleaned = rawText;
+
+  // 1. Map legacy /services/* paths to canonical 3-segment URLs
+  const legacyMap: Record<string, string> = {
+    "/services/ai-consulting-services": "/search-automation/ai-search-optimization-geo",
+    "/services/ai-automation-agency": "/search-automation/workflow-ai-automation",
+    "/services/business-process-automation": "/search-automation/lead-capture-crm-sales-automation",
+    "/services/website-design-services": "/design-services/custom-business-website-design",
+    "/services/website-design": "/design-services/custom-business-website-design",
+    "/services/seo-services": "/search-automation/seo-search-visibility",
+    "/services/it-consulting": "/advisory/it-consulting-technology-strategy",
+  };
+
+  for (const [legacy, canonical] of Object.entries(legacyMap)) {
+    cleaned = cleaned.replaceAll(legacy, canonical);
+    cleaned = cleaned.replaceAll(`https://www.digixpro.in${legacy}`, `https://www.digixpro.in${canonical}`);
+  }
+
+  // Catch any remaining legacy /services/ URLs
+  cleaned = cleaned.replace(/https?:\/\/www\.digixpro\.in\/services\/[a-z0-9-]+/gi, "https://www.digixpro.in/search-automation");
+
+  // 2. Sanitize fabricated legacy price ranges
+  cleaned = cleaned.replace(/Indicative range [^\n]+\n?/gi, "DigiXPro pricing is determined by technical complexity, system integration requirements, and project scope rather than off-the-shelf tier packages.\n\n");
+
+  // 3. Mandatory Budget-Mismatch & Three-Strike Commercial Restraint Engine
+  const inputLower = (latestVisitorInput + " " + messages.slice(-3).map(m => m.text).join(" ")).toLowerCase();
+  const isLowBudgetMismatch = inputLower.includes("50 k") || inputLower.includes("50k") || inputLower.includes("50,000") || inputLower.includes("30k") || inputLower.includes("mera budget") || inputLower.includes("too expensive") || inputLower.includes("service start bhi nahi");
+  const resistanceScore = countPriceResistanceTurns(messages, latestVisitorInput);
+
+  if (isLowBudgetMismatch || resistanceScore >= 3) {
+    // Strip all sales pressure, Audit pushes, call bookings, and defensive pricing argument
+    const isHindiOrHinglish = /[अ-ह]|mera|nahi|hai|kerna|chata|hu|benavani|sasta|dukan|baat|bata/i.test(latestVisitorInput);
+
+    if (isLowBudgetMismatch) {
+      if (isHindiOrHinglish) {
+        cleaned = "हाँ, ₹50,000 के budget पर DigiXPro का current custom engagement practical fit नहीं होगा. मैं आपको हमारी service push नहीं करूँगा. अगर आपका immediate goal केवल D2C store launch करना है, तो इस stage पर standard Shopify या WooCommerce setup अधिक practical रहेगा.";
+      } else {
+        cleaned = "At a $500–$600 budget level, a custom DigiXPro web engineering engagement will not be a practical fit. We do not push custom services where scope requirements don't align. If your immediate priority is to launch a D2C store, a standard Shopify or WooCommerce implementation would be more practical at this stage.";
+      }
+    } else {
+      // Strip all CTA links when in 3-strike commercial restraint
+      cleaned = cleaned.replace(/\[[^\]]+\]\(https?:\/\/[^\s)]+\)/g, "").trim();
+      cleaned = cleaned.replace(/(Book a call|Systems Audit|Contact Us|Schedule an Architecture Call)[^\.\n]*/gi, "").trim();
+    }
+  } else {
+    // 4. Standard Link discipline: Limit trailing multi-link bars to at most 1-2 relevant links
+    const isExplicitLinkRequest = /links|case study|proof|evidence|url/i.test(latestVisitorInput);
+    const linkMatches = Array.from(cleaned.matchAll(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g));
+    const maxAllowedLinks = isExplicitLinkRequest ? 2 : 1;
+
+    if (linkMatches.length > maxAllowedLinks) {
+      const cutoffIndex = linkMatches[maxAllowedLinks - 1].index;
+      if (cutoffIndex !== undefined) {
+        cleaned = cleaned.slice(0, cutoffIndex + linkMatches[maxAllowedLinks - 1][0].length).trim();
+      }
+    }
+  }
+
+  return cleaned;
+}
+
+type ConciergeResponseContract = {
+  success: boolean;
+  reply: string;
+  stage?: string;
+  links?: string[];
+  metadata?: Record<string, unknown>;
+  error_code?: string;
+};
+
+async function parseConciergeResponse(response: Response, visitorMessage: string): Promise<ConciergeResponseContract> {
+  console.info("[DigiXPro AI Assist v2] SAFE RESPONSE PARSER ACTIVE", {
+    status: response.status,
+    ok: response.ok,
+    contentType: response.headers.get("content-type"),
+  });
+
+  const isHindiOrHinglish = /[अ-ह]|mera|nahi|hai|kerna|chata|hu|benavani|sasta|dukan|baat|bata|namaskar|nemaskar/i.test(visitorMessage);
+  const defaultFallbackReply = isHindiOrHinglish
+    ? "नमस्ते! मैं DigiXPro AI Assist हूँ. आपके व्यवसाय या तकनीकी प्रश्न को बेहतर ढंग से समझने के लिए, कृपया अपनी मुख्य प्राथमिकता या आवश्यकता स्पष्ट करें."
+    : "Hello! I am DigiXPro AI Assist. To help guide your decision, could you share a bit more detail about your primary business goal or technology requirements?";
+
+  if (!response.ok) {
+    console.warn(`[DigiXPro Concierge] Webhook HTTP Error: ${response.status} ${response.statusText}`);
+    return {
+      success: false,
+      reply: defaultFallbackReply,
+      error_code: `HTTP_${response.status}`,
+    };
+  }
+
+  let rawText = "";
+  try {
+    rawText = await response.text();
+  } catch (err) {
+    console.warn("[DigiXPro Concierge] Failed to read response stream text:", err);
+    return {
+      success: false,
+      reply: defaultFallbackReply,
+      error_code: "STREAM_READ_ERROR",
+    };
+  }
+
+  const trimmedText = rawText.trim();
+  if (!trimmedText) {
+    console.warn("[DigiXPro Concierge] Webhook returned 200 OK with empty body (0 bytes). Executing dignified fallback.");
+    return {
+      success: false,
+      reply: defaultFallbackReply,
+      error_code: "EMPTY_RESPONSE_BODY",
+    };
+  }
+
+  let jsonPayload: unknown = null;
+  try {
+    jsonPayload = JSON.parse(trimmedText);
+  } catch {
+    if (trimmedText.startsWith("<") || trimmedText.toLowerCase().includes("error")) {
+      console.warn("[DigiXPro Concierge] Non-JSON error payload detected from webhook:", trimmedText.slice(0, 100));
+      return {
+        success: false,
+        reply: defaultFallbackReply,
+        error_code: "INVALID_JSON_HTML_ERROR",
+      };
+    }
+
+    console.info("[DigiXPro Concierge] Plain text response received from n8n:", trimmedText.slice(0, 100));
+    return {
+      success: true,
+      reply: trimmedText,
+    };
+  }
+
+  if (typeof jsonPayload === "object" && jsonPayload !== null) {
+    const obj = jsonPayload as Record<string, unknown>;
+    const targetObj = (typeof obj.body === "object" && obj.body !== null ? obj.body : obj) as Record<string, unknown>;
+
+    const candidateReply =
+      (typeof targetObj.reply === "string" && targetObj.reply.trim()) ||
+      (typeof targetObj.output === "string" && targetObj.output.trim()) ||
+      (typeof targetObj.message === "string" && targetObj.message.trim()) ||
+      (typeof targetObj.text === "string" && targetObj.text.trim()) ||
+      (typeof targetObj.response === "string" && targetObj.response.trim());
+
+    if (candidateReply) {
+      return {
+        success: true,
+        reply: candidateReply,
+        stage: typeof targetObj.stage === "string" ? targetObj.stage : undefined,
+        links: Array.isArray(targetObj.links) ? (targetObj.links as string[]) : undefined,
+        metadata: typeof targetObj.metadata === "object" && targetObj.metadata !== null ? (targetObj.metadata as Record<string, unknown>) : undefined,
+      };
+    }
+  }
+
+  console.warn("[DigiXPro Concierge] Valid JSON returned without recognized reply fields:", jsonPayload);
+  return {
+    success: false,
+    reply: defaultFallbackReply,
+    error_code: "MISSING_REPLY_FIELD",
+  };
+}
+
+function detectPageContext() {
+  if (typeof window === "undefined") {
+    return {
+      page_url: "https://www.digixpro.in/",
+      page_path: "/",
+      page_title: "DigiXPro Digital Solution",
+      page_segment: "Home",
+      page_service: null,
+      page_service_slug: null,
+    };
+  }
+
+  const path = window.location.pathname;
+  const url = window.location.href;
+  const title = document.title;
+
+  let segment = "General";
+  let service: string | null = null;
+  let serviceSlug: string | null = null;
+
+  if (path.startsWith("/advisory")) {
+    segment = "Advisory";
+    if (path.length > 10) {
+      serviceSlug = path.replace("/advisory/", "");
+      service = serviceSlug.replace(/-/g, " ");
+    }
+  } else if (path.startsWith("/design-services")) {
+    segment = "Design & Build";
+    if (path.length > 17) {
+      serviceSlug = path.replace("/design-services/", "");
+      service = serviceSlug.replace(/-/g, " ");
+    }
+  } else if (path.startsWith("/search-automation")) {
+    segment = "Search, AI & Automation";
+    if (path.length > 19) {
+      serviceSlug = path.replace("/search-automation/", "");
+      service = serviceSlug.replace(/-/g, " ");
+    }
+  } else if (path.startsWith("/evidence")) {
+    segment = "Evidence Case Studies";
+    if (path.length > 10) {
+      serviceSlug = path.replace("/evidence/", "");
+      service = `Evidence: ${serviceSlug}`;
+    }
+  } else if (path.startsWith("/audit")) {
+    segment = "Systems Audit";
+  } else if (path.startsWith("/founder")) {
+    segment = "Founder";
+  } else if (path.startsWith("/how-we-work")) {
+    segment = "How We Work";
+  }
+
+  return {
+    page_url: url,
+    page_path: path,
+    page_title: title,
+    page_segment: segment,
+    page_service: service,
+    page_service_slug: serviceSlug,
+  };
+}
+
 export default function SalesConcierge() {
   const [isOpen, setIsOpen] = useState(false);
   const [draft, setDraft] = useState("");
@@ -182,6 +494,7 @@ export default function SalesConcierge() {
   const [nudgeDismissed, setNudgeDismissed] = useState(false);
   const messageEndRef = useRef<HTMLDivElement>(null);
   const messageCounterRef = useRef(0);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const showNudge = hasLoadedHistory && !isOpen && messages.length === 0 && !nudgeDismissed;
 
   useEffect(() => {
@@ -236,12 +549,41 @@ export default function SalesConcierge() {
       text: visitorMessage,
     };
 
+    const updatedMessages = [...messages, visitorEntry];
+
     setMessages((current) => [...current, visitorEntry].slice(-MAX_STORED_MESSAGES));
     setDraft("");
     setError("");
     setIsSending(true);
 
     try {
+      let auditContext: unknown = null;
+      if (typeof window !== "undefined") {
+        try {
+          const rawAudit = window.sessionStorage.getItem("digixpro_active_audit_brief");
+          if (rawAudit) auditContext = JSON.parse(rawAudit);
+        } catch {
+          // ignore parse error
+        }
+      }
+
+      const marketContext = detectVisitorMarketContext();
+      const currentStage = inferConversationStage(messages, visitorMessage);
+      const pageContext = detectPageContext();
+
+      if (typeof window !== "undefined") {
+        try {
+          window.sessionStorage.setItem("digixpro_prefill_audit_context", JSON.stringify({
+            country: marketContext.country,
+            currency: marketContext.currency,
+            stage: currentStage,
+            latest_message: visitorMessage,
+          }));
+        } catch {
+          // ignore parse error
+        }
+      }
+
       const response = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -249,21 +591,19 @@ export default function SalesConcierge() {
           visitor_message: visitorMessage,
           session_id: getSessionId(),
           page_url: window.location.href,
+          page_context: pageContext,
+          market_context: marketContext,
+          stage: currentStage,
+          audit_context: auditContext,
+          history: updatedMessages.map(m => ({ role: m.role, text: m.text })),
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`The concierge is temporarily unavailable (${response.status}).`);
-      }
+      const contract = await parseConciergeResponse(response, visitorMessage);
+      let reply = contract.reply;
 
-      const payload: unknown = await response.json();
-      const reply =
-        typeof payload === "object" &&
-        payload !== null &&
-        "reply" in payload &&
-        typeof payload.reply === "string"
-          ? payload.reply
-          : "I’m sorry, I couldn’t read that response. Please try again.";
+      // Central Intelligence Guard: sanitize legacy URLs, static pricing, low-budget refusal, and link discipline
+      reply = sanitizeAssistantReply(reply, messages, visitorMessage);
 
       const assistantEntry: ChatMessage = {
         id: nextMessageId("assistant"),

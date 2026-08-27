@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import FAQSchema from "@/components/seo/FAQSchema";
@@ -242,6 +242,26 @@ export default function AuditClient() {
   const [techReport, setTechReport] = useState<TechnicalReportData | null>(null);
   const [techErrorNotice, setTechErrorNotice] = useState<string | null>(null);
 
+  // Pre-fill Audit Form from AI Assist conversation context if available
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const rawPrefill = window.sessionStorage.getItem("digixpro_prefill_audit_context");
+        if (rawPrefill) {
+          const prefill = JSON.parse(rawPrefill);
+          setFormData((prev) => ({
+            ...prev,
+            company: prefill.company || prev.company,
+            industry: prefill.industry || prev.industry,
+            market: prefill.country || prefill.market || prev.market,
+          }));
+        }
+      } catch {
+        // ignore parse error
+      }
+    }
+  }, []);
+
   const updateForm = (key: keyof BriefFormData, value: string | string[]) => {
     setFormData((prev) => {
       const next = { ...prev, [key]: value };
@@ -408,6 +428,13 @@ export default function AuditClient() {
       };
 
       setBriefReport(generatedReport);
+      if (typeof window !== "undefined") {
+        try {
+          window.sessionStorage.setItem("digixpro_active_audit_brief", JSON.stringify(generatedReport));
+        } catch {
+          // ignore quota error
+        }
+      }
     } catch {
       setGenerationFailedNotice(
         "Something went wrong generating your report - please try again in a moment."

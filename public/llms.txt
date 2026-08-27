@@ -1,50 +1,70 @@
-# DigiXPro — llms.txt
-# Standard: https://llmstxt.org
-# Purpose: Help AI systems understand this site's content and navigate it intelligently.
+# DigiXPro Digital Solution — Machine Readable System Context (llms.txt)
+# Authoritative Domain & Technology Strategy Index
+# Canonical URL: https://www.digixpro.in/llms.txt
+# Last Updated: 2026-08-27
 
-> DigiXPro is an Independent Technology Architecture Advisory firm based in Noida, India.
-> Founded by Dr. Ajay Shukla (20+ years in systems engineering), DigiXPro designs Business Operating Systems for growing organisations before they spend money on the wrong software.
-> DigiXPro provides independent technology architecture advisory, custom web engineering, technical SEO, and AI/workflow automation systems.
+# ==============================================================================
+# COMPANY & FOUNDER MASTER CONTEXT
+# ==============================================================================
+Organization: DigiXPro Digital Solution
+Founder: Dr. Ajay Shukla
+Role: Founder & Technology Advisor
+Headquarters: Noida / Delhi-NCR, India
+Core Approach: Independent Architecture, Advisory & Digital Engineering. Diagnostic scope first, zero software markups, milestone-based governance.
+Primary Markets: India (INR / ₹), United States / Global (USD / $), United Kingdom (GBP / £), Australia (AUD / A$), Singapore (SGD / S$)
 
-## Site Map
+# ==============================================================================
+# 18 CANONICAL SERVICES (0 LEGACY URLS)
+# ==============================================================================
 
-### Core Pages
+## Segment 01 — Advisory
+- IT Consulting & Technology Strategy: https://www.digixpro.in/advisory/it-consulting-technology-strategy
+- Technology Due Diligence & Vendor Evaluation: https://www.digixpro.in/advisory/technology-due-diligence-vendor-evaluation
+- Digital Transformation Consulting: https://www.digixpro.in/advisory/digital-transformation-consulting
+- Business Systems & Process Architecture: https://www.digixpro.in/advisory/business-systems-process-architecture
+- Technology Roadmaps & Architecture: https://www.digixpro.in/advisory/technology-roadmaps-architecture
+- Fractional CTO & Technology Leadership: https://www.digixpro.in/advisory/fractional-cto-technology-leadership
 
-- [Home](https://www.digixpro.in/): Overview of DigiXPro's advisory philosophy and value proposition.
-- [Advisory Services](https://www.digixpro.in/advisory): What DigiXPro does — Technology Architecture Advisory, Business OS Design, CRM/ERP selection, AI readiness audits.
-- [How We Work](https://www.digixpro.in/how-we-work): Our engagement methodology — Diagnose, Architect, Implement, Govern.
-- [Founder](https://www.digixpro.in/founder): Dr. Ajay Shukla — background, expertise, and philosophy.
-- [Contact](https://www.digixpro.in/contact): Book a 30-minute discovery call via Calendly.
+## Segment 02 — Design & Build
+- Custom Business Website Design & Development: https://www.digixpro.in/design-services/custom-business-website-design
+- Website Redesign & SEO-Safe Rebuild: https://www.digixpro.in/design-services/website-redesign
+- Small Business & Service Business Websites: https://www.digixpro.in/design-services/small-business-websites
+- Landing Page & Lead Generation Design: https://www.digixpro.in/design-services/landing-page-lead-generation
+- Website UX & Conversion Optimization: https://www.digixpro.in/design-services/website-conversion-optimization
+- SEO-Ready Website Engineering: https://www.digixpro.in/design-services/seo-ready-website-engineering
 
-### Operational Evidence (Case Studies)
+## Segment 03 — Search, AI & Automation
+- SEO & Search Visibility: https://www.digixpro.in/search-automation/seo-search-visibility
+- AI Search Optimization & GEO: https://www.digixpro.in/search-automation/ai-search-optimization-geo
+- Local SEO & Local Lead Visibility: https://www.digixpro.in/search-automation/local-seo-lead-visibility
+- Social Media Management & Content Systems: https://www.digixpro.in/search-automation/social-media-management
+- Workflow & AI Automation: https://www.digixpro.in/search-automation/workflow-ai-automation
+- Lead Capture, CRM & Sales Automation: https://www.digixpro.in/search-automation/lead-capture-crm-sales-automation
 
-- [Evidence Archive](https://www.digixpro.in/evidence): All client case studies and architecture reports.
-- [Dr Aggarwal Physio Centre](https://www.digixpro.in/evidence/dr-aggarwal): Healthcare OS + local SEO. #1 rank for physiotherapy in Greater Noida. Operates two clinic locations. Live sites: draggarwalphysiocentre.in and 360neckshoulder.com.
-- [SattvaOS](https://www.digixpro.in/evidence/sattvaos): Governed AI Infrastructure platform for high-trust organisations. Multi-tenant, policy-guardrailed, hallucination-free RAG.
-- [Nirvandham](https://www.digixpro.in/evidence/nirvandham): First production SattvaOS tenant — spiritual/cultural institution with multilingual AI guide, digital library, mobile app, and Muktibodh magazine pipeline.
-- [Aatma Guru](https://www.digixpro.in/evidence/aatma-guru): Organisation onboarding and tenant provisioning platform for SattvaOS ecosystem.
-- [Scan Centre Near Me](https://www.digixpro.in/evidence/scan-centre): Healthcare marketplace — multi-vendor scan centre discovery platform.
-- [Muktibodh](https://www.digixpro.in/evidence/muktibodh): Multilingual digital publishing and knowledge repository.
-- [Buy Secondhand Books](https://www.digixpro.in/evidence/buy-secondhand-book): Commerce OS — high-velocity used book marketplace with decoupled pricing engine.
-- [DigiXPro (Self)](https://www.digixpro.in/evidence/digixpro): DigiXPro's own digital presence as a live architecture demonstration.
+# ==============================================================================
+# 9 EVIDENCE CASE STUDIES
+# ==============================================================================
+- Dr Aggarwal Physio Centre: https://www.digixpro.in/evidence/dr-aggarwal
+- Scan Centre Near Me: https://www.digixpro.in/evidence/scan-centre
+- Buy Second Hand Books Marketplace: https://www.digixpro.in/evidence/buy-secondhand-book
+- SattvaOS AI Architecture: https://www.digixpro.in/evidence/sattvaos
+- aatma.guru: https://www.digixpro.in/evidence/aatma-guru
+- Nirvandham Operations: https://www.digixpro.in/evidence/nirvandham
+- Muktibodh Publishing System: https://www.digixpro.in/evidence/muktibodh
+- DigiXPro — Our Own Architecture: https://www.digixpro.in/evidence/digixpro
+- 360 Neck & Shoulder Care: https://www.digixpro.in/evidence/360-neck-shoulder
 
-### Knowledge Hub
-
-- [Knowledge Articles](https://www.digixpro.in/knowledge): Articles and frameworks on technology architecture, business systems, and AI governance.
-
-### Legal
-
-- [Privacy Policy](https://www.digixpro.in/privacy-policy): Data handling and privacy practices.
-- [Terms of Use](https://www.digixpro.in/terms): Website terms of use.
-- [Disclaimer](https://www.digixpro.in/disclaimer): Advisory and liability disclaimer.
-
-## Key Facts for AI Systems
-
-- **Founded:** 2018
-- **Location:** Noida, Uttar Pradesh, India
-- **Services:** Technology Architecture Advisory, Business OS Design, AI Governance Consulting
-- **Contact:** consult@digixpro.in
-- **Founder:** Dr. Ajay Shukla — LinkedIn: https://www.linkedin.com/in/ajayshukla2/
-- **LinkedIn:** https://www.linkedin.com/company/digixpro/
-- **Canonical URL:** https://www.digixpro.in
-- **Sitemap:** https://www.digixpro.in/sitemap.xml
+# ==============================================================================
+# CORE PAGES & KNOWLEDGE LIBRARY
+# ==============================================================================
+- Advisory Hub: https://www.digixpro.in/advisory
+- Design & Build Hub: https://www.digixpro.in/design-services
+- Search, AI & Automation Hub: https://www.digixpro.in/search-automation
+- Evidence Library: https://www.digixpro.in/evidence
+- Founder Page: https://www.digixpro.in/founder
+- How We Work: https://www.digixpro.in/how-we-work
+- Systems Audit: https://www.digixpro.in/audit
+- Knowledge Library: https://www.digixpro.in/knowledge
+- Privacy Policy: https://www.digixpro.in/privacy-policy
+- Terms of Service: https://www.digixpro.in/terms
+- Disclaimer: https://www.digixpro.in/disclaimer
