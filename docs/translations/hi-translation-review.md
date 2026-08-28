@@ -12,7 +12,7 @@
 
 The existing `/hi` page is a Hindi placeholder, not a full translation of the English homepage. It is therefore not accurate to represent the remaining 42 routes as translated. No non-routable page drafts have been created from untranslated English source text.
 
-The authoritative route inventory and review flags are in `hi-translation-inventory.md`.
+The authoritative route inventory and review flags are in `./hi-translation-inventory.md`.
 
 ## Mandatory-review excerpts
 
@@ -46,7 +46,7 @@ The authoritative route inventory and review flags are in `hi-translation-invent
 
 ## Non-flagged route handling
 
-The remaining routes are appropriate for routine Hindi translation once the route-by-route source copy is approved. Preserve metadata, FAQs, alt text, CTA targets, internal links and the brand-language rules from `hi-translation-inventory.md`.
+The remaining routes are appropriate for routine Hindi translation once the route-by-route source copy is approved. Preserve metadata, FAQs, alt text, CTA targets, internal links and the brand-language rules from `./hi-translation-inventory.md`.
 
 ## Publishing guardrail
 
