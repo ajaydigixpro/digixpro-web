@@ -1,0 +1,88 @@
+{
+  "version": "v1.0",
+  "total_states": 10,
+  "states": [
+    {
+      "state_id": "NEW_VISITOR",
+      "purpose": "Session initialization",
+      "allowed_transitions": [
+        "DISCOVERY",
+        "SERVICE_IDENTIFIED",
+        "CLARIFICATION"
+      ]
+    },
+    {
+      "state_id": "DISCOVERY",
+      "purpose": "Value prop explanation",
+      "allowed_transitions": [
+        "SERVICE_IDENTIFIED",
+        "PRICING_DISCUSSION",
+        "AUDIT_INTENT"
+      ]
+    },
+    {
+      "state_id": "SERVICE_IDENTIFIED",
+      "purpose": "Service-specific discussion",
+      "allowed_transitions": [
+        "PRICING_DISCUSSION",
+        "AUDIT_INTENT",
+        "CONSULTATION_REQUEST"
+      ]
+    },
+    {
+      "state_id": "PRICING_DISCUSSION",
+      "purpose": "Commercial retainers",
+      "allowed_transitions": [
+        "OBJECTION",
+        "CONSULTATION_REQUEST",
+        "COMPLETED"
+      ]
+    },
+    {
+      "state_id": "AUDIT_INTENT",
+      "purpose": "Diagnostic intake",
+      "allowed_transitions": [
+        "COMPLETED",
+        "CONSULTATION_REQUEST"
+      ]
+    },
+    {
+      "state_id": "CONSULTATION_REQUEST",
+      "purpose": "Booking discovery call",
+      "allowed_transitions": [
+        "COMPLETED",
+        "HUMAN_HANDOFF"
+      ]
+    },
+    {
+      "state_id": "HUMAN_HANDOFF",
+      "purpose": "Live expert handoff",
+      "allowed_transitions": [
+        "COMPLETED"
+      ]
+    },
+    {
+      "state_id": "OBJECTION",
+      "purpose": "Budget objection handling",
+      "allowed_transitions": [
+        "SERVICE_IDENTIFIED",
+        "CONSULTATION_REQUEST"
+      ]
+    },
+    {
+      "state_id": "CLARIFICATION",
+      "purpose": "Ambiguity resolution",
+      "allowed_transitions": [
+        "SERVICE_IDENTIFIED",
+        "DISCOVERY"
+      ]
+    },
+    {
+      "state_id": "COMPLETED",
+      "purpose": "Terminal state",
+      "allowed_transitions": [
+        "NEW_VISITOR"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+category,record_count,primary_intent,routing_behaviour,calibration_outcome
+Generic Agency Capabilities,350,INTENT-12-VALUEPROP,Route to FLOW-02 Value Prop,100% Correct
+Generic IT Consulting,180,INTENT-12-VALUEPROP,Route to FLOW-02 Value Prop,100% Correct
+Generic Automation Search,132,INTENT-12-VALUEPROP,Route to FLOW-02 Value Prop,100% Correct

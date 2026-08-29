@@ -1,0 +1,8 @@
+requirement,specification_source,implementation_file,function_logic,automated_test,verification_status
+14 Frozen Intents,Phase 4.2 Intent Registry,src/sales-concierge/semantic-router/types.ts,Intent definitions & frozen list,router.test.ts,VERIFIED
+Tier-0 Precedence,Phase 4.4 Architecture,src/sales-concierge/semantic-router/precedence.ts,evaluateTier0Precedence(),router.test.ts,VERIFIED
+Session Isolation,Phase 4.7 Implementation Spec,src/sales-concierge/semantic-router/session.ts,SessionIsolationManager,router.test.ts,VERIFIED
+Local ONNX Provider,Phase 4.9 Real ONNX Runtime,src/sales-concierge/semantic-router/provider.ts,LocalOnnxEmbeddingProvider,provider.test.ts,VERIFIED
+5-Layer Hybrid Pipeline,Phase 4.4 & 4.6 Calibration,src/sales-concierge/semantic-router/router.ts,LocalSemanticRouter.route(),router.test.ts,VERIFIED
+Calibrated Thresholds,Phase 4.6 Calibration Report,src/sales-concierge/semantic-router/router.ts,t_sim=0.75 margin=0.10,run_phase46_calibration.js,VERIFIED
+High-Risk Validation,Phase 4.6 Calibration Report,src/sales-concierge/semantic-router/router.ts,Strict risk margin (+0.10),router.test.ts,VERIFIED

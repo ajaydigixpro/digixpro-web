@@ -1,0 +1,25 @@
+{
+  "version": "v1.0",
+  "actions": [
+    {
+      "action_id": "SHOW_SEO_CAPABILITIES",
+      "flow_id": "FLOW-01",
+      "cta": "Request Audit or Book Call"
+    },
+    {
+      "action_id": "REQUEST_WEBSITE_URL",
+      "flow_id": "FLOW-04",
+      "cta": "Enter URL"
+    },
+    {
+      "action_id": "PROVIDE_CALENDAR_LINK",
+      "flow_id": "FLOW-05",
+      "cta": "Select 30-min Slot"
+    },
+    {
+      "action_id": "CAPTURE_LEAD_PHONE",
+      "flow_id": "FLOW-05",
+      "cta": "Submit Phone Number"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+record_id,original_text,intent_id,predicted_intent,high_risk_pass
+"MQU-00005","aapka SEO retainer kitna hai per month?","INTENT-05-PRICE","INTENT-01-SEO",true
+"MQU-00007","aapka SEO retainer kitna hai per month?","INTENT-05-PRICE","INTENT-01-SEO",true
+"MQU-00010","aapka SEO retainer kitna hai per month?","INTENT-05-PRICE","INTENT-01-SEO",true
+"MQU-00011","This is a Phase 2 test row created to verify the automated follow-up email pipeline end-to-end.","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00012","Contacted via website chat: Contact me at ajay@digixpro.in again","INTENT-06-AUDIT-INTAKE","INTENT-11-MULTI",true
+"MQU-00013","Contacted via website chat: My email is test@mailinator.com","INTENT-06-AUDIT-INTAKE","INTENT-11-MULTI",true
+"MQU-00014","Contacted via website chat: My email is test@mailinator.com","INTENT-06-AUDIT-INTAKE","INTENT-11-MULTI",true
+"MQU-00015","Contacted via website chat: My email is test@mailinator.com","INTENT-06-AUDIT-INTAKE","INTENT-11-MULTI",true
+"MQU-00016","Contacted via website chat: My email is test@mailinator.com","INTENT-06-AUDIT-INTAKE","INTENT-11-MULTI",true
+"MQU-00017","Audit evaluation for DigiXPro Systems Verification (IT, Technology & Software / SaaS). With an existing digital presence and operating in the B2B Companies & Businesses sector, your current focus is streamlining operational workflows, enhancing search discoverability, and establishing automated lead-handling pathways.","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00018","Audit evaluation for DigiXPro Enterprise Final Test (IT, Technology & Software / SaaS). With an existing digital presence and operating in the B2B Companies & Businesses sector, your current focus is streamlining operational workflows, enhancing search discoverability, and establishing automated lead-handling pathways.","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00019","Audit evaluation for DigiXPro Zero Pricing Enterprise (IT, Technology & Software / SaaS). With an existing digital presence and operating in the B2B Companies & Businesses sector, your current focus is streamlining operational workflows, enhancing search discoverability, and establishing automated lead-handling pathways.","INTENT-11-MULTI","INTENT-06-AUDIT-INTAKE",true
+"MQU-00020","Audit evaluation for Digixpro (IT, Technology & Software / SaaS). With an existing digital presence and operating in the B2B Companies & Businesses sector, your current focus is streamlining operational workflows, enhancing search discoverability, and establishing automated lead-handling pathways.","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00021","Submitted a URL for audit: https://www.digixpro.in","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00022","Submitted a URL for audit: https://www.digixpro.in","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00023","Submitted a URL for audit: https://www.digixpro.in","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00024","Submitted a URL for audit: https://www.digixpro.in","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00025","Submitted a URL for audit: https://www.digixpro.in","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00026","Submitted a URL for audit: https://www.digixpro.in","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00027","Submitted a URL for audit: https://www.digixpro.in","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00028","Submitted a URL for audit: https://www.digixpro.in","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00029","Submitted a URL for audit: https://www.digixpro.in","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00030","Submitted a URL for audit: https://www.digixpro.in","INTENT-06-AUDIT-INTAKE","INTENT-12-VALUEPROP",true
+"MQU-00126","I need independent technology advisory, vendor evaluation, or fractional CTO leadership before committing budget to a platform.","INTENT-05-PRICE","INTENT-12-VALUEPROP",true
+"MQU-00129","I would like to discuss DigiXPro Systems Audit recommendations or inspect verified production evidence and case studies.","INTENT-06-AUDIT-INFO","INTENT-12-VALUEPROP",true
+"MQU-00130","aapki fee kitni hai?","INTENT-05-PRICE","INTENT-05-PRICE",true
+"MQU-00131","pricing kitni hai per month?","INTENT-05-PRICE","INTENT-05-PRICE",true
+"MQU-00132","how much does it cost?","INTENT-05-PRICE","INTENT-12-VALUEPROP",true

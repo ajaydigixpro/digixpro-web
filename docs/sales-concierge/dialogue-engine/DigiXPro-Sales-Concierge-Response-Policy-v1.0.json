@@ -1,0 +1,13 @@
+{
+  "version": "v1.0",
+  "prohibited_actions": [
+    "NEVER invent arbitrary custom pricing numbers not present in canonical registry",
+    "NEVER guarantee #1 Google rank guarantees",
+    "NEVER claim a website audit has been completed when url has not been analyzed",
+    "NEVER fake human availability when automated system is active"
+  ],
+  "required_qualifications": [
+    "Commercial retainers require minimum budget confirmation",
+    "Audit intake requires valid domain URL"
+  ]
+}

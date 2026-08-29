@@ -1,0 +1,36 @@
+{
+  "version": "v1.0",
+  "total_contracts": 14,
+  "contracts": [
+    {
+      "intent_id": "INTENT-01-SEO",
+      "expected_state": "SERVICE_IDENTIFIED",
+      "target_flow": "FLOW-01",
+      "next_action": "SHOW_SEO_CAPABILITIES"
+    },
+    {
+      "intent_id": "INTENT-05-PRICE",
+      "expected_state": "PRICING_DISCUSSION",
+      "target_flow": "FLOW-06",
+      "next_action": "DISCUSS_PRICING_STRUCTURE"
+    },
+    {
+      "intent_id": "INTENT-06-AUDIT-INTAKE",
+      "expected_state": "AUDIT_INTENT",
+      "target_flow": "FLOW-04",
+      "next_action": "REQUEST_WEBSITE_URL"
+    },
+    {
+      "intent_id": "INTENT-08-BOOKING",
+      "expected_state": "CONSULTATION_REQUEST",
+      "target_flow": "FLOW-05",
+      "next_action": "PROVIDE_CALENDAR_LINK"
+    },
+    {
+      "intent_id": "INTENT-08-HANDOFF",
+      "expected_state": "HUMAN_HANDOFF",
+      "target_flow": "FLOW-05",
+      "next_action": "CAPTURE_LEAD_PHONE"
+    }
+  ]
+}

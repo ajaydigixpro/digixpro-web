@@ -1,0 +1,51 @@
+{
+  "version": "v1.0",
+  "total_flows": 9,
+  "flows": [
+    {
+      "flow_id": "FLOW-01",
+      "name": "Visitor Intent Identification",
+      "status": "LOCKED"
+    },
+    {
+      "flow_id": "FLOW-02",
+      "name": "Value Proposition Explanation",
+      "status": "LOCKED"
+    },
+    {
+      "flow_id": "FLOW-03",
+      "name": "Case Study / Evidence Presentation",
+      "status": "LOCKED"
+    },
+    {
+      "flow_id": "FLOW-04",
+      "name": "Diagnostic Systems Review Intake",
+      "status": "LOCKED"
+    },
+    {
+      "flow_id": "FLOW-05",
+      "name": "Direct Consultation Scheduling",
+      "status": "LOCKED"
+    },
+    {
+      "flow_id": "FLOW-06",
+      "name": "Service Scope / Pricing Clarification",
+      "status": "LOCKED"
+    },
+    {
+      "flow_id": "FLOW-07",
+      "name": "Objection Handling / Budget Qualification",
+      "status": "LOCKED"
+    },
+    {
+      "flow_id": "FLOW-08",
+      "name": "Client Onboarding / Status Lookup",
+      "status": "POST_CONVERSION_ONLY"
+    },
+    {
+      "flow_id": "FLOW-09",
+      "name": "FAQ / General Inquiry Handling",
+      "status": "LOCKED"
+    }
+  ]
+}

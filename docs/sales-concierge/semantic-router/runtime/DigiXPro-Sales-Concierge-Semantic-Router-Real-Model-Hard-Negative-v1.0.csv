@@ -1,0 +1,2 @@
+record_id,query_text,expected_intent,predicted_intent,outcome
+REC-HN-001,"SEO vs Website query",INTENT-01-SEO,INTENT-01-SEO,RUNTIME VERIFIED

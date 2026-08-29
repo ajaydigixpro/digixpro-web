@@ -1,0 +1,5 @@
+error_severity,error_type,baseline_count,calibrated_count,impact_reduction
+CRITICAL,Incorrect High-Risk Routing,2,0,100% Elimination
+HIGH,Bypassing Ambiguity Clarification,5,1,80% Reduction
+MEDIUM,Incorrect Service Stream Routing,12,3,75% Reduction
+LOW,Fallback to ValueProp when Uncertain,40,15,62.5% Reduction

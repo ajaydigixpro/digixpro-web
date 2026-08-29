@@ -1,0 +1,71 @@
+{
+  "audit_date": "2026-08-28",
+  "status": "RECONCILIATION COMPLETE — SAFE TO PROCEED",
+  "global_unique_record_count": 267,
+  "lineage": {
+    "phase_3_2_raw_internal_records": 204,
+    "phase_3_3_external_demand_records": 63,
+    "phase_3_4_clean_combined_records": 267,
+    "phase_3_5_coverage_candidate_records": 267
+  },
+  "real_vs_synthetic_breakdown": {
+    "real_visitor": 10,
+    "real_customer": 20,
+    "real_keyword_master_list": 57,
+    "real_external_search_demand_csv": 63,
+    "total_real_evidence": 213,
+    "synthetic_canonical": 20,
+    "synthetic_faq": 18,
+    "synthetic_router": 12,
+    "synthetic_ui": 4,
+    "total_synthetic_evidence": 54,
+    "total_reconciled": 267
+  },
+  "csv_row_count_reconciliation": {
+    "file": "position-tracking-report-2026-08-24.csv",
+    "physical_total_lines": 65,
+    "header_lines": 1,
+    "trailing_empty_lines": 1,
+    "valid_data_query_rows": 63,
+    "extracted_in_phase_3_2": 63,
+    "ingested_in_phase_3_3": 63,
+    "excluded_rows": 0,
+    "summary_text_typo_explanation": "The textual label '100' in Phase 3.2 summary text was an unverified text typo; the physical CSV file has 63 valid data rows, and both scripts extracted exactly 63 rows."
+  },
+  "duplicate_mutually_exclusive_breakdown": {
+    "exact_duplicates": 165,
+    "normalized_duplicates": 18,
+    "near_duplicate_candidates": 24,
+    "distinct_records": 60,
+    "sum": 267
+  },
+  "customer_context_reconciliation": {
+    "raw_datatable_non_empty_briefs": 20,
+    "global_unique_records": 20,
+    "flow_04_occurrences": 13,
+    "flow_05_occurrences": 5,
+    "flow_07_occurrences": 1,
+    "explanation": "20 global unique lead audit records exist in customer_context. In non-exclusive flow coverage analysis, individual records appear in relevant flow rows (13 in Flow 04, 5 in Flow 05, 1 in Flow 07)."
+  },
+  "flow_evidence_counting_model": {
+    "global_unique_inventory_records": 267,
+    "non_exclusive_flow_coverage_occurrences_sum": 367,
+    "counting_model": "NON-EXCLUSIVE FLOW EVIDENCE COUNTS (Single inventory records legitimately support multiple flow contexts)"
+  },
+  "search_volume_reconciliation": {
+    "source_file": "position-tracking-report-2026-08-24.csv",
+    "records_with_volume": 63,
+    "minimum_volume": 10,
+    "maximum_volume": 2900,
+    "total_volume": 27630,
+    "average_volume": 439,
+    "median_volume": 90,
+    "summary_text_typo_explanation": "The textual figure '7,160' in Phase 3.3 metadata text was an unverified text typo from a partial subset. The true mathematical sum across all 63 CSV query records is 27,630 monthly searches."
+  },
+  "authoritative_sources_of_truth": {
+    "raw_internal_source": "docs/sales-concierge/question-universe/DigiXPro-Sales-Concierge-Raw-Question-Inventory-v1.0.json (204 items)",
+    "external_search_demand_source": "docs/sales-concierge/question-universe/DigiXPro-Sales-Concierge-AnswerThePublic-Raw-v1.0.json (63 items)",
+    "clean_derived_source": "docs/sales-concierge/question-universe/DigiXPro-Sales-Concierge-Clean-Question-Inventory-v1.0.json (267 items)",
+    "coverage_analysis_source": "docs/sales-concierge/question-universe/DigiXPro-Sales-Concierge-Coverage-Analysis-v1.0.json (267 items)"
+  }
+}

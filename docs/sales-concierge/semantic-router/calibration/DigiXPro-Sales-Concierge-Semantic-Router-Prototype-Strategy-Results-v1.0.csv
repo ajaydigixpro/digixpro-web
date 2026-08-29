@@ -1,0 +1,5 @@
+strategy,top1_acc,high_risk_acc,latency_p95,memory
+"All-Prototype (2,137 Records)","92.4%","95.3%","28.5 ms","185 MB"
+"Distinct-Prototype (109 Queries)","84.2%","88.4%","11.2 ms","42 MB"
+"Representative-Prototype (50 Exemplars/Intent)","94.8%","97.7%","15.8 ms","98 MB"
+"Exemplar-Diversity (Balanced English + Hinglish)","96.4%","100.0%","18.4 ms","118 MB"

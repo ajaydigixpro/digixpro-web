@@ -1,0 +1,78 @@
+{
+  "audit_date": "2026-08-28",
+  "status": "PHASE 3.8 COMPLETE — FOUNDER DECISION MATRIX READY",
+  "total_master_records": 2137,
+  "fam12_analysis": {
+    "total_members": 662,
+    "ambiguous_members": 649,
+    "finding": "FAM-12 absorbed 662 broad search-demand query terms that represent general agency capability discovery without specifying a single service stream."
+  },
+  "fam05_analysis": {
+    "explicit_generic_pricing": 7,
+    "service_specific_pricing": 1,
+    "total_pricing_mentions": 8,
+    "finding": "Service-specific pricing queries (e.g. 'SEO retainer price') were categorized under their respective service streams (FAM-01) in Candidate Mode to enable context-rich responses."
+  },
+  "decisionMatrix": [
+    {
+      "decision_id": "DEC-001",
+      "candidate_family": "FAM-12: General Value Proposition & Capabilities",
+      "candidate_flow": "FLOW-02: Value Proposition Explanation",
+      "evidence": "662 records assigned in candidate mode (649 marked ambiguous due to generic search terms)",
+      "problem": "FAM-12 contains a large volume of generic search terms ('IT consulting', 'business automation') that do not specify a single service stream.",
+      "options": "Option A (Recommended): Retain as General Capability Inquiry (FLOW-02) and route to service discovery. Option B: Split FAM-12 into 4 service-stream discovery sub-families.",
+      "recommended_option": "Option A: Retain as FLOW-02 Value Proposition & Service Discovery",
+      "founder_action_required": "APPROVE / CHANGE / SPLIT"
+    },
+    {
+      "decision_id": "DEC-002",
+      "candidate_family": "FAM-05 vs Service Specific Pricing",
+      "candidate_flow": "FLOW-06: Service Scope / Pricing Clarification",
+      "evidence": "7 explicit generic pricing records in FAM-05 + 1 service-specific pricing records absorbed into FAM-01/FAM-02",
+      "problem": "Should service-specific pricing queries (e.g. 'SEO retainer cost') be classified under their service family (FAM-01) or under dedicated Pricing (FAM-05)?",
+      "options": "Option A (Recommended): Service-specific pricing stays with service family (FLOW-06) for context-rich answers; generic pricing queries ('fee kitni hai') map to FAM-05. Option B: Move all pricing queries into FAM-05.",
+      "recommended_option": "Option A: Retain service-context pricing under respective service streams",
+      "founder_action_required": "APPROVE / CHANGE"
+    },
+    {
+      "decision_id": "DEC-003",
+      "candidate_family": "FAM-01: SEO vs Website Redesign Overlap",
+      "candidate_flow": "FLOW-06: Service Scope / Pricing Clarification",
+      "evidence": "58 records in FAM-01 contain both 'SEO' and 'Website' wording (e.g. 'SEO chahiye website ke liye')",
+      "problem": "When a query contains both 'SEO' and 'website', which capability intent takes precedence?",
+      "options": "Option A (Recommended): Enforce Tier-0 rule precedence where explicit capability intent ('SEO') takes priority over generic container wording ('website'). Option B: Treat as multi-intent clarification (FLOW-01).",
+      "recommended_option": "Option A: Enforce explicit capability precedence (SEO > generic website)",
+      "founder_action_required": "APPROVE / CHANGE"
+    },
+    {
+      "decision_id": "DEC-004",
+      "candidate_family": "FAM-06: Audit Intake vs Informational Audit FAQ",
+      "candidate_flow": "FLOW-04: Diagnostic Systems Review Intake (Audit)",
+      "evidence": "20 records in FAM-06 (19 real customer briefs + 1 synthetic FAQ)",
+      "problem": "Distinguish between actionable audit intake requests ('audit karwana hai') and informational queries ('audit kya hota hai?').",
+      "options": "Option A (Recommended): Actionable audit requests route to FLOW-04 Intake; informational queries route to FLOW-02 Value Prop. Option B: Route all audit mentions to FLOW-04.",
+      "recommended_option": "Option A: Separate actionable audit intake (FLOW-04) from informational audit FAQs (FLOW-02)",
+      "founder_action_required": "APPROVE / CHANGE"
+    },
+    {
+      "decision_id": "DEC-005",
+      "candidate_family": "FAM-08: Consultation Scheduling vs Human Handoff",
+      "candidate_flow": "FLOW-05: Direct Consultation Scheduling",
+      "evidence": "5 real customer contact briefs requesting leadership consultation",
+      "problem": "Distinguish between 30-minute discovery booking ('book call') and real-time human chat handoff ('talk to human').",
+      "options": "Option A (Recommended): Discovery meeting requests route to FLOW-05 booking link; live human handoff triggers direct contact info + asynchronous lead capture. Option B: Merge both into FLOW-05.",
+      "recommended_option": "Option A: Separate discovery booking (FLOW-05) from live human handoff",
+      "founder_action_required": "APPROVE / CHANGE"
+    },
+    {
+      "decision_id": "DEC-006",
+      "candidate_family": "FAM-09: Pricing Request vs Budget Objection",
+      "candidate_flow": "FLOW-07: Objection Handling / Budget Qualification",
+      "evidence": "Queries comparing agency rates vs freelancers or requesting cheaper options ('sasta', 'freelancer')",
+      "problem": "Ensure budget objections ('freelancer se karwa lunga') do not trigger standard pricing templates.",
+      "options": "Option A (Recommended): Route budget/freelancer objections to FLOW-07 (engineering value qualification); route standard price asks to FLOW-06. Option B: Treat all as pricing requests.",
+      "recommended_option": "Option A: Retain dedicated FLOW-07 objection qualification for freelancer/cheap rate queries",
+      "founder_action_required": "APPROVE / CHANGE"
+    }
+  ]
+}

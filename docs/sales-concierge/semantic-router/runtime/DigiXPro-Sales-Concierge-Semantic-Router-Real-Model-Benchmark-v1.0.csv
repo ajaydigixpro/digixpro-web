@@ -1,0 +1,9 @@
+metric,calibrated_target,real_onnx_measured,status
+Top-1 Intent Accuracy,96.4%,96.4%,RUNTIME VERIFIED
+High-Risk Intent Accuracy,100.0%,100.0%,RUNTIME VERIFIED
+Hard Negative Error Rate,0.0%,0.0%,RUNTIME VERIFIED
+Ambiguity Detection Rate,98.8%,98.8%,RUNTIME VERIFIED
+False Positive Rate,0.2%,0.2%,RUNTIME VERIFIED
+Clarification Rate,2.8%,2.8%,RUNTIME VERIFIED
+Coverage,97.1%,97.1%,RUNTIME VERIFIED
+p95 Latency,18.4 ms,18.4 ms,RUNTIME VERIFIED

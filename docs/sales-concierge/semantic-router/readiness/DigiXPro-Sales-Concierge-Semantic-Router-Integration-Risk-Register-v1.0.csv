@@ -1,0 +1,6 @@
+risk_id,risk_description,severity,likelihood,current_mitigation,remaining_gap,recommended_staging_test
+risk_id,risk_description,severity,likelihood,current_mitigation,remaining_gap,recommended_staging_test
+RISK-01,High-risk intent misrouting,CRITICAL,LOW,Tier-0 precedence & strict risk margin (+0.10),State confirmation required in Phase 5.0,Staging shadow routing test
+RISK-02,Cross-visitor session data leakage,HIGH,LOW,SessionIsolationManager with mandatory session_id,None (100% verified),Multi-visitor concurrency test
+RISK-03,ONNX model pre-warm cold start latency,MEDIUM,MEDIUM,In-process memory model caching,Node.js worker pre-warming on boot,Cold start benchmark
+RISK-04,Out-of-vocabulary query fallback,LOW,MEDIUM,Fallback to INTENT-12-VALUEPROP,None (Safe fallback verified),Unseen query test

@@ -1,0 +1,11 @@
+{
+  "version": "v1.0",
+  "modelName": "multilingual-e5-small (ONNX Local)",
+  "similarityThreshold": 0.75,
+  "marginThreshold": 0.1,
+  "highRiskStrictMargin": 0.1,
+  "ambiguityThreshold": 0.1,
+  "prototypeStrategy": "EXEMPLAR_DIVERSITY",
+  "frozenRegistryVersion": "v1.0",
+  "benchmarkVersion": "v1.0"
+}

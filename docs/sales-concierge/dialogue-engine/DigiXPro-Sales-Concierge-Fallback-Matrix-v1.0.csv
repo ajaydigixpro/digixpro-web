@@ -1,0 +1,5 @@
+trigger_condition,dialogue_state,fallback_action,target_flow,safety_path
+Router Unavailable,ANY,Fallback to General Value Prop,FLOW-02,Safe Discovery Response
+Low Confidence Score (<0.75),ANY,Request Service Clarification,FLOW-01,Clarification Prompt
+Repeated Ambiguity (>2 turns),CLARIFICATION,Show Main Capability Menu,FLOW-02,Menu Options
+Audit Submission Failure,AUDIT_INTENT,Offer Direct Founder Handoff,FLOW-05,Handoff Fallback

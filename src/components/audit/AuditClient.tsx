@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import FAQSchema from "@/components/seo/FAQSchema";
+import { evaluateDiagnosticMatrix, DiagnosticOutput } from "@/components/audit/diagnostic-matrix";
+import { compileFullReportContent, FullRenderedReportContent } from "@/components/audit/report-content-engine";
 import {
   ArrowRight,
   ArrowLeft,
@@ -86,6 +88,8 @@ export interface BriefReportData {
     current_systems?: string;
     interested_services?: string;
   };
+  diagnostic_matrix?: DiagnosticOutput;
+  compiled_report?: FullRenderedReportContent;
   generated_at?: string;
 }
 
@@ -390,6 +394,28 @@ export default function AuditClient() {
         return;
       }
 
+      const inputCtx = {
+        company: formData.company,
+        product: formData.product,
+        market: formData.market,
+        industry: formData.industry,
+        company_size: formData.company_size,
+        business_age: formData.business_age,
+        hasWebsite: formData.hasWebsite,
+        websiteUrl: formData.websiteUrl,
+        selectedSystems: formData.selectedSystems,
+        selectedServices: formData.selectedServices,
+        current_systems: currentSystemsString,
+        interested_services: interestedServicesString,
+        performance_score: techReport?.performance_score,
+        seo_score: techReport?.seo_score,
+        accessibility_score: techReport?.accessibility_score,
+        findings: techReport?.findings,
+      };
+
+      const diagnosticMatrix = evaluateDiagnosticMatrix(inputCtx);
+      const compiledReport = compileFullReportContent(diagnosticMatrix, inputCtx);
+
       const generatedReport: BriefReportData = {
         summary: rawBrief.summary || "",
         trust_note: rawBrief.trust_note || "",
@@ -424,6 +450,8 @@ export default function AuditClient() {
           current_systems: currentSystemsString,
           interested_services: interestedServicesString,
         },
+        diagnostic_matrix: diagnosticMatrix,
+        compiled_report: compiledReport,
         generated_at: rawBrief.generated_at || new Date().toISOString(),
       };
 
@@ -575,10 +603,10 @@ export default function AuditClient() {
             {/* Header */}
             <div className="text-center mb-8">
               <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight mb-3 text-black dark:text-white">
-                Free Audit &amp; Price Quote
+                Free Technology &amp; Systems Audit
               </h1>
               <p className="text-base md:text-lg font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4 max-w-2xl mx-auto">
-                7 quick questions. A real systems audit and a clear price idea to work from.
+                7 quick questions. An independent systems audit and tailored technology roadmap.
               </p>
 
               {/* 24-Hour Notice Line (Plain small muted text) */}
@@ -1207,15 +1235,185 @@ export default function AuditClient() {
             </div>
           </div>
 
-          {/* 1. summary paragraph */}
-          {briefReport.summary && (
-            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-8 shadow-sm mb-6 print:border print:p-6">
-              <h2 className="text-2xl font-extrabold text-black dark:text-white mb-3 print:text-black">
-                Executive Systems Assessment
-              </h2>
-              <p className="text-base text-neutral-700 dark:text-neutral-300 leading-relaxed font-medium print:text-black">
-                {briefReport.summary}
+          {/* SECTION 1: CLIENT SITUATION */}
+          {briefReport.compiled_report?.client_situation && (
+            <div className="bg-emerald-50/50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 rounded-3xl p-6 md:p-8 mb-6 print:border print:p-5">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/60 text-[#007a55] dark:text-[#4ade80] mb-2 inline-block">
+                Client Situation Summary
+              </span>
+              <p className="text-base text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed">
+                {briefReport.compiled_report.client_situation}
               </p>
+            </div>
+          )}
+
+          {/* SECTION 2 & 3: PRIMARY DIAGNOSIS & WHY IT MATTERS */}
+          {briefReport.compiled_report && (
+            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-sm mb-8 print:border print:p-6">
+              <div className="flex items-center justify-between gap-4 mb-4">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-[#009E73] border border-emerald-200 dark:border-emerald-800">
+                  Primary Strategic Diagnosis
+                </span>
+                {briefReport.diagnostic_matrix?.id && (
+                  <span className="text-xs font-mono text-neutral-400">
+                    Rule ID: {briefReport.diagnostic_matrix.id}
+                  </span>
+                )}
+              </div>
+
+              <h2 className="text-2xl md:text-3xl font-extrabold text-black dark:text-white mb-3">
+                {briefReport.compiled_report.primary_diagnosis}
+              </h2>
+
+              <p className="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-4 leading-relaxed">
+                {briefReport.compiled_report.verdict_headline}
+              </p>
+
+              <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700/80">
+                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-600 dark:text-neutral-300 mb-1">
+                  Why It Matters
+                </h4>
+                <p className="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal">
+                  {briefReport.compiled_report.why_it_matters}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* SECTION 4: TECHNICAL EVIDENCE (TRACK-AWARE: Rendered ONLY when usable technical scan exists) */}
+          {briefReport.compiled_report?.has_technical_evidence && briefReport.compiled_report.technical_evidence && (
+            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-sm mb-8 print:border print:p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-extrabold text-black dark:text-white">
+                    Technical Evidence &amp; Scan Results
+                  </h3>
+                  <p className="text-xs text-neutral-500 font-mono">
+                    Audited URL: {briefReport.compiled_report.technical_evidence.url}
+                  </p>
+                </div>
+              </div>
+
+              {/* Scores Bar */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Performance</span>
+                  <span className={`text-2xl font-black ${getScoreColor(briefReport.compiled_report.technical_evidence.performance_score).text}`}>
+                    {briefReport.compiled_report.technical_evidence.performance_score}/100
+                  </span>
+                </div>
+                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Technical SEO</span>
+                  <span className={`text-2xl font-black ${getScoreColor(briefReport.compiled_report.technical_evidence.seo_score).text}`}>
+                    {briefReport.compiled_report.technical_evidence.seo_score}/100
+                  </span>
+                </div>
+                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Accessibility</span>
+                  <span className={`text-2xl font-black ${getScoreColor(briefReport.compiled_report.technical_evidence.accessibility_score).text}`}>
+                    {briefReport.compiled_report.technical_evidence.accessibility_score}/100
+                  </span>
+                </div>
+              </div>
+
+              {/* Findings */}
+              {briefReport.compiled_report.technical_evidence.findings.length > 0 && (
+                <div className="space-y-4">
+                  {briefReport.compiled_report.technical_evidence.findings.map((f, i) => (
+                    <div key={i} className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/40">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
+                        Finding #{i + 1} • {f.impact}
+                      </span>
+                      <h4 className="text-sm font-extrabold text-black dark:text-white mb-1">{f.problem}</h4>
+                      <p className="text-xs text-neutral-500 font-mono">Solution: {f.solution_name}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* SECTION 5 & 6: WHAT WE RECOMMEND & WHAT WE DO NOT RECOMMEND */}
+          {briefReport.compiled_report && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="bg-white dark:bg-neutral-900 border border-emerald-200 dark:border-emerald-800/60 rounded-3xl p-6 md:p-8 shadow-sm">
+                <div className="flex items-center gap-2 mb-3">
+                  <CheckCircle2 className="w-5 h-5 text-[#009E73]" />
+                  <h3 className="text-lg font-extrabold text-black dark:text-white">What We Recommend</h3>
+                </div>
+                <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal">
+                  {briefReport.compiled_report.what_we_recommend}
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-neutral-900 border border-amber-200 dark:border-amber-800/60 rounded-3xl p-6 md:p-8 shadow-sm">
+                <div className="flex items-center gap-2 mb-3">
+                  <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                  <h3 className="text-lg font-extrabold text-black dark:text-white">What We Do NOT Recommend</h3>
+                </div>
+                <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed font-normal">
+                  {briefReport.compiled_report.what_we_do_not_recommend}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* SECTION 7: PRIORITY ROADMAP */}
+          {briefReport.compiled_report?.priority_roadmap && briefReport.compiled_report.priority_roadmap.length > 0 && (
+            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-sm mb-8 print:border print:p-6">
+              <h3 className="text-xl font-extrabold text-black dark:text-white mb-6">
+                Priority Implementation Roadmap
+              </h3>
+              <div className="space-y-4">
+                {briefReport.compiled_report.priority_roadmap.map((item, idx) => (
+                  <div key={idx} className="p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/50">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#009E73] block mb-1">
+                      {item.level}
+                    </span>
+                    <h4 className="text-base font-extrabold text-black dark:text-white mb-1">{item.title}</h4>
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400 font-normal leading-relaxed">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* SECTION 8 & 9: RELEVANT DIGIXPRO CAPABILITY & RELEVANT EVIDENCE */}
+          {briefReport.compiled_report && (
+            <div className="bg-neutral-900 text-white rounded-3xl p-6 md:p-8 shadow-md mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6 print:border print:border-neutral-300 print:bg-white print:text-black">
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#009E73] block mb-1">
+                  Relevant DigiXPro Service Blueprint
+                </span>
+                <h4 className="text-xl font-extrabold text-white print:text-black mb-2">
+                  {briefReport.compiled_report.relevant_capability.service_name}
+                </h4>
+                {briefReport.compiled_report.has_relevant_evidence && briefReport.compiled_report.relevant_evidence && (
+                  <p className="text-xs font-mono text-neutral-400 print:text-neutral-600">
+                    Verified Evidence: {briefReport.compiled_report.relevant_evidence.label}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <Link
+                  href={briefReport.compiled_report.relevant_capability.service_url}
+                  className="inline-flex items-center px-5 py-2.5 bg-[#009E73] hover:bg-[#007a5a] text-white text-xs font-bold rounded-xl transition"
+                >
+                  Explore Service Blueprint <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                </Link>
+                {briefReport.compiled_report.has_relevant_evidence && briefReport.compiled_report.relevant_evidence && (
+                  <Link
+                    href={briefReport.compiled_report.relevant_evidence.evidence_url}
+                    className="inline-flex items-center px-4 py-2.5 border border-neutral-700 text-neutral-300 hover:text-white hover:border-white text-xs font-bold rounded-xl transition print:hidden"
+                  >
+                    View Case Study <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                  </Link>
+                )}
+              </div>
             </div>
           )}
 
@@ -1243,7 +1441,7 @@ export default function AuditClient() {
           {briefReport.recommendations && briefReport.recommendations.length > 0 && (
             <div className="mb-12">
               <h3 className="text-xl font-extrabold text-black dark:text-white mb-6 print:text-black">
-                Recommended Architecture Solutions &amp; Investment Scope
+                Recommended Architecture Solutions
               </h3>
               <div className="space-y-8">
                 {briefReport.recommendations.map((rec: RecommendationItem, idx: number) => {
@@ -1281,84 +1479,20 @@ export default function AuditClient() {
                         )}
                       </div>
 
-                      {/* Three tier rows, clearly labeled */}
-                      <div>
-                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block mb-3 print:text-neutral-700">
-                          Investment &amp; Implementation Options:
-                        </span>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          
-                          {/* Premium Agency */}
-                          <div className={`rounded-2xl p-4 border transition-all flex flex-col justify-between ${
-                            recTierRaw === "premium"
-                              ? "border-amber-500 bg-amber-50/70 dark:bg-amber-950/40 ring-2 ring-amber-500 shadow-sm"
-                              : "border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/40"
-                          }`}>
-                            <div>
-                              <div className="flex items-center justify-between mb-2">
-                                <span className="text-xs font-mono font-bold uppercase text-neutral-600 dark:text-neutral-400">
-                                  Premium Agency
-                                </span>
-                                {recTierRaw === "premium" && (
-                                  <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-amber-500 text-white flex items-center gap-1">
-                                    <Award className="w-3 h-3" /> Recommended
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-xs text-neutral-800 dark:text-neutral-200 font-semibold leading-snug">
-                                {rec.three_tiers?.premium || "Scoped in discovery"}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* DigiXPro */}
-                          <div className={`rounded-2xl p-4 border transition-all flex flex-col justify-between ${
-                            recTierRaw === "digixpro" || recTierRaw === "digix"
-                              ? "border-[#009E73] bg-emerald-50/80 dark:bg-emerald-950/50 ring-2 ring-[#009E73] shadow-md"
-                              : "border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/40"
-                          }`}>
-                            <div>
-                              <div className="flex items-center justify-between mb-2">
-                                <span className="text-xs font-mono font-bold uppercase text-[#009E73] dark:text-[#4ade80] flex items-center gap-1">
-                                  <Sparkles className="w-3.5 h-3.5" /> DigiXPro
-                                </span>
-                                {(recTierRaw === "digixpro" || recTierRaw === "digix") && (
-                                  <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-[#009E73] text-white flex items-center gap-1">
-                                    <Award className="w-3 h-3" /> Recommended
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-xs text-neutral-900 dark:text-neutral-100 font-extrabold leading-snug">
-                                {rec.three_tiers?.digixpro || rec.digixpro_price_range || "Scoped in discovery"}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* Bootstrap (DIY) */}
-                          <div className={`rounded-2xl p-4 border transition-all flex flex-col justify-between ${
-                            recTierRaw === "bootstrap" || recTierRaw === "diy"
-                              ? "border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 ring-2 ring-blue-500 shadow-sm"
-                              : "border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/40"
-                          }`}>
-                            <div>
-                              <div className="flex items-center justify-between mb-2">
-                                <span className="text-xs font-mono font-bold uppercase text-neutral-600 dark:text-neutral-400">
-                                  Bootstrap (DIY)
-                                </span>
-                                {(recTierRaw === "bootstrap" || recTierRaw === "diy") && (
-                                  <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-blue-500 text-white flex items-center gap-1">
-                                    <Award className="w-3 h-3" /> Recommended
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-xs text-neutral-800 dark:text-neutral-200 font-semibold leading-snug">
-                                {rec.three_tiers?.bootstrap || "Self-managed workaround"}
-                              </p>
-                            </div>
-                          </div>
-
+                      {/* DigiXPro Service Link & CTA */}
+                      {rec.digixpro_service_name && (
+                        <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800/80 flex items-center justify-between">
+                          <span className="text-xs font-mono font-bold text-neutral-500 dark:text-neutral-400">
+                            DigiXPro Service Stream:
+                          </span>
+                          <Link
+                            href={rec.digixpro_service_url || "/contact"}
+                            className="text-xs font-bold text-[#009E73] hover:underline flex items-center gap-1"
+                          >
+                            {rec.digixpro_service_name} <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
                         </div>
-                      </div>
+                      )}
 
                       {/* Highlighted badge on whichever tier row matches recommended_tier with explain_recommendation */}
                       {rec.explain_recommendation && (
@@ -1533,18 +1667,7 @@ export default function AuditClient() {
             </div>
           </div>
 
-          {/* RELOCATED bundle_estimate - highlighted summary block right before closing_message */}
-          {briefReport.bundle_estimate && (
-            <div className="bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 rounded-3xl p-6 md:p-8 mb-12 shadow-sm print:border-neutral-300 print:bg-emerald-50 max-w-3xl mx-auto text-center">
-              <div className="flex items-center justify-center gap-2 mb-2 text-xs font-mono font-bold uppercase tracking-widest text-[#007a55] dark:text-[#4ade80]">
-                <PackageCheck className="w-4 h-4 text-[#009E73]" />
-                <span>Bundled Package Estimate</span>
-              </div>
-              <p className="text-base md:text-lg font-bold text-neutral-900 dark:text-neutral-100 print:text-black leading-relaxed">
-                {briefReport.bundle_estimate}
-              </p>
-            </div>
-          )}
+
 
           {/* 5. closing_message as a final paragraph & 6. "Book a 30-Min Discovery Call" CTA button directly below it */}
           <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-xl mb-16 print:border print:border-neutral-300 print:bg-white print:text-black print:p-6 print:shadow-none print:break-inside-avoid">
@@ -1566,9 +1689,15 @@ export default function AuditClient() {
               </p>
             )}
 
-            <h3 className="text-2xl md:text-3xl font-extrabold mb-6 print:text-black">
+            <h3 className="text-2xl md:text-3xl font-extrabold mb-4 print:text-black">
               Schedule Your 30-Minute Discovery Call
             </h3>
+
+            {briefReport.compiled_report?.call_value_proposition && (
+              <p className="text-sm font-medium text-emerald-400 dark:text-emerald-300 print:text-emerald-800 max-w-xl mx-auto mb-6 leading-relaxed">
+                {briefReport.compiled_report.call_value_proposition}
+              </p>
+            )}
 
             {/* 6. "Book a 30-Min Discovery Call" CTA button */}
             <div className="flex flex-wrap items-center justify-center gap-4 print:hidden">

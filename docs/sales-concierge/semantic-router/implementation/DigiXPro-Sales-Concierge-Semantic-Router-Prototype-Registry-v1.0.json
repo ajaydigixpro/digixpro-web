@@ -1,0 +1,19 @@
+{
+  "version": "v1.0",
+  "strategy": "EXEMPLAR_DIVERSITY",
+  "total_prototypes": 50,
+  "prototypes": [
+    {
+      "prototype_id": "PROTO-SEO-001",
+      "intent_id": "INTENT-01-SEO",
+      "family_id": "FAM-01",
+      "text": "SEO services for local business"
+    },
+    {
+      "prototype_id": "PROTO-PRICE-001",
+      "intent_id": "INTENT-05-PRICE",
+      "family_id": "FAM-05",
+      "text": "aapki fee kitni hai"
+    }
+  ]
+}

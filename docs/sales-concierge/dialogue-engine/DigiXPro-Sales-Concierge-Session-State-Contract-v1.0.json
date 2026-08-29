@@ -1,0 +1,11 @@
+{
+  "version": "v1.0",
+  "schema": {
+    "session_id": "string (required)",
+    "current_state": "string (required)",
+    "current_intent": "string (required)",
+    "identified_service": "string (optional)",
+    "collected_context": "object",
+    "timestamps": "object"
+  }
+}

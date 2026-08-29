@@ -1,0 +1,4 @@
+record_id,original_text,intent_id,rejection_reason
+"MQU-00002","hi","INTENT-10-GREETING","Low context phrase / greeting requiring intent clarification"
+"MQU-00004","hi","INTENT-10-GREETING","Low context phrase / greeting requiring intent clarification"
+"MQU-00008","hi","INTENT-10-GREETING","Low context phrase / greeting requiring intent clarification"

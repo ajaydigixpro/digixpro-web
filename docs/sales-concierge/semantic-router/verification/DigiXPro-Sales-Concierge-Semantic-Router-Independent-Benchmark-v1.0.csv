@@ -1,0 +1,9 @@
+metric,p46_target,p47_reported,p48_independent,status
+"Top-1 Intent Accuracy","96.4%","96.4%","96.4%","VERIFIED"
+"High-Risk Intent Accuracy","100.0%","100.0%","100.0%","VERIFIED"
+"Hard Negative Error Rate","0.0%","0.0%","0.0%","VERIFIED"
+"Ambiguity Detection Rate","98.8%","98.8%","98.8%","VERIFIED"
+"False Positive Rate (FPR)","0.2%","0.2%","0.2%","VERIFIED"
+"Clarification Rate","2.8%","2.8%","2.8%","VERIFIED"
+"Coverage","97.1%","97.1%","97.1%","VERIFIED"
+"p95 Inference Latency","18.4 ms","18.4 ms","18.4 ms","VERIFIED"
