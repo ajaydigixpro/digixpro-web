@@ -51,6 +51,7 @@ export interface FullRenderedReportContent {
   };
   cta_heading: string;
   call_value_proposition: string;
+  takeaway: string;
 }
 
 export function formatFreeTextContext(text?: string, prefix: string = 'specifically regarding '): string {
@@ -437,6 +438,14 @@ export function buildInvestmentFramework(
   return frameworkMap[track] || frameworkMap.WEB_OPTIMIZATION;
 }
 
+export const NAMED_TAKEAWAYS: Record<DiagnosticTrack, string> = {
+  WEB_REBUILD: "Recommended Web Engineering Architecture Scope",
+  WEB_OPTIMIZATION: "Conversion UX & Dropoff Priority Map",
+  SEO_GROWTH: "Search Indexation & Technical Schema Priority Plan",
+  CRM_AUTOMATION: "Lead Workflow Architecture Map",
+  TECH_ADVISORY: "Vendor Scope & Technical Risk Evaluation"
+};
+
 export function compileFullReportContent(
   diag: DiagnosticOutput,
   ctx: DiagnosticInputContext
@@ -491,6 +500,7 @@ export function compileFullReportContent(
       label: evidenceLabel
     } : undefined,
     cta_heading: CTA_HEADINGS[diag.track] || CTA_HEADINGS.WEB_OPTIMIZATION,
-    call_value_proposition: (CALL_VALUE_PROPOSITIONS[diag.track] || CALL_VALUE_PROPOSITIONS.WEB_OPTIMIZATION)(ctx)
+    call_value_proposition: (CALL_VALUE_PROPOSITIONS[diag.track] || CALL_VALUE_PROPOSITIONS.WEB_OPTIMIZATION)(ctx),
+    takeaway: NAMED_TAKEAWAYS[diag.track] || NAMED_TAKEAWAYS.WEB_OPTIMIZATION
   };
 }

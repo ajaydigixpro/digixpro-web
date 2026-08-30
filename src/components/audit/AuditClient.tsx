@@ -1663,6 +1663,17 @@ export default function AuditClient() {
               </p>
             )}
 
+            {briefReport.compiled_report?.takeaway && (
+              <div className="mb-6 p-4 rounded-2xl bg-emerald-950/60 dark:bg-emerald-950/80 border border-emerald-800/80 max-w-xl mx-auto text-left print:bg-emerald-50 print:border-emerald-200">
+                <span className="text-[10px] font-mono uppercase font-bold text-[#009E73] block mb-1">
+                  Included Call Takeaway Deliverable
+                </span>
+                <p className="text-xs font-extrabold text-white print:text-emerald-950 leading-normal flex items-center gap-2">
+                  <span>🎯</span> {briefReport.compiled_report.takeaway}
+                </p>
+              </div>
+            )}
+
             {/* "Book Your 30-Minute Architecture Review" CTA button with Calendly prefill */}
             <div className="flex flex-wrap items-center justify-center gap-4 print:hidden">
               <a

@@ -300,7 +300,8 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
 
   // 11. Section 10: 30-Minute Architecture Review CTA
   const ctaLines = doc.splitTextToSize(report.call_value_proposition || '', contentWidth - 32);
-  const ctaBoxH = Math.max(74, ctaLines.length * 11 + 42);
+  const takeawayText = report.takeaway ? `Included Takeaway: ${report.takeaway}` : '';
+  const ctaBoxH = Math.max(78, ctaLines.length * 11 + (takeawayText ? 52 : 42));
 
   doc.setFillColor(15, 23, 42);
   doc.roundedRect(margin, y, contentWidth, ctaBoxH, 8, 8, 'F');
@@ -316,10 +317,18 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
   doc.setTextColor(203, 213, 225);
   doc.text(ctaLines, margin + 16, y + 34);
 
+  let bottomOffset = y + ctaBoxH - 14;
+  if (takeawayText) {
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(52, 211, 153);
+    doc.text(takeawayText, margin + 16, bottomOffset - 12);
+  }
+
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setTextColor(16, 185, 129);
-  doc.text(`Book Online: calendly.com/shukla-ajay05/30min`, margin + 16, y + ctaBoxH - 14);
+  doc.text(`Book Online: calendly.com/shukla-ajay05/30min`, margin + 16, bottomOffset);
 
   y += ctaBoxH + 12;
 
