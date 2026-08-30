@@ -7,6 +7,8 @@ export type DiagnosticTrack =
 
 export interface DiagnosticInputContext {
   company: string;
+  name?: string;
+  email?: string;
   product: string;
   market: string;
   industry: string;

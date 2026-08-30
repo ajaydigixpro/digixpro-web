@@ -52,73 +52,162 @@ export interface FullRenderedReportContent {
 }
 
 export const CLIENT_SITUATION_TEMPLATES: Record<DiagnosticTrack, (ctx: DiagnosticInputContext) => string> = {
+  WEB_REBUILD: (ctx) => {
+    const company = ctx.company || 'your business';
+    const name = ctx.name ? `${ctx.name}, based` : 'Based';
+    const ageStr = ctx.business_age ? `operating for ${ctx.business_age}` : 'an active business';
+    if (ctx.hasWebsite === 'no') {
+      return `${name} on the details submitted for ${company}, operating in the ${ctx.industry || 'commercial'} sector (${ageStr}) delivering ${ctx.product || 'core services'} to ${ctx.market || 'your target audience'}, your primary bottleneck is operating without a dedicated web platform. Relying solely on manual or third-party channels restricts brand authority and prevents automated lead acquisition.`;
+    }
+    return `${name} on the details submitted for ${company}, serving ${ctx.market || 'your clients'} with ${ctx.product || 'core offerings'} in the ${ctx.industry || 'commercial'} sector, your current website suffers from critical speed degradation (Performance Score: ${ctx.performance_score || 'below 40'}/100). High page load latency creates immediate user friction, causing prospective clients to bounce before engaging.`;
+  },
+
+  WEB_OPTIMIZATION: (ctx) => {
+    const company = ctx.company || 'your organization';
+    const name = ctx.name ? `${ctx.name}, based` : 'Based';
+    const sizeStr = ctx.company_size ? `with a team of ${ctx.company_size}` : 'as a growing team';
+    return `${name} on your inputs for ${company} (${sizeStr}) offering ${ctx.product || 'specialized services'} to ${ctx.market || 'your client base'} in the ${ctx.industry || 'commercial'} space, your primary commercial challenge is conversion funnel friction. While visitors reach your platform, key landing pages fail to guide them efficiently toward submitting qualified consultation inquiries.`;
+  },
+
+  SEO_GROWTH: (ctx) => {
+    const company = ctx.company || 'your business';
+    const name = ctx.name ? `${ctx.name}, based` : 'Based';
+    return `${name} on your inputs for ${company}, an established firm in the ${ctx.industry || 'commercial'} sector providing ${ctx.product || 'core offerings'} to ${ctx.market || 'your target market'}, your site performance baseline is stable (Performance Score: ${ctx.performance_score || 85}/100). However, missing JSON-LD structured schema and technical crawl barriers restrict your organic search visibility for high-intent queries.`;
+  },
+
+  CRM_AUTOMATION: (ctx) => {
+    const company = ctx.company || 'your business';
+    const name = ctx.name ? `${ctx.name}, based` : 'Based';
+    const systems = ctx.current_systems ? `(${ctx.current_systems})` : '';
+    return `${name} on your inputs for ${company} in the ${ctx.industry || 'commercial'} sector delivering ${ctx.product || 'services'} to ${ctx.market || 'your client base'}, your primary operational friction stems from manual lead handling ${systems}. Manually processing inbound inquiries creates response delays, team overhead, and sales pipeline leakage.`;
+  },
+
+  TECH_ADVISORY: (ctx) => {
+    const company = ctx.company || 'your enterprise';
+    const name = ctx.name ? `${ctx.name}, based` : 'Based';
+    const contextText = ctx.current_systems || ctx.product || 'major technology investments';
+    return `${name} on the evaluation request for ${company} in the ${ctx.industry || 'technology & institutional'} sector, your immediate priority is independent technology due diligence and vendor proposal governance regarding ${contextText}. Independent validation of architecture blueprints, licensing contracts, and engineering estimates is required before committing development capital.`;
+  }
+};
+
+export const CALL_VALUE_PROPOSITIONS: Record<DiagnosticTrack, (ctx: DiagnosticInputContext) => string> = {
   WEB_REBUILD: (ctx) =>
-    ctx.hasWebsite === 'no'
-      ? `Operating as a ${ctx.company_size || 'growing business'} in the ${ctx.industry || 'commercial'} sector, ${ctx.company || 'your company'} delivers ${ctx.product || 'its core services'} to ${ctx.market || 'its client base'}. Without a professional web platform, your inbound enquiry flow relies on manual channels, restricting brand authority and conversion scalability.`
-      : `Operating in the ${ctx.industry || 'commercial'} sector, ${ctx.company || 'your company'} serves ${ctx.market || 'its target market'} with ${ctx.product || 'its core offerings'}. While a website is active, severe technical performance degradation (Speed Score: ${ctx.performance_score || 'below 40'}/100) creates heavy user friction and causes prospective clients to bounce before converting.`,
+    `Your audit identifies core platform engineering and severe page latency as the primary bottleneck for ${ctx.company || 'your business'}. In a 30-minute Architecture Review, we will clarify: (1) whether a focused Next.js MVP rebuild or targeted refactoring is required, (2) key performance targets to stop visitor bounce, and (3) the exact step-by-step launch sequence. You will walk away with a clear technical roadmap rather than a generic sales pitch. Because this assessment reflects your inputs submitted today, reviewing the findings while fresh provides the clearest starting point before making platform commitments.`,
 
   WEB_OPTIMIZATION: (ctx) =>
-    `Operating in the ${ctx.industry || 'commercial'} space as a ${ctx.business_age || 'growing'} business, ${ctx.company || 'your company'} provides ${ctx.product || 'its services'} to ${ctx.market || 'its audience'}. Your primary commercial challenge is conversion funnel friction — visitors land on your website but drop off prior to submitting qualified sales or consultation inquiries.`,
+    `Your audit identifies conversion funnel friction as the primary bottleneck for ${ctx.company || 'your business'}. In a 30-minute Architecture Review, we will clarify: (1) exact UX dropoff points on your primary landing page, (2) CTA positioning and message clarity adjustments, and (3) which changes will yield immediate conversion improvements without rebuilding your site. You will walk away with an actionable optimization plan rather than a generic pitch. Because this assessment reflects your inputs submitted today, reviewing the findings while fresh provides the clearest starting point before making design changes.`,
 
   SEO_GROWTH: (ctx) =>
-    `As an established ${ctx.industry || 'commercial'} firm serving ${ctx.market || 'its market'}, ${ctx.company || 'your company'} offers ${ctx.product || 'its primary solutions'}. While your website performance foundation is stable (Performance Score: ${ctx.performance_score || 85}/100), technical SEO crawl barriers and missing indexation markup restrict your organic search discovery.`,
+    `Your audit identifies search indexation and technical SEO crawl barriers as the primary bottleneck for ${ctx.company || 'your business'}. In a 30-minute Architecture Review, we will clarify: (1) specific technical sitemap and canonical fixes needed, (2) JSON-LD schema requirements for your key services, and (3) how to capture commercial search-intent queries efficiently. You will walk away with a precise technical SEO blueprint. Because this assessment reflects your inputs submitted today, reviewing the findings while fresh provides the clearest starting point for your search growth strategy.`,
 
   CRM_AUTOMATION: (ctx) =>
-    `Operating as a ${ctx.company_size || 'team'} in the ${ctx.industry || 'commercial'} sector, ${ctx.company || 'your company'} delivers ${ctx.product || 'its offerings'} to ${ctx.market || 'its market'}. Inbound customer inquiries are currently handled manually (${ctx.current_systems || 'manual tracking'}), leading to response delays, manual entry overhead, and sales pipeline leakage.`,
+    `Your audit identifies manual lead handling as the primary operational bottleneck for ${ctx.company || 'your business'}. In a 30-minute Architecture Review, we will clarify: (1) where inbound inquiries are currently leaking, (2) how to build a self-hosted n8n automation pipeline connecting web forms directly to your team's WhatsApp and CRM, and (3) the exact sequence to eliminate manual data entry. You will walk away with a clear workflow automation diagram. Because this assessment reflects your inputs submitted today, reviewing the findings while fresh provides the clearest starting point to stop lead leakage.`,
 
   TECH_ADVISORY: (ctx) =>
-    `Operating in the ${ctx.industry || 'commercial'} sector, ${ctx.company || 'your company'} is currently reviewing a major software vendor proposal or technology investment. Independent technical due diligence is required to verify licensing scope, code architecture, and cost estimates before releasing development capital.`
+    `Your audit identifies technology due diligence and vendor proposal governance as the primary priority for ${ctx.company || 'your organization'}. In a 30-minute CTO Due Diligence Call, we will clarify: (1) whether proposed vendor scope and architecture specs are technically justified, (2) essential requirements versus unnecessary overbuilding, and (3) key licensing, IP ownership, and SLA contract protections to resolve before committing capital. You will walk away with an independent technical evaluation to make an informed decision. Because this assessment reflects your inputs submitted today, reviewing the findings while fresh provides the clearest starting point before releasing development capital.`
 };
 
-export const CALL_VALUE_PROPOSITIONS: Record<DiagnosticTrack, string> = {
-  WEB_REBUILD: "Your audit identifies core platform engineering as the primary bottleneck. In a 30-minute architecture review, we can validate whether full platform refactoring or MVP scoping is required, establish key performance targets, and determine the most practical launch sequence. Because this assessment reflects your inputs submitted today, reviewing the findings while fresh provides the clearest starting point before making platform commitments.",
-  WEB_OPTIMIZATION: "Your audit identifies conversion funnel friction as the primary bottleneck. In a 30-minute architecture review, we can pinpoint exact dropoff points on your core landing pages, evaluate CTA positioning, and prioritize high-impact UX improvements. Because this assessment reflects your inputs submitted today, reviewing the findings while fresh provides the clearest starting point before making design changes.",
-  SEO_GROWTH: "Your audit identifies search indexation and technical SEO as the primary bottleneck. In a 30-minute architecture review, we can review crawl barriers, sitemap health, and JSON-LD schema requirements to expand search discovery. Because this assessment reflects your inputs submitted today, reviewing the findings while fresh provides the clearest starting point for your search growth strategy.",
-  CRM_AUTOMATION: "Your audit identifies manual lead handling as the primary operational bottleneck. In a 30-minute architecture review, we can map your lead intake flow and design a self-hosted n8n automation pipeline connecting web forms directly to your CRM. Because this assessment reflects your inputs submitted today, reviewing the findings while fresh provides the clearest starting point to stop lead leakage.",
-  TECH_ADVISORY: "Your audit identifies vendor proposal governance as the primary priority. In a 30-minute CTO due diligence call, we can evaluate proposed vendor scope, licensing contracts, and architecture specs to separate essential requirements from unnecessary overbuilding. Because this assessment reflects your inputs submitted today, reviewing the findings while fresh provides the clearest starting point before releasing development capital."
-};
+export function buildPriorityRoadmap(diag: DiagnosticOutput, ctx: DiagnosticInputContext): PriorityRoadmapItem[] {
+  const company = ctx.company || 'your business';
+  
+  if (diag.track === 'TECH_ADVISORY') {
+    return [
+      {
+        level: 'PRIORITY 1 — Address First',
+        title: `Vendor Proposal Audit & Architecture Validation for ${company}`,
+        description: `Independently audit vendor scope, code specifications, licensing terms, and engineering cost estimates before releasing development capital.`
+      },
+      {
+        level: 'PRIORITY 2 — Address Next',
+        title: `Vendor SLA & Licensing Contract Alignment`,
+        description: `Establish strict milestone sign-offs, IP ownership guarantees, and delivery SLAs to prevent vendor lock-in or scope creep.`
+      },
+      {
+        level: 'PRIORITY 3 — Consider Later',
+        title: `Fractional CTO Governance & Code Audits`,
+        description: `Institute quarterly security vulnerability scans, code review checkpoints, and long-term technical roadmap oversight.`
+      }
+    ];
+  }
 
-export function buildPriorityRoadmap(diag: DiagnosticOutput): PriorityRoadmapItem[] {
-  const items: PriorityRoadmapItem[] = [
+  if (diag.track === 'CRM_AUTOMATION') {
+    return [
+      {
+        level: 'PRIORITY 1 — Address First',
+        title: `Automate Inbound Lead Intake & WhatsApp/Email Alerts`,
+        description: `Connect web forms directly to self-hosted n8n webhooks for instant team notifications and zero manual entry lag.`
+      },
+      {
+        level: 'PRIORITY 2 — Address Next',
+        title: `CRM Database Structuring & Lead Qualification Routing`,
+        description: `Structure lead context tables and automated stage routing to ensure high-value inquiries reach senior team members immediately.`
+      },
+      {
+        level: 'PRIORITY 3 — Consider Later',
+        title: `Customer Lifecycle Nurturing & Multi-Channel Workflows`,
+        description: `Implement automated follow-up sequences and re-engagement triggers for stalled pipeline deals.`
+      }
+    ];
+  }
+
+  if (diag.track === 'SEO_GROWTH') {
+    return [
+      {
+        level: 'PRIORITY 1 — Address First',
+        title: `Fix Technical Crawl Barriers & Canonical Indexation Errors`,
+        description: `Repair sitemap errors, resolve canonical header conflicts, and fix robots.txt directives to unlock Google search crawling.`
+      },
+      {
+        level: 'PRIORITY 2 — Address Next',
+        title: `Plumb JSON-LD Structured Schema & Service Landing Pages`,
+        description: `Implement rich structured data markup for your core services to capture commercial search-intent queries.`
+      },
+      {
+        level: 'PRIORITY 3 — Consider Later',
+        title: `Managed Search Authority & AI Search (GEO) Indexation`,
+        description: `Expand high-intent search content and optimize site architecture for AI search engine recommendations.`
+      }
+    ];
+  }
+
+  if (diag.track === 'WEB_REBUILD') {
+    return [
+      {
+        level: 'PRIORITY 1 — Address First',
+        title: `Execute Core Web Platform Refactoring & Speed Optimization`,
+        description: `Rebuild page architecture on modern Next.js framework to eliminate latency barriers and achieve sub-second load times.`
+      },
+      {
+        level: 'PRIORITY 2 — Address Next',
+        title: `Conversion UX Architecture & Mobile Layout Design`,
+        description: `Structure clear value propositions, responsive mobile layouts, and high-converting CTA paths for ${company}.`
+      },
+      {
+        level: 'PRIORITY 3 — Consider Later',
+        title: `Headless CMS & Automated Lead Intake Plumbing`,
+        description: `Integrate headless content management and direct n8n webhook routing for incoming consultation requests.`
+      }
+    ];
+  }
+
+  // WEB_OPTIMIZATION
+  return [
     {
       level: 'PRIORITY 1 — Address First',
-      title: diag.primary_bottleneck,
-      description: diag.suggested_first_action
+      title: `Refactor Primary Landing Page Layout & CTA Positioning`,
+      description: `Eliminate UX friction on key conversion pages, clarify core offer messaging, and reposition primary action triggers.`
     },
     {
       level: 'PRIORITY 2 — Address Next',
-      title: diag.relevant_service_name,
-      description: diag.what_we_recommend
+      title: `Mobile Experience Tuning & Multi-Page Funnel Optimization`,
+      description: `Streamline form fields, optimize mobile viewport rendering, and remove navigation dropoff points.`
+    },
+    {
+      level: 'PRIORITY 3 — Consider Later',
+      title: `Event Tracking Analytics & Lead Qualification Routing`,
+      description: `Implement custom event tracking to measure funnel dropoffs and route qualified inquiries directly to sales.`
     }
   ];
-
-  if (diag.track === 'TECH_ADVISORY') {
-    items.push({
-      level: 'PRIORITY 3 — Consider Later',
-      title: 'Long-Term System Governance & Code Audits',
-      description: 'Establish quarterly code reviews, security vulnerability scans, and vendor delivery milestone sign-offs.'
-    });
-  } else if (diag.track === 'CRM_AUTOMATION') {
-    items.push({
-      level: 'PRIORITY 3 — Consider Later',
-      title: 'CRM Database Structuring & Customer Lifecycle Tracking',
-      description: 'Structure customer context tables and automated stage transitions for multi-channel lead nurturing.'
-    });
-  } else if (diag.track === 'SEO_GROWTH') {
-    items.push({
-      level: 'PRIORITY 3 — Consider Later',
-      title: 'Search-Intent Content Expansion & Authority Building',
-      description: 'Build targeted service landing pages and structured JSON-LD schema to capture high-intent commercial queries.'
-    });
-  } else {
-    items.push({
-      level: 'PRIORITY 3 — Consider Later',
-      title: 'Lead Capture & Automated Workflow Dispatch',
-      description: 'Connect web form submissions directly to automated CRM routing and instant WhatsApp/Email alerts.'
-    });
-  }
-
-  return items;
 }
 
 export function buildInvestmentFramework(
@@ -332,7 +421,7 @@ export function compileFullReportContent(
     what_we_recommend: diag.what_we_recommend,
     what_we_do_not_recommend: diag.what_we_do_not_recommend,
     investment_framework: buildInvestmentFramework(diag, ctx),
-    priority_roadmap: buildPriorityRoadmap(diag),
+    priority_roadmap: buildPriorityRoadmap(diag, ctx),
     relevant_capability: {
       service_name: diag.relevant_service_name,
       service_url: diag.relevant_service_url
@@ -342,6 +431,6 @@ export function compileFullReportContent(
       evidence_url: diag.evidence_url,
       label: evidenceLabel
     } : undefined,
-    call_value_proposition: CALL_VALUE_PROPOSITIONS[diag.track] || CALL_VALUE_PROPOSITIONS.WEB_OPTIMIZATION
+    call_value_proposition: (CALL_VALUE_PROPOSITIONS[diag.track] || CALL_VALUE_PROPOSITIONS.WEB_OPTIMIZATION)(ctx)
   };
 }
