@@ -186,9 +186,12 @@ export const DIAGNOSTIC_RULES: DiagnosticRule[] = [
     priority: 4,
     condition: (ctx) =>
       ctx.selectedSystems.includes("none_manual") ||
+      ctx.selectedSystems.includes("manual_excel") ||
       ctx.selectedServices.includes("process_automation") ||
-      /\b(manually|copying leads|copy leads|manual crm|by hand|handling is completely manual)\b/i.test(
-        (ctx.current_systems || "") + " " + (ctx.product || "")
+      ctx.selectedServices.includes("bpa") ||
+      ctx.selectedServices.includes("ai_automation") ||
+      /\b(manual|manually|manual order|excel|spreadsheet|copying leads|copy leads|manual crm|by hand|handling is completely manual)\b/i.test(
+        (ctx.current_systems || "") + " " + (ctx.product || "") + " " + (ctx.interested_services || "")
       ),
     evaluate: (ctx) => ({
       id: "RULE-04-MANUAL-CRM",
