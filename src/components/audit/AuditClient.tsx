@@ -1375,25 +1375,31 @@ export default function AuditClient() {
               </div>
 
               {/* Scores Bar */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
-                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Performance</span>
-                  <span className={`text-2xl font-black ${getScoreColor(briefReport.compiled_report.technical_evidence.performance_score).text}`}>
-                    {briefReport.compiled_report.technical_evidence.performance_score}/100
-                  </span>
-                </div>
-                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
-                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Technical SEO</span>
-                  <span className={`text-2xl font-black ${getScoreColor(briefReport.compiled_report.technical_evidence.seo_score).text}`}>
-                    {briefReport.compiled_report.technical_evidence.seo_score}/100
-                  </span>
-                </div>
-                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
-                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Accessibility</span>
-                  <span className={`text-2xl font-black ${getScoreColor(briefReport.compiled_report.technical_evidence.accessibility_score).text}`}>
-                    {briefReport.compiled_report.technical_evidence.accessibility_score}/100
-                  </span>
-                </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                {briefReport.compiled_report.technical_evidence.performance_score !== undefined && briefReport.compiled_report.technical_evidence.performance_score !== null && (
+                  <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                    <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Performance</span>
+                    <span className={`text-2xl font-black ${getScoreColor(briefReport.compiled_report.technical_evidence.performance_score).text}`}>
+                      {briefReport.compiled_report.technical_evidence.performance_score}/100
+                    </span>
+                  </div>
+                )}
+                {briefReport.compiled_report.technical_evidence.seo_score !== undefined && briefReport.compiled_report.technical_evidence.seo_score !== null && (
+                  <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                    <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Technical SEO</span>
+                    <span className={`text-2xl font-black ${getScoreColor(briefReport.compiled_report.technical_evidence.seo_score).text}`}>
+                      {briefReport.compiled_report.technical_evidence.seo_score}/100
+                    </span>
+                  </div>
+                )}
+                {briefReport.compiled_report.technical_evidence.accessibility_score !== undefined && briefReport.compiled_report.technical_evidence.accessibility_score !== null && (
+                  <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+                    <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Accessibility</span>
+                    <span className={`text-2xl font-black ${getScoreColor(briefReport.compiled_report.technical_evidence.accessibility_score).text}`}>
+                      {briefReport.compiled_report.technical_evidence.accessibility_score}/100
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Findings */}

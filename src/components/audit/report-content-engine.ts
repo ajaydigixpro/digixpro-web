@@ -32,7 +32,7 @@ export interface FullRenderedReportContent {
     url: string;
     performance_score: number;
     seo_score: number;
-    accessibility_score: number;
+    accessibility_score?: number;
     findings: Array<{ problem: string; impact?: string; solution_name: string; solution_url: string }>;
   };
   what_we_recommend: string;
@@ -490,9 +490,9 @@ export function compileFullReportContent(
 
   const techEvidence = hasTechEvidence ? {
     url: ctx.websiteUrl || '',
-    performance_score: ctx.performance_score || 0,
-    seo_score: ctx.seo_score || 0,
-    accessibility_score: ctx.accessibility_score || 0,
+    performance_score: ctx.performance_score !== undefined ? ctx.performance_score : 0,
+    seo_score: ctx.seo_score !== undefined ? ctx.seo_score : 0,
+    accessibility_score: ctx.accessibility_score !== undefined && ctx.accessibility_score !== null ? ctx.accessibility_score : undefined,
     findings: ctx.findings || []
   } : undefined;
 

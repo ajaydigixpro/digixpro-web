@@ -143,14 +143,21 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
     y += 12;
 
     // Score boxes
-    const cardW = (contentWidth - 24) / 3;
-    const scores = [
-      { label: 'Speed Performance', score: tech.performance_score },
-      { label: 'Technical SEO', score: tech.seo_score },
-      { label: 'Accessibility', score: tech.accessibility_score }
-    ];
+    const scoreItems: Array<{ label: string; score: number }> = [];
+    if (tech.performance_score !== undefined && tech.performance_score !== null) {
+      scoreItems.push({ label: 'Speed Performance', score: tech.performance_score });
+    }
+    if (tech.seo_score !== undefined && tech.seo_score !== null) {
+      scoreItems.push({ label: 'Technical SEO', score: tech.seo_score });
+    }
+    if (tech.accessibility_score !== undefined && tech.accessibility_score !== null) {
+      scoreItems.push({ label: 'Accessibility', score: tech.accessibility_score });
+    }
 
-    scores.forEach((s, idx) => {
+    const count = Math.max(1, scoreItems.length);
+    const cardW = (contentWidth - (count - 1) * 12) / count;
+
+    scoreItems.forEach((s, idx) => {
       const cx = margin + idx * (cardW + 12);
       doc.setFillColor(248, 250, 252);
       doc.setDrawColor(226, 232, 240);
