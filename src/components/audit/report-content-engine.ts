@@ -52,9 +52,11 @@ export interface FullRenderedReportContent {
   cta_heading: string;
   call_value_proposition: string;
   takeaway: string;
+  takeaway_description: string;
+  unresolved_questions: string;
 }
 
-export function formatFreeTextContext(text?: string, prefix: string = 'specifically regarding '): string {
+export const formatFreeTextContext = (text?: string, prefix: string = 'specifically regarding '): string => {
   if (!text || typeof text !== 'string') return '';
   const trimmed = text.trim();
   if (trimmed.length === 0) return '';
@@ -63,7 +65,7 @@ export function formatFreeTextContext(text?: string, prefix: string = 'specifica
   const cleaned = safeText.replace(/^["']|["']$/g, '').replace(/\.$/, '');
 
   return `${prefix}"${cleaned}"`;
-}
+};
 
 export const CLIENT_SITUATION_TEMPLATES: Record<DiagnosticTrack, (ctx: DiagnosticInputContext) => string> = {
   WEB_REBUILD: (ctx) => {
@@ -446,6 +448,31 @@ export const NAMED_TAKEAWAYS: Record<DiagnosticTrack, string> = {
   TECH_ADVISORY: "Vendor Scope & Technical Risk Evaluation"
 };
 
+export const TAKEAWAY_DESCRIPTIONS: Record<DiagnosticTrack, string> = {
+  WEB_REBUILD: "A technical specification outlining Next.js platform requirements, mobile speed benchmarks, and practical build scope.",
+  WEB_OPTIMIZATION: "A prioritized breakdown of high-impact landing page adjustments to fix visitor drop-off before spending budget on traffic.",
+  SEO_GROWTH: "An itemized roadmap of technical crawl barriers and JSON-LD schema markup requirements to capture high-intent search queries.",
+  CRM_AUTOMATION: "An operational workflow map identifying the exact automation points to connect web forms directly to team WhatsApp/CRM alerts.",
+  TECH_ADVISORY: "An independent CTO due diligence evaluation separating essential software requirements from bloated vendor estimates and licensing risks."
+};
+
+export const UNRESOLVED_QUESTIONS: Record<DiagnosticTrack, (ctx: DiagnosticInputContext) => string> = {
+  WEB_REBUILD: (ctx) =>
+    `We can establish that severe platform speed latency creates visitor bounce for ${ctx.company || 'your business'}. What remains unresolved from this audit alone is whether frontend code refactoring will suffice or if a clean Next.js rebuild is justified.`,
+
+  WEB_OPTIMIZATION: (ctx) =>
+    `We can establish that primary landing page conversion friction is restricting appointment inquiries for ${ctx.company || 'your organization'}. What remains unresolved from this audit alone is which specific layout elements, mobile viewports, or CTA positions are creating the highest visitor drop-off.`,
+
+  SEO_GROWTH: (ctx) =>
+    `We can establish that technical crawl and indexation errors restrict search visibility for ${ctx.company || 'your business'}. What remains unresolved from this audit alone is which sitemap errors, canonical tag conflicts, or missing JSON-LD schema markups are hiding your core services from Google.`,
+
+  CRM_AUTOMATION: (ctx) =>
+    `We can establish that manual lead entry creates follow-up lag for ${ctx.company || 'your team'}. What remains unresolved from this audit alone is which inbound lead channels (forms, WhatsApp, email) should be automated first to eliminate team response delay.`,
+
+  TECH_ADVISORY: (ctx) =>
+    `We can establish that independent vendor proposal review is required before releasing capital for ${ctx.company || 'your enterprise'}. What remains unresolved from this audit alone is which specific line items, licensing terms, and delivery SLA assumptions require negotiation.`
+};
+
 export function compileFullReportContent(
   diag: DiagnosticOutput,
   ctx: DiagnosticInputContext
@@ -477,6 +504,7 @@ export function compileFullReportContent(
     : 'Inspect DigiXPro Case Study & Verification Credentials';
 
   const capExpFn = DIGIXPRO_CAPABILITY_EXPLANATIONS[diag.track] || DIGIXPRO_CAPABILITY_EXPLANATIONS.WEB_OPTIMIZATION;
+  const unresolvedFn = UNRESOLVED_QUESTIONS[diag.track] || UNRESOLVED_QUESTIONS.WEB_OPTIMIZATION;
 
   return {
     client_situation: clientSituation,
@@ -501,6 +529,8 @@ export function compileFullReportContent(
     } : undefined,
     cta_heading: CTA_HEADINGS[diag.track] || CTA_HEADINGS.WEB_OPTIMIZATION,
     call_value_proposition: (CALL_VALUE_PROPOSITIONS[diag.track] || CALL_VALUE_PROPOSITIONS.WEB_OPTIMIZATION)(ctx),
-    takeaway: NAMED_TAKEAWAYS[diag.track] || NAMED_TAKEAWAYS.WEB_OPTIMIZATION
+    takeaway: NAMED_TAKEAWAYS[diag.track] || NAMED_TAKEAWAYS.WEB_OPTIMIZATION,
+    takeaway_description: TAKEAWAY_DESCRIPTIONS[diag.track] || TAKEAWAY_DESCRIPTIONS.WEB_OPTIMIZATION,
+    unresolved_questions: unresolvedFn(ctx)
   };
 }

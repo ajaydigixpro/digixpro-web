@@ -301,7 +301,8 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
   // 11. Section 10: 30-Minute Architecture Review CTA
   const ctaLines = doc.splitTextToSize(report.call_value_proposition || '', contentWidth - 32);
   const takeawayText = report.takeaway ? `Included Takeaway: ${report.takeaway}` : '';
-  const ctaBoxH = Math.max(78, ctaLines.length * 11 + (takeawayText ? 52 : 42));
+  const takeawayDescLines = report.takeaway_description ? doc.splitTextToSize(report.takeaway_description, contentWidth - 32) : [];
+  const ctaBoxH = Math.max(82, ctaLines.length * 11 + (takeawayText ? 56 + takeawayDescLines.length * 9 : 42));
 
   doc.setFillColor(15, 23, 42);
   doc.roundedRect(margin, y, contentWidth, ctaBoxH, 8, 8, 'F');
@@ -322,7 +323,15 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
     doc.setTextColor(52, 211, 153);
-    doc.text(takeawayText, margin + 16, bottomOffset - 12);
+    const takeawayY = y + 34 + ctaLines.length * 11 + 6;
+    doc.text(takeawayText, margin + 16, takeawayY);
+
+    if (takeawayDescLines.length > 0) {
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(148, 163, 184);
+      doc.text(takeawayDescLines, margin + 16, takeawayY + 11);
+    }
   }
 
   doc.setFont('helvetica', 'bold');

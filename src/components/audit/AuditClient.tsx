@@ -1663,14 +1663,30 @@ export default function AuditClient() {
               </p>
             )}
 
+            {briefReport.compiled_report?.unresolved_questions && (
+              <div className="mb-6 p-4 rounded-2xl bg-amber-950/40 dark:bg-amber-950/60 border border-amber-800/60 max-w-xl mx-auto text-left print:bg-amber-50 print:border-amber-200">
+                <span className="text-[10px] font-mono uppercase font-bold text-amber-400 dark:text-amber-300 block mb-1">
+                  What Remains Unresolved From This Audit Alone
+                </span>
+                <p className="text-xs font-medium text-amber-200 dark:text-amber-100 print:text-amber-950 leading-relaxed">
+                  {briefReport.compiled_report.unresolved_questions}
+                </p>
+              </div>
+            )}
+
             {briefReport.compiled_report?.takeaway && (
               <div className="mb-6 p-4 rounded-2xl bg-emerald-950/60 dark:bg-emerald-950/80 border border-emerald-800/80 max-w-xl mx-auto text-left print:bg-emerald-50 print:border-emerald-200">
                 <span className="text-[10px] font-mono uppercase font-bold text-[#009E73] block mb-1">
                   Included Call Takeaway Deliverable
                 </span>
-                <p className="text-xs font-extrabold text-white print:text-emerald-950 leading-normal flex items-center gap-2">
+                <p className="text-xs font-extrabold text-white print:text-emerald-950 leading-normal flex items-center gap-2 mb-1">
                   <span>🎯</span> {briefReport.compiled_report.takeaway}
                 </p>
+                {briefReport.compiled_report.takeaway_description && (
+                  <p className="text-[11px] font-medium text-emerald-300/90 dark:text-emerald-200/90 print:text-emerald-800 leading-normal">
+                    {briefReport.compiled_report.takeaway_description}
+                  </p>
+                )}
               </div>
             )}
 
