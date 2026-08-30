@@ -14,7 +14,7 @@ export interface AuditPdfInputData {
   compiled_report: FullRenderedReportContent;
 }
 
-export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
+export function generateAuditJsPdf(data: AuditPdfInputData): jsPDF {
   const doc = new jsPDF({
     orientation: 'portrait',
     unit: 'pt',
@@ -45,22 +45,22 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
-  doc.text('Independent Technology Audit & Diagnosis', margin, 60);
+  doc.text('Independent Technology Audit & Diagnosis', margin, 58);
 
-  doc.setTextColor(148, 163, 184); // #94A3B8
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setFont('helvetica', 'normal');
-  doc.text(`Audit ID: ${data.audit_id}`, pageWidth - margin - 150, 31);
-  doc.text(`Date: ${auditDate}`, pageWidth - margin - 150, 46);
+  doc.setTextColor(148, 163, 184); // Slate 400
+  doc.text(`Audit ID: ${data.audit_id || 'N/A'}`, pageWidth - margin - 150, 31);
+  doc.text(`Date: ${auditDate}`, pageWidth - margin - 150, 45);
 
-  let y = 98;
+  let y = 100;
 
   // 2. Client Identity Box
   doc.setFillColor(248, 250, 252); // #F8FAFC
-  doc.setDrawColor(226, 232, 240); // #E2E8F0
-  doc.roundedRect(margin, y, contentWidth, 54, 6, 6, 'FD');
+  doc.setDrawColor(226, 232, 240);
+  doc.roundedRect(margin, y, contentWidth, 52, 6, 6, 'FD');
 
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(15, 23, 42);
   doc.text(`Prepared for:`, margin + 12, y + 18);
@@ -91,14 +91,13 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
   doc.text('1. CLIENT SITUATION SUMMARY', margin + 12, y + 18);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
   doc.setTextColor(4, 120, 87);
   doc.text(situationLines, margin + 12, y + 32);
 
   y += situationBoxHeight + 14;
 
   // 4. Section 2: Primary Diagnosis
-  doc.setFillColor(15, 23, 42);
+  doc.setFillColor(15, 23, 42); // Dark slate box
   doc.roundedRect(margin, y, contentWidth, 54, 6, 6, 'F');
 
   doc.setFontSize(8);
@@ -106,16 +105,16 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
   doc.setTextColor(16, 185, 129);
   doc.text('2. PRIMARY DIAGNOSIS', margin + 12, y + 16);
 
-  doc.setFontSize(12);
+  doc.setFontSize(13);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 255, 255);
-  doc.text(report.primary_diagnosis || 'System Constraint Identified', margin + 12, y + 32);
+  doc.text(report.primary_diagnosis || 'Technology Architecture Optimization', margin + 12, y + 32);
 
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(203, 213, 225);
-  const verdictText = report.verdict_headline || '';
-  doc.text(verdictText.length > 75 ? verdictText.substring(0, 72) + '...' : verdictText, margin + 12, y + 46);
+  const vLine = report.verdict_headline || '';
+  doc.text(vLine.length > 85 ? vLine.substring(0, 82) + '...' : vLine, margin + 12, y + 46);
 
   y += 66;
 
@@ -124,9 +123,10 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(15, 23, 42);
   doc.text('3. WHY THIS MATTERS FOR YOUR BUSINESS', margin, y);
-  y += 12;
+  y += 14;
 
   const whyLines = doc.splitTextToSize(report.why_it_matters || '', contentWidth);
+  doc.setFontSize(8.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(51, 65, 85);
   doc.text(whyLines, margin, y);
@@ -142,7 +142,6 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
     doc.text(`4. TECHNICAL AUDIT EVIDENCE — ${tech.url}`, margin, y);
     y += 12;
 
-    // Score boxes
     const scoreItems: Array<{ label: string; score: number }> = [];
     if (tech.performance_score !== undefined && tech.performance_score !== null) {
       scoreItems.push({ label: 'Speed Performance', score: tech.performance_score });
@@ -183,40 +182,42 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
   doc.setTextColor(148, 163, 184);
   doc.text('DigiXPro Systems Audit • Page 1 of 2', margin, pageHeight - 20);
 
-  // --- PAGE 2: ACTION PLAN & RECOMMENDATIONS ---
+  // --- PAGE 2: ARCHITECTURE RECOMMENDATIONS & NEXT STEPS ---
   doc.addPage();
-  y = 36;
 
-  // Header Sub-Banner
+  // Page 2 Header Banner
   doc.setFillColor(15, 23, 42);
   doc.rect(0, 0, pageWidth, 45, 'F');
+
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(11);
+  doc.setFontSize(12);
   doc.setFont('helvetica', 'bold');
   doc.text('DigiXPro Systems Audit — Action Plan & Roadmap', margin, 28);
-  doc.setFontSize(9);
+
+  doc.setFontSize(8.5);
+  doc.setFont('helvetica', 'normal');
   doc.setTextColor(148, 163, 184);
-  doc.text(`Audit ID: ${data.audit_id}`, pageWidth - margin - 150, 28);
+  doc.text(`Audit ID: ${data.audit_id || 'N/A'}`, pageWidth - margin - 150, 28);
 
-  y = 60;
+  y = 65;
 
-  // 7. Section 5: What We Recommend
-  doc.setFontSize(10);
+  // Section 5: Recommended System Architecture
+  doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(15, 23, 42);
   doc.text('5. RECOMMENDED SYSTEM ARCHITECTURE', margin, y);
   y += 14;
 
   const recLines = doc.splitTextToSize(report.what_we_recommend || '', contentWidth);
+  doc.setFontSize(8.5);
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
   doc.setTextColor(51, 65, 85);
   doc.text(recLines, margin, y);
 
   y += recLines.length * 12 + 16;
 
-  // 8. Section 6: What We Don't Recommend
-  doc.setFillColor(254, 243, 199); // #FEF3C7 Soft amber
+  // Section 6: What We Do NOT Recommend
+  doc.setFillColor(254, 243, 199); // #FEF3C7 Light Amber
   doc.setDrawColor(251, 191, 36);
   doc.setLineWidth(1);
 
@@ -277,19 +278,16 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
     doc.setDrawColor(226, 232, 240);
     doc.roundedRect(margin, y, contentWidth, cardH, 4, 4, 'FD');
 
-    // Priority Level Label
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(16, 185, 129);
     doc.text(item.level.toUpperCase(), margin + 12, y + 14);
 
-    // Title (below level)
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(15, 23, 42);
     doc.text(titleLines, margin + 12, y + 25);
 
-    // Description (below title)
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.5);
     doc.setTextColor(100, 116, 139);
@@ -316,7 +314,7 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
     y += 16;
   }
 
-  // 11. Section 10: 30-Minute Architecture Review CTA Box (100% Top-Down Layout)
+  // 11. Section 10: 30-Minute Architecture Review CTA Box
   const ctaLines = doc.splitTextToSize(report.call_value_proposition || '', contentWidth - 32);
   const takeawayText = report.takeaway ? `Included Takeaway: ${report.takeaway}` : '';
   const takeawayDescLines = report.takeaway_description ? doc.splitTextToSize(report.takeaway_description, contentWidth - 32) : [];
@@ -336,11 +334,9 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
   ctaInnerY += 12;
   const ctaBoxH = Math.max(82, ctaInnerY + 6);
 
-  // Background Box
   doc.setFillColor(15, 23, 42);
   doc.roundedRect(margin, y, contentWidth, ctaBoxH, 8, 8, 'F');
 
-  // Render Box Content Top-Down
   let renderY = y + 18;
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
@@ -377,13 +373,22 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
   doc.setTextColor(16, 185, 129);
   doc.text(`Book Online: calendly.com/shukla-ajay05/30min`, margin + 16, renderY);
 
-  y += ctaBoxH + 12;
-
-  // Disclaimer / Footer
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(148, 163, 184);
   doc.text('DigiXPro Digital Solution • digixpro.in • Production experience dating back to 2016 • Page 2 of 2', margin, pageHeight - 20);
 
+  return doc;
+}
+
+export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
+  const doc = generateAuditJsPdf(data);
   return Buffer.from(doc.output('arraybuffer'));
+}
+
+export function downloadAuditPdf(data: AuditPdfInputData, filename?: string): void {
+  const doc = generateAuditJsPdf(data);
+  const safeCompany = (data.company || 'Business').replace(/[^a-zA-Z0-9_\-]/g, '_');
+  const safeFilename = filename || `DigiXPro-Systems-Audit-${safeCompany}-${data.audit_id || 'Report'}.pdf`;
+  doc.save(safeFilename);
 }

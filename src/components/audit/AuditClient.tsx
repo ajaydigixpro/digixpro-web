@@ -6,6 +6,7 @@ import Link from "next/link";
 import FAQSchema from "@/components/seo/FAQSchema";
 import { evaluateDiagnosticMatrix, DiagnosticOutput } from "@/components/audit/diagnostic-matrix";
 import { compileFullReportContent, FullRenderedReportContent } from "@/components/audit/report-content-engine";
+import { downloadAuditPdf } from "@/components/audit/pdf-report-generator";
 import {
   ArrowRight,
   ArrowLeft,
@@ -23,6 +24,7 @@ import {
   Zap,
   Sparkles,
   Printer,
+  Download,
   Calendar,
   CheckSquare,
   Square,
@@ -1299,13 +1301,34 @@ export default function AuditClient() {
               </p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  if (!briefReport || !briefReport.compiled_report) return;
+                  downloadAuditPdf({
+                    audit_id: briefReport.audit_id || `audit_${Date.now()}`,
+                    name: formData.name || '',
+                    email: formData.email || '',
+                    company: formData.company || 'Business',
+                    industry: formData.industry || 'General Industry',
+                    product: formData.product || '',
+                    market: formData.market || '',
+                    website_url: formData.websiteUrl || '',
+                    created_at: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
+                    compiled_report: briefReport.compiled_report
+                  });
+                }}
+                className="inline-flex items-center px-5 py-2.5 rounded-xl bg-[#009E73] hover:bg-[#007a5a] text-white text-xs font-bold transition shadow-sm"
+              >
+                <Download className="w-3.5 h-3.5 mr-1.5" /> Download PDF Report
+              </button>
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="inline-flex items-center px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-700 dark:text-neutral-300 hover:border-black dark:hover:border-white transition"
+                className="inline-flex items-center px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-700 dark:text-neutral-300 hover:border-black dark:hover:border-white transition"
               >
-                <Printer className="w-3.5 h-3.5 mr-1.5" /> Print / Save PDF
+                <Printer className="w-3.5 h-3.5 mr-1.5" /> Print
               </button>
               <button
                 type="button"
