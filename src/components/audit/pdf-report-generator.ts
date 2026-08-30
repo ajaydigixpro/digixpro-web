@@ -65,13 +65,13 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
   doc.setTextColor(15, 23, 42);
   doc.text(`Prepared for:`, margin + 12, y + 18);
   doc.setFont('helvetica', 'normal');
-  doc.text(`${data.name || 'Client'} — ${data.company || 'Business'}`, margin + 80, y + 18);
+  doc.text(`${data.name || 'Client'} — ${data.company || 'Business'}`, margin + 95, y + 18);
 
   doc.setFont('helvetica', 'bold');
   doc.text(`Industry / Scope:`, margin + 12, y + 36);
   doc.setFont('helvetica', 'normal');
   const scopeText = `${data.industry || 'Commercial'}${data.website_url ? ` • ${data.website_url}` : ''}`;
-  doc.text(scopeText.length > 60 ? scopeText.substring(0, 57) + '...' : scopeText, margin + 80, y + 36);
+  doc.text(scopeText.length > 60 ? scopeText.substring(0, 57) + '...' : scopeText, margin + 95, y + 36);
 
   y += 66;
 
@@ -266,29 +266,40 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
 
   const roadmap = report.priority_roadmap || [];
   roadmap.forEach((item) => {
+    const titleLines = doc.splitTextToSize(item.title, contentWidth - 24);
+    const descLines = doc.splitTextToSize(item.description || '', contentWidth - 24);
+
+    const titleH = titleLines.length * 10;
+    const descH = descLines.length * 9;
+    const cardH = Math.max(46, 24 + titleH + 2 + descH + 8);
+
     doc.setFillColor(248, 250, 252);
     doc.setDrawColor(226, 232, 240);
-    doc.roundedRect(margin, y, contentWidth, 42, 4, 4, 'FD');
+    doc.roundedRect(margin, y, contentWidth, cardH, 4, 4, 'FD');
 
+    // Priority Level Label
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(16, 185, 129);
-    doc.text(item.level.toUpperCase(), margin + 10, y + 14);
+    doc.text(item.level.toUpperCase(), margin + 12, y + 14);
 
-    doc.setFontSize(9);
+    // Title (below level)
+    doc.setFontSize(8.5);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(15, 23, 42);
-    doc.text(item.title, margin + 10, y + 27);
+    doc.text(titleLines, margin + 12, y + 25);
 
+    // Description (below title)
     doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
     doc.setTextColor(100, 116, 139);
-    const descText = item.description || '';
-    doc.text(descText.length > 70 ? descText.substring(0, 67) + '...' : descText, margin + 180, y + 27);
+    const descY = y + 25 + titleH + 2;
+    doc.text(descLines, margin + 12, descY);
 
-    y += 48;
+    y += cardH + 6;
   });
 
-  y += 8;
+  y += 4;
 
   // 10. Section 8 & 9: Relevant Capability & Evidence
   doc.setFontSize(9);
@@ -305,46 +316,66 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
     y += 16;
   }
 
-  // 11. Section 10: 30-Minute Architecture Review CTA
+  // 11. Section 10: 30-Minute Architecture Review CTA Box (100% Top-Down Layout)
   const ctaLines = doc.splitTextToSize(report.call_value_proposition || '', contentWidth - 32);
   const takeawayText = report.takeaway ? `Included Takeaway: ${report.takeaway}` : '';
   const takeawayDescLines = report.takeaway_description ? doc.splitTextToSize(report.takeaway_description, contentWidth - 32) : [];
-  const ctaBoxH = Math.max(82, ctaLines.length * 11 + (takeawayText ? 56 + takeawayDescLines.length * 9 : 42));
 
+  let ctaInnerY = 18;
+  const ctaHeadingText = report.cta_heading ? `10. ${report.cta_heading.toUpperCase()}` : '10. YOUR NEXT STEP — 30-MINUTE ARCHITECTURE REVIEW';
+
+  ctaInnerY += 14 + ctaLines.length * 10 + 6;
+  if (takeawayText) {
+    ctaInnerY += 11;
+    if (takeawayDescLines.length > 0) {
+      ctaInnerY += takeawayDescLines.length * 9 + 6;
+    } else {
+      ctaInnerY += 4;
+    }
+  }
+  ctaInnerY += 12;
+  const ctaBoxH = Math.max(82, ctaInnerY + 6);
+
+  // Background Box
   doc.setFillColor(15, 23, 42);
   doc.roundedRect(margin, y, contentWidth, ctaBoxH, 8, 8, 'F');
 
+  // Render Box Content Top-Down
+  let renderY = y + 18;
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(16, 185, 129);
-  const ctaHeadingText = report.cta_heading ? `10. ${report.cta_heading.toUpperCase()}` : '10. YOUR NEXT STEP — 30-MINUTE ARCHITECTURE REVIEW';
-  doc.text(ctaHeadingText, margin + 16, y + 20);
+  doc.text(ctaHeadingText, margin + 16, renderY);
 
+  renderY += 14;
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8.5);
+  doc.setFontSize(8);
   doc.setTextColor(203, 213, 225);
-  doc.text(ctaLines, margin + 16, y + 34);
+  doc.text(ctaLines, margin + 16, renderY);
 
-  let bottomOffset = y + ctaBoxH - 14;
+  renderY += ctaLines.length * 10 + 6;
   if (takeawayText) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
     doc.setTextColor(52, 211, 153);
-    const takeawayY = y + 34 + ctaLines.length * 11 + 6;
-    doc.text(takeawayText, margin + 16, takeawayY);
+    doc.text(takeawayText, margin + 16, renderY);
 
+    renderY += 11;
     if (takeawayDescLines.length > 0) {
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7.5);
       doc.setTextColor(148, 163, 184);
-      doc.text(takeawayDescLines, margin + 16, takeawayY + 11);
+      doc.text(takeawayDescLines, margin + 16, renderY);
+      renderY += takeawayDescLines.length * 9 + 6;
+    } else {
+      renderY += 4;
     }
   }
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8.5);
   doc.setTextColor(16, 185, 129);
-  doc.text(`Book Online: calendly.com/shukla-ajay05/30min`, margin + 16, bottomOffset);
+  doc.text(`Book Online: calendly.com/shukla-ajay05/30min`, margin + 16, renderY);
 
   y += ctaBoxH + 12;
 
