@@ -53,42 +53,59 @@ export interface FullRenderedReportContent {
   call_value_proposition: string;
 }
 
+export function formatFreeTextContext(text?: string, prefix: string = 'specifically regarding '): string {
+  if (!text || typeof text !== 'string') return '';
+  const trimmed = text.trim();
+  if (trimmed.length === 0) return '';
+
+  const safeText = trimmed.length > 120 ? `${trimmed.substring(0, 117)}...` : trimmed;
+  const cleaned = safeText.replace(/^["']|["']$/g, '').replace(/\.$/, '');
+
+  return `${prefix}"${cleaned}"`;
+}
+
 export const CLIENT_SITUATION_TEMPLATES: Record<DiagnosticTrack, (ctx: DiagnosticInputContext) => string> = {
   WEB_REBUILD: (ctx) => {
     const company = ctx.company || 'your business';
-    const name = ctx.name ? `${ctx.name}, based` : 'Based';
-    const ageStr = ctx.business_age ? `operating for ${ctx.business_age}` : 'an active business';
+    const nameStr = ctx.name ? `${ctx.name}, based` : 'Based';
+    const contextNote = formatFreeTextContext(ctx.current_systems, ' — specifically noting: ');
+
     if (ctx.hasWebsite === 'no') {
-      return `${name} on the details submitted for ${company}, operating in the ${ctx.industry || 'commercial'} sector (${ageStr}) delivering ${ctx.product || 'core services'} to ${ctx.market || 'your target audience'}, your primary bottleneck is operating without a dedicated web platform. Relying solely on manual or third-party channels restricts brand authority and prevents automated lead acquisition.`;
+      return `${nameStr} on the details submitted for ${company}, operating in the ${ctx.industry || 'commercial'} sector delivering ${ctx.product || 'core services'} to ${ctx.market || 'your target audience'}, your primary bottleneck is operating without a dedicated web platform. Relying solely on manual or third-party channels restricts brand authority and prevents automated lead acquisition.`;
     }
-    return `${name} on the details submitted for ${company}, serving ${ctx.market || 'your clients'} with ${ctx.product || 'core offerings'} in the ${ctx.industry || 'commercial'} sector, your current website suffers from critical speed degradation (Performance Score: ${ctx.performance_score || 'below 40'}/100). High page load latency creates immediate user friction, causing prospective clients to bounce before engaging.`;
+    return `${nameStr} on the details submitted for ${company}, serving ${ctx.market || 'your clients'} with ${ctx.product || 'core offerings'} in the ${ctx.industry || 'commercial'} sector, your current website suffers from critical speed degradation (Performance Score: ${ctx.performance_score || 'below 40'}/100)${contextNote}. High page load latency creates immediate user friction, causing prospective clients to bounce before engaging.`;
   },
 
   WEB_OPTIMIZATION: (ctx) => {
     const company = ctx.company || 'your organization';
-    const name = ctx.name ? `${ctx.name}, based` : 'Based';
-    const sizeStr = ctx.company_size ? `with a team of ${ctx.company_size}` : 'as a growing team';
-    return `${name} on your inputs for ${company} (${sizeStr}) offering ${ctx.product || 'specialized services'} to ${ctx.market || 'your client base'} in the ${ctx.industry || 'commercial'} space, your primary commercial challenge is conversion funnel friction. While visitors reach your platform, key landing pages fail to guide them efficiently toward submitting qualified consultation inquiries.`;
+    const nameStr = ctx.name ? `${ctx.name}, based` : 'Based';
+    const contextNote = formatFreeTextContext(ctx.current_systems, ' — specifically noting: ');
+
+    return `${nameStr} on your inputs for ${company} offering ${ctx.product || 'specialized services'} to ${ctx.market || 'your client base'} in the ${ctx.industry || 'commercial'} space, your primary commercial challenge is conversion funnel friction${contextNote}. While visitors reach your platform, key landing pages fail to guide them efficiently toward submitting qualified consultation inquiries.`;
   },
 
   SEO_GROWTH: (ctx) => {
     const company = ctx.company || 'your business';
-    const name = ctx.name ? `${ctx.name}, based` : 'Based';
-    return `${name} on your inputs for ${company}, an established firm in the ${ctx.industry || 'commercial'} sector providing ${ctx.product || 'core offerings'} to ${ctx.market || 'your target market'}, your site performance baseline is stable (Performance Score: ${ctx.performance_score || 85}/100). However, missing JSON-LD structured schema and technical crawl barriers restrict your organic search visibility for high-intent queries.`;
+    const nameStr = ctx.name ? `${ctx.name}, based` : 'Based';
+    const contextNote = formatFreeTextContext(ctx.current_systems, ' — specifically noting: ');
+
+    return `${nameStr} on your inputs for ${company}, an established firm in the ${ctx.industry || 'commercial'} sector providing ${ctx.product || 'core offerings'} to ${ctx.market || 'your target market'}, your site performance baseline is stable (Performance Score: ${ctx.performance_score || 85}/100)${contextNote}. However, missing JSON-LD structured schema and technical crawl barriers restrict your organic search visibility for high-intent queries.`;
   },
 
   CRM_AUTOMATION: (ctx) => {
     const company = ctx.company || 'your business';
-    const name = ctx.name ? `${ctx.name}, based` : 'Based';
-    const systems = ctx.current_systems ? `(${ctx.current_systems})` : '';
-    return `${name} on your inputs for ${company} in the ${ctx.industry || 'commercial'} sector delivering ${ctx.product || 'services'} to ${ctx.market || 'your client base'}, your primary operational friction stems from manual lead handling ${systems}. Manually processing inbound inquiries creates response delays, team overhead, and sales pipeline leakage.`;
+    const nameStr = ctx.name ? `${ctx.name}, based` : 'Based';
+    const contextNote = formatFreeTextContext(ctx.current_systems, ' — specifically noting: ');
+
+    return `${nameStr} on your inputs for ${company} in the ${ctx.industry || 'commercial'} sector delivering ${ctx.product || 'services'} to ${ctx.market || 'your client base'}, your primary operational friction stems from manual lead handling${contextNote}. Manually processing inbound inquiries creates response delays, team overhead, and sales pipeline leakage.`;
   },
 
   TECH_ADVISORY: (ctx) => {
     const company = ctx.company || 'your enterprise';
-    const name = ctx.name ? `${ctx.name}, based` : 'Based';
-    const contextText = ctx.current_systems || ctx.product || 'major technology investments';
-    return `${name} on the evaluation request for ${company} in the ${ctx.industry || 'technology & institutional'} sector, your immediate priority is independent technology due diligence and vendor proposal governance regarding ${contextText}. Independent validation of architecture blueprints, licensing contracts, and engineering estimates is required before committing development capital.`;
+    const nameStr = ctx.name ? `${ctx.name}, based` : 'Based';
+    const contextNote = formatFreeTextContext(ctx.current_systems, ' — specifically regarding: ');
+
+    return `${nameStr} on the evaluation request for ${company} in the ${ctx.industry || 'technology & institutional'} sector, your immediate priority is independent technology due diligence and vendor proposal governance${contextNote}. Independent validation of architecture blueprints, licensing contracts, and engineering estimates is required before committing development capital.`;
   }
 };
 

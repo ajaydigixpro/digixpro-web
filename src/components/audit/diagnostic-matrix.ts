@@ -92,7 +92,7 @@ export const DIAGNOSTIC_RULES: DiagnosticRule[] = [
       verdict_headline: "Before committing to high-capital software vendor proposals, independent technical due diligence protects your business from bloated scope and vendor lock-in.",
       why_this_matters: "Signing software vendor contracts without independent technical architecture review risks licensing traps, hidden integration costs, and overscoped delivery estimates.",
       what_we_recommend: "Independent vendor proposal evaluation, software architecture code audit, and fractional CTO governance.",
-      what_we_do_not_recommend: "Do NOT approve vendor software proposals or release major development milestones without independent technical due diligence.",
+      what_we_do_not_recommend: "Do NOT approve vendor software proposals or release major development milestones without independent technical due diligence. Additionally, do NOT invest capital in generic consumer SEO campaigns or unnecessary ad retainers before technical scope validation.",
       suggested_first_action: "Review contract scope, licensing architecture, and vendor pricing with an independent fractional CTO.",
       relevant_service_name: "Technology Due Diligence & Vendor Evaluation",
       relevant_service_url: "/advisory",
