@@ -92,6 +92,7 @@ export interface BriefReportData {
   };
   diagnostic_matrix?: DiagnosticOutput;
   compiled_report?: FullRenderedReportContent;
+  audit_id?: string;
   generated_at?: string;
 }
 
