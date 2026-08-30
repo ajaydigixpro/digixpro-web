@@ -42,12 +42,14 @@ export interface FullRenderedReportContent {
   relevant_capability: {
     service_name: string;
     service_url: string;
+    explanation: string;
   };
   has_relevant_evidence: boolean;
   relevant_evidence?: {
     evidence_url: string;
     label: string;
   };
+  cta_heading: string;
   call_value_proposition: string;
 }
 
@@ -210,6 +212,31 @@ export function buildPriorityRoadmap(diag: DiagnosticOutput, ctx: DiagnosticInpu
   ];
 }
 
+export const CTA_HEADINGS: Record<DiagnosticTrack, string> = {
+  WEB_REBUILD: 'Validate Your Web Platform Architecture',
+  WEB_OPTIMIZATION: 'Review Your Website Conversion Priorities',
+  SEO_GROWTH: 'Review Your Search Growth Priorities',
+  CRM_AUTOMATION: 'Validate Your Lead-Capture Architecture',
+  TECH_ADVISORY: 'Validate Your Technology Investment'
+};
+
+export const DIGIXPRO_CAPABILITY_EXPLANATIONS: Record<DiagnosticTrack, (ctx: DiagnosticInputContext) => string> = {
+  WEB_REBUILD: (ctx) =>
+    `DigiXPro's relevant capability for ${ctx.company || 'your business'} is high-performance web engineering: building a sub-second Next.js platform that eliminates page load latency and projects authentic brand authority without bloated generic templates.`,
+
+  WEB_OPTIMIZATION: (ctx) =>
+    `DigiXPro's relevant capability for ${ctx.company || 'your organization'} is conversion UX architecture: restructuring key landing page layouts, CTAs, and mobile viewports to stop lead dropoffs without requiring an expensive full-site rebuild.`,
+
+  SEO_GROWTH: (ctx) =>
+    `DigiXPro's relevant capability for ${ctx.company || 'your business'} is technical search indexation & schema plumbing: repairing sitemap/canonical barriers and implementing JSON-LD structured data to capture high-intent commercial queries.`,
+
+  CRM_AUTOMATION: (ctx) =>
+    `DigiXPro's relevant capability for ${ctx.company || 'your team'} is workflow architecture: connecting your web form channels directly to self-hosted n8n automation pipelines and WhatsApp/CRM alerts, eliminating manual data entry lag.`,
+
+  TECH_ADVISORY: (ctx) =>
+    `DigiXPro's relevant capability for ${ctx.company || 'your enterprise'} is independent technology due diligence: auditing vendor proposals, code specifications, licensing contracts, and engineering estimates to protect your capital before commitments.`
+};
+
 export function buildInvestmentFramework(
   diag: DiagnosticOutput,
   ctx: DiagnosticInputContext
@@ -223,7 +250,7 @@ export function buildInvestmentFramework(
       levels: [
         {
           level_number: 1,
-          name: 'Level 1 — Essential MVP',
+          name: 'Essential Foundation Scope',
           scope_summary: 'Lean 5-page Next.js SSG build focusing on core messaging and mobile page speed.',
           is_recommended: false,
           key_deliverables: ['Lean Next.js SSG setup', 'Mobile layout refactoring', 'Basic contact form routing'],
@@ -231,7 +258,7 @@ export function buildInvestmentFramework(
         },
         {
           level_number: 2,
-          name: 'Level 2 — DigiXPro Recommended',
+          name: 'Recommended Custom Platform Scope',
           scope_summary: 'Full custom Next.js web platform, sub-second load times, structured schema, and headless CMS.',
           is_recommended: true,
           key_deliverables: ['Custom Next.js component design', 'Sub-second speed refactoring', 'JSON-LD schema plumbing', 'Headless CMS integration'],
@@ -239,7 +266,7 @@ export function buildInvestmentFramework(
         },
         {
           level_number: 3,
-          name: 'Level 3 — Advanced Platform',
+          name: 'Advanced Enterprise Architecture Scope',
           scope_summary: 'Decoupled platform architecture, custom database APIs, role-based auth, and multi-tenant portals.',
           is_recommended: false,
           key_deliverables: ['Multi-tenant platform engineering', 'Role-based access control', 'Custom API & database backend'],
@@ -255,7 +282,7 @@ export function buildInvestmentFramework(
       levels: [
         {
           level_number: 1,
-          name: 'Level 1 — Focused UX Refactoring',
+          name: 'Focused Landing Page Optimization Scope',
           scope_summary: 'Targeted layout optimization and CTA positioning on primary landing page.',
           is_recommended: true,
           key_deliverables: ['Mobile layout refactoring', 'CTA positioning fix', 'Headline messaging adjustment'],
@@ -263,7 +290,7 @@ export function buildInvestmentFramework(
         },
         {
           level_number: 2,
-          name: 'Level 2 — DigiXPro Recommended',
+          name: 'Recommended Funnel Architecture Scope',
           scope_summary: 'Full website conversion refactoring, mobile speed tuning, and custom lead intake UX.',
           is_recommended: false,
           key_deliverables: ['Multi-page layout optimization', 'Mobile speed tuning', 'Interactive form UX', 'CTA funnel architecture'],
@@ -271,7 +298,7 @@ export function buildInvestmentFramework(
         },
         {
           level_number: 3,
-          name: 'Level 3 — Advanced Funnel Engineering',
+          name: 'Advanced Multi-Funnel Engineering Scope',
           scope_summary: 'Multi-funnel conversion engineering, real-time analytics integration, and automated lead qualification.',
           is_recommended: false,
           key_deliverables: ['Multi-segment funnel design', 'Custom event analytics', 'Real-time lead qualification UX'],
@@ -287,7 +314,7 @@ export function buildInvestmentFramework(
       levels: [
         {
           level_number: 1,
-          name: 'Level 1 — Technical SEO Fixes',
+          name: 'Essential Technical SEO Corrections Scope',
           scope_summary: 'Core indexation error repairs, sitemap setup, canonical header fixes, and robots.txt audit.',
           is_recommended: false,
           key_deliverables: ['Indexation error fixes', 'Sitemap & robots.txt repair', 'Canonical URL audit'],
@@ -295,7 +322,7 @@ export function buildInvestmentFramework(
         },
         {
           level_number: 2,
-          name: 'Level 2 — DigiXPro Recommended',
+          name: 'Recommended Search & Schema Architecture Scope',
           scope_summary: 'Comprehensive technical SEO refactoring, structured JSON-LD schema plumbing, and search-intent service pages.',
           is_recommended: true,
           key_deliverables: ['Full technical SEO refactoring', 'JSON-LD schema plumbing', 'Search-intent service page structure'],
@@ -303,7 +330,7 @@ export function buildInvestmentFramework(
         },
         {
           level_number: 3,
-          name: 'Level 3 — Managed SEO & AI Search',
+          name: 'Advanced Growth & AI Search Optimization Scope',
           scope_summary: 'Ongoing monthly search retainer, category content expansion, and AI Search (GEO) indexation.',
           is_recommended: false,
           key_deliverables: ['Monthly technical SEO retainer', 'AI Search (GEO) schema optimization', 'Multi-location keyword targeting'],
@@ -319,7 +346,7 @@ export function buildInvestmentFramework(
       levels: [
         {
           level_number: 1,
-          name: 'Level 1 — Essential Lead Pipeline',
+          name: 'Essential Lead Intake Pipeline Scope',
           scope_summary: 'Single web form → self-hosted n8n webhook → instant WhatsApp/Email team alerts.',
           is_recommended: true,
           key_deliverables: ['Web form webhook intake', 'Instant WhatsApp/Email alerts', 'Basic lead logging'],
@@ -327,7 +354,7 @@ export function buildInvestmentFramework(
         },
         {
           level_number: 2,
-          name: 'Level 2 — DigiXPro Recommended',
+          name: 'Recommended CRM Workflow Architecture Scope',
           scope_summary: 'Multi-channel intake (forms, chat, ads) → self-hosted n8n workflows → CRM automated lead routing & tagging.',
           is_recommended: false,
           key_deliverables: ['Multi-channel lead intake', 'Automated CRM lead tagging', 'Lead qualification routing', 'n8n workflow dispatch'],
@@ -335,7 +362,7 @@ export function buildInvestmentFramework(
         },
         {
           level_number: 3,
-          name: 'Level 3 — Enterprise Workflow Engine',
+          name: 'Advanced Enterprise Lifecycle Engine Scope',
           scope_summary: 'Multi-system n8n enterprise workflows, ERP/accounting integration, and automated lifecycle nurturing.',
           is_recommended: false,
           key_deliverables: ['Multi-system API integrations', 'ERP/accounting data sync', 'Automated customer lifecycle engine'],
@@ -351,7 +378,7 @@ export function buildInvestmentFramework(
       levels: [
         {
           level_number: 1,
-          name: 'Level 1 — Focused Vendor Review',
+          name: 'Focused Vendor Proposal Review Scope',
           scope_summary: 'Independent evaluation of a single software vendor proposal, licensing contract, and cost estimates.',
           is_recommended: true,
           key_deliverables: ['Single vendor proposal audit', 'Licensing contract scope check', 'Pricing & architecture evaluation'],
@@ -359,7 +386,7 @@ export function buildInvestmentFramework(
         },
         {
           level_number: 2,
-          name: 'Level 2 — DigiXPro Recommended',
+          name: 'Recommended Due Diligence & Code Audit Scope',
           scope_summary: 'In-depth vendor proposal audit, code architecture inspection, licensing risk analysis, and vendor SLA negotiation.',
           is_recommended: false,
           key_deliverables: ['Full vendor proposal & code audit', 'Architecture blueprint verification', 'Licensing & SLA negotiation support'],
@@ -367,7 +394,7 @@ export function buildInvestmentFramework(
         },
         {
           level_number: 3,
-          name: 'Level 3 — Fractional CTO Governance',
+          name: 'Advanced Fractional CTO Governance Scope',
           scope_summary: 'Part-time fractional CTO advisory, quarterly code audits, security vulnerability scans, and milestone sign-offs.',
           is_recommended: false,
           key_deliverables: ['Ongoing fractional CTO leadership', 'Quarterly security & code audits', 'Development milestone sign-offs'],
@@ -411,6 +438,8 @@ export function compileFullReportContent(
     ? 'Inspect BuySecondHandBook E-Commerce Case Study'
     : 'Inspect DigiXPro Case Study & Verification Credentials';
 
+  const capExpFn = DIGIXPRO_CAPABILITY_EXPLANATIONS[diag.track] || DIGIXPRO_CAPABILITY_EXPLANATIONS.WEB_OPTIMIZATION;
+
   return {
     client_situation: clientSituation,
     primary_diagnosis: diag.primary_bottleneck,
@@ -424,13 +453,15 @@ export function compileFullReportContent(
     priority_roadmap: buildPriorityRoadmap(diag, ctx),
     relevant_capability: {
       service_name: diag.relevant_service_name,
-      service_url: diag.relevant_service_url
+      service_url: diag.relevant_service_url,
+      explanation: capExpFn(ctx)
     },
     has_relevant_evidence: hasEvidence,
     relevant_evidence: hasEvidence ? {
       evidence_url: diag.evidence_url,
       label: evidenceLabel
     } : undefined,
+    cta_heading: CTA_HEADINGS[diag.track] || CTA_HEADINGS.WEB_OPTIMIZATION,
     call_value_proposition: (CALL_VALUE_PROPOSITIONS[diag.track] || CALL_VALUE_PROPOSITIONS.WEB_OPTIMIZATION)(ctx)
   };
 }

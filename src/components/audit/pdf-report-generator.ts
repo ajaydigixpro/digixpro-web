@@ -308,7 +308,8 @@ export function generateAuditPdfBuffer(data: AuditPdfInputData): Buffer {
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(16, 185, 129);
-  doc.text('10. YOUR NEXT STEP — 30-MINUTE ARCHITECTURE REVIEW', margin + 16, y + 20);
+  const ctaHeadingText = report.cta_heading ? `10. ${report.cta_heading.toUpperCase()}` : '10. YOUR NEXT STEP — 30-MINUTE ARCHITECTURE REVIEW';
+  doc.text(ctaHeadingText, margin + 16, y + 20);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8.5);

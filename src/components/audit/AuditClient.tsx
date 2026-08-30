@@ -1336,11 +1336,6 @@ export default function AuditClient() {
                 <span className="text-[11px] font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-[#009E73] border border-emerald-200 dark:border-emerald-800">
                   Primary Strategic Diagnosis
                 </span>
-                {briefReport.diagnostic_matrix?.id && (
-                  <span className="text-xs font-mono text-neutral-400">
-                    Rule ID: {briefReport.diagnostic_matrix.id}
-                  </span>
-                )}
               </div>
 
               <h2 className="text-2xl md:text-3xl font-extrabold text-black dark:text-white mb-3">
@@ -1544,6 +1539,11 @@ export default function AuditClient() {
                 <h4 className="text-xl font-extrabold text-white print:text-black mb-2">
                   {briefReport.compiled_report.relevant_capability.service_name}
                 </h4>
+                {briefReport.compiled_report.relevant_capability.explanation && (
+                  <p className="text-xs text-neutral-300 print:text-neutral-700 font-normal leading-relaxed mb-3 max-w-xl">
+                    {briefReport.compiled_report.relevant_capability.explanation}
+                  </p>
+                )}
                 {briefReport.compiled_report.has_relevant_evidence && briefReport.compiled_report.relevant_evidence && (
                   <p className="text-xs font-mono text-neutral-400 print:text-neutral-600">
                     Verified Evidence: {briefReport.compiled_report.relevant_evidence.label}
@@ -1654,7 +1654,7 @@ export default function AuditClient() {
             )}
 
             <h3 className="text-2xl md:text-3xl font-extrabold mb-4 print:text-black">
-              Schedule Your 30-Minute Architecture Review
+              {briefReport.compiled_report?.cta_heading || "Schedule Your 30-Minute Architecture Review"}
             </h3>
 
             {briefReport.compiled_report?.call_value_proposition && (
