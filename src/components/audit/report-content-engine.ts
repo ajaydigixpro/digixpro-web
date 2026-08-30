@@ -439,10 +439,10 @@ export function buildInvestmentFramework(
 }
 
 export const NAMED_TAKEAWAYS: Record<DiagnosticTrack, string> = {
-  WEB_REBUILD: "Recommended Web Engineering Architecture Scope",
+  WEB_REBUILD: "Website Architecture & Build Specification",
   WEB_OPTIMIZATION: "Conversion UX & Dropoff Priority Map",
-  SEO_GROWTH: "Search Indexation & Technical Schema Priority Plan",
-  CRM_AUTOMATION: "Lead Workflow Architecture Map",
+  SEO_GROWTH: "Search Visibility & Technical SEO Priority Map",
+  CRM_AUTOMATION: "Lead Workflow Architecture Blueprint",
   TECH_ADVISORY: "Vendor Scope & Technical Risk Evaluation"
 };
 
