@@ -322,17 +322,97 @@ export default function AuditClient() {
     }
   };
 
-  // STEP 1: Single reliable submission to audit-brief
+  // Helper function to perform technical scan with safety timeout
+  const runAutomaticTechScan = async (urlStr: string, auditId: string): Promise<TechnicalReportData | null> => {
+    const formattedUrl = normalizeUrl(urlStr);
+    if (!formattedUrl) return null;
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8-second safety cap
+
+      const response = await fetch("https://n8n.digixpro.in/webhook/audit-run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          audit_id: auditId,
+          url: formattedUrl,
+          company: formData.company,
+          email: formData.email,
+        }),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) return null;
+      const data = await response.json();
+      const raw = Array.isArray(data) ? data[0] : data;
+
+      const rawFindings = raw.findings || raw.issues || raw.results || [];
+      const normalizedFindings: TechnicalFinding[] = rawFindings.map((f: Record<string, string>) => ({
+        problem: f.problem || f.issue || f.title || "Identified architecture issue",
+        impact: f.impact || f.severity || "High operational impact",
+        solution_name: f.solution_name || f.solution || "Architecture Advisory",
+        solution_url: f.solution_url || f.url || "/design-services",
+      }));
+
+      const perfScore = Number(raw.performance_score ?? raw.performanceScore ?? 0);
+      const seoScore = Number(raw.seo_score ?? raw.seoScore ?? 0);
+      const accScore = Number(raw.accessibility_score ?? raw.accessibilityScore ?? 0);
+
+      // Return null if scores are missing/invalid to avoid false 0/100 scores
+      if (perfScore === 0 && seoScore === 0 && accScore === 0 && normalizedFindings.length === 0) {
+        return null;
+      }
+
+      return {
+        url: formattedUrl,
+        performance_score: perfScore,
+        seo_score: seoScore,
+        accessibility_score: accScore,
+        findings: normalizedFindings,
+      };
+    } catch {
+      return null;
+    }
+  };
+
+  // STEP 1: Single correlated submission to audit-brief + automatic technical scan
   const handleBriefSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setIsSubmittingBrief(true);
     setRateLimitedNotice(null);
     setGenerationFailedNotice(null);
 
+    const auditId = `audit_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
     const currentSystemsString = buildCurrentSystemsString(formData.selectedSystems, formData.hasWebsite);
     const interestedServicesString = buildInterestedServicesString(formData.selectedServices);
+    const formattedUrl = formData.hasWebsite === "yes" && formData.websiteUrl ? normalizeUrl(formData.websiteUrl) : "";
+
+    if (formattedUrl) {
+      setTechUrlInput(formattedUrl);
+    }
+
+    // Pre-evaluate diagnostic matrix with initial data
+    const initialCtx = {
+      company: formData.company,
+      product: formData.product,
+      market: formData.market,
+      industry: formData.industry,
+      company_size: formData.company_size,
+      business_age: formData.business_age,
+      hasWebsite: formData.hasWebsite,
+      websiteUrl: formattedUrl,
+      selectedSystems: formData.selectedSystems,
+      selectedServices: formData.selectedServices,
+      current_systems: currentSystemsString,
+      interested_services: interestedServicesString,
+    };
+    const initialDiag = evaluateDiagnosticMatrix(initialCtx);
 
     const payload = {
+      audit_id: auditId,
       name: formData.name,
       email: formData.email,
       company: formData.company,
@@ -341,21 +421,29 @@ export default function AuditClient() {
       industry: formData.industry,
       company_size: formData.company_size,
       business_age: formData.business_age,
+      has_website: formData.hasWebsite,
+      website_url: formattedUrl,
       current_systems: currentSystemsString,
       interested_services: interestedServicesString,
+      diagnostic_track: initialDiag.track,
+      primary_bottleneck: initialDiag.primary_bottleneck,
     };
 
-    // Pre-fill techUrlInput if website URL was provided in Q8
-    if (formData.hasWebsite === "yes" && formData.websiteUrl) {
-      setTechUrlInput(normalizeUrl(formData.websiteUrl));
-    }
-
     try {
-      const response = await fetch("https://n8n.digixpro.in/webhook/audit-brief", {
+      // Concurrently launch audit-brief and automatic tech scan
+      const briefPromise = fetch("https://n8n.digixpro.in/webhook/audit-brief", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+
+      const techPromise = formattedUrl ? runAutomaticTechScan(formattedUrl, auditId) : Promise.resolve(null);
+
+      const [response, techResult] = await Promise.all([briefPromise, techPromise]);
+
+      if (techResult) {
+        setTechReport(techResult);
+      }
 
       if (!response.ok) {
         throw new Error(`Audit service returned HTTP status ${response.status}`);
@@ -387,30 +475,23 @@ export default function AuditClient() {
         return;
       }
 
-      if (!rawBrief.summary && (!rawBrief.recommendations || rawBrief.recommendations.length === 0)) {
-        setGenerationFailedNotice(
-          "Something went wrong generating your report - please try again in a moment."
-        );
-        return;
-      }
-
       const inputCtx = {
-        company: formData.company,
+        company: formData.company, // STRICT IMMUTABLE IDENTITY
         product: formData.product,
         market: formData.market,
-        industry: formData.industry,
+        industry: formData.industry, // STRICT IMMUTABLE IDENTITY
         company_size: formData.company_size,
         business_age: formData.business_age,
         hasWebsite: formData.hasWebsite,
-        websiteUrl: formData.websiteUrl,
+        websiteUrl: formattedUrl,
         selectedSystems: formData.selectedSystems,
         selectedServices: formData.selectedServices,
         current_systems: currentSystemsString,
         interested_services: interestedServicesString,
-        performance_score: techReport?.performance_score,
-        seo_score: techReport?.seo_score,
-        accessibility_score: techReport?.accessibility_score,
-        findings: techReport?.findings,
+        performance_score: techResult?.performance_score,
+        seo_score: techResult?.seo_score,
+        accessibility_score: techResult?.accessibility_score,
+        findings: techResult?.findings,
       };
 
       const diagnosticMatrix = evaluateDiagnosticMatrix(inputCtx);
@@ -438,7 +519,8 @@ export default function AuditClient() {
           digixpro_price_range: rec.digixpro_price_range || "",
         })),
         closing_message: rawBrief.closing_message || "",
-        business_context: rawBrief.business_context || {
+        // ENFORCE IMMUTABLE VISITOR IDENTITY: Never allow webhook return data to overwrite client company/industry
+        business_context: {
           name: formData.name,
           email: formData.email,
           company: formData.company,
@@ -1213,7 +1295,7 @@ export default function AuditClient() {
                 </span>
               </div>
               <p className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
-                Prepared for: <span className="font-bold text-black dark:text-white">{briefReport.business_context?.company || formData.company}</span>
+                Prepared for: <span className="font-bold text-black dark:text-white">{formData.company || "Your Business"}</span> ({formData.industry || "General Industry"})
               </p>
             </div>
 
@@ -1361,6 +1443,77 @@ export default function AuditClient() {
             </div>
           )}
 
+          {/* IMPLEMENTATION & SCOPE FRAMEWORK */}
+          {briefReport.compiled_report?.investment_framework && (
+            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-sm mb-8 print:border print:p-6">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+                <div>
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-[#009E73] border border-emerald-200 dark:border-emerald-800">
+                    Implementation &amp; Scope Framework
+                  </span>
+                  <h3 className="text-xl font-extrabold text-black dark:text-white mt-2">
+                    {briefReport.compiled_report.investment_framework.headline}
+                  </h3>
+                </div>
+              </div>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 font-normal leading-relaxed mb-6">
+                {briefReport.compiled_report.investment_framework.explanation}
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                {briefReport.compiled_report.investment_framework.levels.map((lvl) => (
+                  <div
+                    key={lvl.level_number}
+                    className={`p-5 rounded-2xl border flex flex-col justify-between transition-all ${
+                      lvl.is_recommended
+                        ? "border-[#009E73] bg-emerald-50/50 dark:bg-emerald-950/40 ring-2 ring-[#009E73]/20"
+                        : "border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/50"
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <span className="text-xs font-mono font-bold text-neutral-500">{lvl.name}</span>
+                        {lvl.is_recommended && (
+                          <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded bg-[#009E73] text-white">
+                            Recommended
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-neutral-700 dark:text-neutral-300 font-semibold mb-4 leading-relaxed">
+                        {lvl.scope_summary}
+                      </p>
+
+                      <div className="mb-4">
+                        <span className="text-[10px] font-mono uppercase font-bold text-neutral-400 block mb-1">Key Deliverables</span>
+                        <ul className="space-y-1">
+                          {lvl.key_deliverables.map((del, i) => (
+                            <li key={i} className="text-[11px] text-neutral-600 dark:text-neutral-400 flex items-start gap-1.5">
+                              <span className="text-[#009E73] font-bold">•</span> {del}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-neutral-200 dark:border-neutral-800/80">
+                      <span className="text-[10px] font-mono uppercase font-bold text-neutral-400 block mb-0.5">Primary Cost Drivers</span>
+                      <p className="text-[11px] font-mono text-neutral-500 leading-tight">
+                        {lvl.cost_drivers.join(", ")}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700/80">
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 font-mono leading-relaxed">
+                  💡 <strong className="text-neutral-800 dark:text-neutral-200">Commercial Orientation Note:</strong>{" "}
+                  {briefReport.compiled_report.investment_framework.commercial_note}
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* SECTION 7: PRIORITY ROADMAP */}
           {briefReport.compiled_report?.priority_roadmap && briefReport.compiled_report.priority_roadmap.length > 0 && (
             <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-sm mb-8 print:border print:p-6">
@@ -1417,196 +1570,7 @@ export default function AuditClient() {
             </div>
           )}
 
-          {/* 2. trust_note - a distinct, calm callout box */}
-          {briefReport.trust_note && (
-            <div className="bg-neutral-100/80 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 rounded-2xl p-5 mb-4 flex items-start gap-3.5 shadow-xs print:border-neutral-300 print:bg-neutral-50">
-              <ShieldCheck className="w-5 h-5 text-[#009E73] shrink-0 mt-0.5" aria-hidden="true" />
-              <p className="text-xs text-neutral-700 dark:text-neutral-300 font-medium leading-relaxed print:text-black">
-                {briefReport.trust_note}
-              </p>
-            </div>
-          )}
 
-          {/* Full estimate_disclaimer_long Callout (Right after trust_note) */}
-          {briefReport.estimate_disclaimer_long && (
-            <div className="bg-neutral-50 dark:bg-neutral-900/80 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 mb-8 flex items-start gap-3.5 shadow-xs print:border-neutral-300 print:bg-neutral-50">
-              <Info className="w-5 h-5 text-neutral-400 shrink-0 mt-0.5" aria-hidden="true" />
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 font-normal leading-relaxed print:text-neutral-700">
-                {briefReport.estimate_disclaimer_long}
-              </p>
-            </div>
-          )}
-
-          {/* 4. For EACH item in recommendations (render ALL business recommendation cards) */}
-          {briefReport.recommendations && briefReport.recommendations.length > 0 && (
-            <div className="mb-12">
-              <h3 className="text-xl font-extrabold text-black dark:text-white mb-6 print:text-black">
-                Recommended Architecture Solutions
-              </h3>
-              <div className="space-y-8">
-                {briefReport.recommendations.map((rec: RecommendationItem, idx: number) => {
-                  const cardTitle = rec.automation_name || `Automated Solution #${idx + 1}`;
-                  const recTierRaw = (rec.recommended_tier || "digixpro").toLowerCase();
-
-                  return (
-                    <div
-                      key={idx}
-                      className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col gap-6 print:border print:border-neutral-300 print:bg-white print:p-5 break-inside-avoid [page-break-inside:avoid]"
-                    >
-                      {/* Card Title = automation_name */}
-                      <div>
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-[#009E73] border border-emerald-200 dark:border-emerald-800 print:border-neutral-300 print:text-black mb-2 inline-block">
-                          Recommended Automation #{idx + 1}
-                        </span>
-                        <h4 className="text-xl font-extrabold text-black dark:text-white print:text-black leading-snug">
-                          {cardTitle}
-                        </h4>
-                      </div>
-
-                      {/* what_it_does, then why_it_fits */}
-                      <div className="space-y-2 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed print:text-black font-normal">
-                        {rec.what_it_does && (
-                          <p>
-                            <strong className="font-semibold text-black dark:text-white print:text-black">What it does: </strong>
-                            {rec.what_it_does}
-                          </p>
-                        )}
-                        {rec.why_it_fits && (
-                          <p>
-                            <strong className="font-semibold text-black dark:text-white print:text-black">Why it fits your business: </strong>
-                            {rec.why_it_fits}
-                          </p>
-                        )}
-                      </div>
-
-                      {/* DigiXPro Service Link & CTA */}
-                      {rec.digixpro_service_name && (
-                        <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800/80 flex items-center justify-between">
-                          <span className="text-xs font-mono font-bold text-neutral-500 dark:text-neutral-400">
-                            DigiXPro Service Stream:
-                          </span>
-                          <Link
-                            href={rec.digixpro_service_url || "/contact"}
-                            className="text-xs font-bold text-[#009E73] hover:underline flex items-center gap-1"
-                          >
-                            {rec.digixpro_service_name} <ArrowRight className="w-3.5 h-3.5" />
-                          </Link>
-                        </div>
-                      )}
-
-                      {/* Highlighted badge on whichever tier row matches recommended_tier with explain_recommendation */}
-                      {rec.explain_recommendation && (
-                        <div className="bg-emerald-50/90 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-700/80 rounded-2xl p-4 flex items-start gap-3 print:border-neutral-300 print:bg-emerald-50">
-                          <CheckCircle2 className="w-5 h-5 text-[#009E73] shrink-0 mt-0.5" />
-                          <div>
-                            <p className="text-xs font-mono font-bold uppercase tracking-wider text-[#007a55] dark:text-[#4ade80] mb-0.5">
-                              Recommended tier for you: {rec.recommended_tier ? rec.recommended_tier.toUpperCase() : "DIGIXPRO"}
-                            </p>
-                            <p className="text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed">
-                              {rec.explain_recommendation}
-                            </p>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Link using digixpro_service_url / digixpro_service_name labeled "Explore Service Blueprint" */}
-                      <div className="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-800 print:border-neutral-200">
-                        <span className="text-xs text-neutral-500 font-mono">
-                          Service Track: {rec.digixpro_service_name}
-                        </span>
-                        <div className="print:hidden">
-                          <Link
-                            href={rec.digixpro_service_url || "/search-automation/workflow-ai-automation"}
-                            className="inline-flex items-center text-xs font-bold text-[#009E73] hover:underline gap-1"
-                          >
-                            <span>Explore Service Blueprint</span>
-                            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* STEP 3: IF TECHNICAL CHECK HAS RUN, INSERT DIRECTLY INTO MAIN REPORT FLOW */}
-          {techReport && (
-            <div className="mb-12 break-inside-avoid [page-break-inside:avoid] animate-in fade-in duration-300">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-[#009E73]">
-                  <Zap className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-extrabold text-black dark:text-white print:text-black">
-                    Your Website&apos;s Technical Health
-                  </h3>
-                  <p className="text-xs text-neutral-500 font-mono">
-                    URL Audited: {techReport.url}
-                  </p>
-                </div>
-              </div>
-
-              {/* Scores Bar */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
-                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Performance</span>
-                  <span className={`text-2xl font-black ${getScoreColor(techReport.performance_score).text}`}>
-                    {techReport.performance_score}/100
-                  </span>
-                </div>
-                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
-                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Technical SEO</span>
-                  <span className={`text-2xl font-black ${getScoreColor(techReport.seo_score).text}`}>
-                    {techReport.seo_score}/100
-                  </span>
-                </div>
-                <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
-                  <span className="text-xs font-mono font-bold text-neutral-500 block mb-1">Accessibility</span>
-                  <span className={`text-2xl font-black ${getScoreColor(techReport.accessibility_score).text}`}>
-                    {techReport.accessibility_score}/100
-                  </span>
-                </div>
-              </div>
-
-              {/* Technical Findings Cards (Same visual style as business recommendations) */}
-              {techReport.findings && techReport.findings.length > 0 && (
-                <div className="space-y-6">
-                  {techReport.findings.map((f, i) => (
-                    <div
-                      key={i}
-                      className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col gap-4 print:border print:border-neutral-300 print:bg-white print:p-5"
-                    >
-                      <div>
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800 mb-2 inline-block">
-                          Technical Finding #{i + 1} • {f.impact}
-                        </span>
-                        <h4 className="text-lg font-extrabold text-black dark:text-white print:text-black leading-snug">
-                          {f.problem}
-                        </h4>
-                      </div>
-
-                      <div className="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-800 print:border-neutral-200">
-                        <span className="text-xs text-neutral-500 font-mono">
-                          Recommended Solution: {f.solution_name}
-                        </span>
-                        <div className="print:hidden">
-                          <Link
-                            href={f.solution_url || "/design-services"}
-                            className="inline-flex items-center text-xs font-bold text-[#009E73] hover:underline gap-1"
-                          >
-                            <span>Explore Blueprint</span>
-                            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
 
           {/* STEP 2: SEPARATE CLEARLY-VISIBLE TECHNICAL CHECK OPTION CARD */}
           <div className="mb-12 print:hidden">
@@ -1669,13 +1633,13 @@ export default function AuditClient() {
 
 
 
-          {/* 5. closing_message as a final paragraph & 6. "Book a 30-Min Discovery Call" CTA button directly below it */}
+          {/* SECTION 10: YOUR NEXT STEP / 30-MINUTE ARCHITECTURE REVIEW */}
           <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 text-white rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto shadow-xl mb-16 print:border print:border-neutral-300 print:bg-white print:text-black print:p-6 print:shadow-none print:break-inside-avoid">
             <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#009E73] bg-emerald-950/60 print:bg-emerald-50 print:text-[#009E73] border border-emerald-800/80 print:border-emerald-300 px-3 py-1 rounded-full mb-4 inline-block">
-              Architecture Next Step
+              Your Next Step / 30-Minute Architecture Review
             </span>
 
-            {/* 5. closing_message paragraph */}
+            {/* closing_message paragraph */}
             {briefReport.closing_message && (
               <p className="text-sm md:text-base text-neutral-300 dark:text-neutral-300 print:text-neutral-900 max-w-2xl mx-auto mb-6 leading-relaxed font-normal">
                 {briefReport.closing_message}
@@ -1690,7 +1654,7 @@ export default function AuditClient() {
             )}
 
             <h3 className="text-2xl md:text-3xl font-extrabold mb-4 print:text-black">
-              Schedule Your 30-Minute Discovery Call
+              Schedule Your 30-Minute Architecture Review
             </h3>
 
             {briefReport.compiled_report?.call_value_proposition && (
@@ -1699,20 +1663,20 @@ export default function AuditClient() {
               </p>
             )}
 
-            {/* 6. "Book a 30-Min Discovery Call" CTA button */}
+            {/* "Book Your 30-Minute Architecture Review" CTA button with Calendly prefill */}
             <div className="flex flex-wrap items-center justify-center gap-4 print:hidden">
               <a
-                href="https://calendly.com/shukla-ajay05/30min"
+                href={`https://calendly.com/shukla-ajay05/30min?name=${encodeURIComponent(formData.name || '')}&email=${encodeURIComponent(formData.email || '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-4 bg-[#009E73] hover:bg-[#007a5a] text-white font-bold text-sm rounded-xl transition shadow-md"
               >
-                <Calendar className="w-4 h-4 mr-2" /> Book a 30-Min Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
+                <Calendar className="w-4 h-4 mr-2" /> Book Your 30-Minute Architecture Review <ArrowRight className="w-4 h-4 ml-2" />
               </a>
             </div>
 
             <div className="hidden print:block text-xs font-mono font-bold text-[#009E73]">
-              <a href="https://calendly.com/shukla-ajay05/30min" target="_blank" rel="noopener noreferrer" className="underline">
+              <a href={`https://calendly.com/shukla-ajay05/30min?name=${encodeURIComponent(formData.name || '')}&email=${encodeURIComponent(formData.email || '')}`} target="_blank" rel="noopener noreferrer" className="underline">
                 Book online: calendly.com/shukla-ajay05/30min
               </a>
             </div>

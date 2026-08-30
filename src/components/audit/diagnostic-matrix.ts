@@ -59,6 +59,18 @@ export interface DiagnosticRule {
   evaluate: (ctx: DiagnosticInputContext) => DiagnosticOutput;
 }
 
+export function isInstitutionalB2B(ctx: DiagnosticInputContext): boolean {
+  const combinedText = [
+    ctx.market || "",
+    ctx.product || "",
+    ctx.industry || "",
+    ctx.current_systems || "",
+    ctx.interested_services || "",
+  ].join(" ");
+
+  return /\b(banks?\s+(and|&)?\s+financial\s+institutions?|financial\s+institutions?|institutional\s+(buyers?|procurement|clients?)|enterprise\s+(procurement|buyers?|clients?|rfp)|selling\s+to\s+banks?|b2b\s+payment\s+gateway|escrow\s+apis?)\b/i.test(combinedText);
+}
+
 export const DIAGNOSTIC_RULES: DiagnosticRule[] = [
   // 1. Rule 1: Vendor Proposal Due Diligence & Technical Review
   {
@@ -80,6 +92,30 @@ export const DIAGNOSTIC_RULES: DiagnosticRule[] = [
       what_we_recommend: "Independent vendor proposal evaluation, software architecture code audit, and fractional CTO governance.",
       what_we_do_not_recommend: "Do NOT approve vendor software proposals or release major development milestones without independent technical due diligence.",
       suggested_first_action: "Review contract scope, licensing architecture, and vendor pricing with an independent fractional CTO.",
+      relevant_service_name: "Technology Due Diligence & Vendor Evaluation",
+      relevant_service_url: "/advisory",
+      evidence_url: "/evidence/sattvaos",
+      suggest_discovery_call: true,
+      facts: buildFacts(ctx),
+      measurements: buildMeasurements(ctx),
+    }),
+  },
+
+  // 1b. Rule 1b: Enterprise & Institutional B2B Governance
+  {
+    id: "RULE-01B-ENTERPRISE-B2B",
+    name: "Enterprise & Institutional B2B Governance",
+    priority: 1.5,
+    condition: (ctx) => isInstitutionalB2B(ctx),
+    evaluate: (ctx) => ({
+      id: "RULE-01B-ENTERPRISE-B2B",
+      track: "TECH_ADVISORY",
+      primary_bottleneck: "Enterprise Architecture & Institutional Due Diligence",
+      verdict_headline: "For enterprise technology providers selling to banks and financial institutions, technical architecture, API security, and governance dictate commercial credibility.",
+      why_this_matters: "Institutional buyers and financial institutions evaluate security compliance, API reliability, and enterprise architecture over consumer search marketing.",
+      what_we_recommend: "Enterprise platform architecture evaluation, API security review, and fractional CTO governance.",
+      what_we_do_not_recommend: "Do NOT spend capital on consumer SEO campaigns or generic marketing retainers for institutional enterprise sales.",
+      suggested_first_action: "Review technical architecture specifications and enterprise security compliance.",
       relevant_service_name: "Technology Due Diligence & Vendor Evaluation",
       relevant_service_url: "/advisory",
       evidence_url: "/evidence/sattvaos",
@@ -261,7 +297,10 @@ export const DIAGNOSTIC_RULES: DiagnosticRule[] = [
       (ctx.performance_score === undefined || ctx.performance_score >= 60) &&
       ctx.seo_score !== undefined &&
       ctx.seo_score > 0 &&
-      ctx.seo_score < 50,
+      ctx.seo_score < 50 &&
+      !/\b(bank|financial institution|government|vendor proposal|rfp|enterprise contract|due diligence|escrow)\b/i.test(
+        (ctx.market || "") + " " + (ctx.product || "") + " " + (ctx.current_systems || "")
+      ),
     evaluate: (ctx) => ({
       id: "RULE-08-POOR-SEO",
       track: "SEO_GROWTH",
