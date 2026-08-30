@@ -166,7 +166,7 @@ export const DIAGNOSTIC_RULES: DiagnosticRule[] = [
       track: "WEB_REBUILD",
       primary_bottleneck: "Severe Platform Speed & Performance Degradation",
       verdict_headline: `Your website suffers from severe technical performance bottlenecks (Performance Score: ${ctx.performance_score}/100), driving visitors away before they convert.`,
-      why_this_matters: "Slow load times on mobile devices trigger heavy bounce rates and penalize organic Google search rankings.",
+      why_this_matters: "Severe load latency on mobile devices frequently increases visitor bounce rates and can negatively affect organic Google search visibility.",
       what_we_recommend: "Re-engineer core platform architecture or perform structural performance refactoring to achieve sub-second load times.",
       what_we_do_not_recommend: `Do NOT spend money buying more SEO traffic while page load speed remains severely degraded (${ctx.performance_score}/100).`,
       suggested_first_action: "Run a full code and server performance audit.",
@@ -222,8 +222,8 @@ export const DIAGNOSTIC_RULES: DiagnosticRule[] = [
       track: "WEB_OPTIMIZATION",
       primary_bottleneck: "Leaky Conversion Funnel & UX Friction",
       verdict_headline: "Your website receives traffic but fails to convert visitors into qualified enquiries.",
-      why_this_matters: "Driving more traffic into a non-converting website wastes budget. The dropoff is caused by unclear value propositions, weak CTA placement, or mobile UX friction.",
-      what_we_recommend: "Refactor page layout, sharpen value propositions, streamline contact forms, and eliminate UX conversion friction.",
+      why_this_matters: "Driving more traffic into a non-converting website wastes marketing budget. Conversion dropoff is typically associated with unclear offer positioning, weak call-to-action placement, or mobile layout friction.",
+      what_we_recommend: "Refactor page layout, sharpen value propositions, streamline contact forms, and address UX conversion friction.",
       what_we_do_not_recommend: "Do NOT buy more SEO traffic or ad campaigns until conversion rate optimization is complete.",
       suggested_first_action: "Run a conversion UX audit on your primary landing page.",
       relevant_service_name: "Website Redesign & Conversion UX",
@@ -262,21 +262,21 @@ export const DIAGNOSTIC_RULES: DiagnosticRule[] = [
     }),
   },
 
-  // 7. Rule 7: Multi-Tenant Marketplace / Custom Platform
+  // 7. Rule 7: Enterprise Custom Platform Architecture Scope
   {
-    id: "RULE-07-MARKETPLACE",
-    name: "Custom Marketplace Architecture",
+    id: "RULE-07-ENTERPRISE-PLATFORM",
+    name: "Enterprise Custom Architecture Scope",
     priority: 7,
     condition: (ctx) =>
-      /\b(marketplace|multi-vendor|multi tenant|custom platform|enterprise platform)\b/i.test(
-        (ctx.product || "") + " " + (ctx.interested_services || "")
+      /\b(custom platform|multi-vendor|marketplace|portal|saas|complex software)\b/i.test(
+        (ctx.product || "") + " " + (ctx.current_systems || "") + " " + (ctx.interested_services || "")
       ),
     evaluate: (ctx) => ({
-      id: "RULE-07-MARKETPLACE",
-      track: "TECH_ADVISORY",
-      primary_bottleneck: "Platform Architecture & System Scalability",
-      verdict_headline: "Building a multi-tenant marketplace requires custom system architecture and security governance.",
-      why_this_matters: "Off-the-shelf website builders break under complex multi-vendor workflows, custom user roles, and database concurrency demands.",
+      id: "RULE-07-ENTERPRISE-PLATFORM",
+      track: "WEB_REBUILD",
+      primary_bottleneck: "Custom Platform Architecture & API Integration",
+      verdict_headline: "Building a scalable custom platform requires explicit API boundaries and decoupled architecture.",
+      why_this_matters: "Attempting to build complex SaaS or marketplace portals on monolithic website builders creates technical debt and performance bottlenecks.",
       what_we_recommend: "Architect a custom, decoupled platform stack with robust API boundaries, role-based access control, and automated testing.",
       what_we_do_not_recommend: "Do NOT attempt to build a multi-vendor marketplace using generic website templates or visual page builders.",
       suggested_first_action: "Review system architecture blueprint and database schema specifications.",
@@ -308,7 +308,7 @@ export const DIAGNOSTIC_RULES: DiagnosticRule[] = [
       track: "SEO_GROWTH",
       primary_bottleneck: "Technical SEO & Search Indexation Friction",
       verdict_headline: `Your website performance is stable (Performance Score: ${ctx.performance_score || 'N/A'}/100), but technical SEO flaws limit your search visibility (SEO Score: ${ctx.seo_score}/100).`,
-      why_this_matters: "Missing schema markup, canonical errors, unindexed pages, and weak meta structure prevent search engines from ranking your core service pages.",
+      why_this_matters: "Missing schema markup, canonical errors, unindexed pages, and weak meta structure can restrict search engines from indexing and ranking your core service pages.",
       what_we_recommend: "Execute a technical SEO audit to fix crawl barriers, implement structured JSON-LD schema, and build search-intent content.",
       what_we_do_not_recommend: "Do NOT rebuild your website. Your performance is solid — focus purely on technical SEO and organic search indexation.",
       suggested_first_action: "Fix indexation errors and implement schema markup across service pages.",
@@ -334,7 +334,7 @@ export const DIAGNOSTIC_RULES: DiagnosticRule[] = [
       track: "WEB_OPTIMIZATION",
       primary_bottleneck: "Targeted Refactoring & Micro-Optimization",
       verdict_headline: `Your website foundation is strong (Performance Score: ${ctx.performance_score || 85}/100). A full website rebuild is commercially unjustified.`,
-      why_this_matters: "Rebuilding a healthy website wastes development budget. Incremental improvements to messaging, speed, and CTA placement yield faster ROI.",
+      why_this_matters: "Rebuilding a healthy website wastes development budget. Incremental improvements to messaging, speed, and CTA placement yield faster operational and conversion improvements.",
       what_we_recommend: "Targeted optimization of mobile layout, headline clarity, and conversion elements.",
       what_we_do_not_recommend: "Do NOT invest in a full custom website redesign. Your current technical foundation is healthy.",
       suggested_first_action: "Execute incremental conversion rate optimization.",
