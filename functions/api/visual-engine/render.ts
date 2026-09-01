@@ -1,6 +1,5 @@
 import React from 'react';
-import satori from 'satori';
-import { Resvg, initWasm } from '@resvg/resvg-wasm';
+import { ImageResponse } from 'workers-og';
 
 // Master 01 Insight Template JSX
 function Master01Insight({ headline, supportingText, category }: { headline: string; supportingText: string; category: string }) {
@@ -140,40 +139,40 @@ function Master01Insight({ headline, supportingText, category }: { headline: str
   );
 }
 
-let wasmInitialized = false;
-
-async function ensureWasmInitialized() {
-  if (!wasmInitialized) {
-    try {
-      const wasmRes = await fetch('https://unpkg.com/@resvg/resvg-wasm@2.6.2/index_bg.wasm');
-      await initWasm(wasmRes);
-      wasmInitialized = true;
-    } catch (e) {
-      console.error('WASM Init Error:', e);
-    }
-  }
-}
-
 export const onRequestGet = async (context: any) => {
   try {
     const url = new URL(context.request.url);
-    const headline = url.searchParams.get('insight_headline') || url.searchParams.get('headline') || 'System Architecture and Engineering Intelligence';
-    const supportingText = url.searchParams.get('supporting_text') || 'Purpose-built architecture eliminates operational friction and scales effortlessly.';
-    const category = (url.searchParams.get('category_badge_text') || url.searchParams.get('category') || 'ENGINEERING').toUpperCase();
+    const headline =
+      url.searchParams.get('insight_headline') ||
+      url.searchParams.get('headline') ||
+      'System Architecture and Engineering Intelligence';
+    const supportingText =
+      url.searchParams.get('supporting_text') ||
+      'Purpose-built architecture eliminates operational friction and scales effortlessly.';
+    const category = (
+      url.searchParams.get('category_badge_text') ||
+      url.searchParams.get('category') ||
+      'ENGINEERING'
+    ).toUpperCase();
 
-    // 1. Ensure WASM is initialized
-    await ensureWasmInitialized();
-
-    // 2. Fetch Poppins Font
+    // 1. Fetch Poppins Font
     const origin = url.origin;
     const fontRes = await fetch(origin + '/fonts/Poppins-Bold.ttf');
+    if (!fontRes.ok) {
+      throw new Error(`Failed to load font from ${origin}/fonts/Poppins-Bold.ttf (status ${fontRes.status})`);
+    }
     const fontData = await fontRes.arrayBuffer();
 
-    // 3. Render JSX to SVG via Satori
+    // 2. Render JSX via workers-og ImageResponse
     const element = Master01Insight({ headline, supportingText, category });
-    const svg = await satori(element, {
+
+    return new ImageResponse(element, {
       width: 1080,
       height: 1080,
+      headers: {
+        'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+        'Access-Control-Allow-Origin': '*'
+      },
       fonts: [
         {
           name: 'Poppins',
@@ -182,23 +181,6 @@ export const onRequestGet = async (context: any) => {
           style: 'normal'
         }
       ]
-    });
-
-    // 4. Convert SVG to PNG via resvg-wasm
-    const resvg = new Resvg(svg, {
-      fitTo: { mode: 'width', value: 1080 },
-      background: '#ffffff'
-    });
-    const pngBuffer = resvg.render().asPng();
-
-    return new Response(pngBuffer as any, {
-      status: 200,
-      headers: {
-        'Content-Type': 'image/png',
-        'Content-Length': pngBuffer.length.toString(),
-        'Cache-Control': 'public, max-age=86400, s-maxage=86400',
-        'Access-Control-Allow-Origin': '*'
-      }
     });
   } catch (err: any) {
     return new Response(JSON.stringify({ error: err.message, stack: err.stack }), {
