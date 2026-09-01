@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DigiXProTemplateSchema",
+  "type": "object",
+  "required": [
+    "template_id",
+    "name",
+    "format",
+    "width",
+    "height",
+    "category",
+    "required_fields"
+  ],
+  "properties": {
+    "template_id": {
+      "type": "string",
+      "enum": [
+        "master_01_insight",
+        "master_02_problem_solution",
+        "master_03_framework",
+        "master_04_architecture",
+        "master_05_data_signal",
+        "master_06_case_study",
+        "master_07_comparison",
+        "master_08_announcement",
+        "master_09_occasion",
+        "master_10_testimonial"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "format": {
+      "type": "string",
+      "enum": [
+        "1080x1080",
+        "1080x1920"
+      ]
+    },
+    "width": {
+      "type": "integer",
+      "enum": [
+        1080
+      ]
+    },
+    "height": {
+      "type": "integer",
+      "enum": [
+        1080,
+        1920
+      ]
+    },
+    "category": {
+      "type": "string"
+    },
+    "default_background_id": {
+      "type": "string"
+    },
+    "allowed_background_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "has_icon_slot": {
+      "type": "boolean"
+    },
+    "has_partner_logo_slot": {
+      "type": "boolean"
+    },
+    "has_identity_slot": {
+      "type": "boolean"
+    },
+    "required_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "optional_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "field_constraints": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "max_length": {
+            "type": "integer"
+          },
+          "max_lines": {
+            "type": "integer"
+          },
+          "recommended_length": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

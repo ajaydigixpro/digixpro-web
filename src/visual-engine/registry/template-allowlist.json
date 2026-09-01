@@ -1,0 +1,237 @@
+{
+  "master_01_insight": {
+    "allowed_asset_types": [
+      "brand_logo",
+      "background"
+    ],
+    "allowed_background_ids": [
+      "bg_insight_code_clean",
+      "bg_family_base_light",
+      "bg_family_radial_focus"
+    ],
+    "has_icon_slot": false,
+    "has_partner_logo_slot": false,
+    "has_identity_slot": false,
+    "required_fields": [
+      "insight_headline",
+      "supporting_text"
+    ],
+    "optional_fields": []
+  },
+  "master_02_problem_solution": {
+    "allowed_asset_types": [
+      "brand_logo",
+      "background"
+    ],
+    "allowed_background_ids": [
+      "bg_family_base_light",
+      "bg_family_radial_focus"
+    ],
+    "has_icon_slot": false,
+    "has_partner_logo_slot": false,
+    "has_identity_slot": false,
+    "required_fields": [
+      "problem_headline",
+      "problem_supporting_text",
+      "solution_headline",
+      "solution_supporting_text"
+    ],
+    "optional_fields": []
+  },
+  "master_03_framework": {
+    "allowed_asset_types": [
+      "brand_logo",
+      "background"
+    ],
+    "allowed_background_ids": [
+      "bg_family_base_light",
+      "bg_family_radial_focus",
+      "bg_family_geometric_subtle"
+    ],
+    "has_icon_slot": false,
+    "has_partner_logo_slot": false,
+    "has_identity_slot": false,
+    "required_fields": [
+      "framework_headline",
+      "framework_step_1",
+      "framework_description_1",
+      "framework_step_2",
+      "framework_description_2",
+      "framework_step_3",
+      "framework_description_3",
+      "framework_summary"
+    ],
+    "optional_fields": []
+  },
+  "master_04_architecture": {
+    "allowed_asset_types": [
+      "brand_logo",
+      "background"
+    ],
+    "allowed_background_ids": [
+      "bg_family_base_light",
+      "bg_family_geometric_subtle"
+    ],
+    "has_icon_slot": false,
+    "has_partner_logo_slot": false,
+    "has_identity_slot": false,
+    "required_fields": [
+      "architecture_headline",
+      "architecture_step_1",
+      "architecture_detail_1",
+      "architecture_step_2",
+      "architecture_detail_2",
+      "architecture_step_3",
+      "architecture_detail_3",
+      "architecture_step_4",
+      "architecture_detail_4",
+      "architecture_summary"
+    ],
+    "optional_fields": []
+  },
+  "master_05_data_signal": {
+    "allowed_asset_types": [
+      "brand_logo",
+      "background"
+    ],
+    "allowed_background_ids": [
+      "bg_family_signal_data",
+      "bg_family_base_light",
+      "bg_family_radial_focus"
+    ],
+    "has_icon_slot": false,
+    "has_partner_logo_slot": false,
+    "has_identity_slot": false,
+    "required_fields": [
+      "data_headline",
+      "metric",
+      "metric_label",
+      "short_context"
+    ],
+    "optional_fields": [
+      "source_period_context"
+    ]
+  },
+  "master_06_case_study": {
+    "allowed_asset_types": [
+      "brand_logo",
+      "background"
+    ],
+    "allowed_background_ids": [
+      "bg_family_base_light"
+    ],
+    "has_icon_slot": false,
+    "has_partner_logo_slot": false,
+    "has_identity_slot": false,
+    "required_fields": [
+      "case_study_headline",
+      "client_project_type",
+      "short_challenge",
+      "what_digixpro_changed",
+      "verified_result_outcome",
+      "case_study_summary"
+    ],
+    "optional_fields": []
+  },
+  "master_07_comparison": {
+    "allowed_asset_types": [
+      "brand_logo",
+      "background"
+    ],
+    "allowed_background_ids": [
+      "bg_family_base_light",
+      "bg_family_radial_focus"
+    ],
+    "has_icon_slot": false,
+    "has_partner_logo_slot": false,
+    "has_identity_slot": false,
+    "required_fields": [
+      "comparison_headline",
+      "before_heading",
+      "after_heading",
+      "before_point_1",
+      "after_point_1",
+      "before_point_2",
+      "after_point_2",
+      "before_point_3",
+      "after_point_3",
+      "comparison_summary"
+    ],
+    "optional_fields": [
+      "client_project_type"
+    ]
+  },
+  "master_08_announcement": {
+    "allowed_asset_types": [
+      "brand_logo",
+      "partner_logo",
+      "background"
+    ],
+    "allowed_background_ids": [
+      "bg_family_announcement",
+      "bg_family_base_light",
+      "bg_family_radial_focus",
+      "bg_family_geometric_subtle"
+    ],
+    "has_icon_slot": false,
+    "has_partner_logo_slot": true,
+    "has_identity_slot": false,
+    "required_fields": [
+      "announcement_headline",
+      "main_message"
+    ],
+    "optional_fields": [
+      "announcement_subtitle",
+      "supporting_detail",
+      "date_context",
+      "partner_logo_id"
+    ]
+  },
+  "master_09_occasion": {
+    "allowed_asset_types": [
+      "brand_logo",
+      "background"
+    ],
+    "allowed_background_ids": [
+      "bg_family_base_light",
+      "bg_family_radial_focus"
+    ],
+    "has_icon_slot": false,
+    "has_partner_logo_slot": false,
+    "has_identity_slot": false,
+    "required_fields": [
+      "occasion_name",
+      "greeting_headline",
+      "relevant_message",
+      "line_message"
+    ],
+    "optional_fields": [
+      "date_context"
+    ]
+  },
+  "master_10_testimonial": {
+    "allowed_asset_types": [
+      "brand_logo",
+      "client_photo",
+      "client_logo",
+      "background"
+    ],
+    "allowed_background_ids": [
+      "bg_family_base_light",
+      "bg_family_radial_focus"
+    ],
+    "has_icon_slot": false,
+    "has_partner_logo_slot": false,
+    "has_identity_slot": true,
+    "required_fields": [
+      "client_name",
+      "company_role",
+      "quote"
+    ],
+    "optional_fields": [
+      "optional_context",
+      "client_photo_id",
+      "client_logo_id"
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DigiXProAssetSchema",
+  "type": "object",
+  "required": [
+    "asset_id",
+    "asset_type",
+    "background_source",
+    "approved"
+  ],
+  "properties": {
+    "asset_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "brand_logo",
+        "partner_logo",
+        "client_logo",
+        "client_photo",
+        "icon",
+        "background",
+        "font"
+      ]
+    },
+    "background_source": {
+      "type": "string",
+      "enum": [
+        "code",
+        "approved_asset",
+        "prototype_unresolved"
+      ],
+      "description": "Must be 'code' or 'approved_asset'. Canva-master-derived is strictly prohibited for production."
+    },
+    "provenance": {
+      "type": "string",
+      "description": "Full origin, licensing, and creation chain for the asset."
+    },
+    "file_path": {
+      "type": "string"
+    },
+    "width_px": {
+      "type": "integer"
+    },
+    "height_px": {
+      "type": "integer"
+    },
+    "aspect_ratio": {
+      "type": "number"
+    },
+    "transparent": {
+      "type": "boolean"
+    },
+    "theme": {
+      "type": "string"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approved": {
+      "type": "boolean"
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_at": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

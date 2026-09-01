@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "@resvg/resvg-wasm": "^2.6.2",
     "@swc/helpers": "^0.5.23",
     "@types/three": "^0.185.4",
     "gsap": "^3.15.0",
@@ -21,6 +23,7 @@
     "pdf-lib": "^1.17.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "satori": "^0.33.4",
     "three": "^0.185.1",
     "xlsx": "^0.18.5"
   },
