@@ -91,7 +91,7 @@ export const Master10Testimonial: React.FC<Master10Props> = ({
           overflow: 'hidden',
           backgroundColor: '#ffffff',
           border: '1.5px solid #d1fae5',
-          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)',
+          
         }}
       >
         <div
@@ -110,7 +110,7 @@ export const Master10Testimonial: React.FC<Master10Props> = ({
                 <ClientPhoto
                   photoSrc={clientPhotoUri}
                   sizePx={82}
-                  style={{ border: '2.5px solid #ffffff', borderRadius: 9999 }}
+                  style={{ border: '2.5px solid #ffffff', borderRadius: '50%' }}
                 />
               </div>
             )}

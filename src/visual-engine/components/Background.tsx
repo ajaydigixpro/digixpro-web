@@ -12,13 +12,6 @@ export interface BackgroundProps {
 /**
  * DigiXPro Unified Background System (BackgroundFamily):
  * 100% Deterministic Code-Defined Primitives
- * - base_light: Crisp neutral light background with subtle slate guide
- * - radial_focus: Central illuminated focus area with restrained DigiXPro emerald undertone
- * - geometric_subtle: Vector isometric / grid accents maintaining restrained density
- * - pattern_subtle: Subtle dot matrix / signal field
- * - editorial_desk_code: Minimalist high-key frame with top-right vector lightbulb sketch
- * - signal_subtle: Clean geometric wave and concentric radar circles for Data/Signal
- * - announcement_subtle: Clean geometric radial arcs and dot matrix for Announcements
  */
 export const Background: React.FC<BackgroundProps> = ({
   variant = 'base_light',
@@ -145,18 +138,7 @@ export const Background: React.FC<BackgroundProps> = ({
       >
         <svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" style={{ position: 'absolute', top: 0, left: 0 }}>
           <line x1="80" y1="150" x2="1000" y2="150" stroke="#e2e8f0" strokeWidth="1.2" strokeOpacity="0.9" />
-          {[0, 1, 2, 3, 4].map((col) =>
-            [0, 1, 2].map((row) => (
-              <circle
-                key={`dot-${col}-${row}`}
-                cx={440 + col * 20}
-                cy={95 + row * 18}
-                r="2"
-                fill="#009E73"
-                fillOpacity="0.18"
-              />
-            ))
-          )}
+          <circle cx="540" cy="150" r="3" fill="#009E73" fillOpacity="0.5" />
           <line x1="80" y1="950" x2="1000" y2="950" stroke="#e2e8f0" strokeWidth="1" strokeOpacity="0.5" />
         </svg>
       </div>
@@ -214,26 +196,9 @@ export const Background: React.FC<BackgroundProps> = ({
         }}
       >
         <svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" style={{ position: 'absolute', top: 0, left: 0 }}>
-          <path
-            d="M 500 0 Q 750 350 700 700 T 1080 1080"
-            stroke="#009E73"
-            strokeWidth="1.5"
-            strokeOpacity="0.08"
-            fill="none"
-          />
-          {[0, 1, 2, 3].map((col) =>
-            [0, 1, 2, 3].map((row) => (
-              <circle
-                key={`sig-dot-${col}-${row}`}
-                cx={860 + col * 26}
-                cy={400 + row * 26}
-                r="2.5"
-                fill="#009E73"
-                fillOpacity="0.25"
-              />
-            ))
-          )}
-          <circle cx="130" cy="780" r="26" stroke="#007953" strokeWidth="2.5" strokeOpacity="0.6" fill="none" />
+          <circle cx="540" cy="450" r="380" stroke="#009E73" strokeWidth="1" strokeOpacity="0.08" />
+          <line x1="80" y1="150" x2="1000" y2="150" stroke="#e2e8f0" strokeWidth="1.2" strokeOpacity="0.9" />
+          <circle cx="130" cy="780" r="26" stroke="#007953" strokeWidth="2" strokeOpacity="0.4" fill="none" />
         </svg>
       </div>
     );
@@ -256,32 +221,9 @@ export const Background: React.FC<BackgroundProps> = ({
         }}
       >
         <svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" style={{ position: 'absolute', top: 0, left: 0 }}>
-          {[0, 1, 2, 3, 4, 5].map((col) =>
-            [0, 1, 2].map((row) => (
-              <circle
-                key={`left-wing-${col}-${row}`}
-                cx={30 + col * 18}
-                cy={270 + row * 18}
-                r="2"
-                fill="#94a3b8"
-                fillOpacity="0.4"
-              />
-            ))
-          )}
-          {[0, 1, 2, 3, 4, 5].map((col) =>
-            [0, 1, 2].map((row) => (
-              <circle
-                key={`right-wing-${col}-${row}`}
-                cx={950 + col * 18}
-                cy={270 + row * 18}
-                r="2"
-                fill="#94a3b8"
-                fillOpacity="0.4"
-              />
-            ))
-          )}
-          <path d="M 1080 200 C 600 400 400 800 200 1080" stroke="#009E73" strokeWidth="1" strokeOpacity="0.08" fill="none" />
-          <path d="M 1080 300 C 700 480 500 850 350 1080" stroke="#009E73" strokeWidth="1" strokeOpacity="0.06" fill="none" />
+          <circle cx="540" cy="400" r="320" stroke="#009E73" strokeWidth="1" strokeOpacity="0.07" />
+          <line x1="80" y1="150" x2="1000" y2="150" stroke="#e2e8f0" strokeWidth="1.2" strokeOpacity="0.9" />
+          <line x1="80" y1="950" x2="1000" y2="950" stroke="#e2e8f0" strokeWidth="1" strokeOpacity="0.5" />
         </svg>
       </div>
     );

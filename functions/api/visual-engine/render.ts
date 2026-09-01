@@ -148,7 +148,7 @@ export const onRequestGet = async (context: any) => {
           announcement_date_context: url.searchParams.get('announcement_date_context') || 'SEPTEMBER 2026',
           category_badge_text: (url.searchParams.get('category_badge_text') || 'ANNOUNCEMENT').toUpperCase()
         };
-        element = React.createElement(Master08Announcement, { data, backgroundVariant: 'radial_focus' });
+        element = React.createElement(Master08Announcement, { data });
         break;
       }
 
