@@ -41,11 +41,12 @@ export default function Navbar() {
         {/* BRAND LOGO */}
         <Link href="/" className="flex items-center space-x-2" aria-label="DigiXPro — Go to homepage">
           <Image 
-            src="/logo.svg?v=2"
+            src="/transparent_logo.png"
             alt="DigiXPro Logo" 
-            width={160} 
-            height={40} 
+            width={160}
+            height={31} 
             className="h-9 w-auto object-contain dark:invert"
+            priority
           />
         </Link>
 

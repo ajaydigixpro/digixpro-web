@@ -3,9 +3,10 @@ import { ImageResponse } from 'workers-og';
 import { Master01Insight } from '../../../src/visual-engine/templates/master_01_insight';
 import { Master01Payload } from '../../../src/visual-engine/renderer/types';
 
-// In-isolate font cache to avoid redundant subrequests
+// In-isolate font & asset cache to avoid redundant subrequests
 let cachedBold: ArrayBuffer | null = null;
 let cachedSemiBold: ArrayBuffer | null = null;
+let cachedBgDataUri: string | null = null;
 
 async function getFonts(origin: string) {
   if (!cachedBold) {
@@ -42,6 +43,19 @@ async function getFonts(origin: string) {
   ];
 }
 
+async function getBackground(origin: string): Promise<string> {
+  if (!cachedBgDataUri) {
+    const res = await fetch(`${origin}/backgrounds/bg_insight_default.png`);
+    if (!res.ok) {
+      throw new Error(`Failed to load background from ${origin}/backgrounds/bg_insight_default.png (status ${res.status})`);
+    }
+    const buf = await res.arrayBuffer();
+    const base64 = Buffer.from(buf).toString('base64');
+    cachedBgDataUri = `data:image/png;base64,${base64}`;
+  }
+  return cachedBgDataUri;
+}
+
 export const onRequestGet = async (context: any) => {
   try {
     const url = new URL(context.request.url);
@@ -63,7 +77,10 @@ export const onRequestGet = async (context: any) => {
     const origin = url.origin;
     const fonts = await getFonts(origin);
 
-    // 2. Build Canonical Master01 Payload
+    // 2. Fetch & Cache Canonical Background
+    const bgDataUri = await getBackground(origin);
+
+    // 3. Build Canonical Master01 Payload
     const data: Master01Payload = {
       template_id: 'master_01_insight',
       insight_headline: headline,
@@ -71,10 +88,10 @@ export const onRequestGet = async (context: any) => {
       category_badge_text: category
     };
 
-    // 3. Render Canonical Master01Insight Template
+    // 4. Render Canonical Master01Insight Template
     const element = React.createElement(Master01Insight, {
       data,
-      backgroundVariant: 'editorial_desk_code'
+      bgDataUri
     });
 
     return new ImageResponse(element, {
@@ -93,4 +110,5 @@ export const onRequestGet = async (context: any) => {
     });
   }
 };
+
 

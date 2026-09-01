@@ -3,15 +3,15 @@
     "asset_id": "brand_logo_digixpro",
     "asset_type": "brand_logo",
     "background_source": "approved_asset",
-    "provenance": "Official DigiXPro SVG Wordmark + Icon Mark (DigiXPro Brand Identity)",
-    "file_path": "public/logo-1024.png",
-    "width_px": 1026,
-    "height_px": 308,
-    "aspect_ratio": 3.33,
-    "transparent": false,
+    "provenance": "Official DigiXPro Transparent Logo (DigiXPro Brand Identity)",
+    "file_path": "public/transparent_logo.png",
+    "width_px": 600,
+    "height_px": 117,
+    "aspect_ratio": 5.128,
+    "transparent": true,
     "approved": true,
     "approved_by": "Ajay",
-    "approved_at": "2026-08-30T00:00:00.000Z"
+    "approved_at": "2026-09-01T00:00:00.000Z"
   },
   "bg_insight_code_clean": {
     "asset_id": "bg_insight_code_clean",

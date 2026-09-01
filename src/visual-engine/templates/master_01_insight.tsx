@@ -70,9 +70,9 @@ export const Master01Insight: React.FC<Master01Props> = ({
           alignItems: 'center',
           justifyContent: 'center',
           position: 'absolute',
-          top: 230,
-          left: 160,
-          width: 760,
+          top: 225,
+          left: 210,
+          width: 660,
         }}
       >
         <div
@@ -86,7 +86,7 @@ export const Master01Insight: React.FC<Master01Props> = ({
             textAlign: 'center',
             textTransform: 'uppercase',
             letterSpacing: '1px',
-            maxWidth: 740,
+            maxWidth: 640,
           }}
         >
           {headline}
@@ -95,7 +95,7 @@ export const Master01Insight: React.FC<Master01Props> = ({
         <div
           style={{
             display: 'flex',
-            marginTop: 24,
+            marginTop: 22,
             fontFamily: 'Poppins',
             fontWeight: 600,
             fontSize: 20,
@@ -104,7 +104,7 @@ export const Master01Insight: React.FC<Master01Props> = ({
             textAlign: 'center',
             textTransform: 'uppercase',
             letterSpacing: '1.2px',
-            maxWidth: 700,
+            maxWidth: 620,
           }}
         >
           {supportingText}
