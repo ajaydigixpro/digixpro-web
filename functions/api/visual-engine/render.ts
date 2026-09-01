@@ -16,61 +16,15 @@ import {
   Master08Payload,
   Master10Payload
 } from '../../../src/visual-engine/renderer/types';
-
-// In-isolate font & asset cache
-let cachedBold: ArrayBuffer | null = null;
-let cachedSemiBold: ArrayBuffer | null = null;
-let cachedBgDataUri: string | null = null;
-
-async function getFonts(origin: string) {
-  if (!cachedBold || !cachedSemiBold) {
-    const [boldRes, semiBoldRes] = await Promise.all([
-      fetch(`${origin}/fonts/Poppins-Bold.ttf`),
-      fetch(`${origin}/fonts/Poppins-SemiBold.ttf`)
-    ]);
-    if (!boldRes.ok) {
-      throw new Error(`Failed to load font from ${origin}/fonts/Poppins-Bold.ttf (status ${boldRes.status})`);
-    }
-    cachedBold = await boldRes.arrayBuffer();
-    cachedSemiBold = semiBoldRes.ok ? await semiBoldRes.arrayBuffer() : cachedBold;
-  }
-
-  return [
-    {
-      name: 'Poppins',
-      data: cachedBold,
-      weight: 700 as const,
-      style: 'normal' as const
-    },
-    {
-      name: 'Poppins',
-      data: cachedSemiBold,
-      weight: 600 as const,
-      style: 'normal' as const
-    }
-  ];
-}
-
-async function getBackground(origin: string): Promise<string> {
-  if (!cachedBgDataUri) {
-    const res = await fetch(`${origin}/backgrounds/bg_insight_default.png`);
-    if (!res.ok) {
-      throw new Error(`Failed to load background from ${origin}/backgrounds/bg_insight_default.png (status ${res.status})`);
-    }
-    const buf = await res.arrayBuffer();
-    const base64 = Buffer.from(buf).toString('base64');
-    cachedBgDataUri = `data:image/png;base64,${base64}`;
-  }
-  return cachedBgDataUri;
-}
+import { getEmbeddedFonts } from '../../../src/visual-engine/renderer/embedded-fonts';
+import { DEFAULT_INSIGHT_BG_DATA_URI } from '../../../src/visual-engine/renderer/embedded-backgrounds';
 
 export const onRequestGet = async (context: any) => {
   try {
     const url = new URL(context.request.url);
     const templateId = url.searchParams.get('template_id') || 'master_01_insight';
 
-    const origin = url.origin;
-    const fonts = await getFonts(origin);
+    const fonts = getEmbeddedFonts();
 
     let element: React.ReactElement;
 
@@ -180,8 +134,6 @@ export const onRequestGet = async (context: any) => {
           'ENGINEERING'
         ).toUpperCase();
 
-        const bgDataUri = await getBackground(origin);
-
         const data: Master01Payload = {
           template_id: 'master_01_insight',
           insight_headline: headline,
@@ -191,7 +143,7 @@ export const onRequestGet = async (context: any) => {
 
         element = React.createElement(Master01Insight, {
           data,
-          bgDataUri
+          bgDataUri: DEFAULT_INSIGHT_BG_DATA_URI
         });
         break;
       }
