@@ -1,147 +1,51 @@
 import React from 'react';
 import { ImageResponse } from 'workers-og';
+import { Master01Insight } from '../../../src/visual-engine/templates/master_01_insight';
+import { Master01Payload } from '../../../src/visual-engine/renderer/types';
 
-// Master 01 Insight Template JSX
-function Master01Insight({ headline, supportingText, category }: { headline: string; supportingText: string; category: string }) {
-  return React.createElement(
-    'div',
+// In-isolate font cache to avoid redundant subrequests
+let cachedBold: ArrayBuffer | null = null;
+let cachedSemiBold: ArrayBuffer | null = null;
+
+async function getFonts(origin: string) {
+  if (!cachedBold) {
+    const res = await fetch(`${origin}/fonts/Poppins-Bold.ttf`);
+    if (!res.ok) {
+      throw new Error(`Failed to load font from ${origin}/fonts/Poppins-Bold.ttf (status ${res.status})`);
+    }
+    cachedBold = await res.arrayBuffer();
+  }
+
+  if (!cachedSemiBold) {
+    const res = await fetch(`${origin}/fonts/Poppins-SemiBold.ttf`);
+    if (!res.ok) {
+      // Fallback to Bold if SemiBold is unreachable
+      cachedSemiBold = cachedBold;
+    } else {
+      cachedSemiBold = await res.arrayBuffer();
+    }
+  }
+
+  return [
     {
-      style: {
-        display: 'flex',
-        flexDirection: 'column',
-        width: 1080,
-        height: 1080,
-        position: 'relative',
-        backgroundColor: '#f8fafc',
-        backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 55%, #f1f5f9 100%)',
-      }
+      name: 'Poppins',
+      data: cachedBold,
+      weight: 700 as const,
+      style: 'normal' as const
     },
-    // Background Vector Guide & Editorial Lightbulb
-    React.createElement('svg', {
-      width: 1080,
-      height: 1080,
-      viewBox: '0 0 1080 1080',
-      fill: 'none',
-      style: { position: 'absolute', top: 0, left: 0 }
-    },
-      React.createElement('line', { x1: 80, y1: 150, x2: 1000, y2: 150, stroke: '#e2e8f0', strokeWidth: 1.2, strokeOpacity: 0.9 }),
-      React.createElement('g', { transform: 'translate(930, 145) scale(0.55)', stroke: '#64748b', strokeWidth: 4.5, strokeLinecap: 'round', strokeLinejoin: 'round', fill: 'none' },
-        React.createElement('path', { d: 'M 50 15 C 32 15 20 28 20 45 C 20 58 30 68 35 78 L 35 90 L 65 90 L 65 78 C 70 68 80 58 80 45 C 80 28 68 15 50 15 Z' }),
-        React.createElement('path', { d: 'M 38 98 L 62 98' }),
-        React.createElement('path', { d: 'M 42 106 L 58 106' }),
-        React.createElement('path', { d: 'M 50 5 L 50 0' }),
-        React.createElement('path', { d: 'M 22 18 L 16 12' }),
-        React.createElement('path', { d: 'M 78 18 L 84 12' }),
-        React.createElement('path', { d: 'M 10 45 L 3 45' }),
-        React.createElement('path', { d: 'M 90 45 L 97 45' })
-      ),
-      React.createElement('line', { x1: 80, y1: 950, x2: 1000, y2: 950, stroke: '#e2e8f0', strokeWidth: 1, strokeOpacity: 0.5 })
-    ),
-    // Header (Brand Logo & Category Badge)
-    React.createElement('div', {
-      style: {
-        display: 'flex',
-        position: 'absolute',
-        top: 75,
-        left: 80,
-        right: 80,
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }
-    },
-      React.createElement('div', { style: { display: 'flex', alignItems: 'center' } },
-        React.createElement('svg', { width: 44, height: 44, viewBox: '0 0 100 100', fill: 'none', style: { marginRight: 12 } },
-          React.createElement('circle', { cx: 50, cy: 50, r: 42, stroke: '#009E73', strokeWidth: 6 }),
-          React.createElement('circle', { cx: 35, cy: 50, r: 22, stroke: '#22c55e', strokeWidth: 5 }),
-          React.createElement('circle', { cx: 65, cy: 50, r: 22, stroke: '#22c55e', strokeWidth: 5 }),
-          React.createElement('circle', { cx: 50, cy: 50, r: 8, fill: '#009E73' })
-        ),
-        React.createElement('div', { style: { display: 'flex', fontFamily: 'Poppins', fontWeight: 700, fontSize: 38, color: '#000000', letterSpacing: '-0.5px' } },
-          'DigiXPro',
-          React.createElement('span', { style: { color: '#009E73' } }, '.')
-        )
-      ),
-      React.createElement('div', {
-        style: {
-          display: 'flex',
-          backgroundColor: '#007953',
-          color: '#ffffff',
-          fontFamily: 'Poppins',
-          fontWeight: 700,
-          fontSize: 16,
-          letterSpacing: '2px',
-          padding: '6px 16px',
-          borderRadius: 4,
-          textTransform: 'uppercase'
-        }
-      }, category)
-    ),
-    // Center Body (Headline + Supporting Text)
-    React.createElement('div', {
-      style: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        top: 240,
-        left: 100,
-        width: 880,
-        height: 620,
-      }
-    },
-      React.createElement('div', {
-        style: {
-          display: 'flex',
-          fontFamily: 'Poppins',
-          fontWeight: 700,
-          fontSize: headline.length > 50 ? 40 : headline.length > 30 ? 44 : 48,
-          color: '#000000',
-          lineHeight: 1.2,
-          textAlign: 'center',
-          textTransform: 'uppercase',
-          letterSpacing: '1px',
-          maxWidth: 840,
-          marginBottom: 36
-        }
-      }, headline),
-      React.createElement('div', {
-        style: {
-          display: 'flex',
-          fontFamily: 'Poppins',
-          fontWeight: 500,
-          fontStyle: 'italic',
-          fontSize: 24,
-          color: '#0f172a',
-          lineHeight: 1.4,
-          textAlign: 'center',
-          maxWidth: 780,
-        }
-      }, supportingText)
-    ),
-    // Footer
-    React.createElement('div', {
-      style: {
-        display: 'flex',
-        position: 'absolute',
-        bottom: 45,
-        left: 80,
-        right: 80,
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontFamily: 'Poppins',
-        fontWeight: 600,
-        fontSize: 20,
-        color: '#64748b',
-        letterSpacing: '1.5px'
-      }
-    }, 'DigiXPro.in')
-  );
+    {
+      name: 'Poppins',
+      data: cachedSemiBold,
+      weight: 600 as const,
+      style: 'normal' as const
+    }
+  ];
 }
 
 export const onRequestGet = async (context: any) => {
   try {
     const url = new URL(context.request.url);
+
     const headline =
       url.searchParams.get('insight_headline') ||
       url.searchParams.get('headline') ||
@@ -152,19 +56,26 @@ export const onRequestGet = async (context: any) => {
     const category = (
       url.searchParams.get('category_badge_text') ||
       url.searchParams.get('category') ||
-      'ENGINEERING'
+      'INSIGHT'
     ).toUpperCase();
 
-    // 1. Fetch Poppins Font
+    // 1. Fetch & Cache Required Poppins Weights
     const origin = url.origin;
-    const fontRes = await fetch(origin + '/fonts/Poppins-Bold.ttf');
-    if (!fontRes.ok) {
-      throw new Error(`Failed to load font from ${origin}/fonts/Poppins-Bold.ttf (status ${fontRes.status})`);
-    }
-    const fontData = await fontRes.arrayBuffer();
+    const fonts = await getFonts(origin);
 
-    // 2. Render JSX via workers-og ImageResponse
-    const element = Master01Insight({ headline, supportingText, category });
+    // 2. Build Canonical Master01 Payload
+    const data: Master01Payload = {
+      template_id: 'master_01_insight',
+      insight_headline: headline,
+      supporting_text: supportingText,
+      category_badge_text: category
+    };
+
+    // 3. Render Canonical Master01Insight Template
+    const element = React.createElement(Master01Insight, {
+      data,
+      backgroundVariant: 'editorial_desk_code'
+    });
 
     return new ImageResponse(element, {
       width: 1080,
@@ -173,14 +84,7 @@ export const onRequestGet = async (context: any) => {
         'Cache-Control': 'public, max-age=86400, s-maxage=86400',
         'Access-Control-Allow-Origin': '*'
       },
-      fonts: [
-        {
-          name: 'Poppins',
-          data: fontData,
-          weight: 700,
-          style: 'normal'
-        }
-      ]
+      fonts
     });
   } catch (err: any) {
     return new Response(JSON.stringify({ error: err.message, stack: err.stack }), {
@@ -189,3 +93,4 @@ export const onRequestGet = async (context: any) => {
     });
   }
 };
+
