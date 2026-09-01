@@ -3,9 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
-import { loadProductionFonts } from 'c:/Users/shukl/digixpro-office/digixpro-web/src/visual-engine/renderer/font-loader';
-import { Background } from 'c:/Users/shukl/digixpro-office/digixpro-web/src/visual-engine/components/Background';
-import { BackgroundFamilyVariant } from 'c:/Users/shukl/digixpro-office/digixpro-web/src/visual-engine/renderer/types';
+import { loadProductionFonts } from '../renderer/font-loader';
+import { Background } from '../components/Background';
+import { BackgroundFamilyVariant } from '../renderer/types';
 
 const outputDir = path.resolve('C:/Users/shukl/.gemini/antigravity/brain/8336251b-55e8-4bd0-8e24-71a22b3f4a5e/scratch/rendered_tests');
 fs.mkdirSync(outputDir, { recursive: true });
