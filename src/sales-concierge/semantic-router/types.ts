@@ -1,6 +1,7 @@
 export interface RouterConfig {
   version: string;
-  modelName: string;
+  /** Honest, non-ML identifier for the routing engine in use. Never a model name. */
+  engineName: string;
   similarityThreshold: number; // 0.75
   marginThreshold: number; // 0.10
   highRiskStrictMargin: number; // 0.10
@@ -47,6 +48,16 @@ export interface RoutingResult {
   state_consistency_score?: number;
   user_question_raw?: string;
   active_context_summary?: Record<string, any>;
+  /** Canonical knowledge grounding retrieved from canonicalRegistry.retrieveRelevantContext(). */
+  retrieved_context?: RetrievedContext;
+}
+
+export interface RetrievedContext {
+  company: { name: string; [key: string]: any };
+  matchedServices: Array<{ id: string; name: string; canonicalUrl: string; [key: string]: any }>;
+  matchedEvidence: Array<{ id: string; name: string; canonicalUrl: string; [key: string]: any }>;
+  matchedArticles: Array<{ id: string; title: string; canonicalUrl: string; [key: string]: any }>;
+  activeUrls: Array<{ id: string; title: string; url: string; [key: string]: any }>;
 }
 
 export interface VisitorSessionState {

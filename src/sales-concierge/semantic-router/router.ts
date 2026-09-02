@@ -1,18 +1,19 @@
-import { RouterConfig, RoutingResult, VectorPrototype } from './types';
+import { RouterConfig, RoutingResult, VectorPrototype, RetrievedContext } from './types';
 import { evaluateTier0Precedence } from './precedence';
 import { SessionIsolationManager } from './session';
-import { EmbeddingProvider, LocalOnnxEmbeddingProvider } from './provider';
+import { lexicalOverlapScore, tokenize } from './provider';
+import { retrieveRelevantContext } from '../../data/canonicalRegistry';
 
 export class LocalSemanticRouter {
   private config: RouterConfig;
   private sessionManager: SessionIsolationManager;
   private prototypeRegistry: VectorPrototype[];
-  private embeddingProvider: EmbeddingProvider;
 
-  constructor(config?: Partial<RouterConfig>, initialPrototypes?: VectorPrototype[], provider?: EmbeddingProvider) {
+  constructor(config?: Partial<RouterConfig>, initialPrototypes?: VectorPrototype[]) {
     this.config = {
       version: "v1.0",
-      modelName: "multilingual-e5-small (ONNX Local)",
+      // Honest engine identifier - deterministic lexical/fuzzy routing, NOT an ML model.
+      engineName: "deterministic-lexical-fuzzy-v1",
       similarityThreshold: 0.75,
       marginThreshold: 0.10,
       highRiskStrictMargin: 0.10,
@@ -24,12 +25,11 @@ export class LocalSemanticRouter {
     };
     this.sessionManager = new SessionIsolationManager();
     this.prototypeRegistry = initialPrototypes || [];
-    this.embeddingProvider = provider || new LocalOnnxEmbeddingProvider(this.config.modelName, 384);
   }
 
   public route(input: string, sessionId: string, leadId?: string, currentPage?: string): RoutingResult {
     const session = this.sessionManager.getOrCreateSession(sessionId, leadId);
-    
+
     if (currentPage && currentPage.trim().length > 0) {
       this.sessionManager.updateSession(sessionId, { current_page: currentPage });
     }
@@ -37,6 +37,11 @@ export class LocalSemanticRouter {
     if (!session.original_goal && input.trim().length > 0) {
       this.sessionManager.updateSession(sessionId, { original_goal: input });
     }
+
+    // Canonical knowledge grounding - deterministic keyword/slug matching against
+    // canonicalRegistry, not an embedding lookup. Attached to every result so
+    // downstream response generation always has service/evidence/URL grounding.
+    const retrievedContext = this.retrieveContext(input, currentPage);
 
     // Layer 1: Tier-0 Precedence Rules (Context & Intent Precedence)
     const tier0Result = evaluateTier0Precedence(input, sessionId, currentPage, session);
@@ -47,25 +52,22 @@ export class LocalSemanticRouter {
         "FLOW-06",
         tier0Result.candidate_intent
       );
-      return tier0Result;
+      return { ...tier0Result, retrieved_context: retrievedContext };
     }
 
     const norm = input.trim().toLowerCase();
 
-    // Layer 3 & 4: Local ONNX Vector Embedding Extraction & Prototype Cosine Similarity
-    const inputVector = this.embeddingProvider.embedSync(input);
-    const queryWords = new Set(norm.split(/\s+/).filter(w => w.length > 0));
+    // Layer 2/3: Deterministic lexical/fuzzy token-overlap scoring against known
+    // prototype phrases. No embedding model, no vector inference - see provider.ts.
+    const queryWords = new Set(tokenize(input));
     const qLen = queryWords.size || 1;
 
     const intentScores: { [key: string]: { score: number; familyId: string; prototype: VectorPrototype | null } } = {};
 
     this.prototypeRegistry.forEach(proto => {
       const pWords = proto.wordSet || proto.normalized_text.split(/\s+/);
-      let intersection = 0;
-      pWords.forEach(w => { if (queryWords.has(w)) intersection++; });
+      const sim = lexicalOverlapScore(queryWords, pWords);
 
-      const sim = intersection / Math.sqrt(qLen * (pWords.length || 1));
-      
       if (!intentScores[proto.intent_id] || sim > intentScores[proto.intent_id].score) {
         intentScores[proto.intent_id] = { score: sim, familyId: proto.family_id, prototype: proto };
       }
@@ -131,23 +133,38 @@ export class LocalSemanticRouter {
       rejection_required: (confidenceStatus as string) === "FALLBACK" && norm.length <= 3,
       high_risk: isHighRisk,
       state_validation: true,
-      routing_reason: `Local ONNX prototype match (${finalIntent} score=${top1Score.toFixed(3)} margin=${margin.toFixed(3)})`,
+      routing_reason: `Deterministic lexical/fuzzy prototype match (${finalIntent} score=${top1Score.toFixed(3)} margin=${margin.toFixed(3)})`,
       prototype_reference: top1[1].prototype ? top1[1].prototype.prototype_id : undefined,
       router_version: this.config.version,
       session_id: sessionId,
       current_page: currentPage || session.current_page,
       state_consistency_score: stateConsistencyScore,
       user_question_raw: input,
-      active_context_summary: session.collected_context || {}
+      active_context_summary: session.collected_context || {},
+      retrieved_context: retrievedContext
     };
+  }
+
+  private retrieveContext(input: string, currentPage?: string): RetrievedContext {
+    return retrieveRelevantContext(input, currentPage) as RetrievedContext;
   }
 
   public getSession(sessionId: string) {
     return this.sessionManager.getOrCreateSession(sessionId);
   }
 
-  public getEmbeddingProvider(): EmbeddingProvider {
-    return this.embeddingProvider;
+  /**
+   * Seed this router's (per-request) session manager with a previously-returned
+   * session snapshot before calling route(), so multi-turn context survives
+   * across separate stateless HTTP requests without any server-side storage.
+   * Must be called before route() for the same sessionId.
+   */
+  public hydrateSession(sessionId: string, snapshot: unknown): void {
+    this.sessionManager.hydrateSession(sessionId, snapshot as any);
+  }
+
+  public getEngineName(): string {
+    return this.config.engineName;
   }
 
   public loadPrototypes(prototypes: VectorPrototype[]): void {

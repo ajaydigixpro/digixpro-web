@@ -92,6 +92,39 @@ export class SessionIsolationManager {
     this.sessions.delete(sessionId);
   }
 
+  /**
+   * Seed this manager with a previously-returned session snapshot (round-tripped
+   * by the caller, e.g. from browser localStorage) so a stateless per-request
+   * environment can continue a multi-turn conversation. The snapshot's own
+   * `session_id` is never trusted - the caller-provided `sessionId` is always
+   * authoritative, so a client can never use this to inherit a DIFFERENT
+   * session's state under its own session_id (isolation guarantee preserved).
+   * Malformed/partial snapshots are defensively normalized rather than trusted.
+   */
+  public hydrateSession(sessionId: string, snapshot: Partial<VisitorSessionState> | null | undefined): VisitorSessionState {
+    if (!sessionId || sessionId.trim().length === 0) {
+      throw new Error("CRITICAL SECURITY ERROR: Session ID is required for session isolation!");
+    }
+
+    const safeSnapshot: Partial<VisitorSessionState> =
+      (snapshot && typeof snapshot === 'object' && !Array.isArray(snapshot)) ? snapshot : {};
+
+    const hydrated: VisitorSessionState = {
+      ...safeSnapshot,
+      session_id: sessionId,
+      previous_states: Array.isArray(safeSnapshot.previous_states) ? safeSnapshot.previous_states : ["NEW_VISITOR"],
+      collected_context: (safeSnapshot.collected_context && typeof safeSnapshot.collected_context === 'object')
+        ? safeSnapshot.collected_context
+        : {},
+      journey_history: Array.isArray(safeSnapshot.journey_history) ? safeSnapshot.journey_history : [],
+      created_at: typeof safeSnapshot.created_at === 'string' ? safeSnapshot.created_at : new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+
+    this.sessions.set(sessionId, hydrated);
+    return hydrated;
+  }
+
   public getActiveSessionCount(): number {
     return this.sessions.size;
   }

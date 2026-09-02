@@ -25,6 +25,12 @@ import {
 const API_ENDPOINT = "/api/sales-concierge";
 const SESSION_STORAGE_KEY = "digixpro-sales-concierge-session";
 const CHAT_HISTORY_STORAGE_KEY = "digixpro-sales-concierge-history";
+// Round-tripped VisitorSessionState snapshot (Phase 5) - lets the stateless
+// backend continue a multi-turn conversation without any server-side session
+// store. Deliberately separate from CHAT_HISTORY_STORAGE_KEY: chat history is
+// display-only transcript, this is the router/tour engine's actual working
+// state (intent, collected answers, journey progress).
+const SESSION_STATE_STORAGE_KEY = "digixpro-sales-concierge-session-state";
 const MAX_STORED_MESSAGES = 30;
 
 export type TourActionType =
@@ -149,6 +155,29 @@ function getStoredHistory(): ChatMessage[] {
   } catch {
     window.localStorage.removeItem(CHAT_HISTORY_STORAGE_KEY);
     return [];
+  }
+}
+
+function getStoredSessionState(): unknown {
+  if (typeof window === "undefined") return undefined;
+  try {
+    const raw = window.localStorage.getItem(SESSION_STATE_STORAGE_KEY);
+    if (!raw) return undefined;
+    const parsed: unknown = JSON.parse(raw);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : undefined;
+  } catch {
+    window.localStorage.removeItem(SESSION_STATE_STORAGE_KEY);
+    return undefined;
+  }
+}
+
+function setStoredSessionState(state: unknown) {
+  if (typeof window === "undefined") return;
+  if (!state || typeof state !== "object" || Array.isArray(state)) return;
+  try {
+    window.localStorage.setItem(SESSION_STATE_STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    // Storage full or unavailable - non-fatal, next turn simply starts fresh.
   }
 }
 
@@ -289,6 +318,7 @@ export default function SalesConcierge() {
     if (typeof window !== "undefined") {
       window.localStorage.removeItem(SESSION_STORAGE_KEY);
       window.localStorage.removeItem(CHAT_HISTORY_STORAGE_KEY);
+      window.localStorage.removeItem(SESSION_STATE_STORAGE_KEY);
     }
     setMessages([]);
     setDraft("");
@@ -329,7 +359,8 @@ export default function SalesConcierge() {
         body: JSON.stringify({
           message: visitorMessage,
           session_id: getSessionId(),
-          current_page: currentPageContext
+          current_page: currentPageContext,
+          session_state: getStoredSessionState()
         }),
       });
 
@@ -340,6 +371,7 @@ export default function SalesConcierge() {
       const data = await response.json();
 
       if (data.success && data.text) {
+        setStoredSessionState(data.session_state);
         const tourStep: TourStepInfo | undefined = data.tour_step;
         const assistantEntry: ChatMessage = {
           id: nextMessageId("assistant"),
