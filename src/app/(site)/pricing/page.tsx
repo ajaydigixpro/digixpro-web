@@ -5,23 +5,24 @@ import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ProfessionalServiceSchema from "@/components/seo/ProfessionalServiceSchema";
 
 export const metadata: Metadata = {
-  title: "Pricing & Investment Guide | DigiXPro",
+  title: "Investment Guide — Digital Services Pricing in India | DigiXPro",
   description:
-    "Indicative investment ranges for website design, SEO, AI automation, and technology advisory — in INR, USD, GBP, AUD, or SGD. Exact quotes follow a free Systems Audit.",
+    "DigiXPro Investment Guide — Indicative pricing for custom website development, technical SEO, AI automation, and technology advisory in India. Exact quotes follow an audit.",
   keywords: [
     "digixpro pricing",
-    "website design cost india",
+    "website development cost india",
     "seo pricing india",
     "ai automation cost",
-    "technology advisory investment"
+    "technology advisory investment",
+    "digital services pricing in india"
   ],
   alternates: {
     canonical: "https://www.digixpro.in/pricing",
   },
   openGraph: {
-    title: "Pricing & Investment Guide | DigiXPro",
+    title: "Investment Guide — Digital Services Pricing in India | DigiXPro",
     description:
-      "Indicative investment ranges for website design, SEO, AI automation, and technology advisory — in INR, USD, GBP, AUD, or SGD.",
+      "Indicative investment ranges for website development, SEO, AI automation, and technology advisory in India — in INR, USD, GBP, AUD, or SGD.",
     url: "https://www.digixpro.in/pricing",
     type: "website",
     images: [
@@ -36,9 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pricing & Investment Guide | DigiXPro",
+    title: "Investment Guide — Digital Services Pricing in India | DigiXPro",
     description:
-      "Indicative investment ranges for website design, SEO, AI automation, and technology advisory — in INR, USD, GBP, AUD, or SGD.",
+      "Indicative investment ranges for website development, SEO, AI automation, and technology advisory in India — in INR, USD, GBP, AUD, or SGD.",
     images: ["/twitter-image.png"],
   },
 };

@@ -79,12 +79,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
-    {
-      url: `${baseUrl}/hi`,
-      lastModified: new Date('2026-08-26'),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
     // Legal / Trust pages
     {
       url: `${baseUrl}/privacy-policy`,

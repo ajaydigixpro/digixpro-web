@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.digixpro.in"),
   applicationName: "DigiXPro",
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
   },
 };
 

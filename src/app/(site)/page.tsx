@@ -32,11 +32,6 @@ export const metadata: Metadata = {
   description: 'Independent technology architecture, business systems advisory, custom web engineering, search visibility, AI discovery, and workflow automation by DigiXPro.',
   alternates: {
     canonical: 'https://www.digixpro.in',
-    languages: {
-      en: 'https://www.digixpro.in/',
-      hi: 'https://www.digixpro.in/hi',
-      'x-default': 'https://www.digixpro.in/',
-    },
   },
   openGraph: {
     title: 'Independent Technology Architecture & Business Systems Advisory | DigiXPro',
