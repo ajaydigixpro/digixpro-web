@@ -323,15 +323,15 @@ export default function PricingClient() {
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               href="/audit"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A0A0A] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#16a34a] dark:bg-white dark:text-black dark:hover:bg-[#16a34a] dark:hover:text-white"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#009E73] px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-[#007a55] shadow-md min-h-[48px]"
             >
               Start Free Systems Audit <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-300 px-6 py-3 text-sm font-bold text-black transition-colors hover:border-[#16a34a] dark:border-neutral-700 dark:text-white"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A0A0A] dark:bg-white px-6 py-3.5 text-sm font-bold text-white dark:text-black transition-colors hover:bg-[#009E73] dark:hover:bg-[#009E73] dark:hover:text-white shadow-sm min-h-[48px]"
             >
-              Book a Scoping Call
+              Book a 30-Minute Architecture Call
             </Link>
           </div>
         </div>

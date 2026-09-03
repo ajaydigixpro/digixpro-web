@@ -199,6 +199,143 @@ export function resolveTourActionLink(action: Pick<TourAction, "url">): { href: 
   return { href: url || "/", isInternal: false };
 }
 
+export type ReplyActionCategory = 'website' | 'conversion' | 'booking';
+
+export type ReplyAction =
+  | { type: 'conversation' }
+  | { type: 'link'; href: string; actionCategory: ReplyActionCategory };
+
+/**
+ * Distinguishes conversational suggestions from real website/conversion actions.
+ * - Conversational suggestions (e.g. "E-commerce / Marketplace", "Explore Diagnostic Audit Scope")
+ *   are sent into Concierge as visitor chat messages.
+ * - Website actions (e.g. "View Pricing & Investment Guide") navigate to the page (/pricing).
+ * - Conversion actions (e.g. "Start Free Systems Audit") navigate to /audit.
+ * - Booking actions (e.g. "Book 30-Min Call") navigate to /contact.
+ * A website action must NEVER be routed back into the Concierge as a chat message.
+ */
+export function resolveReplyAction(replyText: string): ReplyAction {
+  if (!replyText || typeof replyText !== 'string') {
+    return { type: 'conversation' };
+  }
+
+  const norm = replyText.trim().toLowerCase();
+
+  // 1. CONVERSION ACTIONS (Diagnostic Audit) -> /audit
+  if (
+    norm.includes('start free systems audit') ||
+    norm.includes('start complimentary systems audit') ||
+    norm.includes('start complimentary diagnostic') ||
+    norm.includes('start diagnostic audit') ||
+    norm.includes('start free website audit') ||
+    norm.includes('request free audit') ||
+    norm.includes('request website diagnostic audit') ||
+    norm.includes('free systems audit (/audit)') ||
+    norm.includes('submit website url') ||
+    norm.includes('enter website url') ||
+    norm === 'start free audit' ||
+    norm === 'start audit'
+  ) {
+    return { type: 'link', href: '/audit', actionCategory: 'conversion' };
+  }
+
+  // 2. WEBSITE ACTIONS (Pricing & Investment Guide) -> /pricing
+  if (
+    norm.includes('view pricing & investment guide') ||
+    norm.includes('view pricing and investment guide') ||
+    norm.includes('pricing & investment guide') ||
+    norm.includes('pricing and investment guide') ||
+    norm.includes('view pricing guide') ||
+    norm.includes('check pricing') ||
+    norm === 'view pricing' ||
+    norm === 'pricing'
+  ) {
+    return { type: 'link', href: '/pricing', actionCategory: 'website' };
+  }
+
+  // 3. BOOKING ACTIONS (Architecture Call / Consultation) -> /contact
+  if (
+    norm.includes('book 30-min call') ||
+    norm.includes('book 30-minute') ||
+    norm.includes('book a 30-min') ||
+    norm.includes('request architecture call') ||
+    norm.includes('book architecture call') ||
+    norm.includes('book consultation') ||
+    norm.includes('schedule a call') ||
+    norm.includes('talk to a strategist') ||
+    norm.includes('talk to an engineer') ||
+    norm.includes('meet technical leadership') ||
+    norm.includes('provide contact info')
+  ) {
+    return { type: 'link', href: '/contact', actionCategory: 'booking' };
+  }
+
+  // 4. WEBSITE ACTIONS (Core Services)
+  if (
+    norm.includes('explore design services') ||
+    norm.includes('web engineering (/design-services)') ||
+    norm === 'design services' ||
+    norm === 'web design'
+  ) {
+    return { type: 'link', href: '/design-services', actionCategory: 'website' };
+  }
+
+  if (
+    norm.includes('explore advisory') ||
+    norm.includes('tech advisory (/advisory)') ||
+    norm === 'advisory services'
+  ) {
+    return { type: 'link', href: '/advisory', actionCategory: 'website' };
+  }
+
+  if (
+    norm.includes('explore search & automation') ||
+    norm.includes('explore automation page') ||
+    norm.includes('seo & growth (/search-automation)')
+  ) {
+    return { type: 'link', href: '/search-automation', actionCategory: 'website' };
+  }
+
+  if (
+    norm.includes('explore services') ||
+    norm.includes('see how we work')
+  ) {
+    return { type: 'link', href: '/how-we-work', actionCategory: 'website' };
+  }
+
+  if (norm.includes('see founder background')) {
+    return { type: 'link', href: '/founder', actionCategory: 'website' };
+  }
+
+  // 5. WEBSITE ACTIONS (Evidence / Case Studies)
+  if (norm.includes('buysecondhandbook') || norm.includes('e-commerce case study') || norm.includes('ecommerce case study')) {
+    return { type: 'link', href: '/evidence/buy-secondhand-book', actionCategory: 'website' };
+  }
+  if (norm.includes('muktibodh')) {
+    return { type: 'link', href: '/evidence/muktibodh', actionCategory: 'website' };
+  }
+  if (norm.includes('dr. aggarwal') || norm.includes('dr aggarwal')) {
+    return { type: 'link', href: '/evidence/dr-aggarwal', actionCategory: 'website' };
+  }
+  if (norm.includes('sattvaos') || norm.includes('automation evidence') || norm.includes('web application evidence')) {
+    return { type: 'link', href: '/evidence/sattvaos', actionCategory: 'website' };
+  }
+  if (norm.includes('digixpro case study') || norm.includes('search evidence') || norm.includes('seo growth case study')) {
+    return { type: 'link', href: '/evidence/digixpro', actionCategory: 'website' };
+  }
+  if (
+    norm.includes('view all case studies') ||
+    norm.includes('inspect case studies') ||
+    norm.includes('inspect production evidence') ||
+    norm.includes('inspect web case studies')
+  ) {
+    return { type: 'link', href: '/evidence', actionCategory: 'website' };
+  }
+
+  // 6. DEFAULT: CONVERSATIONAL SUGGESTION
+  return { type: 'conversation' };
+}
+
 function MarkdownReply({ text }: { text: string }) {
   const parts: ReactNode[] = [];
   const linkPattern = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g;
@@ -513,26 +650,63 @@ export default function SalesConcierge() {
                   <div className="w-full rounded-2xl rounded-tl-sm border border-neutral-200 bg-white p-3.5 text-[13px] leading-5 text-neutral-800 shadow-sm dark:border-neutral-800 dark:bg-[#141414] dark:text-neutral-200">
                     <MarkdownReply text={message.text} />
 
-                    {/* SUGGESTED REPLIES CHIPS (Active only on the latest turn to prevent out-of-context clicks) */}
+                    {/* SUGGESTED REPLIES & NAVIGATION ACTIONS (Active only on the latest turn to prevent out-of-context clicks) */}
                     {message.suggestedReplies && message.suggestedReplies.length > 0 && (
                       <div className="mt-3.5 pt-3 border-t border-neutral-100 dark:border-neutral-800">
                         <div className="flex flex-wrap gap-2">
-                          {message.suggestedReplies.map((reply, idx) => (
-                            <button
-                              key={`reply-${idx}`}
-                              type="button"
-                              disabled={!isLastMessage || isSending}
-                              onClick={() => void sendVisitorMessage(reply)}
-                              className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-bold transition-all ${
-                                isLastMessage
-                                  ? "border-emerald-200 bg-emerald-50/80 text-[#007a55] hover:bg-[#009E73] hover:text-white hover:border-[#009E73] hover:shadow-sm dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-[#4ade80] dark:hover:bg-[#009E73] dark:hover:text-white"
-                                  : "border-neutral-200 bg-neutral-100 text-neutral-400 cursor-not-allowed opacity-60 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-600"
-                              }`}
-                            >
-                              <span>{reply}</span>
-                              <ArrowRight className="h-3 w-3 shrink-0" />
-                            </button>
-                          ))}
+                          {message.suggestedReplies.map((reply, idx) => {
+                            const action = resolveReplyAction(reply);
+
+                            // B, C, D: Real website, conversion, and booking actions must navigate, NEVER send a chat message
+                            if (action.type === 'link') {
+                              const isConversion = action.actionCategory === 'conversion';
+                              const isBooking = action.actionCategory === 'booking';
+                              const isPriority = isConversion || isBooking;
+
+                              return (
+                                <Link
+                                  key={`action-chip-${idx}`}
+                                  href={action.href}
+                                  onClick={() => {
+                                    if (typeof window !== "undefined" && window.innerWidth < 768) {
+                                      setIsOpen(false);
+                                    }
+                                  }}
+                                  className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-bold transition-all shadow-sm ${
+                                    isPriority
+                                      ? "border-emerald-300 bg-[#009E73] text-white hover:bg-[#007a55] hover:border-[#007a55] hover:shadow-md dark:border-emerald-600 dark:bg-[#009E73] dark:text-white"
+                                      : "border-emerald-200 bg-emerald-50/90 text-[#007a55] hover:bg-[#009E73] hover:text-white hover:border-[#009E73] hover:shadow dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-[#4ade80] dark:hover:bg-[#009E73] dark:hover:text-white"
+                                  }`}
+                                >
+                                  {isBooking ? (
+                                    <Calendar className="h-3 w-3 shrink-0" aria-hidden="true" />
+                                  ) : isConversion ? (
+                                    <FileCheck2 className="h-3 w-3 shrink-0" aria-hidden="true" />
+                                  ) : null}
+                                  <span>{reply}</span>
+                                  <ArrowRight className="h-3 w-3 shrink-0" aria-hidden="true" />
+                                </Link>
+                              );
+                            }
+
+                            // A: Conversational suggestions send a message to continue discovery
+                            return (
+                              <button
+                                key={`reply-${idx}`}
+                                type="button"
+                                disabled={!isLastMessage || isSending}
+                                onClick={() => void sendVisitorMessage(reply)}
+                                className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-bold transition-all ${
+                                  isLastMessage
+                                    ? "border-neutral-200 bg-neutral-50/90 text-neutral-700 hover:border-neutral-300 hover:bg-white hover:text-black hover:shadow-sm dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white"
+                                    : "border-neutral-200 bg-neutral-100 text-neutral-400 cursor-not-allowed opacity-60 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-600"
+                                }`}
+                              >
+                                <span>{reply}</span>
+                                <ArrowRight className="h-3 w-3 shrink-0" />
+                              </button>
+                            );
+                          })}
                         </div>
                       </div>
                     )}
@@ -582,7 +756,16 @@ export default function SalesConcierge() {
 
                             if (isInternal) {
                               return (
-                                <Link key={`action-${aIdx}`} href={href} className={cardClassName}>
+                                <Link
+                                  key={`action-${aIdx}`}
+                                  href={href}
+                                  onClick={() => {
+                                    if (typeof window !== "undefined" && window.innerWidth < 768) {
+                                      setIsOpen(false);
+                                    }
+                                  }}
+                                  className={cardClassName}
+                                >
                                   {cardContent}
                                 </Link>
                               );

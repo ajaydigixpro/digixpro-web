@@ -104,9 +104,9 @@ export default function Navbar() {
           <ThemeToggle />
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center px-5 py-2.5 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[13px] rounded-lg hover:bg-[#009E73] dark:hover:bg-[#009E73] dark:hover:text-white transition-colors"
+            className="inline-flex items-center justify-center px-5 py-2.5 bg-[#009E73] text-white font-bold text-[13px] rounded-xl hover:bg-[#007a55] shadow-sm hover:shadow transition-all"
           >
-            Request a Call
+            Book a Call
           </Link>
         </div>
 
@@ -158,9 +158,9 @@ export default function Navbar() {
           <Link
             href="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block text-center px-5 py-3 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[15px] rounded-lg hover:bg-[#009E73] dark:hover:bg-[#009E73] dark:hover:text-white transition-colors"
+            className="block text-center px-5 py-3.5 bg-[#009E73] text-white font-bold text-[15px] rounded-xl hover:bg-[#007a55] transition-colors shadow-sm"
           >
-            Request a Call
+            Book a 30-Minute Architecture Call
           </Link>
         </div>
       </div>

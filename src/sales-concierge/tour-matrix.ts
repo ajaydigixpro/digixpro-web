@@ -1712,6 +1712,16 @@ export class GuidedTourEngine {
       cta_text: "Book 30-Min Call"
     };
 
+    const pricingAction: TourAction = {
+      action_type: "SHOW_PAGE",
+      label: "View Pricing & Investment Guide",
+      url: "/pricing",
+      description: "Inspect indicative investment ranges, milestone deliverables, and engagement scopes.",
+      what_to_inspect: "Indicative investment ranges across Web Engineering, Advisory, SEO, and Automation.",
+      why_relevant: "Transparent scope-based investment ranges so you can evaluate budget before booking.",
+      cta_text: "View Pricing Guide"
+    };
+
     // Intent-Specific Primary Purpose Allocation
     if (
       intentId === "INTENT-10-GREETING" ||
@@ -1767,8 +1777,12 @@ export class GuidedTourEngine {
     } else if (intentId === "INTENT-08-BOOKING" || intentId === "INTENT-08-HANDOFF") {
       // Booking query: Show Consultation card ONLY
       actions.push(consultationAction);
-    } else if (intentId === "INTENT-05-PRICE" || intentId === "INTENT-09-OBJECTION" || intentId === "INTENT-05-PRICE-NEGOTIATION" || intentId === "INTENT-TIMELINE" || intentId === "INTENT-06-AUDIT-OBJECTION" || intentId === "INTENT-ALREADY-SEEN" || intentId === "INTENT-06-AUDIT-OBJECTION-RECOMMENDATION") {
-      // Pricing/Audit-reasoning query: Show Audit card ONLY
+    } else if (intentId === "INTENT-05-PRICE" || intentId === "INTENT-05-PRICE-NEGOTIATION" || intentId === "INTENT-05-PRICE-WHY") {
+      // Pricing query: Show Pricing Guide card + Audit card
+      actions.push(pricingAction);
+      actions.push(auditAction);
+    } else if (intentId === "INTENT-09-OBJECTION" || intentId === "INTENT-TIMELINE" || intentId === "INTENT-06-AUDIT-OBJECTION" || intentId === "INTENT-ALREADY-SEEN" || intentId === "INTENT-06-AUDIT-OBJECTION-RECOMMENDATION") {
+      // Audit-reasoning query: Show Audit card ONLY
       actions.push(auditAction);
     } else if (intentId === "INTENT-CREDIBILITY-TEAM") {
       // Credibility question: link to the Founder page directly
@@ -1884,6 +1898,17 @@ export class GuidedTourEngine {
         finalHeadline = trackConfig.headline;
         finalQuestion = trackConfig.question;
         finalReplies = trackConfig.replies;
+
+        if (actions.length === 0) {
+          if (activeTrackKey === 'WEB' || activeTrackKey === 'PRICE') {
+            actions.push(auditAction);
+            actions.push(consultationAction);
+          } else if (activeTrackKey === 'CTO') {
+            actions.push(consultationAction);
+          } else if (activeTrackKey === 'SEO') {
+            actions.push(serviceAction);
+          }
+        }
       }
     } else if (intentId === "INTENT-FAMILY-CLARIFY") {
       finalHeadline = "To give you an accurate starting point, we evaluate website engineering, search visibility (SEO), workflow automation, and technology advisory.";

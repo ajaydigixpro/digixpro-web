@@ -132,7 +132,7 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center gap-4">
               <Link 
                 href="/contact" 
-                className="inline-flex items-center justify-center px-7 py-4 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[15px] md:text-[16px] rounded-xl hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white transition-colors shadow-md min-h-[52px]"
+                className="inline-flex items-center justify-center px-7 py-4 bg-[#009E73] hover:bg-[#007a55] text-white font-bold text-[15px] md:text-[16px] rounded-xl shadow-md hover:shadow-lg transition-all min-h-[52px]"
               >
                 Book a 30-Minute Architecture Call <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
