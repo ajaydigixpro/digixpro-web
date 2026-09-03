@@ -152,14 +152,24 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
               Every technology decision carries trade-offs between speed, scalability, technical debt, and team capacity. Schedule a 30-minute discovery call with Dr. Ajay Shukla to evaluate your organization&apos;s specific architecture, web engineering, search visibility, or workflow automation roadmap.
             </p>
             <div className="flex flex-wrap items-center gap-4">
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="inline-flex items-center justify-center px-6 py-3.5 bg-[#009E73] text-white font-bold text-[14px] rounded-xl hover:bg-[#007a5a] transition-colors"
               >
                 Book a 30-Minute Architecture Call <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
-              <Link 
-                href="/advisory" 
+              {/* PHASE 25 (Part 7 funnel gap): the blog's shared conversion
+                  card (every article uses this ONE template) never linked to
+                  /pricing - a reader had no investment context before
+                  Contact. One edit here fixes every article. */}
+              <Link
+                href="/pricing"
+                className="inline-flex items-center justify-center px-5 py-3.5 border border-neutral-700 text-neutral-300 font-bold text-[14px] rounded-xl hover:border-neutral-500 hover:text-white transition-colors"
+              >
+                View Investment Guide
+              </Link>
+              <Link
+                href="/advisory"
                 className="inline-flex items-center justify-center px-5 py-3.5 border border-neutral-700 text-neutral-300 font-bold text-[14px] rounded-xl hover:border-neutral-500 hover:text-white transition-colors"
               >
                 Explore Advisory Services

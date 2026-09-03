@@ -462,6 +462,14 @@ export default function SearchAutomationPage() {
               >
                 Book a 30-Minute Growth Systems Call <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
+              {/* PHASE 25 (Part 5/6 funnel gap): no canonical service page
+                  linked to /pricing anywhere on the site before this. */}
+              <Link
+                href="/pricing"
+                className="inline-flex items-center justify-center px-7 py-4 border border-neutral-700 text-neutral-300 font-bold text-[15px] rounded-xl hover:border-neutral-500 hover:text-white transition-colors min-h-[52px]"
+              >
+                View Investment Guide
+              </Link>
               <Link
                 href="/how-we-work"
                 className="inline-flex items-center justify-center px-7 py-4 border border-neutral-700 text-neutral-300 font-bold text-[15px] rounded-xl hover:border-neutral-500 hover:text-white transition-colors min-h-[52px]"

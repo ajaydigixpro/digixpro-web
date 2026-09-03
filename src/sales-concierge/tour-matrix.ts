@@ -1,4 +1,38 @@
 import { RoutingResult, VisitorSessionState } from './semantic-router/types';
+import { WHY_EXPLAINABLE_INTENTS, CHALLENGE_INTENTS, identifyActiveDecision } from './semantic-router/workingMemory';
+import { DECISION_LABELS, computeInformationGapState, DecisionKey } from './semantic-router/informationGap';
+import { buildRecommendation } from './semantic-router/recommendationEngine';
+import { OBJECTION_TRADEOFFS, ObjectionKey } from './semantic-router/recommendationEngine';
+
+// PHASE 15: intents whose ACTUALLY-SHOWN text (static or dynamically
+// computed) gets persisted per-turn so a later "why?" or assumption
+// follow-up can reuse the real text the visitor saw, not just the static
+// stepDef default - see the persistence block in resolveTourStep() below.
+const WHY_REUSABLE_INTENTS = new Set<string>([...WHY_EXPLAINABLE_INTENTS, ...CHALLENGE_INTENTS]);
+
+const VARIANT_PREFIXES = ['', 'In short: ', "Here's the reasoning behind it: ", ''];
+
+/**
+ * PHASE 18 PART 23: applies a deterministic framing prefix based on the
+ * variant recorded by responseStrategy.ts's pickResponseVariant() - ONLY
+ * when that flag is present (i.e. this turn was reached via the unified
+ * "what would you do?" path, not a direct question about the decision,
+ * which should read as a fresh answer, not a repeated one). The flag is
+ * CONSUMED (deleted) here so it never leaks into a later, unrelated turn
+ * that reaches the same intent through a different path. The underlying
+ * recommendation text itself is never altered - only what precedes it.
+ */
+function applyResponseVariant(text: string, session: VisitorSessionState | undefined, flagKey: string): string {
+  if (!session) return text;
+  const raw = session.collected_context?.[flagKey];
+  if (raw === undefined) return text;
+  const rest = { ...session.collected_context };
+  delete rest[flagKey];
+  session.collected_context = rest;
+  const variant = Number(raw) % VARIANT_PREFIXES.length;
+  const prefix = VARIANT_PREFIXES[variant] || '';
+  return prefix ? `${prefix}${text}` : text;
+}
 
 export type TourActionType =
   | 'ASK_QUESTION'
@@ -682,16 +716,23 @@ export const GUIDED_TOUR_MATRIX: Record<string, GuidedTourStepDefinition> = {
     evidence_url: "/design-services",
     evidence_inspect: "Explore Next.js design systems and performance standards."
   },
+  // PHASE 24: canonical_url now points to /pricing (the canonical public
+  // pricing page, src/data/pricing.ts-backed) instead of /how-we-work - the
+  // Concierge still never states a number itself (unchanged, deliberate
+  // safety), but now consistently routes a pricing question to the SAME
+  // canonical source /pricing displays, rather than a page that doesn't
+  // discuss investment at all. evidence_url stays /audit - still the
+  // correct "get an exact, scoped number" destination.
   "INTENT-05-PRICE": {
     intent_id: "INTENT-05-PRICE",
     family_id: "FAM-05",
     flow_id: "FLOW-06",
     service_name: "Scope-Based Investment & Commercial Qualification",
-    canonical_url: "/how-we-work",
+    canonical_url: "/pricing",
     headline_message: "At DigiXPro, investment depends strictly on project scope — specifically whether you require a completely new web build, a redesign of an existing site, targeted technical optimization, or workflow automation.",
-    targeted_question: "Rather than guessing an arbitrary package price, we recommend first establishing your exact scope or getting a diagnostic audit so you pay only for what your platform actually needs.",
-    suggested_replies: ["Explore Diagnostic Audit Scope", "Discuss Custom Web Scope"],
-    what_to_inspect: "Inspect our Engagement Model and Deliverable Framework on the How We Work page.",
+    targeted_question: "Rather than guessing an arbitrary package price, we recommend first checking indicative ranges on our Pricing page or getting a diagnostic audit so you pay only for what your platform actually needs.",
+    suggested_replies: ["View Pricing & Investment Guide", "Explore Diagnostic Audit Scope"],
+    what_to_inspect: "Inspect indicative investment ranges by service on the Pricing & Investment Guide.",
     why_relevant: "A diagnostic audit ensures you pay only for what your platform actually needs, avoiding bloated agency retainers.",
     evidence_label: "Inspect Diagnostic Systems Audit Intake",
     evidence_url: "/audit",
@@ -951,6 +992,559 @@ export const GUIDED_TOUR_MATRIX: Record<string, GuidedTourStepDefinition> = {
     evidence_label: "Inspect Evidence Library",
     evidence_url: "/evidence",
     evidence_inspect: "Browse verified case studies."
+  },
+
+  // =========================================================================
+  // PHASE 10: DEEP CONVERSATIONAL INTELLIGENCE - response definitions for
+  // natural interruptions, objections and follow-ups now routed by precedence.ts
+  // instead of falling through to the generic clarify fallback.
+  // =========================================================================
+
+  "INTENT-CREDIBILITY-TEAM": {
+    intent_id: "INTENT-CREDIBILITY-TEAM",
+    family_id: "FAM-10",
+    flow_id: "FLOW-01",
+    service_name: "Founder & Team Credibility",
+    canonical_url: "/founder",
+    headline_message: "DigiXPro's engineering and technology advisory work is led by Dr. Ajay Shukla, with production experience dating back to 2016 across independently verifiable client engagements.",
+    targeted_question: "Would you like to see the founder's background, or go straight to production evidence?",
+    suggested_replies: ["See Founder Background", "Inspect Case Studies", "Explore Services"],
+    what_to_inspect: "Inspect the founder's track record and technical background on the Founder page.",
+    why_relevant: "Knowing who is actually accountable for the engineering work matters before committing budget.",
+    evidence_label: "Inspect Production Evidence",
+    evidence_url: "/evidence",
+    evidence_inspect: "Review verified client case studies and production outcomes."
+  },
+  "INTENT-TECH-STACK": {
+    intent_id: "INTENT-TECH-STACK",
+    family_id: "FAM-12",
+    flow_id: "FLOW-02",
+    service_name: "Technology Stack",
+    canonical_url: "/design-services",
+    headline_message: "Custom Next.js and React, not WordPress templates - built for sub-second load speed, technical SEO, and long-term maintainability.",
+    targeted_question: "Would you like to see this in a live production platform?",
+    suggested_replies: ["Inspect Production Evidence", "Explore Design Services"],
+    what_to_inspect: "Inspect the Next.js architecture and Core Web Vitals performance on a live case study.",
+    why_relevant: "The underlying platform choice affects speed, security, and how easily the site can be extended later.",
+    evidence_label: "Inspect DigiXPro Platform Evidence",
+    evidence_url: "/evidence/digixpro",
+    evidence_inspect: "Review the live Next.js static architecture and performance benchmarks."
+  },
+  "INTENT-06-AUDIT-OBJECTION": {
+    intent_id: "INTENT-06-AUDIT-OBJECTION",
+    family_id: "FAM-06",
+    flow_id: "FLOW-04",
+    service_name: "Audit Necessity - Reasoned Response",
+    canonical_url: "/audit",
+    headline_message: "Fair - if you already know exactly what needs to change, an audit may not add much value. It's most useful when you're still unsure whether the real problem is SEO, conversion, UX, or the underlying system.",
+    targeted_question: "Is there something specific you already believe is the issue, or is that still the open question?",
+    suggested_replies: ["I know the specific issue", "Still not sure what's wrong", "Talk to a Strategist"],
+    what_to_inspect: "If you already know the issue, we can go straight to scoping it - no audit required.",
+    why_relevant: "Forcing a diagnostic step nobody needs just adds friction.",
+    evidence_label: "Inspect Sample Diagnostic Audit Report",
+    evidence_url: "/audit",
+    evidence_inspect: "See exactly what a Systems Audit checks, in case it's still useful."
+  },
+  "INTENT-ALREADY-SEEN": {
+    intent_id: "INTENT-ALREADY-SEEN",
+    family_id: "FAM-07",
+    flow_id: "FLOW-03",
+    service_name: "Already-Seen Evidence - Move Forward",
+    canonical_url: "/audit",
+    headline_message: "Right - no need to look at that again.",
+    targeted_question: "Based on what you've shared, the next useful step is usually a quick Diagnostic Audit or a direct scope conversation. Which is more useful right now?",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call", "Ask something else"],
+    what_to_inspect: "Submit your domain for a technical audit of performance, SEO structure, and UX bottlenecks.",
+    why_relevant: "Once you've seen the evidence, the next useful thing is a decision, not another case study.",
+    evidence_label: "Inspect Sample Diagnostic Audit Report",
+    evidence_url: "/audit",
+    evidence_inspect: "See what a Systems Audit actually checks."
+  },
+  // PHASE 24: canonical_url -> /pricing, same reasoning as INTENT-05-PRICE.
+  "INTENT-05-PRICE-NEGOTIATION": {
+    intent_id: "INTENT-05-PRICE-NEGOTIATION",
+    family_id: "FAM-05",
+    flow_id: "FLOW-06",
+    service_name: "Pricing Negotiation - Scope-Based, Not Quote-Matching",
+    canonical_url: "/pricing",
+    headline_message: "We don't price-match, because the number isn't the variable that matters - the scope is. A ₹80,000 template site and a custom-engineered platform solve different problems, so the fair comparison is what each actually includes.",
+    targeted_question: "Would it help to see what's actually driving cost - scope, platform, or ongoing maintenance?",
+    suggested_replies: ["Explore Diagnostic Audit Scope", "Discuss Custom Web Scope"],
+    what_to_inspect: "Inspect the Engagement Model and Deliverable Framework on the How We Work page.",
+    why_relevant: "Matching a price without matching scope usually means matching corners cut, not value.",
+    evidence_label: "Inspect Diagnostic Systems Audit Intake",
+    evidence_url: "/audit",
+    evidence_inspect: "Start a complimentary Systems Audit to get an exact, itemized scope breakdown."
+  },
+  "INTENT-TIMELINE": {
+    intent_id: "INTENT-TIMELINE",
+    family_id: "FAM-05",
+    flow_id: "FLOW-06",
+    service_name: "Timeline - Scope-Dependent",
+    canonical_url: "/how-we-work",
+    headline_message: "Timeline depends on the same thing budget does - scope. A landing page and a custom platform with automation don't run on the same clock.",
+    targeted_question: "Once the scope is clear (from a quick audit or a call), we can give you a real, project-specific timeline instead of a generic estimate.",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call"],
+    what_to_inspect: "Inspect our engagement milestones on the How We Work page.",
+    why_relevant: "A timeline given before scope is fixed is usually wrong in one direction or the other.",
+    evidence_label: "Inspect Engagement Model",
+    evidence_url: "/how-we-work",
+    evidence_inspect: "Review how DigiXPro structures milestone-based delivery."
+  },
+  "INTENT-CONTRADICTION-ECOMMERCE": {
+    intent_id: "INTENT-CONTRADICTION-ECOMMERCE",
+    family_id: "FAM-02",
+    flow_id: "FLOW-06",
+    service_name: "Ecommerce Scope Confirmation",
+    canonical_url: "/design-services",
+    headline_message: "That sounds closer to an ecommerce setup than a simple brochure site.",
+    targeted_question: "Are customers expected to browse products and complete purchases online?",
+    suggested_replies: ["Yes, full online purchase", "No, just enquiries"],
+    what_to_inspect: "A product catalogue with payments is a materially different build than a presentation site.",
+    why_relevant: "Getting the actual scope right up front avoids planning for the wrong architecture.",
+    evidence_label: "Inspect E-commerce Case Study",
+    evidence_url: "/evidence/buy-secondhand-book",
+    evidence_inspect: "Review a production catalogue-and-checkout platform."
+  },
+  "INTENT-ECOMMERCE-MARKETPLACE-EVOLUTION": {
+    intent_id: "INTENT-ECOMMERCE-MARKETPLACE-EVOLUTION",
+    family_id: "FAM-02",
+    flow_id: "FLOW-06",
+    service_name: "Staged Ecommerce-to-Marketplace Architecture",
+    canonical_url: "/design-services",
+    headline_message: "Yes - that can be planned as a staged architecture. I'd first make the core catalogue, payments and order flow solid, while keeping the structure ready for a later marketplace layer (multiple sellers, vendor accounts) rather than building that complexity in from day one.",
+    targeted_question: "Would you like to see how that kind of staged build looks in production?",
+    suggested_replies: ["Inspect E-commerce Case Study", "Discuss Custom Web Scope"],
+    what_to_inspect: "Inspect how a single-seller catalogue was engineered to allow later platform evolution.",
+    why_relevant: "Building marketplace complexity before you need it usually slows down the part that matters now - getting the core store live.",
+    evidence_label: "Inspect E-commerce Case Study",
+    evidence_url: "/evidence/buy-secondhand-book",
+    evidence_inspect: "Review the catalogue, search indexation, and checkout architecture."
+  },
+  "INTENT-ECOMMERCE-SCOPE-ACK": {
+    intent_id: "INTENT-ECOMMERCE-SCOPE-ACK",
+    family_id: "FAM-02",
+    flow_id: "FLOW-06",
+    service_name: "Ecommerce Scope Acknowledgment",
+    canonical_url: "/design-services",
+    headline_message: "Noted.",
+    targeted_question: "At that scale, the priority is usually getting the catalogue, search/filtering, and checkout flow solid first. Is there anything else about the build that's a hard requirement - marketplace features, specific payment gateways, subscriptions?",
+    suggested_replies: ["That's everything for now", "One more requirement"],
+    what_to_inspect: "Inspect a comparable production catalogue on the E-commerce case study.",
+    why_relevant: "Confirming hard requirements up front avoids re-architecting later.",
+    evidence_label: "Inspect E-commerce Case Study",
+    evidence_url: "/evidence/buy-secondhand-book",
+    evidence_inspect: "Review catalogue browsing, search indexation, and checkout metrics at production scale."
+  },
+
+  // =========================================================================
+  // PHASE 11: CONSULTATIVE ENGAGEMENT - skepticism, uncertainty, high-intent
+  // and problem-reveal responses discovered missing via real conversation
+  // testing (see Phase 11 report). Same discipline as Phase 10: only facts
+  // already in canonicalRegistry.ts, no invented claims.
+  // =========================================================================
+
+  "INTENT-SKEPTICISM-WHY-DIGIXPRO": {
+    intent_id: "INTENT-SKEPTICISM-WHY-DIGIXPRO",
+    family_id: "FAM-12",
+    flow_id: "FLOW-02",
+    service_name: "Why DigiXPro / Why Not a Freelancer",
+    canonical_url: "/how-we-work",
+    headline_message: "Fair question. If the requirement is genuinely simple, a freelancer or a large architecture process may be unnecessary - I wouldn't pretend otherwise.",
+    targeted_question: "Where this becomes more useful is when the website is tied to growth, automation, search visibility, integrations, or a system that needs to evolve - that's where production engineering and long-term maintainability start to matter more than the upfront price.",
+    suggested_replies: ["See What DigiXPro Delivers", "Inspect Production Evidence"],
+    what_to_inspect: "Inspect the engagement model and what's actually delivered, on the How We Work page.",
+    why_relevant: "A fair comparison depends on what the project actually needs, not a blanket claim either way.",
+    evidence_label: "Inspect Production Evidence",
+    evidence_url: "/evidence",
+    evidence_inspect: "Review verified production outcomes rather than a marketing claim."
+  },
+  "INTENT-DONT-KNOW": {
+    intent_id: "INTENT-DONT-KNOW",
+    family_id: "FAM-02",
+    flow_id: "FLOW-01",
+    service_name: "Uncertainty Recovery",
+    canonical_url: "/how-we-work",
+    headline_message: "That's fine - let's narrow it down from the business problem rather than the technology.",
+    targeted_question: "What's hurting more right now: getting people to the site, getting them to enquire, or managing what happens after they enquire?",
+    suggested_replies: ["Getting people to the site", "Getting them to enquire", "Managing what happens after"],
+    what_to_inspect: "Once the actual bottleneck is clear, the right service follows from that - not the other way round.",
+    why_relevant: "Starting from the business problem avoids guessing at a technical fix for the wrong issue.",
+    evidence_label: "Inspect Production Evidence",
+    evidence_url: "/evidence",
+    evidence_inspect: "See how similar problems were diagnosed and addressed in production."
+  },
+  "INTENT-NOT-INTERESTED": {
+    intent_id: "INTENT-NOT-INTERESTED",
+    family_id: "FAM-12",
+    flow_id: "FLOW-01",
+    service_name: "Graceful De-escalation",
+    canonical_url: "/",
+    headline_message: "No problem at all.",
+    targeted_question: "If anything changes, the Evidence and How We Work pages are there whenever you want to look - no pressure either way.",
+    suggested_replies: ["Explore Services", "Inspect Production Evidence"],
+    what_to_inspect: "Browse at your own pace, whenever it's useful.",
+    why_relevant: "There's no value in pushing a conversation the visitor doesn't want.",
+    evidence_label: "Inspect Production Evidence",
+    evidence_url: "/evidence",
+    evidence_inspect: "Browse verified case studies whenever useful."
+  },
+  "INTENT-HIGH-INTENT": {
+    intent_id: "INTENT-HIGH-INTENT",
+    family_id: "FAM-08",
+    flow_id: "FLOW-05",
+    service_name: "High-Intent Fast Track",
+    canonical_url: "/contact",
+    headline_message: "Understood - at this point another chatbot question isn't going to add much value.",
+    targeted_question: "A 30-minute Architecture Call with the senior technology side is the right next step: bring the actual requirement, constraints and questions, and we can work through the scope directly.",
+    suggested_replies: ["Book 30-Min Call", "Talk to a Strategist"],
+    what_to_inspect: "Come with whatever context you already have - a brief, a proposal, or just the requirement as you understand it.",
+    why_relevant: "You already have enough clarity that a real conversation is more useful than more discovery.",
+    evidence_label: "Inspect Production Evidence",
+    evidence_url: "/evidence",
+    evidence_inspect: "Review relevant production work before the call if useful."
+  },
+  "INTENT-TRAFFIC-CONFIRMED": {
+    intent_id: "INTENT-TRAFFIC-CONFIRMED",
+    family_id: "FAM-01",
+    flow_id: "FLOW-01",
+    service_name: "Traffic Confirmed - Set Up Conversion Question",
+    canonical_url: "/search-automation",
+    headline_message: "Good - then I'd be careful about assuming more SEO is the fix.",
+    targeted_question: "If visitors are already arriving, the more useful question is what happens once they land: are they contacting you, or mostly just browsing?",
+    suggested_replies: ["Mostly just browsing", "Some contact, but not enough", "Hardly anyone contacts us"],
+    what_to_inspect: "The answer to that changes whether the fix is visibility or conversion.",
+    why_relevant: "Buying more traffic into a site that doesn't convert just means more people leaving without enquiring.",
+    evidence_label: "Inspect DigiXPro Platform Evidence",
+    evidence_url: "/evidence/digixpro",
+    evidence_inspect: "Review technical SEO and conversion-relevant architecture together."
+  },
+  "INTENT-SEO-CONVERSION-INSIGHT": {
+    intent_id: "INTENT-SEO-CONVERSION-INSIGHT",
+    family_id: "FAM-06",
+    flow_id: "FLOW-04",
+    service_name: "SEO vs Conversion - Problem Reveal",
+    canonical_url: "/audit",
+    headline_message: "That confirms it - if people are already finding the site but not enquiring, the bottleneck almost certainly isn't search visibility. Buying more SEO at this point would just send more traffic into the same leak.",
+    targeted_question: "A Systems Audit is the right tool here - it looks at conversion UX, page speed, and technical structure together, so we're fixing the actual bottleneck rather than guessing.",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call"],
+    what_to_inspect: "Submit your domain for a technical audit of performance, conversion UX, and SEO structure.",
+    why_relevant: "Diagnosing before spending avoids paying for more of what isn't the problem.",
+    evidence_label: "Inspect Sample Diagnostic Audit Report",
+    evidence_url: "/audit",
+    evidence_inspect: "See exactly what a Systems Audit checks."
+  },
+  "INTENT-CONSULTANT-SYNTHESIS-ECOMMERCE": {
+    intent_id: "INTENT-CONSULTANT-SYNTHESIS-ECOMMERCE",
+    family_id: "FAM-06",
+    flow_id: "FLOW-04",
+    service_name: "Consultant Moment - Ecommerce Scope + Conversion Synthesis",
+    canonical_url: "/audit",
+    // Placeholder headline - overridden dynamically in resolveTourStep() with the
+    // actual product_count, so this default is only used if that field is
+    // somehow missing (defensive fallback, should not normally be seen).
+    headline_message: "Let me put the picture together: you have an existing website and a product catalogue in mind, but enquiries are the weak point - not traffic or the build itself.",
+    targeted_question: "So I wouldn't start by selling you a new website. I'd first establish where the conversion bottleneck actually is - that's exactly where the Audit becomes useful.",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call"],
+    what_to_inspect: "Submit your domain for a technical audit of performance, conversion UX, and SEO structure.",
+    why_relevant: "Rebuilding a site that isn't actually the problem wastes budget on the wrong fix.",
+    evidence_label: "Inspect Sample Diagnostic Audit Report",
+    evidence_url: "/audit",
+    evidence_inspect: "See exactly what a Systems Audit checks."
+  },
+
+  // =========================================================================
+  // PHASE 12: CONVERSATIONAL COGNITION - reference resolution, correction
+  // recovery, and user-control signals discovered missing via real
+  // conversation testing (see Phase 12 report).
+  // =========================================================================
+
+  // PHASE 24: canonical_url -> /pricing, same reasoning as INTENT-05-PRICE.
+  "INTENT-05-PRICE-WHY": {
+    intent_id: "INTENT-05-PRICE-WHY",
+    family_id: "FAM-05",
+    flow_id: "FLOW-06",
+    service_name: "Why Pricing Works This Way",
+    canonical_url: "/pricing",
+    headline_message: "Because a number without scope is either wrong or meaningless - too low and it hides missing work, too high and you're overpaying for things you don't need.",
+    targeted_question: "The Audit exists specifically to establish that scope quickly, so the number you eventually get is tied to your actual requirement.",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call"],
+    what_to_inspect: "Inspect the Engagement Model on the How We Work page.",
+    why_relevant: "Explains the reasoning behind the pricing approach rather than repeating the policy.",
+    evidence_label: "Inspect Diagnostic Systems Audit Intake",
+    evidence_url: "/audit",
+    evidence_inspect: "Start a complimentary Systems Audit to get an itemized scope breakdown."
+  },
+  "INTENT-CORRECTION-RECOVERY": {
+    intent_id: "INTENT-CORRECTION-RECOVERY",
+    family_id: "FAM-12",
+    flow_id: "FLOW-01",
+    service_name: "Conversational Correction Recovery",
+    canonical_url: "/how-we-work",
+    headline_message: "Understood - let's go with that instead.",
+    targeted_question: "What would be most useful to look at first?",
+    suggested_replies: ["Explore Services", "Inspect Production Evidence", "Talk to a Strategist"],
+    what_to_inspect: "Starting fresh from what you actually meant, not the earlier assumption.",
+    why_relevant: "Correcting course quickly avoids wasting the visitor's time on the wrong track.",
+    evidence_label: "Inspect Production Evidence",
+    evidence_url: "/evidence",
+    evidence_inspect: "Browse verified case studies relevant to your actual need."
+  },
+  "INTENT-START-OVER": {
+    intent_id: "INTENT-START-OVER",
+    family_id: "FAM-12",
+    flow_id: "FLOW-01",
+    service_name: "Conversation Reset",
+    canonical_url: "/",
+    headline_message: "Sure - starting fresh.",
+    targeted_question: "What are you trying to build, fix, or improve?",
+    suggested_replies: ["Build a website", "SEO / AI Search", "Technical / CTO", "Not sure"],
+    what_to_inspect: "A clean slate, no assumptions carried over from before.",
+    why_relevant: "Sometimes the fastest way forward is a genuine restart rather than untangling the previous thread.",
+    evidence_label: "Inspect Production Evidence",
+    evidence_url: "/evidence",
+    evidence_inspect: "Browse verified case studies whenever useful."
+  },
+  "INTENT-PLATFORM-OBJECTION": {
+    intent_id: "INTENT-PLATFORM-OBJECTION",
+    family_id: "FAM-02",
+    flow_id: "FLOW-06",
+    service_name: "Platform Choice - Direct Answer",
+    canonical_url: "/design-services",
+    headline_message: "No - we build custom Next.js, not Shopify or WordPress templates. That's a deliberate choice: templates cap performance, SEO structure, and how far the site can evolve later.",
+    targeted_question: "If a template-based store already covers what you need, it may genuinely be the more sensible choice - that's worth being honest about upfront. Is your requirement likely to stay simple, or grow into something more custom?",
+    suggested_replies: ["Likely to stay simple", "Likely to grow", "Inspect Production Evidence"],
+    what_to_inspect: "Inspect the Next.js architecture on a live production case study.",
+    why_relevant: "The platform choice should match how far the requirement is actually expected to go.",
+    evidence_label: "Inspect DigiXPro Platform Evidence",
+    evidence_url: "/evidence/digixpro",
+    evidence_inspect: "Review the live Next.js static architecture and performance benchmarks."
+  },
+  "INTENT-06-AUDIT-OBJECTION-RECOMMENDATION": {
+    intent_id: "INTENT-06-AUDIT-OBJECTION-RECOMMENDATION",
+    family_id: "FAM-06",
+    flow_id: "FLOW-04",
+    service_name: "Direct Recommendation Despite Audit Objection",
+    canonical_url: "/design-services",
+    // PHASE 21 (Part 4 fact/assumption safety): this branch can fire before
+    // ANY traffic/enquiry fact is established (the audit-objection override
+    // in resolveRecommendationRequest checks only the objection itself, not
+    // isConversionBottleneckProfile) - so it must not claim "traffic already
+    // fine and enquiries weak" as something the visitor told us. The dynamic
+    // override just below (direct_recommendation_reason === 'conversion_bottleneck')
+    // already handles the case where traffic really is an established fact.
+    headline_message: "Fair - since you'd rather skip the audit, here's the direct answer: I'd look at the conversion path first - page layout, load speed, and what happens right after someone lands - before touching SEO or a rebuild.",
+    targeted_question: "That's still a diagnostic question, just one you can reason through yourself if you'd rather not run the scan. If you want a second opinion on it, the Audit does that in a few minutes; otherwise a 30-minute call can cover the same ground directly.",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call"],
+    what_to_inspect: "The conversion path itself: layout, load speed, and the first few seconds after landing.",
+    why_relevant: "Respects the objection while still giving a real, usable recommendation instead of repeating the audit pitch.",
+    evidence_label: "Inspect Production Evidence",
+    evidence_url: "/evidence",
+    evidence_inspect: "Review a comparable conversion-focused case study."
+  },
+
+  // =========================================================================
+  // PHASE 14: DECISION INTELLIGENCE - future-requirement tracking/supersession,
+  // and the rebuild-vs-improve / audit-reasoning decision boundaries exercised
+  // by the mandatory conversation (see the Phase 14 report).
+  // =========================================================================
+
+  "INTENT-FUTURE-REQUIREMENT-NOTED": {
+    intent_id: "INTENT-FUTURE-REQUIREMENT-NOTED",
+    family_id: "FAM-12",
+    flow_id: "FLOW-01",
+    service_name: "Future Requirement Noted",
+    canonical_url: "/how-we-work",
+    headline_message: "Noted for later - no need to plan that in right now.",
+    targeted_question: "Is there anything about the immediate build that's still open?",
+    suggested_replies: ["That's everything for now", "One more thing"],
+    what_to_inspect: "Keeping future scope separate from the current build avoids paying for complexity before it's needed.",
+    why_relevant: "A requirement flagged for later still gets remembered - it just doesn't shape today's build.",
+    evidence_label: "Inspect Production Evidence",
+    evidence_url: "/evidence",
+    evidence_inspect: "Browse verified case studies whenever useful."
+  },
+  "INTENT-REQUIREMENT-SUPERSEDED": {
+    intent_id: "INTENT-REQUIREMENT-SUPERSEDED",
+    family_id: "FAM-12",
+    flow_id: "FLOW-01",
+    service_name: "Requirement Retracted",
+    canonical_url: "/how-we-work",
+    headline_message: "Understood - dropping that from scope.",
+    targeted_question: "Does that change anything else about what you need?",
+    suggested_replies: ["No, that's the only change", "Yes, one more thing"],
+    what_to_inspect: "Scope now reflects the retraction, not the earlier mention.",
+    why_relevant: "Carrying a retracted requirement forward would misshape the recommendation.",
+    evidence_label: "Inspect Production Evidence",
+    evidence_url: "/evidence",
+    evidence_inspect: "Browse verified case studies whenever useful."
+  },
+  "INTENT-REBUILD-VS-IMPROVE": {
+    intent_id: "INTENT-REBUILD-VS-IMPROVE",
+    family_id: "FAM-06",
+    flow_id: "FLOW-04",
+    service_name: "Rebuild vs Improve - Decision Boundary",
+    canonical_url: "/audit",
+    // Overridden dynamically in resolveTourStep() based on what's actually
+    // established (conversion-bottleneck profile vs genuinely unknown) - see
+    // the Phase 14 report. This default covers the unknown-profile case.
+    headline_message: "Not necessarily. There are two sensible paths here: improve the current site, or rebuild it. The deciding factor isn't preference, it's whether the existing system can actually support what you need - technically and structurally.",
+    targeted_question: "Right now I don't have enough to tell which side of that line you're on.",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call"],
+    what_to_inspect: "Whether the current platform can support the required changes without structural limitations.",
+    why_relevant: "Rebuilding when the existing system could be improved wastes budget; improving when the system is genuinely limiting wastes time.",
+    evidence_label: "Inspect Sample Diagnostic Audit Report",
+    evidence_url: "/audit",
+    evidence_inspect: "See exactly what a Systems Audit checks."
+  },
+  "INTENT-AUDIT-REASONING": {
+    intent_id: "INTENT-AUDIT-REASONING",
+    family_id: "FAM-06",
+    flow_id: "FLOW-04",
+    service_name: "Direct Audit Recommendation With Reasoning",
+    canonical_url: "/audit",
+    // Overridden dynamically based on diagnostic_uncertainty - see resolveTourStep().
+    headline_message: "In your case, yes - the root problem isn't confirmed yet, and there's more than one thing it could be. That's exactly the situation an Audit is for.",
+    targeted_question: "If the bottleneck were already obvious, I wouldn't recommend spending time on a diagnostic step.",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call"],
+    what_to_inspect: "Submit your domain for a technical audit of performance, conversion UX, and SEO structure.",
+    why_relevant: "Recommending a diagnostic step only when the diagnosis is actually uncertain keeps the advice honest.",
+    evidence_label: "Inspect Sample Diagnostic Audit Report",
+    evidence_url: "/audit",
+    evidence_inspect: "See exactly what a Systems Audit checks."
+  },
+  "INTENT-TECHNICAL-CONSTRAINT-CONFIRMED": {
+    // PHASE 16: reached when the visitor resolves the REBUILD_VS_IMPROVE
+    // decision's technical_constraint gap ("the current platform is
+    // completely limiting us") - see informationGap.ts's Part 12. The
+    // recommendation flips because the deciding fact is now known, not
+    // because a new phrase was pattern-matched.
+    intent_id: "INTENT-TECHNICAL-CONSTRAINT-CONFIRMED",
+    family_id: "FAM-06",
+    flow_id: "FLOW-04",
+    service_name: "Rebuild vs Improve - Resolved by Confirmed Technical Constraint",
+    canonical_url: "/audit",
+    headline_message: "That changes things. A structurally limiting platform is the exact fact this decision turns on - if the current system genuinely can't support what you need, improving around it just delays the same problem. I'd lean toward a rebuild.",
+    targeted_question: "Want that confirmed through a quick diagnostic audit first, or go straight to scoping the rebuild?",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call"],
+    what_to_inspect: "Whether the current platform's limitations are structural (justifying a rebuild) or fixable within the existing system.",
+    why_relevant: "A confirmed technical constraint is the one fact that reliably justifies a rebuild over an improve - everything else is a refinement, not this decision.",
+    evidence_label: "Inspect Sample Diagnostic Audit Report",
+    evidence_url: "/audit",
+    evidence_inspect: "See exactly what a Systems Audit checks."
+  },
+  "INTENT-TRAFFIC-DECLINE-UPDATE": {
+    // PHASE 16: reached when the visitor contradicts a previously-recorded
+    // healthy-traffic fact ("actually traffic has dropped badly") - see
+    // informationGap.ts's Part 13. This acknowledges the superseded fact
+    // rather than silently continuing to reason from the stale one.
+    intent_id: "INTENT-TRAFFIC-DECLINE-UPDATE",
+    family_id: "FAM-03",
+    flow_id: "FLOW-01",
+    service_name: "Traffic Fact Updated - Visibility Diagnosis",
+    canonical_url: "/seo",
+    headline_message: "Got it - that changes the picture. If traffic itself is now dropping, this isn't a conversion question anymore, it's back to visibility - a different problem than the one we were just discussing.",
+    targeted_question: "Has this been a recent, sudden drop, or a gradual decline over time?",
+    suggested_replies: ["Start Diagnostic Audit", "Talk to a Strategist"],
+    what_to_inspect: "Whether the drop is indexation/ranking-related or a broader visibility issue.",
+    why_relevant: "Reasoning from a corrected fact instead of the stale one avoids recommending a conversion fix for what may now be a visibility problem.",
+    evidence_label: "Inspect Sample SEO Audit Report",
+    evidence_url: "/seo",
+    evidence_inspect: "See how a technical SEO audit diagnoses a traffic drop."
+  },
+  "INTENT-WHAT-NEXT-RESOLVED": {
+    // PHASE 17 PART 1/5/6: reached when "what next?" (or any of its
+    // equivalent phrasings) finds an ACTIVE decision whose status is
+    // RESOLVED (informationGap.ts) - nothing decision-changing is left
+    // worth asking, so the honest next step is the recommendation + an
+    // appropriate action, not another generic diagnostic question. This
+    // default covers the case where the source intent has no persisted
+    // shown_text to reuse (see the dynamic override in resolveTourStep()).
+    intent_id: "INTENT-WHAT-NEXT-RESOLVED",
+    family_id: "FAM-06",
+    flow_id: "FLOW-04",
+    service_name: "Next Step - Decision Resolved",
+    canonical_url: "/audit",
+    headline_message: "Based on everything you've told me, the picture is clear enough to act on rather than ask another clarifying question.",
+    targeted_question: "The sensible next step is either a quick diagnostic Audit to confirm it, or a 30-minute call to scope it directly - whichever you'd rather do.",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call"],
+    what_to_inspect: "Whichever next step matches how much certainty you want before committing.",
+    why_relevant: "Once a decision is sufficiently resolved, offering another clarifying question just stalls the conversation - the honest next step is action, not more discovery.",
+    evidence_label: "Inspect Sample Diagnostic Audit Report",
+    evidence_url: "/audit",
+    evidence_inspect: "See exactly what a Systems Audit checks."
+  },
+  "INTENT-TOPIC-SWITCH-ECOMMERCE": {
+    // PHASE 17 PART 8: a dormant future/secondary ecommerce requirement was
+    // just explicitly promoted to the active topic by the visitor's own
+    // words ("let's focus on the marketplace now") - see precedence.ts.
+    intent_id: "INTENT-TOPIC-SWITCH-ECOMMERCE",
+    family_id: "FAM-02",
+    flow_id: "FLOW-02",
+    service_name: "Ecommerce - Promoted From Future Requirement",
+    canonical_url: "/design-services/custom-business-website-design",
+    headline_message: "Sure - let's make that the focus now instead of a later add-on.",
+    targeted_question: "Roughly how many products, and is this a new build or something to add to an existing site?",
+    suggested_replies: ["Around 100 products", "Around 500 products", "Existing website"],
+    what_to_inspect: "Catalogue size, payment/vendor integrations, and platform complexity - the facts that actually shape an ecommerce build.",
+    why_relevant: "Once a requirement is the active topic rather than a deferred one, the same ecommerce scoping questions apply as if it had been the first thing mentioned.",
+    evidence_label: "Inspect Ecommerce Evidence",
+    evidence_url: "/evidence",
+    evidence_inspect: "See a comparable ecommerce build."
+  },
+  "INTENT-WHAT-WOULD-CHANGE-MIND": {
+    // PHASE 18 PART 16: a genuinely new capability - "what would change
+    // your recommendation?" had no answer at all before this phase. Text
+    // is dynamically built from the active decision's Recommendation.
+    // whatWouldChange (recommendationEngine.ts) in resolveTourStep() below.
+    intent_id: "INTENT-WHAT-WOULD-CHANGE-MIND",
+    family_id: "FAM-06",
+    flow_id: "FLOW-04",
+    service_name: "What Would Change The Recommendation",
+    canonical_url: "/audit",
+    headline_message: "That depends on which decision you mean - once we've established a recommendation together, I can tell you exactly what would change it.",
+    targeted_question: "What are you weighing right now - a rebuild vs improve question, or whether an Audit is worth it?",
+    suggested_replies: ["Rebuild vs improve", "Is an audit worth it?", "Start Diagnostic Audit"],
+    what_to_inspect: "The specific fact that would flip the current recommendation.",
+    why_relevant: "A recommendation that can't say what would change it isn't really reasoned - it's just an opinion.",
+    evidence_label: "Inspect Sample Diagnostic Audit Report",
+    evidence_url: "/audit",
+    evidence_inspect: "See exactly what a Systems Audit checks."
+  },
+  "INTENT-WHY-CONTEXTUAL": {
+    intent_id: "INTENT-WHY-CONTEXTUAL",
+    family_id: "FAM-06",
+    flow_id: "FLOW-04",
+    service_name: "Generalized Why - Reuses the Last Recommendation's Own Reasoning",
+    canonical_url: "/audit",
+    // Always overridden dynamically in resolveTourStep() - see the
+    // why_target lookup there. This default is only used if that lookup
+    // somehow finds nothing (defensive fallback, should not normally be seen).
+    headline_message: "That's the reasoning behind what I just said.",
+    targeted_question: "",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call"],
+    what_to_inspect: "The same facts already established this conversation.",
+    why_relevant: "Explains the immediately preceding recommendation rather than defaulting to an unrelated audit pitch.",
+    evidence_label: "Inspect Sample Diagnostic Audit Report",
+    evidence_url: "/audit",
+    evidence_inspect: "See exactly what a Systems Audit checks."
+  },
+  "INTENT-ASSUMPTION-FOLLOWUP": {
+    intent_id: "INTENT-ASSUMPTION-FOLLOWUP",
+    family_id: "FAM-06",
+    flow_id: "FLOW-04",
+    service_name: "Assumption Follow-Up - Reuses a Recent Challenge's Reasoning",
+    canonical_url: "/audit",
+    // Always overridden dynamically in resolveTourStep() - see the
+    // assumption_challenge_target lookup there. Defensive fallback only.
+    headline_message: "That's understandable, given what you originally came in asking about.",
+    targeted_question: "",
+    suggested_replies: ["Start Diagnostic Audit", "Book 30-Min Call"],
+    what_to_inspect: "The reasoning already given a moment ago, restated against the original assumption.",
+    why_relevant: "Acknowledges the original assumption while keeping the conversation anchored to what's actually been established.",
+    evidence_label: "Inspect Sample Diagnostic Audit Report",
+    evidence_url: "/audit",
+    evidence_inspect: "See exactly what a Systems Audit checks."
   }
 };
 
@@ -1173,8 +1767,28 @@ export class GuidedTourEngine {
     } else if (intentId === "INTENT-08-BOOKING" || intentId === "INTENT-08-HANDOFF") {
       // Booking query: Show Consultation card ONLY
       actions.push(consultationAction);
-    } else if (intentId === "INTENT-05-PRICE" || intentId === "INTENT-09-OBJECTION") {
-      // Pricing query: Show Audit card ONLY
+    } else if (intentId === "INTENT-05-PRICE" || intentId === "INTENT-09-OBJECTION" || intentId === "INTENT-05-PRICE-NEGOTIATION" || intentId === "INTENT-TIMELINE" || intentId === "INTENT-06-AUDIT-OBJECTION" || intentId === "INTENT-ALREADY-SEEN" || intentId === "INTENT-06-AUDIT-OBJECTION-RECOMMENDATION") {
+      // Pricing/Audit-reasoning query: Show Audit card ONLY
+      actions.push(auditAction);
+    } else if (intentId === "INTENT-CREDIBILITY-TEAM") {
+      // Credibility question: link to the Founder page directly
+      actions.push(serviceAction);
+    } else if (intentId === "INTENT-TECH-STACK" || intentId === "INTENT-CONTRADICTION-ECOMMERCE" || intentId === "INTENT-ECOMMERCE-MARKETPLACE-EVOLUTION") {
+      // Technology/scope question answered with a grounding evidence example
+      actions.push(evidenceAction);
+    } else if (intentId === "INTENT-ECOMMERCE-SCOPE-ACK" || intentId === "INTENT-DONT-KNOW" || intentId === "INTENT-NOT-INTERESTED" || intentId === "INTENT-TRAFFIC-CONFIRMED") {
+      // Pure acknowledgment/discovery turn: conversational continuation only, no card yet
+    } else if (intentId === "INTENT-SKEPTICISM-WHY-DIGIXPRO") {
+      actions.push(evidenceAction);
+    } else if (intentId === "INTENT-HIGH-INTENT") {
+      actions.push(consultationAction);
+    } else if (intentId === "INTENT-SEO-CONVERSION-INSIGHT" || intentId === "INTENT-CONSULTANT-SYNTHESIS-ECOMMERCE" || intentId === "INTENT-05-PRICE-WHY") {
+      actions.push(auditAction);
+    } else if (intentId === "INTENT-CORRECTION-RECOVERY" || intentId === "INTENT-START-OVER" || intentId === "INTENT-FUTURE-REQUIREMENT-NOTED" || intentId === "INTENT-REQUIREMENT-SUPERSEDED") {
+      // Pure conversational reset/recovery/acknowledgment: no card, avoid anchoring the visitor to a stale destination
+    } else if (intentId === "INTENT-PLATFORM-OBJECTION") {
+      actions.push(evidenceAction);
+    } else if (intentId === "INTENT-REBUILD-VS-IMPROVE" || intentId === "INTENT-AUDIT-REASONING" || intentId === "INTENT-WHY-CONTEXTUAL" || intentId === "INTENT-ASSUMPTION-FOLLOWUP" || intentId === "INTENT-TECHNICAL-CONSTRAINT-CONFIRMED" || intentId === "INTENT-TRAFFIC-DECLINE-UPDATE" || intentId === "INTENT-WHAT-NEXT-RESOLVED" || intentId === "INTENT-WHAT-WOULD-CHANGE-MIND") {
       actions.push(auditAction);
     } else {
       // Default Capabilities: Show primary service card
@@ -1232,11 +1846,29 @@ export class GuidedTourEngine {
             headline: "To scale your customer acquisition, we evaluate technical SEO indexation alongside self-hosted n8n lead automation workflows.",
             question: "Would you like to focus on search ranking visibility or lead automation workflows first?",
             replies: ["Search Visibility (SEO)", "Workflow Automation", "Book 30-Min Call"]
+          },
+          // PHASE 12: PRICE and EVIDENCE previously had no track at all and
+          // fell straight to the generic DEFAULT three-choice menu for any
+          // follow-up reference ("what about timeline?", "why does that
+          // matter?") asked right after a pricing or evidence turn.
+          PRICE: {
+            headline: "Since cost depends on scope, the fastest way to get a real answer - on price, timeline, or anything else scope-dependent - is to establish the scope itself.",
+            question: "Would you rather get a quick diagnostic scope from an Audit, or discuss it directly on a call?",
+            replies: ["Start Diagnostic Audit", "Book 30-Min Call"]
+          },
+          EVIDENCE: {
+            headline: "The production evidence is there to show how a comparable problem was actually solved, not just to list past work.",
+            question: "Does your situation look closer to what you just saw, or is it meaningfully different?",
+            replies: ["Closer to that", "Different situation", "Book 30-Min Call"]
           }
         };
 
         const activeTrackKey = (session?.primary_intent === 'CTO' || session?.industry === 'advisory')
           ? 'CTO'
+          : (session?.primary_intent === 'PRICE')
+          ? 'PRICE'
+          : (session?.primary_intent === 'EVIDENCE')
+          ? 'EVIDENCE'
           : (session?.primary_intent === 'WEB' || session?.existing_website || session?.primary_intent === 'AUDIT')
           ? 'WEB'
           : (session?.primary_intent === 'SEO' || session?.primary_intent === 'AUTO')
@@ -1257,6 +1889,272 @@ export class GuidedTourEngine {
       finalHeadline = "To give you an accurate starting point, we evaluate website engineering, search visibility (SEO), workflow automation, and technology advisory.";
       finalQuestion = "Which area would you like to explore for your business?";
       finalReplies = ["Website Engineering", "Search Visibility (SEO)", "Workflow Automation", "Technology Advisory"];
+    } else if (intentId === "INTENT-05-PRICE" && (session?.industry === 'ecommerce' || session?.business_type === 'ecommerce')) {
+      // PHASE 7 FIX: acknowledge the visitor's already-established e-commerce project
+      // context instead of the generic pricing message, so a pricing question doesn't
+      // read as if the concierge forgot what was just discussed. Suggested replies and
+      // the Audit action mapping are unchanged - same INTENT-05-PRICE, same next step.
+      finalHeadline = "For your new e-commerce/marketplace website, investment depends strictly on project scope - product catalog size, payment gateway and vendor integrations, and platform complexity all affect the build.";
+      finalQuestion = "Rather than guessing an arbitrary package price, we recommend first establishing your exact e-commerce scope or getting a diagnostic audit so you pay only for what your platform actually needs.";
+    } else if (intentId === "INTENT-05-PRICE" || intentId === "INTENT-TIMELINE") {
+      // PHASE 17 PART 3/4: contextual price/timeline - a follow-up question
+      // asked mid-decision ("And what about price?", "How long would that
+      // take?") must be framed around whichever decision is ACTIVE, not
+      // answered as if the conversation just started. identifyActiveDecision
+      // skips PRICING/TIMELINE themselves (skipFollowUpDecisions) so it
+      // finds the SUBSTANTIVE decision underneath the follow-up, and
+      // DECISION_LABELS gives one reusable phrase per decision instead of
+      // a hand-authored sentence per (decision, PRICE|TIMELINE) pair.
+      const activeDecision = identifyActiveDecision(session, { skipFollowUpDecisions: true });
+      if (activeDecision && activeDecision !== 'ECOMMERCE_ARCHITECTURE') {
+        const gapState = computeInformationGapState(activeDecision, session);
+        const label = DECISION_LABELS[activeDecision];
+        const noun = intentId === 'INTENT-05-PRICE' ? 'investment' : 'timeline';
+        if (!gapState.recommendationCanProceed || gapState.decisionConfidence === 'INSUFFICIENT_INFORMATION') {
+          finalHeadline = `Honestly, ${noun} isn't something I can responsibly narrow down yet - it depends on ${label}, and that isn't established yet.`;
+          finalQuestion = gapState.topGap
+            ? gapState.topGap.questionText
+            : `Once ${label} is clearer, the ${noun} question has a real, grounded answer instead of a guess.`;
+        } else {
+          finalHeadline = `Since we're already discussing ${label}, the honest answer is that ${noun} still depends on which way that lands - a rebuild, an improve, or something else changes the number materially.`;
+          finalQuestion = `A quick diagnostic Audit or a scoping call would pin that down precisely instead of guessing at a range now.`;
+        }
+      }
+    } else if (intentId === "INTENT-ECOMMERCE-SCOPE-ACK") {
+      // PHASE 10: acknowledge the specific catalogue size the visitor just gave
+      // instead of a generic "Noted." - reuses the same product_count entity
+      // captured in precedence.ts.
+      const productCount = session?.collected_context?.product_count;
+      finalHeadline = productCount ? `Noted - around ${productCount} products.` : "Noted.";
+    } else if (intentId === "INTENT-ECOMMERCE-MARKETPLACE-EVOLUTION") {
+      // PHASE 10: reference the actual catalogue size if the visitor already gave
+      // one, instead of the generic "your catalogue" phrasing.
+      const productCount = session?.collected_context?.product_count;
+      finalHeadline = productCount
+        ? `Yes - that can be planned as a staged architecture. For ${productCount} products, I'd first make the core catalogue, payments and order flow solid, while keeping the structure ready for a later marketplace layer (multiple sellers, vendor accounts) rather than building that complexity in from day one.`
+        : stepDef.headline_message;
+    } else if (intentId === "INTENT-CONSULTANT-SYNTHESIS-ECOMMERCE") {
+      // PHASE 11: "Consultant moment" - synthesize the specific facts already
+      // established this session (product count, existing website, weak
+      // enquiries) instead of the generic audit-intake response, then explain
+      // why that combination points to an Audit rather than a rebuild.
+      const productCount = session?.collected_context?.product_count;
+      finalHeadline = `Let me put the picture together. You're planning an ecommerce build around ${productCount ? `${productCount} products` : "a product catalogue"}, you already have a website, and the actual problem is weak enquiries - not the build itself, and not traffic.`;
+    } else if (intentId === "INTENT-ALREADY-SEEN") {
+      // PHASE 13: evidence memory - only claim "no need to look at that
+      // again" when evidence was genuinely shown recently (set by
+      // precedence.ts via wasEvidenceShownRecently()); otherwise be honest
+      // that nothing specific has actually been shown yet.
+      if (session?.collected_context?.evidence_actually_shown === 'false') {
+        finalHeadline = "Fair enough - though nothing specific has actually been shown yet this conversation, so let's skip straight to something useful.";
+      }
+    } else if (intentId === "INTENT-REBUILD-VS-IMPROVE") {
+      // PHASE 14: decision-boundary reasoning (rebuild vs improve) + "I
+      // wouldn't do that yet" + recommendation confidence, derived from
+      // established facts rather than a fixed answer either way.
+      // PHASE 16: the branch conditions below are now SOURCED from the
+      // general Information Gap Engine's decision state (informationGap.ts)
+      // instead of a duplicated inline boolean - see the Phase 16 report's
+      // decision-boundary table. Text is unchanged for the two branches that
+      // already existed, so existing Phase 14/15 tests remain valid; the
+      // technical-constraint branch is new (Part 12: a resolved gap changes
+      // the recommendation).
+      // PHASE 18 PART 15: text now sourced from ONE function
+      // (recommendationEngine.ts's buildRecommendation()) instead of a
+      // duplicated inline branch chain - the SAME function WHY, the
+      // unified "what would you do?" path, and "what would change your
+      // mind?" all call, so all four surfaces are guaranteed consistent by
+      // construction rather than by careful copy-paste.
+      const recommendation = buildRecommendation('REBUILD_VS_IMPROVE', session);
+      if (recommendation.option !== 'INSUFFICIENT') {
+        finalHeadline = applyResponseVariant(recommendation.rationale.join(' '), session, 'recommendation_request_variant');
+        finalQuestion = recommendation.whatWouldChange[0] || finalQuestion;
+      } else {
+        // PHASE 20 (Phase 19 Finding 2): when nothing decisive is known yet,
+        // ask the Information Gap Engine's own highest-value question
+        // instead of the static generic fallback - the SAME
+        // computeInformationGapState()/topGap.questionText pattern already
+        // used by the contextual PRICE/TIMELINE branch below. No new
+        // question registry, no change to gap scoring or decision
+        // definitions - this only changes WHICH already-computed question
+        // gets shown. The headline (stepDef default) is left as-is.
+        const gapState = computeInformationGapState('REBUILD_VS_IMPROVE', session);
+        finalQuestion = gapState.topGap?.questionText || finalQuestion;
+      }
+      if (recommendation.option === 'REBUILD') {
+        // The dedicated stepDef's own action-oriented question reads better
+        // here than the generic whatWouldChange sentence.
+        finalQuestion = GUIDED_TOUR_MATRIX["INTENT-TECHNICAL-CONSTRAINT-CONFIRMED"].targeted_question;
+      }
+      // else: INSUFFICIENT_INFORMATION - keep the stepDef default, which
+      // already asks for the deciding fact rather than guessing.
+    } else if (intentId === "INTENT-AUDIT-REASONING") {
+      // PHASE 14: Audit-vs-self-service decision boundary, reasoned from
+      // diagnostic_uncertainty rather than answered the same way every time.
+      // PHASE 16: problem_clarity now read via the engine (same underlying
+      // session.diagnostic_uncertainty field - see informationGap.ts's
+      // readFact()); the conversion-bottleneck exception is a decision-
+      // specific business rule outside the single-fact registry entry, kept
+      // inline exactly as before.
+      // PHASE 18 PART 15: sourced from buildRecommendation() - see the
+      // matching comment on INTENT-REBUILD-VS-IMPROVE above.
+      const auditRecommendation = buildRecommendation('AUDIT_VS_SELF_SERVICE', session);
+      finalHeadline = applyResponseVariant(auditRecommendation.rationale.join(' '), session, 'recommendation_request_variant');
+      finalQuestion = auditRecommendation.option === 'SELF_SERVICE' ? 'Is the actual problem already clear to you, or still an open question?' : finalQuestion;
+    } else if (intentId === "INTENT-WHAT-NEXT-RESOLVED") {
+      // PHASE 17 PART 1: reuse the resolved decision's OWN already-shown
+      // text (the same "reuse an existing intent's own reasoning"
+      // mechanism as INTENT-WHY-CONTEXTUAL) instead of a fresh generic
+      // diagnostic script. what_next_source_intent is recorded by
+      // precedence.ts's "what next?" rule at the point of decision, not
+      // read via getLastIntent() here, for the same previous_states-timing
+      // reason documented on why_target/direct_recommendation_reason above.
+      const sourceIntent = session?.collected_context?.what_next_source_intent;
+      const shownText = sourceIntent ? session?.collected_context?.[`shown_text_${sourceIntent}`] : undefined;
+      if (shownText) {
+        finalHeadline = `Here's where things stand: ${shownText}`;
+      }
+    } else if (intentId === "INTENT-WHAT-WOULD-CHANGE-MIND") {
+      // PHASE 18 PART 16: derive the answer from the active decision's
+      // Recommendation.whatWouldChange - no hardcoded per-decision text.
+      const changeDecision = session?.collected_context?.what_would_change_decision as DecisionKey | undefined;
+      if (changeDecision) {
+        const rec = buildRecommendation(changeDecision, session);
+        const currentLean =
+          rec.option === 'REBUILD'
+            ? 'a rebuild'
+            : rec.option === 'IMPROVE'
+            ? 'improving the current site'
+            : rec.option === 'AUDIT'
+            ? 'an Audit'
+            : rec.option === 'SELF_SERVICE'
+            ? 'going straight to scoping it yourself'
+            : rec.option === 'CONVERSION_FOCUS'
+            ? 'conversion work'
+            : rec.option === 'VISIBILITY_FOCUS'
+            ? 'visibility/SEO work'
+            : 'not yet established';
+        finalHeadline =
+          rec.whatWouldChange.length > 0
+            ? `Right now I'm leaning toward ${currentLean}. ${rec.whatWouldChange.join(' ')}`
+            : `Right now I'm leaning toward ${currentLean}, and nothing currently on the table would change that.`;
+        finalQuestion = rec.unresolvedGaps.length > 0 ? `Do you know ${DECISION_LABELS[changeDecision]} yet, or is that still open?` : finalQuestion;
+      }
+    } else if (intentId === "INTENT-06-AUDIT-OBJECTION" || intentId === "INTENT-SKEPTICISM-WHY-DIGIXPRO" || intentId === "INTENT-PLATFORM-OBJECTION") {
+      // PHASE 18 PART 6: bridge the (already-honest) objection answer to
+      // whichever decision is currently active, when one exists - Part 6's
+      // "answer using current facts + decision state", layered on top of
+      // the existing stepDef text rather than replacing it.
+      const objectionDecision = session?.collected_context?.objection_active_decision as DecisionKey | undefined;
+      if (objectionDecision) {
+        const rec = buildRecommendation(objectionDecision, session);
+        // PHASE 18 (found via the mandatory conversation test): only bridge
+        // when the active decision actually HAS a resolved lean
+        // (REBUILD/IMPROVE/AUDIT/SELF_SERVICE/CONVERSION_FOCUS/
+        // VISIBILITY_FOCUS) - ECOMMERCE_ARCHITECTURE/PRICING/TIMELINE have
+        // no such option (always 'INSUFFICIENT' from buildGenericRecommendation),
+        // so bridging to them would silently fall through to a WRONG,
+        // hardcoded default lean instead of correctly saying nothing.
+        if (rec.option !== 'INSUFFICIENT') {
+          const leanLabel =
+            rec.option === 'REBUILD'
+              ? 'a rebuild'
+              : rec.option === 'IMPROVE'
+              ? 'improving the current site'
+              : rec.option === 'AUDIT'
+              ? 'an Audit'
+              : rec.option === 'SELF_SERVICE'
+              ? 'skipping the Audit'
+              : rec.option === 'CONVERSION_FOCUS'
+              ? 'conversion work over more SEO'
+              : 'visibility/SEO work';
+          finalHeadline = `${finalHeadline} Given what's already established here, I'm currently leaning toward ${leanLabel} anyway, independent of this question.`;
+        }
+      }
+    } else if (intentId === "INTENT-TRAFFIC-DECLINE-UPDATE") {
+      // PHASE 16: explicitly acknowledge the superseded fact when there was
+      // one to supersede (Part 13), rather than a generic opener every time.
+      if (session?.collected_context?.traffic_previously_healthy === 'true') {
+        finalHeadline = "Earlier you mentioned traffic was healthy - good that you flagged this changed, because it changes the recommendation. If traffic itself is now dropping, this isn't a conversion question anymore, it's back to visibility.";
+      }
+    } else if (intentId === "INTENT-06-AUDIT-OBJECTION-RECOMMENDATION") {
+      // PHASE 14: this intent is now reached two ways - after an explicit
+      // audit objection (Phase 13), or from a "what would you do?" question
+      // answered directly from an established conversion-bottleneck profile
+      // (Phase 14, no objection involved). precedence.ts records which one
+      // via direct_recommendation_reason (set at the point of decision,
+      // where the distinction is actually known - getLastIntent() cannot be
+      // used here since previous_states already includes THIS turn by the
+      // time resolveTourStep runs). The stepDef default assumes the former
+      // ("since you'd rather skip the audit..."); swap to a plain
+      // direct-recommendation opening for the latter so it doesn't reference
+      // an objection that never happened.
+      if (session?.collected_context?.direct_recommendation_reason === 'conversion_bottleneck') {
+        // PHASE 21 (Part 4 fact/assumption safety): traffic='plenty' IS an
+        // established fact here (isConversionBottleneckProfile requires it),
+        // but "enquiries weak" is not - it's this branch's own inference by
+        // elimination (traffic isn't the constraint, so conversion is the
+        // next place to look), not something every visitor reaching this
+        // branch actually said. Only claim it as told when enquiry_health
+        // was actually recorded as weak (recordFact, precedence.ts).
+        const enquiriesActuallyWeak = session?.collected_context?.enquiry_health === 'weak';
+        finalHeadline = enquiriesActuallyWeak
+          ? "Based on what you've told me: with traffic already fine and enquiries weak, I'd look at the conversion path first - page layout, load speed, and what happens right after someone lands - before touching SEO or a rebuild."
+          : "Based on what you've told me: with traffic already fine, I'd look at the conversion path first - page layout, load speed, and what happens right after someone lands - before touching SEO or a rebuild.";
+      }
+    } else if (intentId === "INTENT-WHY-CONTEXTUAL") {
+      // PHASE 15: generalized "why" - reuse the target intent's OWN
+      // response text as the explanation, rather than a hardcoded sentence.
+      // why_target is recorded by precedence.ts (see the comment on that
+      // field) rather than read via getLastIntent() here, for the same
+      // previous_states-timing reason documented above.
+      const whyTarget = session?.collected_context?.why_target;
+      // PHASE 15: prefer the ACTUALLY-SHOWN text for that turn (which may
+      // have been dynamically computed, e.g. INTENT-REBUILD-VS-IMPROVE's
+      // confidence-tiered branches) over the static stepDef default - the
+      // exact bug this phase's own testing found otherwise.
+      const shownText = whyTarget ? session?.collected_context?.[`shown_text_${whyTarget}`] : undefined;
+      const shownQuestion = whyTarget ? session?.collected_context?.[`shown_question_${whyTarget}`] : undefined;
+      const targetDef = whyTarget ? GUIDED_TOUR_MATRIX[whyTarget] : undefined;
+      if (shownText) {
+        finalHeadline = shownText;
+        finalQuestion = shownQuestion || finalQuestion;
+      } else if (targetDef) {
+        finalHeadline = targetDef.headline_message;
+        finalQuestion = targetDef.targeted_question;
+      }
+    } else if (intentId === "INTENT-ASSUMPTION-FOLLOWUP") {
+      // PHASE 15: reuse the recent challenge intent's own reasoning,
+      // prefixed with an acknowledgment of the original assumption -
+      // Part 18's exact target ("I thought SEO would fix it").
+      // assumption_challenge_target is recorded by precedence.ts for the
+      // same previous_states-timing reason as why_target above.
+      const challengeTarget = session?.collected_context?.assumption_challenge_target;
+      const shownChallengeText = challengeTarget ? session?.collected_context?.[`shown_text_${challengeTarget}`] : undefined;
+      const challengeDef = challengeTarget ? GUIDED_TOUR_MATRIX[challengeTarget] : undefined;
+      if (shownChallengeText) {
+        finalHeadline = `That's understandable. ${shownChallengeText}`;
+        finalQuestion = challengeTarget ? (session?.collected_context?.[`shown_question_${challengeTarget}`] || finalQuestion) : finalQuestion;
+      } else if (challengeDef) {
+        finalHeadline = `That's understandable. ${challengeDef.headline_message}`;
+        finalQuestion = challengeDef.targeted_question;
+      }
+    }
+
+    // PHASE 15: persist whatever was ACTUALLY shown for this turn (static
+    // stepDef text or a dynamically-computed confidence-tiered override
+    // above) whenever this intent is one "why?" or an assumption follow-up
+    // might later need to reuse. Without this, resolveWhyTarget's "reuse the
+    // target's own text" mechanism would only work for static stepDefs and
+    // silently fall back to the generic default for any dynamically-computed
+    // recommendation (the exact bug this phase's own testing found for
+    // INTENT-REBUILD-VS-IMPROVE's HIGH_CONFIDENCE branch).
+    if (session && WHY_REUSABLE_INTENTS.has(intentId) && finalHeadline) {
+      session.collected_context = {
+        ...session.collected_context,
+        [`shown_text_${intentId}`]: finalHeadline,
+        ...(finalQuestion ? { [`shown_question_${intentId}`]: finalQuestion } : {})
+      };
     }
 
     // Response Language Matching (Hindi / Hinglish Pre-Authored Variants)

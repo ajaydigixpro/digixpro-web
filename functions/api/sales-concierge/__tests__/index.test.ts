@@ -256,4 +256,61 @@ describe('Sales Concierge routing endpoint - functions/api/sales-concierge/index
       assert.ok(!serialized.includes(forbidden), `session_state must not contain "${forbidden}"`);
     }
   });
+
+  // --- Phase 7: e-commerce pricing misroute & Diagnostic Audit loop fixes (full endpoint round trip) ---
+
+  test('Phase 7: real multi-turn round trip - new website -> ecommerce -> pricing question acknowledges the e-commerce context and reaches the Audit action, not a clarify loop', async () => {
+    const sessionId = 'sess-p7-endpoint-flow';
+
+    const r1 = await onRequest(makeContext({ body: JSON.stringify({ message: 'Build a new website', session_id: sessionId }) }));
+    const b1 = await readJson(r1);
+
+    const r2 = await onRequest(makeContext({ body: JSON.stringify({ message: 'E-commerce / Marketplace', session_id: sessionId, session_state: b1.session_state }) }));
+    const b2 = await readJson(r2);
+    assert.equal(b2.result.candidate_intent, 'INTENT-07-EVIDENCE-REDESIGN');
+
+    const r3 = await onRequest(makeContext({ body: JSON.stringify({ message: 'Can you tell me price?', session_id: sessionId, session_state: b2.session_state }) }));
+    const b3 = await readJson(r3);
+    assert.equal(b3.result.candidate_intent, 'INTENT-05-PRICE');
+    assert.ok(b3.text.toLowerCase().includes('e-commerce'), 'pricing response must explicitly acknowledge the e-commerce project context');
+    assert.equal(b3.tour_step.audit_recommendation.url, '/audit');
+
+    const r4 = await onRequest(makeContext({ body: JSON.stringify({ message: 'Diagnostic Audit', session_id: sessionId, session_state: b3.session_state }) }));
+    const b4 = await readJson(r4);
+    assert.equal(b4.result.candidate_intent, 'INTENT-06-AUDIT-INTAKE');
+    assert.notEqual(b4.result.candidate_intent, 'INTENT-CONTEXTUAL-CLARIFY', 'must not loop back into the generic three-choice clarify menu');
+    assert.equal(b4.tour_step.audit_recommendation.url, '/audit');
+
+    const r5 = await onRequest(makeContext({ body: JSON.stringify({ message: 'I have already seen the case study. I want to know the budget.', session_id: sessionId, session_state: b4.session_state }) }));
+    const b5 = await readJson(r5);
+    assert.equal(b5.result.candidate_intent, 'INTENT-05-PRICE');
+    assert.notEqual(b5.result.candidate_intent, 'INTENT-07-EVIDENCE-REDESIGN', 'must not revert to the case-study recommendation after the visitor explicitly moved on');
+  });
+
+  // --- Phase 9: restored fuzzy-fallback prototypes reachable through the real endpoint ---
+
+  test('Phase 9: a paraphrase not covered by any Tier-0 rule ("google visibility") now gets a real, on-topic response instead of a generic clarify fallback', async () => {
+    const ctx = makeContext({ body: JSON.stringify({ message: 'google visibility', session_id: 'sess-p9-endpoint-seo' }) });
+    const res = await onRequest(ctx);
+    const body = await readJson(res);
+    assert.equal(res.status, 200);
+    assert.equal(body.result.candidate_intent, 'INTENT-01-SEO');
+    assert.equal(body.result.tier0_match, false, 'must be resolved by the restored fuzzy layer, not a Tier-0 regex');
+    assert.equal(typeof body.text, 'string');
+    assert.ok(body.text.length > 0);
+  });
+
+  // --- Diagnostic Audit CTA contract: the exact data the frontend needs to render a real /audit link ---
+
+  test('the "Diagnostic Audit" chip produces a real START_AUDIT tour_action with url "/audit" - the frontend contract the reported navigation bug depends on', async () => {
+    const ctx = makeContext({ body: JSON.stringify({ message: 'Diagnostic Audit', session_id: 'sess-audit-cta-contract' }) });
+    const res = await onRequest(ctx);
+    const body = await readJson(res);
+    assert.equal(res.status, 200);
+    assert.equal(body.result.candidate_intent, 'INTENT-06-AUDIT-INTAKE');
+    assert.notEqual(body.result.candidate_intent, 'INTENT-CONTEXTUAL-CLARIFY', 'must not loop back into the generic clarify menu instead of producing a navigable action');
+    const startAudit = (body.tour_step.tour_actions || []).find((a: any) => a.action_type === 'START_AUDIT');
+    assert.ok(startAudit, 'tour_actions must contain a START_AUDIT entry');
+    assert.equal(startAudit.url, '/audit');
+  });
 });

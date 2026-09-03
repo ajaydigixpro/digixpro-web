@@ -18,6 +18,14 @@ import {
 } from '../../../src/visual-engine/renderer/types';
 import { getEmbeddedFonts } from '../../../src/visual-engine/renderer/embedded-fonts';
 import { DEFAULT_INSIGHT_BG_DATA_URI } from '../../../src/visual-engine/renderer/embedded-backgrounds';
+import { validatePayload } from '../../../src/visual-engine/renderer/qa';
+
+function validationErrorResponse(errors: string[]) {
+  return new Response(JSON.stringify({ error: 'Validation failed', details: errors }), {
+    status: 400,
+    headers: { 'Content-Type': 'application/json' }
+  });
+}
 
 export const onRequestGet = async (context: any) => {
   try {
@@ -38,6 +46,8 @@ export const onRequestGet = async (context: any) => {
           solution_supporting_text: url.searchParams.get('solution_supporting_text') || 'Synchronize patient queues with practitioner availability across all branches.',
           category_badge_text: (url.searchParams.get('category_badge_text') || 'AUTOMATION').toUpperCase()
         };
+        const validation = validatePayload(data);
+        if (!validation.valid) return validationErrorResponse(validation.errors);
         element = React.createElement(Master02ProblemSolution, { data });
         break;
       }
@@ -55,6 +65,8 @@ export const onRequestGet = async (context: any) => {
           framework_description_3: url.searchParams.get('framework_description_3') || 'Implement end-to-end tracing and health telemetry.',
           category_badge_text: (url.searchParams.get('category_badge_text') || 'FRAMEWORK').toUpperCase()
         };
+        const validation = validatePayload(data);
+        if (!validation.valid) return validationErrorResponse(validation.errors);
         element = React.createElement(Master03Framework, { data });
         break;
       }
@@ -69,6 +81,8 @@ export const onRequestGet = async (context: any) => {
           source_period_context: url.searchParams.get('source_period_context') || 'Q3 2026 Production Telemetry',
           category_badge_text: (url.searchParams.get('category_badge_text') || 'DATA SIGNAL').toUpperCase()
         };
+        const validation = validatePayload(data);
+        if (!validation.valid) return validationErrorResponse(validation.errors);
         element = React.createElement(Master05DataSignal, { data });
         break;
       }
@@ -88,6 +102,8 @@ export const onRequestGet = async (context: any) => {
           comparison_summary: url.searchParams.get('comparison_summary') || 'Purpose-built software outperforms generic templates on every operational metric.',
           category_badge_text: (url.searchParams.get('category_badge_text') || 'COMPARISON').toUpperCase()
         };
+        const validation = validatePayload(data);
+        if (!validation.valid) return validationErrorResponse(validation.errors);
         element = React.createElement(Master07Comparison, { data });
         break;
       }
@@ -102,6 +118,8 @@ export const onRequestGet = async (context: any) => {
           announcement_date_context: url.searchParams.get('announcement_date_context') || 'SEPTEMBER 2026',
           category_badge_text: (url.searchParams.get('category_badge_text') || 'ANNOUNCEMENT').toUpperCase()
         };
+        const validation = validatePayload(data);
+        if (!validation.valid) return validationErrorResponse(validation.errors);
         element = React.createElement(Master08Announcement, { data });
         break;
       }
@@ -115,12 +133,14 @@ export const onRequestGet = async (context: any) => {
           optional_context: url.searchParams.get('optional_context') || 'HealthTech Platform Architecture',
           category_badge_text: (url.searchParams.get('category_badge_text') || 'CLIENT IMPACT').toUpperCase()
         };
+        // NOTE: master_10's validatePayload() requires exactly one of client_photo_id/client_logo_id,
+        // which this live endpoint does not currently source (see report: AssetResolver is fs-based
+        // and cannot run in this Workers runtime). Left unchanged intentionally — see task report.
         element = React.createElement(Master10Testimonial, { data });
         break;
       }
 
-      case 'master_01_insight':
-      default: {
+      case 'master_01_insight': {
         const headline =
           url.searchParams.get('insight_headline') ||
           url.searchParams.get('headline') ||
@@ -141,11 +161,20 @@ export const onRequestGet = async (context: any) => {
           category_badge_text: category
         };
 
+        const validation = validatePayload(data);
+        if (!validation.valid) return validationErrorResponse(validation.errors);
         element = React.createElement(Master01Insight, {
           data,
           bgDataUri: DEFAULT_INSIGHT_BG_DATA_URI
         });
         break;
+      }
+
+      default: {
+        return new Response(JSON.stringify({ error: `Unsupported template_id: ${templateId}` }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        });
       }
     }
 

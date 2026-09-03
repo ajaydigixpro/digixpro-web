@@ -208,3 +208,109 @@ describe('LocalSemanticRouter Prototype Integration & Safety Tests', () => {
     assert.equal(result.candidate_intent, "INTENT-10-GREETING");
   });
 });
+
+describe('Phase 7: E-commerce pricing misroute & Diagnostic Audit loop fixes', () => {
+  let router: LocalSemanticRouter;
+
+  beforeEach(() => {
+    router = new LocalSemanticRouter({
+      similarityThreshold: 0.75,
+      marginThreshold: 0.10
+    });
+  });
+
+  // --- Regression test 9: existing evidence destination still fires first ---
+  test('Ecommerce evidence destination still resolves correctly on first mention (unchanged by Phase 7)', () => {
+    const sessionId = "sess-p7-evidence-baseline";
+    router.route("I want to build a new website", sessionId);
+    const evidenceTurn = router.route("E-commerce / Marketplace", sessionId);
+    assert.equal(evidenceTurn.candidate_intent, "INTENT-07-EVIDENCE-REDESIGN");
+    assert.equal(evidenceTurn.candidate_family, "FAM-07");
+  });
+
+  // --- Regression test 1: new website + ecommerce -> pricing question ---
+  test('New website + ecommerce context, then "Can you tell me price?" resolves to PRICE, not clarify/loop', () => {
+    const sessionId = "sess-p7-price-001";
+    router.route("I want to build a new website", sessionId);
+    router.route("E-commerce / Marketplace", sessionId);
+    const priceTurn = router.route("Can you tell me price?", sessionId);
+    assert.equal(priceTurn.candidate_intent, "INTENT-05-PRICE");
+    assert.equal(priceTurn.candidate_family, "FAM-05");
+    assert.equal(priceTurn.tier0_match, true);
+  });
+
+  // --- Regression test 2: ecommerce context -> explicit budget question ---
+  test('Ecommerce context, then an explicit budget question mentioning "ecommerce" still resolves to PRICE, not back to the case study', () => {
+    const sessionId = "sess-p7-price-002";
+    router.route("I want to build a new website", sessionId);
+    router.route("E-commerce / Marketplace", sessionId);
+    const priceTurn = router.route("I need a price or budget for new ecommerce website.", sessionId);
+    assert.equal(priceTurn.candidate_intent, "INTENT-05-PRICE", "must not re-match the e-commerce evidence keyword rule (FAM-07) merely because the word 'ecommerce' is present");
+    assert.equal(priceTurn.candidate_family, "FAM-05");
+  });
+
+  // --- Regression test 3: ecommerce context -> "Diagnostic Audit" ---
+  test('Ecommerce context, then explicit "Diagnostic Audit" selection resolves directly to the Audit intake, not a clarify loop', () => {
+    const sessionId = "sess-p7-audit-001";
+    router.route("I want to build a new website", sessionId);
+    router.route("E-commerce / Marketplace", sessionId);
+    const auditTurn = router.route("Diagnostic Audit", sessionId);
+    assert.equal(auditTurn.candidate_intent, "INTENT-06-AUDIT-INTAKE");
+    assert.equal(auditTurn.candidate_family, "FAM-06");
+    assert.notEqual(auditTurn.candidate_intent, "INTENT-CONTEXTUAL-CLARIFY");
+  });
+
+  // --- Regression test 4: user rejects previous case-study direction ---
+  test('Explicit rejection of the case-study direction, asking for budget instead, follows the corrected (pricing) intent', () => {
+    const sessionId = "sess-p7-reject-001";
+    router.route("I want to build a new website", sessionId);
+    router.route("E-commerce / Marketplace", sessionId);
+    const correctionTurn = router.route("I have already seen the case study. I want to know the budget.", sessionId);
+    assert.equal(correctionTurn.candidate_intent, "INTENT-05-PRICE");
+    assert.notEqual(correctionTurn.candidate_intent, "INTENT-07-EVIDENCE-REDESIGN");
+  });
+
+  // --- Regression test 5: explicit Audit selection must not loop across repeats ---
+  test('Selecting "Diagnostic Audit" twice in a row resolves to the same stable Audit intake both times, never degrading into clarify', () => {
+    const sessionId = "sess-p7-audit-noloop";
+    router.route("I want to build a new website", sessionId);
+    router.route("E-commerce / Marketplace", sessionId);
+    const first = router.route("Diagnostic Audit", sessionId);
+    const second = router.route("Diagnostic Audit", sessionId);
+    assert.equal(first.candidate_intent, "INTENT-06-AUDIT-INTAKE");
+    assert.equal(second.candidate_intent, "INTENT-06-AUDIT-INTAKE");
+    assert.notEqual(second.candidate_intent, "INTENT-CONTEXTUAL-CLARIFY");
+  });
+
+  // --- Regression test 6: pricing question must not route to Technical Architecture ---
+  test('An explicit pricing question does not route to Technical Architecture/CTO solely because the word "price" appears', () => {
+    const sessionId = "sess-p7-price-not-cto";
+    const priceTurn = router.route("Can you tell me the price for this?", sessionId);
+    assert.equal(priceTurn.candidate_intent, "INTENT-05-PRICE");
+    assert.notEqual(priceTurn.candidate_intent, "INTENT-04-CTO");
+    assert.notEqual(priceTurn.candidate_family, "FAM-04");
+  });
+
+  // --- Regression test 7: existing CTO handoff behavior remains passing ---
+  test('Existing CTO -> "what next?" handoff behavior is unaffected by the Phase 7 changes', () => {
+    const sessionId = "sess-p7-cto-regression";
+    const turn1 = router.route("fractional cto", sessionId);
+    assert.equal(turn1.candidate_intent, "INTENT-04-CTO");
+    const turn2 = router.route("what next?", sessionId);
+    assert.equal(turn2.candidate_intent, "INTENT-08-HANDOFF");
+    assert.equal(turn2.candidate_family, "FAM-08");
+  });
+
+  // --- Regression test 8: existing session continuity (hydration) remains passing ---
+  test('Existing hydrateSession round-trip continuity is unaffected by the Phase 7 changes', () => {
+    const sessionId = "sess-p7-continuity-regression";
+    const turn1 = router.route("fractional cto", sessionId);
+    assert.equal(turn1.candidate_intent, "INTENT-04-CTO");
+    const snapshot = router.getSession(sessionId);
+
+    const freshRouter = new LocalSemanticRouter({ similarityThreshold: 0.75, marginThreshold: 0.10 });
+    freshRouter.hydrateSession(sessionId, snapshot);
+    const turn2 = freshRouter.route("what next?", sessionId);
+    assert.equal(turn2.candidate_intent, "INTENT-08-HANDOFF");
+  });
+});

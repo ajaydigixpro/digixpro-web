@@ -6,13 +6,10 @@ import Link from "next/link";
 import {
   Bot,
   ChevronRight,
-  FolderOpen,
-  Globe2,
   LoaderCircle,
   MessageCircle,
   Send,
   Sparkles,
-  Workflow,
   X,
   ArrowRight,
   Calendar,
@@ -92,40 +89,21 @@ type ChatMessage = {
 
 type QuickStart = {
   label: string;
-  detail: string;
   message: string;
-  icon: typeof Globe2;
 };
 
+// Compact entry chips - suggestions, not a form. Labels come from the existing
+// product taxonomy (Advisory / Design & Build / Search-AI-Automation service
+// streams already used across precedence.ts and canonicalRegistry.ts); each
+// underlying message is a phrasing already proven to route directly to the
+// correct intent, so a chip click behaves exactly like a visitor typing it.
 const QUICK_STARTS: QuickStart[] = [
-  {
-    label: "Advisory & Strategy",
-    detail: "Technology roadmaps, vendor evaluation & Fractional CTO",
-    message:
-      "I need independent technology advisory, vendor evaluation, or fractional CTO leadership before committing budget to a platform.",
-    icon: Bot,
-  },
-  {
-    label: "Website Design & Engineering",
-    detail: "Custom websites, redesign & migration, UX & SEO-ready engineering",
-    message:
-      "I am evaluating a custom website design, website redesign, or SEO-ready web engineering project.",
-    icon: Globe2,
-  },
-  {
-    label: "Search, AI & Automation",
-    detail: "SEO, AI Search (GEO), local visibility & workflow automation",
-    message:
-      "I need guidance on SEO, AI search optimization (GEO), local lead visibility, n8n workflow automation, or CRM sales pipelines.",
-    icon: Workflow,
-  },
-  {
-    label: "Audit & Evidence",
-    detail: "Audits, case studies, production evidence & verified outcomes",
-    message:
-      "I would like to discuss DigiXPro Systems Audit recommendations or inspect verified production evidence and case studies.",
-    icon: FolderOpen,
-  },
+  { label: "Build a website", message: "Build a new website" },
+  { label: "Redesign", message: "I need a website redesign." },
+  { label: "SEO / AI Search", message: "I need SEO or AI search optimization (GEO) help." },
+  { label: "E-commerce", message: "E-commerce / Marketplace" },
+  { label: "Technical / CTO", message: "I need fractional CTO or technology advisory." },
+  { label: "Not sure", message: "I'm not sure what I need yet." },
 ];
 
 function isChatMessage(value: unknown): value is ChatMessage {
@@ -207,6 +185,18 @@ function isInternalDigiXProUrl(href: string) {
   } catch {
     return false;
   }
+}
+
+// Extracted so the action->navigation-target decision used for every guided-tour
+// action card (View Case Study, service links, Start Diagnostic Audit, Book 30-Min
+// Call) is a single, independently testable rule instead of inline JSX logic. Pure
+// refactor of the existing behavior - no change to which URL any action card opens.
+export function resolveTourActionLink(action: Pick<TourAction, "url">): { href: string; isInternal: boolean } {
+  const url = action.url;
+  if (url && url.startsWith("/")) {
+    return { href: url, isInternal: true };
+  }
+  return { href: url || "/", isInternal: false };
 }
 
 function MarkdownReply({ text }: { text: string }) {
@@ -413,25 +403,22 @@ export default function SalesConcierge() {
       {isOpen && (
         <section
           aria-label="DigiXPro Concierge"
-          className="flex h-[min(46rem,calc(100dvh-7.5rem))] w-full max-w-[28.5rem] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50 shadow-2xl shadow-black/20 dark:border-neutral-800 dark:bg-[#0E0E0E] md:h-[min(46rem,calc(100dvh-8rem))] md:w-[28.5rem]"
+          className="flex h-[min(40rem,calc(100dvh-7.5rem))] w-full max-w-[25rem] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50 shadow-2xl shadow-black/20 dark:border-neutral-800 dark:bg-[#0E0E0E] md:h-[min(40rem,calc(100dvh-8rem))] md:w-[25rem]"
         >
           {/* HEADER */}
-          <header className="border-b border-neutral-200 bg-white px-4 py-3.5 dark:border-neutral-800 dark:bg-[#121212]">
+          <header className="border-b border-neutral-200 bg-white px-3.5 py-2.5 dark:border-neutral-800 dark:bg-[#121212]">
             <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#009E73] to-[#007a55] text-white shadow-md">
-                  <Compass className="h-5 w-5" />
-                  <span className="absolute -bottom-0.5 -right-0.5 flex h-3 w-3">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="relative flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-[#009E73] to-[#007a55] text-white shadow-sm">
+                  <Compass className="h-4 w-4" />
+                  <span className="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-white dark:border-[#121212]"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 border-2 border-white dark:border-[#121212]"></span>
                   </span>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-bold text-[#0A0A0A] dark:text-white flex items-center gap-1.5">
+                  <p className="text-[13px] font-bold leading-tight text-[#0A0A0A] dark:text-white">
                     DigiXPro<span className="text-[#009E73]">.</span> Concierge
-                  </p>
-                  <p className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400 truncate">
-                    Intelligent Guided Website Tour & Architecture Advisor
                   </p>
                 </div>
               </div>
@@ -440,7 +427,7 @@ export default function SalesConcierge() {
                   <button
                     type="button"
                     onClick={startNewConversation}
-                    className="inline-flex min-h-8 items-center rounded-lg border border-neutral-200 bg-neutral-50 px-2.5 text-[11px] font-bold text-neutral-600 transition-colors hover:border-emerald-300 hover:bg-emerald-50 hover:text-[#007a55] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-emerald-800 dark:hover:text-[#4ade80]"
+                    className="inline-flex min-h-7 items-center rounded-lg border border-neutral-200 bg-neutral-50 px-2 text-[11px] font-bold text-neutral-600 transition-colors hover:border-emerald-300 hover:bg-emerald-50 hover:text-[#007a55] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-emerald-800 dark:hover:text-[#4ade80]"
                     aria-label="Start a new tour"
                   >
                     New Tour
@@ -449,50 +436,42 @@ export default function SalesConcierge() {
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex min-h-8 min-w-8 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-colors hover:border-neutral-300 hover:text-[#0A0A0A] dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
+                  className="inline-flex min-h-7 min-w-7 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-colors hover:border-neutral-300 hover:text-[#0A0A0A] dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
                   aria-label="Close Concierge"
                 >
-                  <X className="h-4 w-4" aria-hidden="true" />
+                  <X className="h-3.5 w-3.5" aria-hidden="true" />
                 </button>
               </div>
             </div>
           </header>
 
           {/* CONVERSATION FEED */}
-          <div className="flex-1 space-y-6 overflow-y-auto px-4 py-5" aria-live="polite">
-            {/* Initial Quick-Starts ONLY when no messages exist */}
+          <div className="flex-1 space-y-5 overflow-y-auto px-4 py-4" aria-live="polite">
+            {/* Compact opening state ONLY when no messages exist */}
             {messages.length === 0 && (
-              <div className="space-y-4">
-                <div className="rounded-2xl border border-emerald-100 bg-white p-4 text-sm leading-6 text-neutral-800 shadow-sm dark:border-emerald-900/60 dark:bg-neutral-900 dark:text-neutral-200">
-                  <div className="mb-2 flex items-center gap-2 font-bold text-[#0A0A0A] dark:text-white text-sm">
-                    <Sparkles className="h-4 w-4 text-[#009E73]" aria-hidden="true" />
-                    Welcome to DigiXPro:
-                  </div>
-                  <p className="text-xs leading-5 text-neutral-600 dark:text-neutral-400">
-                    Hello, welcome to DigiXPro. I’m DigiXPro Concierge. DigiXPro brings production experience dating back to 2016, with independently verified client feedback across multiple professional freelance platforms — checkable by anyone who looks. I can help guide you across our three primary service disciplines: Technology Advisory, Website Design & Web Engineering, and Search, AI & Automation. Where would you like to begin?
+              <div className="space-y-3.5">
+                <div className="flex items-start gap-2">
+                  <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-[#009E73]" aria-hidden="true" />
+                  <p className="text-[13px] leading-5 text-neutral-700 dark:text-neutral-300">
+                    Tell me what you&apos;re trying to build, fix, or improve — I&apos;ll guide you to the right next step.
+                    <span className="mt-1 block text-neutral-500 dark:text-neutral-400">
+                      Not sure where to start? Just say what you&apos;re trying to achieve.
+                    </span>
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                  {QUICK_STARTS.map((quickStart) => {
-                    const Icon = quickStart.icon;
-                    return (
-                      <button
-                        key={quickStart.label}
-                        type="button"
-                        onClick={() => void sendVisitorMessage(quickStart.message)}
-                        disabled={isSending}
-                        className="group flex min-h-18 items-start gap-2.5 rounded-xl border border-neutral-200 bg-white p-3 text-left transition-all hover:-translate-y-0.5 hover:border-[#009E73] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-[#4ade80]"
-                      >
-                        <Icon className="mt-0.5 h-4 w-4 shrink-0 text-[#009E73]" aria-hidden="true" />
-                        <span className="min-w-0 flex-1">
-                          <span className="block text-xs font-bold text-[#0A0A0A] dark:text-white">{quickStart.label}</span>
-                          <span className="mt-0.5 block text-[11px] leading-4 text-neutral-500 dark:text-neutral-400">{quickStart.detail}</span>
-                        </span>
-                        <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-neutral-400 transition-transform group-hover:translate-x-0.5 group-hover:text-[#009E73]" aria-hidden="true" />
-                      </button>
-                    );
-                  })}
+                <div className="flex flex-wrap gap-1.5">
+                  {QUICK_STARTS.map((quickStart) => (
+                    <button
+                      key={quickStart.label}
+                      type="button"
+                      onClick={() => void sendVisitorMessage(quickStart.message)}
+                      disabled={isSending}
+                      className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-xs font-semibold text-neutral-700 transition-all hover:-translate-y-0.5 hover:border-[#009E73] hover:text-[#007a55] hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-[#4ade80] dark:hover:text-[#4ade80]"
+                    >
+                      {quickStart.label}
+                    </button>
+                  ))}
                 </div>
               </div>
             )}
@@ -509,7 +488,7 @@ export default function SalesConcierge() {
                     <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 pr-1 flex items-center gap-1">
                       <User className="h-3 w-3" /> You
                     </span>
-                    <div className="rounded-2xl rounded-tr-sm bg-[#0A0A0A] px-4 py-3 text-sm leading-6 text-white shadow-md dark:bg-[#009E73] dark:text-white">
+                    <div className="rounded-2xl rounded-tr-sm bg-[#0A0A0A] px-3.5 py-2.5 text-[13px] leading-5 text-white shadow-md dark:bg-[#009E73] dark:text-white">
                       {message.text}
                     </div>
                   </div>
@@ -531,7 +510,7 @@ export default function SalesConcierge() {
                     </span>
                   </div>
 
-                  <div className="w-full rounded-2xl rounded-tl-sm border border-neutral-200 bg-white p-4 text-sm leading-6 text-neutral-800 shadow-sm dark:border-neutral-800 dark:bg-[#141414] dark:text-neutral-200">
+                  <div className="w-full rounded-2xl rounded-tl-sm border border-neutral-200 bg-white p-3.5 text-[13px] leading-5 text-neutral-800 shadow-sm dark:border-neutral-800 dark:bg-[#141414] dark:text-neutral-200">
                     <MarkdownReply text={message.text} />
 
                     {/* SUGGESTED REPLIES CHIPS (Active only on the latest turn to prevent out-of-context clicks) */}
@@ -564,14 +543,18 @@ export default function SalesConcierge() {
                         <div className="mb-2 text-[10px] font-bold uppercase tracking-wider text-[#007a55] dark:text-[#4ade80]">
                           RECOMMENDED NEXT STEP
                         </div>
-                        <div className="grid grid-cols-1 gap-2.5">
+                        <div className="grid grid-cols-1 gap-2">
                           {message.tourActions.map((action, aIdx) => {
-                            const isInternal = action.url?.startsWith("/");
+                            const { href, isInternal } = resolveTourActionLink(action);
+                            // Visual hierarchy: Audit/Book-Call are the primary conversion
+                            // actions and get a stronger, tinted treatment; evidence/service
+                            // links are supporting navigation and stay quieter.
+                            const isPrimary = action.action_type === 'START_AUDIT' || action.action_type === 'BOOK_CONSULTATION';
                             const cardContent = (
                               <>
                                 <div>
                                   <div className="flex items-center justify-between gap-1.5 mb-1">
-                                    <span className="text-xs font-bold text-[#0A0A0A] group-hover:text-[#007a55] dark:text-white dark:group-hover:text-[#4ade80]">
+                                    <span className={`text-xs font-bold ${isPrimary ? "text-[#005f43] dark:text-[#4ade80]" : "text-[#0A0A0A] group-hover:text-[#007a55] dark:text-white dark:group-hover:text-[#4ade80]"}`}>
                                       {action.label}
                                     </span>
                                     {action.action_type === 'BOOK_CONSULTATION' ? (
@@ -588,19 +571,18 @@ export default function SalesConcierge() {
                                     </p>
                                   )}
                                 </div>
-                                <span className="mt-2.5 inline-flex items-center text-[11px] font-bold text-[#007a55] dark:text-[#4ade80]">
+                                <span className="mt-2 inline-flex items-center text-[11px] font-bold text-[#007a55] dark:text-[#4ade80]">
                                   {action.cta_text} <ChevronRight className="h-3 w-3 ml-0.5 transition-transform group-hover:translate-x-1" />
                                 </span>
                               </>
                             );
+                            const cardClassName = isPrimary
+                              ? "group flex flex-col justify-between rounded-xl border border-emerald-200 bg-emerald-50/70 p-3 transition-all hover:-translate-y-0.5 hover:border-[#009E73] hover:shadow-md dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:hover:border-[#4ade80]"
+                              : "group flex flex-col justify-between rounded-xl border border-neutral-200 bg-neutral-50/80 p-3 transition-all hover:-translate-y-0.5 hover:border-[#009E73] hover:bg-white hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/80 dark:hover:border-[#4ade80] dark:hover:bg-neutral-900";
 
-                            if (isInternal && action.url) {
+                            if (isInternal) {
                               return (
-                                <Link
-                                  key={`action-${aIdx}`}
-                                  href={action.url}
-                                  className="group flex flex-col justify-between rounded-xl border border-neutral-200 bg-neutral-50/80 p-3.5 transition-all hover:-translate-y-0.5 hover:border-[#009E73] hover:bg-white hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/80 dark:hover:border-[#4ade80] dark:hover:bg-neutral-900"
-                                >
+                                <Link key={`action-${aIdx}`} href={href} className={cardClassName}>
                                   {cardContent}
                                 </Link>
                               );
@@ -609,10 +591,10 @@ export default function SalesConcierge() {
                             return (
                               <a
                                 key={`action-${aIdx}`}
-                                href={action.url || "/"}
+                                href={href}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="group flex flex-col justify-between rounded-xl border border-neutral-200 bg-neutral-50/80 p-3.5 transition-all hover:-translate-y-0.5 hover:border-[#009E73] hover:bg-white hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/80 dark:hover:border-[#4ade80] dark:hover:bg-neutral-900"
+                                className={cardClassName}
                               >
                                 {cardContent}
                               </a>
@@ -675,18 +657,35 @@ export default function SalesConcierge() {
       )}
 
       {showNudge && (
-        <button
-          type="button"
-          onClick={openConcierge}
-          className="mb-3 w-full max-w-[19rem] rounded-2xl border border-emerald-200 bg-white p-3 text-left shadow-xl shadow-black/10 transition-transform hover:-translate-y-0.5 dark:border-emerald-900/70 dark:bg-neutral-900 md:w-[19rem]"
-        >
-          <span className="mb-1 block text-xs font-bold text-[#0A0A0A] dark:text-white">
-            Need a guided website tour?
-          </span>
-          <span className="block text-xs leading-5 text-neutral-600 dark:text-neutral-400">
-            Explore SEO, custom web design, n8n automation, or free website audits.
-          </span>
-        </button>
+        <div className="relative mb-3 w-full max-w-[19rem] md:w-[19rem]">
+          <button
+            type="button"
+            onClick={openConcierge}
+            className="w-full rounded-2xl border border-emerald-200 bg-white p-3 pr-8 text-left shadow-xl shadow-black/10 transition-transform hover:-translate-y-0.5 dark:border-emerald-900/70 dark:bg-neutral-900"
+          >
+            <span className="mb-1 block text-xs font-bold text-[#0A0A0A] dark:text-white">
+              Need a guided website tour?
+            </span>
+            <span className="block text-xs leading-5 text-neutral-600 dark:text-neutral-400">
+              Explore SEO, custom web design, n8n automation, or free website audits.
+            </span>
+          </button>
+          {/* PHASE 23 (Part 14 mobile hardening): this nudge previously had no
+              way to dismiss it without opening the full concierge - on mobile,
+              where it spans nearly the full viewport width, it persistently
+              overlapped page content (found live on the /audit pricing FAQ,
+              obscuring FAQ question text as the visitor scrolled). Reuses the
+              existing nudgeDismissed state (already wired to hide this block)
+              instead of introducing new dismissal logic. */}
+          <button
+            type="button"
+            onClick={() => setNudgeDismissed(true)}
+            aria-label="Dismiss"
+            className="absolute right-2 top-2 rounded-full p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 dark:hover:bg-neutral-800 dark:hover:text-neutral-300"
+          >
+            <X className="h-3.5 w-3.5" aria-hidden="true" />
+          </button>
+        </div>
       )}
 
       {!isOpen && (

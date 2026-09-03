@@ -295,12 +295,28 @@ export default function HowWeWorkPage() {
           <p className="text-[16px] md:text-[18px] text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-8">
             Start with a 30-minute discovery call. We&apos;ll map your current operational state before recommending any technology.
           </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[15px] rounded-xl hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white transition-colors shadow-md min-h-[52px]"
-          >
-            Request a Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[15px] rounded-xl hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white transition-colors shadow-md min-h-[52px]"
+            >
+              Request a Discovery Call <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+            {/* PHASE 26 (Part 18): /how-we-work stays methodology-only (no
+                pricing content added) but had no link at all to the
+                canonical Investment Guide. Added at the neutral final-CTA
+                section only - NOT the "Typical Project vs DigiXPro
+                Methodology" comparison above, where a pricing link would
+                undercut that section's own point (DigiXPro deliberately
+                doesn't lead with "Cost & Quote" the way a generic agency
+                does). */}
+            <Link
+              href="/pricing"
+              className="inline-flex items-center justify-center px-7 py-4 border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold text-[15px] rounded-xl hover:border-[#16a34a] hover:text-[#16a34a] transition-colors min-h-[52px]"
+            >
+              View Investment Guide
+            </Link>
+          </div>
         </div>
       </section>
 

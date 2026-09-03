@@ -8,9 +8,20 @@ import { Menu, X } from 'lucide-react';
 import LanguageToggle from './LanguageToggle';
 import ThemeToggle from './ThemeToggle';
 
+// PHASE 25 (Part 5/6 funnel gap): /pricing (Phase 24's canonical Investment
+// Guide) had zero inbound links anywhere on the site, including here - the
+// single highest-leverage fix for the funnel's missing "Investment Context"
+// step, since this nav renders on every page.
+// PHASE 26 (Part 20 discoverability): /search-automation - one of the 3
+// canonical service clusters - was entirely absent from primary nav (site
+// reachable only via homepage cards/sitemap), while the other two clusters
+// (Advisory, Design Services) were already present. Added for parity, not
+// as a new/4th cluster.
 const navLinks = [
   { href: '/advisory', label: 'Advisory' },
   { href: '/design-services', label: 'Design Services' },
+  { href: '/search-automation', label: 'Search & Automation' },
+  { href: '/pricing', label: 'Pricing' },
   { href: '/how-we-work', label: 'How We Work' },
   { href: '/evidence', label: 'Evidence' },
   { href: '/audit', label: 'Audit' },
@@ -51,7 +62,22 @@ export default function Navbar() {
         </Link>
 
         {/* DESKTOP NAVIGATION */}
-        <div className="hidden md:flex items-center space-x-8 text-[14px] font-bold" role="menubar">
+        {/* PHASE 25 (Part 18 mobile/tablet hardening): switched from md:
+            (768px) to lg: (1024px) - 768px (a real device width: iPad Mini
+            portrait) was already too narrow even before Phase 25's own
+            "Pricing" addition.
+            PHASE 26 (Part 20/21 hardening): switched lg: (1024px) -> xl:
+            (1280px). Adding a 9th item ("Search & Automation") for
+            discoverability, even after tightening gaps and adding
+            whitespace-nowrap, produced a MEASURED (DOM scrollWidth vs
+            clientWidth) 79px horizontal overflow at 1024px that pushed the
+            "Request a Call" CTA off-screen. Same fix philosophy as Phase 25:
+            a real device width (1024px = iPad landscape) that can't fit a
+            9-item desktop nav cleanly gets the working mobile-menu instead
+            of a cramped/overflowing one. All 4 of this file's
+            lg:/hidden lg: pairs now move together to xl:/hidden xl:, so
+            mobile-menu mode covers 768-1279px. */}
+        <div className="hidden xl:flex items-center space-x-6 text-[14px] font-bold" role="menubar">
           {navLinks.map(({ href, label }) => {
             const isActive = pathname === href || pathname.startsWith(href + '/');
             return (
@@ -59,7 +85,7 @@ export default function Navbar() {
                 key={href}
                 href={href}
                 role="menuitem"
-                className={`transition-colors relative pb-0.5 ${
+                className={`whitespace-nowrap transition-colors relative pb-0.5 ${
                   isActive
                     ? 'text-black dark:text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#009E73] after:rounded-full'
                     : 'text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white'
@@ -73,7 +99,7 @@ export default function Navbar() {
         </div>
 
         {/* DESKTOP TOGGLES & CTA */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden xl:flex items-center space-x-4">
           <LanguageToggle />
           <ThemeToggle />
           <Link
@@ -85,7 +111,7 @@ export default function Navbar() {
         </div>
 
         {/* MOBILE MENU BUTTON & TOGGLES */}
-        <div className="flex md:hidden items-center space-x-3">
+        <div className="flex xl:hidden items-center space-x-3">
           <LanguageToggle />
           <ThemeToggle />
           <button 
@@ -105,7 +131,7 @@ export default function Navbar() {
         id="mobile-nav-menu"
         role="navigation"
         aria-label="Mobile navigation"
-        className={`md:hidden bg-white dark:bg-[#0A0A0A] border-b border-neutral-200 dark:border-neutral-800 px-6 overflow-hidden transition-all duration-200 ${
+        className={`xl:hidden bg-white dark:bg-[#0A0A0A] border-b border-neutral-200 dark:border-neutral-800 px-6 overflow-hidden transition-all duration-200 ${
           isMobileMenuOpen ? 'py-4 max-h-96 opacity-100' : 'max-h-0 py-0 opacity-0'
         } flex flex-col space-y-4 shadow-lg absolute w-full left-0 top-20`}
       >

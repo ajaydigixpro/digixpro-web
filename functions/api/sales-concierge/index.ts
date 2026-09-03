@@ -7,6 +7,7 @@
 // precedent of this same deployment mechanism.
 import { LocalSemanticRouter } from '../../../src/sales-concierge/semantic-router/router';
 import { GuidedTourEngine } from '../../../src/sales-concierge/tour-matrix';
+import { FROZEN_PROTOTYPES } from '../../../src/sales-concierge/semantic-router/prototypes';
 
 // Hard limits - defensive against abusive/malformed payloads before they ever
 // reach the router. Deliberately conservative for a chat-message endpoint.
@@ -107,6 +108,11 @@ async function handlePost(context: any): Promise<Response> {
     // the validated session_id above, never by anything inside the snapshot, so
     // one visitor can never inherit another visitor's session state.
     const router = new LocalSemanticRouter();
+    // PHASE 9 RESTORATION: reconnects the existing (previously dead) deterministic
+    // lexical/fuzzy fallback layer with founder-approved historical intent data. Only
+    // used when Tier-0 precedence.ts finds no match - see prototypes.ts for provenance
+    // and exclusions.
+    router.loadPrototypes(FROZEN_PROTOTYPES);
     if (sessionStateSnapshot !== undefined) {
       router.hydrateSession(session_id, sessionStateSnapshot);
     }

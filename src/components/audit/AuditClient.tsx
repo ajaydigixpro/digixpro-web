@@ -1730,6 +1730,17 @@ export default function AuditClient() {
               >
                 <Calendar className="w-4 h-4 mr-2" /> Book Your 30-Minute Architecture Review <ArrowRight className="w-4 h-4 ml-2" />
               </a>
+              {/* PHASE 25 (Part 8 funnel gap): this result screen shows a
+                  personalized range but never linked to the canonical
+                  Investment Guide (/pricing, Phase 24) for comparison across
+                  other services. Additive only - the personalized diagnosis
+                  above is unchanged. */}
+              <a
+                href="/pricing"
+                className="inline-flex items-center justify-center px-6 py-4 border border-neutral-700 text-neutral-300 font-bold text-sm rounded-xl hover:border-neutral-500 hover:text-white transition"
+              >
+                View Full Investment Guide
+              </a>
             </div>
 
             <div className="hidden print:block text-xs font-mono font-bold text-[#009E73]">

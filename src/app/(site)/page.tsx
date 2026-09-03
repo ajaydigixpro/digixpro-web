@@ -624,6 +624,14 @@ export default function HomePage() {
               >
                 Book a 30-Minute Architecture Call <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
+              {/* PHASE 25 (Part 5/6 funnel gap): the homepage's final CTA
+                  never linked to /pricing. */}
+              <Link
+                href="/pricing"
+                className="inline-flex items-center justify-center px-7 py-4 border border-neutral-700 text-neutral-300 font-bold text-[15px] rounded-xl hover:border-neutral-500 hover:text-white transition-colors min-h-[52px]"
+              >
+                View Investment Guide
+              </Link>
               <Link
                 href="/advisory"
                 className="inline-flex items-center justify-center px-7 py-4 border border-neutral-700 text-neutral-300 font-bold text-[15px] rounded-xl hover:border-neutral-500 hover:text-white transition-colors min-h-[52px]"

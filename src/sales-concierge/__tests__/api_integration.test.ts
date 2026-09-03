@@ -53,12 +53,13 @@ describe('Sales Concierge API & Frontend Integration Boundary Tests', () => {
     assert.equal(t.canonical_destination.canonical_path, "/advisory");
   });
 
-  test('6. Pricing Request: "aapki fee kitni hai" -> Returns /how-we-work + Audit Intake (No invented price list)', () => {
+  test('6. Pricing Request: "aapki fee kitni hai" -> Returns /pricing + Audit Intake (No invented price list)', () => {
+    // PHASE 24: canonical_url updated to /pricing - see tour_matrix.test.ts's identical update for the reasoning.
     const r = router.route("aapki fee kitni hai", "sess-api-006");
     const t = tourEngine.resolveTourStep(r);
 
     assert.equal(t.intent_id, "INTENT-05-PRICE");
-    assert.equal(t.canonical_destination.canonical_path, "/how-we-work");
+    assert.equal(t.canonical_destination.canonical_path, "/pricing");
     assert.ok(!t.headline_message.includes("₹"));
   });
 

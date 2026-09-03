@@ -44,12 +44,16 @@ describe('Guided Website Tour Matrix & Pipeline Integration Tests', () => {
     assert.equal(tourStep.canonical_destination.canonical_path, "/advisory");
   });
 
-  test('Pricing Request: "aapki fee kitni hai" -> Guides to /how-we-work + Audit intake (Never invents price list)', () => {
+  test('Pricing Request: "aapki fee kitni hai" -> Guides to /pricing + Audit intake (Never invents price list)', () => {
+    // PHASE 24: canonical_url updated from /how-we-work to /pricing - the
+    // Concierge still never states a number itself, but now routes to the
+    // canonical Pricing & Investment Guide (src/data/pricing.ts-backed)
+    // instead of a page that doesn't discuss investment at all.
     const routingResult = router.route("aapki fee kitni hai", "test-session-005");
     const tourStep = tourEngine.resolveTourStep(routingResult);
 
     assert.equal(tourStep.intent_id, "INTENT-05-PRICE");
-    assert.equal(tourStep.canonical_destination.canonical_path, "/how-we-work");
+    assert.equal(tourStep.canonical_destination.canonical_path, "/pricing");
     assert.equal(tourStep.audit_recommendation?.url, "/audit");
   });
 
