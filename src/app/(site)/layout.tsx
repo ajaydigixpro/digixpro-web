@@ -116,6 +116,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://calendly.com" />
+      </head>
       <body
         className={`${inter.className} min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#009E73]/20 flex flex-col transition-colors duration-200`}
       >

@@ -7,7 +7,7 @@ import SalesConcierge from "@/components/layout/SalesConcierge";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
-const inter = Inter({ subsets: ["latin"], display: "optional" });
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const viewport: Viewport = {
   themeColor: "#009E73",

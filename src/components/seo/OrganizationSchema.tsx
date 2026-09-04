@@ -24,6 +24,13 @@ export default function OrganizationSchema() {
       "addressRegion": "Uttar Pradesh",
       "addressCountry": "IN"
     },
+    "areaServed": [
+      { "@type": "Country", "name": "India", "identifier": "IN" },
+      { "@type": "Country", "name": "United States", "identifier": "US" },
+      { "@type": "Country", "name": "United Kingdom", "identifier": "GB" },
+      { "@type": "Country", "name": "Australia", "identifier": "AU" },
+      { "@type": "Country", "name": "Singapore", "identifier": "SG" }
+    ],
     "email": "ajay@digixpro.in",
     "contactPoint": {
       "@type": "ContactPoint",
