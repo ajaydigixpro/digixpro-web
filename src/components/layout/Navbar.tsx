@@ -27,8 +27,6 @@ import {
   Share2,
   Workflow,
   Database,
-  Award,
-  ArrowRight,
   type LucideIcon,
 } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
@@ -250,14 +248,13 @@ export default function Navbar() {
           </button>
         </div>
       </div>
-
       {/* DESKTOP SERVICES MEGA MENU DROPDOWN (ALL 18 CANONICAL SERVICES) */}
       {isServicesOpen && (
         <div
           id="services-mega-menu"
           role="region"
           aria-label="Services exploration menu"
-          className="hidden xl:block absolute top-full left-0 w-full bg-white dark:bg-[#0E0E0E] border-b border-neutral-200 dark:border-neutral-800 shadow-2xl shadow-black/10 dark:shadow-black/40 z-50 animate-subtle-fade-up"
+          className="hidden xl:block absolute top-full left-0 w-full bg-white dark:bg-[#0E0E0E] border-b-2 border-neutral-300 dark:border-neutral-700 shadow-2xl shadow-black/25 dark:shadow-black/60 z-50 animate-subtle-fade-up"
         >
           <div className="max-w-[1200px] mx-auto px-6 py-8">
             <div className="grid grid-cols-3 gap-8 divide-x divide-neutral-100 dark:divide-neutral-800/80">
@@ -273,7 +270,7 @@ export default function Navbar() {
                       <span>{cluster.name}</span>
                       <span className="text-[13px] opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</span>
                     </Link>
-                    <p className="text-[13px] text-neutral-500 dark:text-neutral-400 mt-1 leading-snug">
+                    <p className="text-[13px] text-neutral-600 dark:text-neutral-300 mt-1 leading-snug font-medium">
                       {cluster.descriptor}
                     </p>
                   </div>
@@ -291,10 +288,10 @@ export default function Navbar() {
                             className={`group flex items-center space-x-3 py-2 px-3 rounded-xl text-[13px] transition-all ${
                               isServiceActive
                                 ? 'text-[#009E73] font-bold bg-[#009E73]/10'
-                                : 'text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white hover:bg-neutral-100/80 dark:hover:bg-neutral-800/70 font-medium'
+                                : 'text-neutral-900 dark:text-neutral-100 hover:text-[#009E73] dark:hover:text-[#009E73] hover:bg-neutral-100/80 dark:hover:bg-neutral-800/70 font-medium'
                             }`}
                           >
-                            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 group-hover:bg-[#009E73]/10 group-hover:text-[#009E73] transition-colors">
+                            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 group-hover:bg-[#009E73]/10 group-hover:text-[#009E73] transition-colors">
                               <Icon className="h-4 w-4" />
                             </div>
                             <span className="line-clamp-1">{service.title}</span>
@@ -319,35 +316,6 @@ export default function Navbar() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            {/* FEATURED EVIDENCE CASE STUDY CARD */}
-            <div className="mt-8 pt-5 border-t border-neutral-100 dark:border-neutral-800/80 flex flex-col md:flex-row items-start md:items-center justify-between bg-neutral-50/90 dark:bg-neutral-900/60 rounded-xl p-4 border border-neutral-200/80 dark:border-neutral-800 gap-4">
-              <div className="flex items-center space-x-3 min-w-0">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-950/80 text-[#009E73] dark:text-[#4ade80]">
-                  <Award className="h-5 w-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-[#009E73]/10 text-[#009E73] dark:bg-emerald-950 dark:text-[#4ade80] px-2 py-0.5 rounded">
-                      Featured Evidence
-                    </span>
-                    <span className="text-xs font-bold text-neutral-900 dark:text-white truncate">
-                      SattvaOS Master Platform
-                    </span>
-                  </div>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5 truncate">
-                    Custom business operating system — <strong className="text-neutral-800 dark:text-neutral-200">+140% Lead Throughput</strong> &amp; <strong className="text-neutral-800 dark:text-neutral-200">0.4s LCP Performance</strong>.
-                  </p>
-                </div>
-              </div>
-              <Link
-                href="/evidence/sattvaos"
-                onClick={() => setIsServicesOpen(false)}
-                className="whitespace-nowrap shrink-0 inline-flex items-center justify-center px-4 py-2 bg-[#009E73] text-white text-xs font-bold rounded-lg hover:bg-[#007a55] transition-colors"
-              >
-                View Case Study <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-              </Link>
             </div>
           </div>
         </div>

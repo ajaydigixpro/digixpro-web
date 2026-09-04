@@ -533,8 +533,8 @@ export default function SalesConcierge() {
 
   return (
     <div
-      className={`fixed bottom-24 left-4 right-4 z-[45] flex flex-col items-end md:left-auto md:right-6 ${
-        isOpen ? "md:top-24 md:bottom-auto" : "md:bottom-6"
+      className={`fixed bottom-32 left-4 right-4 z-[45] flex flex-col items-end md:left-auto md:right-6 ${
+        isOpen ? "md:top-24 md:bottom-auto" : "md:bottom-32"
       }`}
     >
       {isOpen && (
