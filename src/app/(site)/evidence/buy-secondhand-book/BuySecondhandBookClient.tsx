@@ -56,7 +56,7 @@ export default function BuySecondhandBookClient() {
         </div>
 
         <h1 className="text-3xl md:text-5xl font-extrabold mt-1 mb-4 leading-tight tracking-tight text-black">
-          BuySecondHandBook
+          BuySecondHandBook Marketplace Architecture
         </h1>
         <p className="text-xl md:text-2xl text-neutral-900 font-bold max-w-3xl mb-3 leading-snug">
           Full Migration from WordPress to Custom PHP 8.4 Commerce Engine.

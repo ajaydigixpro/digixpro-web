@@ -54,7 +54,7 @@ export default function MuktibodhClient() {
         </div>
 
         <h1 className="text-4xl md:text-5xl font-extrabold mt-1 mb-4 leading-tight tracking-tight text-black">
-          Muktibodh
+          Muktibodh Publishing Architecture Case Study
         </h1>
         <p className="text-xl text-neutral-900 font-extrabold max-w-3xl mb-2">
           Engineering a Multi-Format Digital Knowledge Delivery System.

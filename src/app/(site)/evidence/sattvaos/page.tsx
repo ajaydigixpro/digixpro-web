@@ -91,7 +91,7 @@ export default function SattvaOSEvidence() {
           </div>
 
           <h1 className="text-4xl md:text-5xl font-extrabold mt-1 mb-4 leading-tight tracking-tight text-black">
-            SattvaOS
+            SattvaOS AI Architecture Case Study
           </h1>
           <p className="text-xl text-neutral-900 font-extrabold max-w-3xl mb-2">
             Governed AI Infrastructure for High-Trust Organizations.

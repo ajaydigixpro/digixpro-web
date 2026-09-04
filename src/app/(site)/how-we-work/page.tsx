@@ -87,7 +87,7 @@ export default function HowWeWorkPage() {
           </div>
           
           <h1 className="text-[44px] md:text-[64px] font-extrabold tracking-tight leading-[1.05] mb-8 text-black dark:text-white">
-            Every successful technology system begins with understanding how the business actually works.
+            Technology Architecture Advisory Process &amp; Methodology
           </h1>
           
           <p className="text-[18px] md:text-[22px] font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-3xl">

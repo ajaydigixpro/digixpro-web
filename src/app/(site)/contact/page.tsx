@@ -41,7 +41,7 @@ export default function ContactPage() {
       <section className="mx-auto max-w-[1200px] px-6 pb-12 pt-12 md:pb-16 md:pt-16">
         <div className="max-w-3xl">
           <p className="mb-4 font-mono text-[12px] font-bold uppercase tracking-widest text-[#009E73]">Initiate an engagement</p>
-          <h1 className="text-[42px] font-extrabold leading-[1.05] tracking-tight text-black md:text-[64px] dark:text-white">Start with the right conversation.</h1>
+          <h1 className="text-[42px] font-extrabold leading-[1.05] tracking-tight text-black md:text-[64px] dark:text-white">Technology Strategy &amp; Advisory Contact</h1>
           <p className="mt-6 max-w-2xl text-[18px] font-medium leading-relaxed text-neutral-700 md:text-[22px] dark:text-neutral-300">Good technology decisions begin with business reality, operational constraints, and the outcome that needs to change—not a generic software requirement.</p>
         </div>
       </section>

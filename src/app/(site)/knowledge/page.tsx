@@ -72,7 +72,7 @@ export default function KnowledgePage() {
           </div>
 
           <h1 className="text-[42px] md:text-[60px] font-extrabold tracking-tight leading-[1.08] mb-6 text-black dark:text-white">
-            The Decision Library
+            Technology Architecture Knowledge Library
           </h1>
 
           <p className="text-[18px] md:text-[22px] font-medium text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl">

@@ -154,9 +154,9 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
             <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#16a34a] bg-emerald-950/60 border border-emerald-800/80 px-3 py-1 rounded-full mb-4 inline-block">
               Architectural Decision Next Step
             </span>
-            <h3 className="text-[22px] md:text-[26px] font-extrabold text-white mb-3 leading-snug">
+            <h2 className="text-[22px] md:text-[26px] font-extrabold text-white mb-3 leading-snug">
               Translating This Framework Into Operational Reality
-            </h3>
+            </h2>
             <p className="text-[15px] text-neutral-300 leading-relaxed mb-6">
               Every technology decision carries trade-offs between speed, scalability, technical debt, and team capacity. Schedule a 30-minute discovery call with Dr. Ajay Shukla to evaluate your organization&apos;s specific architecture, web engineering, search visibility, or workflow automation roadmap.
             </p>

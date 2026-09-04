@@ -641,7 +641,7 @@ export default function DesignServicesPage() {
                 <div key={idx} className="flex items-start">
                   <CheckCircle2 className="w-5 h-5 text-[#16a34a] mr-3 shrink-0 mt-1" />
                   <div>
-                    <h4 className="text-sm font-bold text-black dark:text-white">{point.title}</h4>
+                    <h3 className="text-sm font-bold text-black dark:text-white">{point.title}</h3>
                     <p className="text-xs text-neutral-500 dark:text-neutral-400">{point.desc}</p>
                   </div>
                 </div>

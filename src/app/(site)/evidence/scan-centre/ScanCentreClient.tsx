@@ -52,7 +52,7 @@ export default function ScanCentreClient() {
         </div>
 
         <h1 className="text-4xl md:text-5xl font-extrabold mt-1 mb-4 leading-tight tracking-tight text-black">
-          ScanCentreNearMe
+          ScanCentreNearMe Healthcare Portal Architecture
         </h1>
         <p className="text-xl text-neutral-900 font-extrabold max-w-3xl mb-2">
           Production-Ready Healthcare Marketplace in Weeks, Not Months.

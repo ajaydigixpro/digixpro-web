@@ -83,7 +83,7 @@ export default function FounderPage() {
               </div>
               
               <h1 className="text-[40px] md:text-[52px] font-extrabold tracking-tight leading-[1.08] mb-8 text-black dark:text-white">
-                Technology decisions engineered to outlast the next six months of growth — not just the next funding round.
+                Technology Leadership &amp; Architecture Advisory
               </h1>
               
               <p className="text-[18px] md:text-[20px] text-neutral-600 dark:text-neutral-300 leading-relaxed mb-10">
@@ -93,7 +93,7 @@ export default function FounderPage() {
               {/* Name Block with Hindi Name & Vidhya Vachaspati */}
               <div className="mb-10">
                 <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                  <h3 className="text-[22px] font-extrabold text-black dark:text-white">Dr. Ajay Shukla</h3>
+                  <p className="text-[22px] font-extrabold text-black dark:text-white">Dr. Ajay Shukla</p>
                   <span className="text-[15px] font-medium text-neutral-500 dark:text-neutral-400">
                     (डॉ. अजय शुक्ल — विद्या वाचस्पति)
                   </span>
