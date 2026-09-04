@@ -4,6 +4,7 @@ import Link from 'next/link';
 import ProfessionalServiceSchema from "@/components/seo/ProfessionalServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import DeferredStickyMobileCTA from '@/components/layout/DeferredStickyMobileCTA';
+import ScrollReveal from '@/components/ui/ScrollReveal';
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -104,11 +105,11 @@ export default function HomePage() {
       <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#16a34a]/20 transition-colors duration-200">
         
         {/* ==========================================
-            01 • HERO (FOUNDER POSITIONING LOCKED)
+            01 • HERO (FOUNDER POSITIONING LOCKED - STATIC LCP PROTECTION)
         ========================================== */}
         <section className="max-w-[1200px] mx-auto px-6 pt-10 md:pt-16 pb-16 md:pb-20">
           <div className="max-w-4xl">
-            <div className="inline-flex items-center space-x-2 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-4 py-2 rounded-full mb-6 md:mb-8 shadow-sm">
+            <div className="inline-flex items-center space-x-2 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-4 py-2 rounded-full mb-6 md:mb-8 shadow-sm hover-lift">
               <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
               <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">
                 INDEPENDENT &bull; VENDOR-NEUTRAL &bull; EVIDENCE-DRIVEN
@@ -132,13 +133,13 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center gap-4">
               <Link 
                 href="/contact" 
-                className="inline-flex items-center justify-center px-7 py-4 bg-[#009E73] hover:bg-[#007a55] text-white font-bold text-[15px] md:text-[16px] rounded-xl shadow-md hover:shadow-lg transition-all min-h-[52px]"
+                className="inline-flex items-center justify-center px-7 py-4 bg-[#009E73] hover:bg-[#007a55] text-white font-bold text-[15px] md:text-[16px] rounded-xl shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all min-h-[52px]"
               >
                 Book a 30-Minute Architecture Call <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
               <Link
                 href="/how-we-work"
-                className="inline-flex items-center justify-center px-6 py-4 border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold text-[14px] md:text-[15px] rounded-xl hover:border-neutral-500 dark:hover:border-neutral-400 hover:text-black dark:hover:text-white transition-colors min-h-[52px]"
+                className="inline-flex items-center justify-center px-6 py-4 border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-bold text-[14px] md:text-[15px] rounded-xl hover:border-neutral-500 dark:hover:border-neutral-400 hover:text-black dark:hover:text-white hover:-translate-y-0.5 transition-all min-h-[52px]"
               >
                 Explore How We Work
               </Link>
@@ -151,66 +152,74 @@ export default function HomePage() {
         ========================================== */}
         <section className="defer-below-fold py-24 bg-white dark:bg-[#0A0A0A] border-y border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
-            <div className="mb-16 text-center max-w-3xl mx-auto">
-              <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
-                IMPLEMENTATION LAYERS
+            <ScrollReveal>
+              <div className="mb-16 text-center max-w-3xl mx-auto">
+                <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                  IMPLEMENTATION LAYERS
+                </div>
+                <h2 className="text-[36px] md:text-[48px] font-extrabold mb-4 leading-tight text-black dark:text-white">
+                  What DigiXPro Builds
+                </h2>
+                <p className="text-[18px] text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed">
+                  One business problem. One architecture. The right implementation layers.
+                </p>
               </div>
-              <h2 className="text-[36px] md:text-[48px] font-extrabold mb-4 leading-tight text-black dark:text-white">
-                What DigiXPro Builds
-              </h2>
-              <p className="text-[18px] text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed">
-                One business problem. One architecture. The right implementation layers.
-              </p>
-            </div>
+            </ScrollReveal>
 
             {/* THREE STRATEGIC CAPABILITY BLOCKS */}
             <div className="grid md:grid-cols-3 gap-8">
               {/* BLOCK 01 — ADVISORY */}
-              <div className="bg-neutral-50 dark:bg-neutral-900/50 p-8 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-sm flex flex-col justify-between hover:border-[#16a34a] transition-all">
-                <div>
-                  <div className="text-xs font-mono text-[#16a34a] font-bold uppercase tracking-wider mb-3">01 &bull; ADVISORY</div>
-                  <h3 className="text-xl font-extrabold text-black dark:text-white mb-3">Business &amp; Technology Advisory</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
-                    Diagnose the business problem, map the operating reality, define the right system architecture, and establish a practical technology roadmap before major technology decisions are made.
-                  </p>
+              <ScrollReveal delayMs={100} className="h-full">
+                <div className="bg-neutral-50 dark:bg-neutral-900/50 p-8 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-sm flex flex-col justify-between hover:border-[#16a34a] hover-lift transition-all h-full">
+                  <div>
+                    <div className="text-xs font-mono text-[#16a34a] font-bold uppercase tracking-wider mb-3">01 &bull; ADVISORY</div>
+                    <h3 className="text-xl font-extrabold text-black dark:text-white mb-3">Business &amp; Technology Advisory</h3>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
+                      Diagnose the business problem, map the operating reality, define the right system architecture, and establish a practical technology roadmap before major technology decisions are made.
+                    </p>
+                  </div>
+                  <Link href="/advisory" className="inline-flex items-center text-xs font-bold text-[#16a34a] hover:underline pt-4 border-t border-neutral-200 dark:border-neutral-800">
+                    Explore Advisory &rarr;
+                  </Link>
                 </div>
-                <Link href="/advisory" className="inline-flex items-center text-xs font-bold text-[#16a34a] hover:underline pt-4 border-t border-neutral-200 dark:border-neutral-800">
-                  Explore Advisory &rarr;
-                </Link>
-              </div>
+              </ScrollReveal>
 
               {/* BLOCK 02 — DESIGN & BUILD */}
-              <div className="bg-white dark:bg-neutral-900 p-8 rounded-3xl border-2 border-[#16a34a] dark:border-[#16a34a] shadow-md flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-mono font-bold text-[#16a34a] bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded uppercase tracking-wider border border-emerald-200 dark:border-emerald-800">
-                      02 &bull; DESIGN &amp; BUILD
-                    </span>
-                    <span className="text-[10px] font-mono text-neutral-500 font-bold uppercase">Commercial Entry</span>
+              <ScrollReveal delayMs={200} className="h-full">
+                <div className="bg-white dark:bg-neutral-900 p-8 rounded-3xl border-2 border-[#16a34a] dark:border-[#16a34a] shadow-md flex flex-col justify-between hover-lift transition-all h-full">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-mono font-bold text-[#16a34a] bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded uppercase tracking-wider border border-emerald-200 dark:border-emerald-800">
+                        02 &bull; DESIGN &amp; BUILD
+                      </span>
+                      <span className="text-[10px] font-mono text-neutral-500 font-bold uppercase">Commercial Entry</span>
+                    </div>
+                    <h3 className="text-xl font-extrabold text-black dark:text-white mb-3">Website Design &amp; Web Engineering</h3>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
+                      Design and build business websites and web systems that support search visibility, lead capture, conversion and long-term digital growth.
+                    </p>
                   </div>
-                  <h3 className="text-xl font-extrabold text-black dark:text-white mb-3">Website Design &amp; Web Engineering</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
-                    Design and build business websites and web systems that support search visibility, lead capture, conversion and long-term digital growth.
-                  </p>
+                  <Link href="/design-services" className="inline-flex items-center text-xs font-bold text-white bg-[#0A0A0A] dark:bg-white dark:text-black px-4 py-2.5 rounded-xl hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white transition-colors justify-center">
+                    Explore Website Design &rarr;
+                  </Link>
                 </div>
-                <Link href="/design-services" className="inline-flex items-center text-xs font-bold text-white bg-[#0A0A0A] dark:bg-white dark:text-black px-4 py-2.5 rounded-xl hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white transition-colors justify-center">
-                  Explore Website Design &rarr;
-                </Link>
-              </div>
+              </ScrollReveal>
 
               {/* BLOCK 03 — SEARCH, AI & AUTOMATION */}
-              <div className="bg-neutral-50 dark:bg-neutral-900/50 p-8 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-sm flex flex-col justify-between hover:border-[#16a34a] transition-all">
-                <div>
-                  <div className="text-xs font-mono text-[#16a34a] font-bold uppercase tracking-wider mb-3">03 &bull; SEARCH, AI &amp; AUTOMATION</div>
-                  <h3 className="text-xl font-extrabold text-black dark:text-white mb-3">Search Visibility, AI Discovery &amp; Automation</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
-                    Combine technical SEO, AI Search Optimization, workflow automation and AI systems to improve discoverability and connect digital operations with business processes.
-                  </p>
+              <ScrollReveal delayMs={300} className="h-full">
+                <div className="bg-neutral-50 dark:bg-neutral-900/50 p-8 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-sm flex flex-col justify-between hover:border-[#16a34a] hover-lift transition-all h-full">
+                  <div>
+                    <div className="text-xs font-mono text-[#16a34a] font-bold uppercase tracking-wider mb-3">03 &bull; SEARCH, AI &amp; AUTOMATION</div>
+                    <h3 className="text-xl font-extrabold text-black dark:text-white mb-3">Search Visibility, AI Discovery &amp; Automation</h3>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
+                      Combine technical SEO, AI Search Optimization, workflow automation and AI systems to improve discoverability and connect digital operations with business processes.
+                    </p>
+                  </div>
+                  <Link href="/search-automation" className="inline-flex items-center text-xs font-bold text-[#16a34a] hover:underline pt-4 border-t border-neutral-200 dark:border-neutral-800">
+                    Explore Search &amp; Automation &rarr;
+                  </Link>
                 </div>
-                <Link href="/search-automation" className="inline-flex items-center text-xs font-bold text-[#16a34a] hover:underline pt-4 border-t border-neutral-200 dark:border-neutral-800">
-                  Explore Search &amp; Automation &rarr;
-                </Link>
-              </div>
+              </ScrollReveal>
             </div>
           </div>
         </section>
@@ -220,17 +229,19 @@ export default function HomePage() {
         ========================================== */}
         <section className="defer-below-fold py-24 bg-neutral-50 dark:bg-neutral-900/50 border-b border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
-            <div className="mb-16 text-center max-w-3xl mx-auto">
-              <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
-                EXPLORE OUR CAPABILITIES
+            <ScrollReveal>
+              <div className="mb-16 text-center max-w-3xl mx-auto">
+                <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                  EXPLORE OUR CAPABILITIES
+                </div>
+                <h2 className="text-[32px] md:text-[44px] font-extrabold mb-4 leading-tight text-black dark:text-white">
+                  Explore by Business Need, Not by Jargon
+                </h2>
+                <p className="text-[17px] md:text-[18px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Choose the area that matches your current priority. We&apos;ll help you understand what&apos;s really needed, without pushing unnecessary software or services.
+                </p>
               </div>
-              <h2 className="text-[32px] md:text-[44px] font-extrabold mb-4 leading-tight text-black dark:text-white">
-                Explore by Business Need, Not by Jargon
-              </h2>
-              <p className="text-[17px] md:text-[18px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Choose the area that matches your current priority. We&apos;ll help you understand what&apos;s really needed, without pushing unnecessary software or services.
-              </p>
-            </div>
+            </ScrollReveal>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
@@ -282,27 +293,28 @@ export default function HomePage() {
                   href: "/advisory/technology-due-diligence-vendor-evaluation",
                   icon: <FileText className="w-5 h-5 text-[#16a34a]" />
                 }
-              ].map((cap) => (
-                <Link 
-                  key={cap.title}
-                  href={cap.href}
-                  className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-5 rounded-2xl flex flex-col justify-between hover:border-[#16a34a] dark:hover:border-[#16a34a] hover:shadow-md transition-all group"
-                >
-                  <div>
-                    <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center mb-3">
-                      {cap.icon}
+              ].map((cap, idx) => (
+                <ScrollReveal key={cap.title} delayMs={(idx % 4) * 80} className="h-full">
+                  <Link 
+                    href={cap.href}
+                    className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-5 rounded-2xl flex flex-col justify-between hover:border-[#16a34a] dark:hover:border-[#16a34a] hover-lift transition-all group h-full"
+                  >
+                    <div>
+                      <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center mb-3">
+                        {cap.icon}
+                      </div>
+                      <h3 className="text-[15px] font-bold text-black dark:text-white mb-1 group-hover:text-[#16a34a] transition-colors">
+                        {cap.title}
+                      </h3>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                        {cap.desc}
+                      </p>
                     </div>
-                    <h3 className="text-[15px] font-bold text-black dark:text-white mb-1 group-hover:text-[#16a34a] transition-colors">
-                      {cap.title}
-                    </h3>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                      {cap.desc}
-                    </p>
-                  </div>
-                  <div className="mt-4 flex items-center text-xs font-bold text-[#16a34a]">
-                    Explore <ArrowRight className="w-3.5 h-3.5 ml-1 transform group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Link>
+                    <div className="mt-4 flex items-center text-xs font-bold text-[#16a34a]">
+                      Explore <ArrowRight className="w-3.5 h-3.5 ml-1 transform group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </Link>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -313,17 +325,19 @@ export default function HomePage() {
         ========================================== */}
         <section className="defer-below-fold py-20 bg-white dark:bg-[#0A0A0A] border-b border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
-                Operating Reality Check
+            <ScrollReveal>
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                  Operating Reality Check
+                </div>
+                <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6 text-black dark:text-white">
+                  Does this sound familiar?
+                </h2>
+                <p className="text-[18px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Technology is supposed to make your business faster. But right now, fragmented tools are creating operational bottlenecks.
+                </p>
               </div>
-              <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6 text-black dark:text-white">
-                Does this sound familiar?
-              </h2>
-              <p className="text-[18px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Technology is supposed to make your business faster. But right now, fragmented tools are creating operational bottlenecks.
-              </p>
-            </div>
+            </ScrollReveal>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {[
@@ -352,26 +366,30 @@ export default function HomePage() {
                   icon: <Globe className="w-5 h-5 text-[#16a34a]" />
                 }
               ].map((problem, idx) => (
-                <div key={idx} className="bg-neutral-50 dark:bg-neutral-900/50 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 flex items-start shadow-sm hover:border-[#16a34a]/40 transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center mr-4 shrink-0 mt-0.5">
-                    {problem.icon}
+                <ScrollReveal key={idx} delayMs={(idx % 3) * 100} className="h-full">
+                  <div className="bg-neutral-50 dark:bg-neutral-900/50 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 flex items-start shadow-sm hover:border-[#16a34a]/40 hover-lift transition-all h-full">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center mr-4 shrink-0 mt-0.5">
+                      {problem.icon}
+                    </div>
+                    <p className="text-[15px] md:text-[16px] font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">{problem.text}</p>
                   </div>
-                  <p className="text-[15px] md:text-[16px] font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">{problem.text}</p>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
 
-            <div className="text-center max-w-2xl mx-auto">
-              <p className="text-[17px] md:text-[19px] font-bold text-black dark:text-white mb-6 leading-relaxed">
-                If these problems sound familiar, the first step is not another software purchase. It is understanding how the business actually works.
-              </p>
-              <Link 
-                href="/contact" 
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[15px] rounded-xl hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white transition-colors"
-              >
-                Discuss Your Business Bottlenecks <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </div>
+            <ScrollReveal delayMs={200}>
+              <div className="text-center max-w-2xl mx-auto">
+                <p className="text-[17px] md:text-[19px] font-bold text-black dark:text-white mb-6 leading-relaxed">
+                  If these problems sound familiar, the first step is not another software purchase. It is understanding how the business actually works.
+                </p>
+                <Link 
+                  href="/contact" 
+                  className="inline-flex items-center justify-center px-8 py-4 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-[15px] rounded-xl hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white hover:-translate-y-0.5 transition-all shadow-md"
+                >
+                  Discuss Your Business Bottlenecks <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -380,46 +398,50 @@ export default function HomePage() {
         ========================================== */}
         <section className="defer-below-fold bg-neutral-50 dark:bg-neutral-900/50 py-24 border-b border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
-            <div className="mb-16 text-center max-w-3xl mx-auto">
-              <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
-                System Connectivity
+            <ScrollReveal>
+              <div className="mb-16 text-center max-w-3xl mx-auto">
+                <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                  System Connectivity
+                </div>
+                <h2 className="text-[32px] md:text-[44px] font-extrabold mb-6 leading-tight text-black dark:text-white">
+                  How the Pieces of Your Business Should Work Together
+                </h2>
+                <p className="text-[17px] md:text-[18px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  DigiXPro looks at the connections between these systems before recommending where technology or automation should be introduced.
+                </p>
               </div>
-              <h2 className="text-[32px] md:text-[44px] font-extrabold mb-6 leading-tight text-black dark:text-white">
-                How the Pieces of Your Business Should Work Together
-              </h2>
-              <p className="text-[17px] md:text-[18px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                DigiXPro looks at the connections between these systems before recommending where technology or automation should be introduced.
-              </p>
-            </div>
+            </ScrollReveal>
             
-            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-[32px] p-10 md:p-14 shadow-sm overflow-hidden relative">
-              <RefreshCw className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 text-neutral-200/40 dark:text-neutral-800/20 -z-0" />
-              
-              <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 relative z-10">
-                {[
-                  "Website",
-                  "Leads",
-                  "Sales",
-                  "Operations",
-                  "Finance",
-                  "Reporting",
-                  "Customer Experience"
-                ].map((node, idx, arr) => (
-                  <React.Fragment key={node}>
-                    <div className="bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 px-5 py-3 rounded-xl font-mono font-bold text-[14px] md:text-[15px] text-black dark:text-white shadow-sm">
-                      {node}
-                    </div>
-                    {idx < arr.length - 1 && (
-                      <ArrowRight className="w-4 h-4 text-neutral-400 dark:text-neutral-600 shrink-0" />
-                    )}
-                  </React.Fragment>
-                ))}
+            <ScrollReveal delayMs={150}>
+              <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-[32px] p-10 md:p-14 shadow-sm overflow-hidden relative hover-lift transition-all">
+                <RefreshCw className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 text-neutral-200/40 dark:text-neutral-800/20 -z-0 animate-spin-slow" />
+                
+                <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 relative z-10">
+                  {[
+                    "Website",
+                    "Leads",
+                    "Sales",
+                    "Operations",
+                    "Finance",
+                    "Reporting",
+                    "Customer Experience"
+                  ].map((node, idx, arr) => (
+                    <React.Fragment key={node}>
+                      <div className="bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 px-5 py-3 rounded-xl font-mono font-bold text-[14px] md:text-[15px] text-black dark:text-white shadow-sm hover:border-[#16a34a] hover:text-[#16a34a] transition-colors">
+                        {node}
+                      </div>
+                      {idx < arr.length - 1 && (
+                        <ArrowRight className="w-4 h-4 text-neutral-400 dark:text-neutral-600 shrink-0" />
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+                
+                <div className="text-center mt-10 text-[14px] font-medium text-neutral-500 dark:text-neutral-400 relative z-10">
+                  Designed architecture ensures your digital presence and operations run as one connected system.
+                </div>
               </div>
-              
-              <div className="text-center mt-10 text-[14px] font-medium text-neutral-500 dark:text-neutral-400 relative z-10">
-                Designed architecture ensures your digital presence and operations run as one connected system.
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -428,17 +450,19 @@ export default function HomePage() {
         ========================================== */}
         <section className="defer-below-fold bg-[#0A0A0A] text-white py-24">
           <div className="max-w-[1200px] mx-auto px-6">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
-                Methodology
+            <ScrollReveal>
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                  Methodology
+                </div>
+                <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6">
+                  We Don&apos;t Guess.
+                </h2>
+                <p className="text-[18px] text-neutral-400 leading-relaxed">
+                  Systems are recommended after understanding the business first. Discovery starts with actual operating reality.
+                </p>
               </div>
-              <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6">
-                We Don&apos;t Guess.
-              </h2>
-              <p className="text-[18px] text-neutral-400 leading-relaxed">
-                Systems are recommended after understanding the business first. Discovery starts with actual operating reality.
-              </p>
-            </div>
+            </ScrollReveal>
 
             <div className="max-w-2xl mx-auto relative">
               <div className="absolute top-0 bottom-0 left-[28px] w-0.5 bg-neutral-800 hidden md:block" />
@@ -452,24 +476,28 @@ export default function HomePage() {
                   "System blueprint definition",
                   "Independent recommendation"
                 ].map((step, idx) => (
-                  <div key={idx} className="flex items-center space-x-4 bg-neutral-900 p-4 rounded-xl border border-neutral-800 relative z-10">
-                    <div className="w-8 h-8 rounded-full bg-[#16a34a] text-white font-mono font-bold text-xs flex items-center justify-center shrink-0">
-                      0{idx + 1}
+                  <ScrollReveal key={idx} delayMs={idx * 75}>
+                    <div className="flex items-center space-x-4 bg-neutral-900 p-4 rounded-xl border border-neutral-800 relative z-10 hover:border-[#16a34a] transition-all hover-lift">
+                      <div className="w-8 h-8 rounded-full bg-[#16a34a] text-white font-mono font-bold text-xs flex items-center justify-center shrink-0">
+                        0{idx + 1}
+                      </div>
+                      <div className="text-sm md:text-base font-bold text-neutral-200">{step}</div>
                     </div>
-                    <div className="text-sm md:text-base font-bold text-neutral-200">{step}</div>
-                  </div>
+                  </ScrollReveal>
                 ))}
               </div>
             </div>
 
-            <div className="text-center mt-12">
-              <Link 
-                href="/how-we-work"
-                className="inline-flex items-center text-sm font-mono font-bold text-[#16a34a] hover:underline"
-              >
-                Learn More About Our Operating Blueprint &rarr;
-              </Link>
-            </div>
+            <ScrollReveal delayMs={300}>
+              <div className="text-center mt-12">
+                <Link 
+                  href="/how-we-work"
+                  className="inline-flex items-center text-sm font-mono font-bold text-[#16a34a] hover:underline"
+                >
+                  Learn More About Our Operating Blueprint &rarr;
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -478,17 +506,19 @@ export default function HomePage() {
         ========================================== */}
         <section className="defer-below-fold py-24 bg-white dark:bg-[#0A0A0A] border-b border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
-                TANGIBLE DELIVERABLES
+            <ScrollReveal>
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                  TANGIBLE DELIVERABLES
+                </div>
+                <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6 text-black dark:text-white">
+                  What You Actually Receive
+                </h2>
+                <p className="text-[18px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Clear documentation, engineered assets, and system architectures delivered with full client ownership.
+                </p>
               </div>
-              <h2 className="text-[36px] md:text-[48px] font-extrabold mb-6 text-black dark:text-white">
-                What You Actually Receive
-              </h2>
-              <p className="text-[18px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Clear documentation, engineered assets, and system architectures delivered with full client ownership.
-              </p>
-            </div>
+            </ScrollReveal>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {[
@@ -499,15 +529,17 @@ export default function HomePage() {
                 { title: "Top-Tier Core Web Vitals Performance", icon: <Cpu className="w-5 h-5 text-[#16a34a]" />, desc: "Fast Core Web Vitals metrics on desktop and mobile." },
                 { title: "Machine-Readable AI Context", icon: <Sparkles className="w-5 h-5 text-[#16a34a]" />, desc: "Structured data and llms.txt for AI search discovery." }
               ].map((item, idx) => (
-                <div key={idx} className="flex flex-col p-6 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-neutral-50 dark:bg-neutral-900 hover:border-[#16a34a]/40 transition-colors shadow-sm">
-                  <div className="flex items-center mb-3">
-                    <div className="mr-3 bg-emerald-50 dark:bg-emerald-950/50 p-2.5 rounded-xl border border-emerald-200 dark:border-emerald-800 shrink-0">
-                      {item.icon}
+                <ScrollReveal key={idx} delayMs={(idx % 3) * 100} className="h-full">
+                  <div className="flex flex-col p-6 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-neutral-50 dark:bg-neutral-900 hover:border-[#16a34a]/40 hover-lift transition-all shadow-sm h-full">
+                    <div className="flex items-center mb-3">
+                      <div className="mr-3 bg-emerald-50 dark:bg-emerald-950/50 p-2.5 rounded-xl border border-emerald-200 dark:border-emerald-800 shrink-0">
+                        {item.icon}
+                      </div>
+                      <h3 className="text-[15px] font-bold text-neutral-800 dark:text-neutral-200">{item.title}</h3>
                     </div>
-                    <h3 className="text-[15px] font-bold text-neutral-800 dark:text-neutral-200">{item.title}</h3>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400 pl-11">{item.desc}</p>
                   </div>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 pl-11">{item.desc}</p>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -519,33 +551,41 @@ export default function HomePage() {
         <section className="defer-below-fold py-24 bg-neutral-50 dark:bg-neutral-900/50 border-b border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
-                LIVE PROOF
-              </div>
-              <h2 className="text-[32px] md:text-[46px] font-extrabold mb-6 text-black dark:text-white">
-                We Build What We Advise
-              </h2>
-              <p className="text-[17px] text-neutral-600 dark:text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto">
-                The DigiXPro platform itself is built on the exact web engineering architecture we deliver for clients: decoupled Next.js static output, fast Core Web Vitals performance, automated JSON-LD schemas, and production n8n webhook lead routing.
-              </p>
+              <ScrollReveal>
+                <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                  LIVE PROOF
+                </div>
+                <h2 className="text-[32px] md:text-[46px] font-extrabold mb-6 text-black dark:text-white">
+                  We Build What We Advise
+                </h2>
+                <p className="text-[17px] text-neutral-600 dark:text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto">
+                  The DigiXPro platform itself is built on the exact web engineering architecture we deliver for clients: decoupled Next.js static output, fast Core Web Vitals performance, automated JSON-LD schemas, and production n8n webhook lead routing.
+                </p>
+              </ScrollReveal>
 
               <div className="grid sm:grid-cols-2 gap-6 text-left max-w-3xl mx-auto mb-10">
-                <Link href="/evidence/digixpro" className="p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl hover:border-[#16a34a] transition-all group shadow-sm">
-                  <div className="text-xs font-mono text-[#16a34a] font-bold mb-1">CASE STUDY &bull; SYSTEM PROOF</div>
-                  <h3 className="text-base font-bold text-black dark:text-white group-hover:text-[#16a34a] transition-colors mb-2">DigiXPro Platform Architecture &rarr;</h3>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Decoupled Next.js static site, automated schema generation, and n8n webhook routing.</p>
-                </Link>
+                <ScrollReveal delayMs={100} className="h-full">
+                  <Link href="/evidence/digixpro" className="p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl hover:border-[#16a34a] hover-lift transition-all group shadow-sm block h-full">
+                    <div className="text-xs font-mono text-[#16a34a] font-bold mb-1">CASE STUDY &bull; SYSTEM PROOF</div>
+                    <h3 className="text-base font-bold text-black dark:text-white group-hover:text-[#16a34a] transition-colors mb-2">DigiXPro Platform Architecture &rarr;</h3>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Decoupled Next.js static site, automated schema generation, and n8n webhook routing.</p>
+                  </Link>
+                </ScrollReveal>
 
-                <Link href="/evidence/360-neck-shoulder" className="p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl hover:border-[#16a34a] transition-all group shadow-sm">
-                  <div className="text-xs font-mono text-[#16a34a] font-bold mb-1">CASE STUDY &bull; SERVICE HEALTHCARE</div>
-                  <h3 className="text-base font-bold text-black dark:text-white group-hover:text-[#16a34a] transition-colors mb-2">360 Neck &amp; Shoulder Diagnostic System &rarr;</h3>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Healthcare discovery architecture, local search visibility, and structured patient enquiry flows.</p>
-                </Link>
+                <ScrollReveal delayMs={200} className="h-full">
+                  <Link href="/evidence/360-neck-shoulder" className="p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl hover:border-[#16a34a] hover-lift transition-all group shadow-sm block h-full">
+                    <div className="text-xs font-mono text-[#16a34a] font-bold mb-1">CASE STUDY &bull; SERVICE HEALTHCARE</div>
+                    <h3 className="text-base font-bold text-black dark:text-white group-hover:text-[#16a34a] transition-colors mb-2">360 Neck &amp; Shoulder Diagnostic System &rarr;</h3>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Healthcare discovery architecture, local search visibility, and structured patient enquiry flows.</p>
+                  </Link>
+                </ScrollReveal>
               </div>
 
-              <Link href="/evidence" className="text-xs font-mono font-bold text-[#16a34a] hover:underline">
-                Explore All Production Case Studies &rarr;
-              </Link>
+              <ScrollReveal delayMs={250}>
+                <Link href="/evidence" className="text-xs font-mono font-bold text-[#16a34a] hover:underline">
+                  Explore All Production Case Studies &rarr;
+                </Link>
+              </ScrollReveal>
             </div>
           </div>
         </section>
@@ -555,29 +595,33 @@ export default function HomePage() {
         ========================================== */}
         <section className="defer-below-fold py-24 max-w-[1200px] mx-auto px-6 border-b border-neutral-200 dark:border-neutral-800">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
-                BUYER QUESTIONS &amp; OBJECTIONS
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                  BUYER QUESTIONS &amp; OBJECTIONS
+                </div>
+                <h2 className="text-[32px] md:text-[46px] font-extrabold mb-4 text-black dark:text-white">
+                  Questions Business Owners Usually Ask
+                </h2>
+                <p className="text-[17px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Clear answers regarding technology advisory, website engineering, search visibility, and workflow automation.
+                </p>
               </div>
-              <h2 className="text-[32px] md:text-[46px] font-extrabold mb-4 text-black dark:text-white">
-                Questions Business Owners Usually Ask
-              </h2>
-              <p className="text-[17px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Clear answers regarding technology advisory, website engineering, search visibility, and workflow automation.
-              </p>
-            </div>
+            </ScrollReveal>
 
             <div className="space-y-6">
               {faqItems.map((item, idx) => (
-                <div key={idx} className="bg-neutral-50 dark:bg-neutral-900/50 p-6 md:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800">
-                  <h3 className="text-[17px] md:text-[19px] font-bold text-black dark:text-white mb-3 flex items-start">
-                    <HelpCircle className="w-5 h-5 text-[#16a34a] mr-3 shrink-0 mt-0.5" />
-                    {item.question}
-                  </h3>
-                  <p className="text-[14px] md:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed pl-8">
-                    {item.answer}
-                  </p>
-                </div>
+                <ScrollReveal key={idx} delayMs={idx * 60}>
+                  <div className="bg-neutral-50 dark:bg-neutral-900/50 p-6 md:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:border-[#16a34a]/30 transition-colors">
+                    <h3 className="text-[17px] md:text-[19px] font-bold text-black dark:text-white mb-3 flex items-start">
+                      <HelpCircle className="w-5 h-5 text-[#16a34a] mr-3 shrink-0 mt-0.5" />
+                      {item.question}
+                    </h3>
+                    <p className="text-[14px] md:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed pl-8">
+                      {item.answer}
+                    </p>
+                  </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -588,18 +632,20 @@ export default function HomePage() {
         ========================================== */}
         <section className="defer-below-fold py-20 bg-neutral-50 dark:bg-neutral-900/50 border-b border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[1200px] mx-auto px-6 text-center max-w-3xl">
-            <ShieldCheck className="w-10 h-10 text-[#16a34a] mx-auto mb-4" />
-            <h2 className="text-2xl md:text-3xl font-extrabold text-black dark:text-white mb-4">
-              Vendor-Neutral Advisory &amp; Architecture
-            </h2>
-            <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
-              We do not accept software kickbacks or push proprietary platform lock-ins. Every architectural blueprint and technology choice is selected solely for your business operational reality and growth goals.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-6 font-mono text-xs text-neutral-500 font-semibold">
-              <span>&bull; 100% Client Codebase Ownership</span>
-              <span>&bull; Zero Commission Incentives</span>
-              <span>&bull; Empirical Verification</span>
-            </div>
+            <ScrollReveal>
+              <ShieldCheck className="w-10 h-10 text-[#16a34a] mx-auto mb-4" />
+              <h2 className="text-2xl md:text-3xl font-extrabold text-black dark:text-white mb-4">
+                Vendor-Neutral Advisory &amp; Architecture
+              </h2>
+              <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
+                We do not accept software kickbacks or push proprietary platform lock-ins. Every architectural blueprint and technology choice is selected solely for your business operational reality and growth goals.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-6 font-mono text-xs text-neutral-500 font-semibold">
+                <span>&bull; 100% Client Codebase Ownership</span>
+                <span>&bull; Zero Commission Incentives</span>
+                <span>&bull; Empirical Verification</span>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -607,39 +653,39 @@ export default function HomePage() {
             11 • 30-MINUTE ARCHITECTURE CALL (FINAL CONVERSION CTA)
         ========================================== */}
         <section className="defer-below-fold py-20 max-w-[1200px] mx-auto px-6">
-          <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 p-10 md:p-14 rounded-[32px] text-center shadow-xl max-w-4xl mx-auto">
-            <span className="text-[11px] font-mono font-bold text-[#16a34a] uppercase tracking-widest block mb-4">
-              COMMERCIAL DISCOVERY
-            </span>
-            <h2 className="text-white font-extrabold text-[28px] md:text-[40px] mb-4 leading-tight">
-              Ready to Discuss Your Business Technology Architecture?
-            </h2>
-            <p className="text-[16px] md:text-[18px] text-neutral-400 leading-relaxed mb-8 max-w-2xl mx-auto">
-              Book a 30-minute discovery call with our leadership to evaluate your operating bottlenecks, current software stack, and growth goals.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#16a34a] text-white font-bold text-[15px] rounded-xl hover:bg-[#15803d] transition-colors shadow-md min-h-[52px]"
-              >
-                Book a 30-Minute Architecture Call <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-              {/* PHASE 25 (Part 5/6 funnel gap): the homepage's final CTA
-                  never linked to /pricing. */}
-              <Link
-                href="/pricing"
-                className="inline-flex items-center justify-center px-7 py-4 border border-neutral-700 text-neutral-300 font-bold text-[15px] rounded-xl hover:border-neutral-500 hover:text-white transition-colors min-h-[52px]"
-              >
-                View Investment Guide
-              </Link>
-              <Link
-                href="/advisory"
-                className="inline-flex items-center justify-center px-7 py-4 border border-neutral-700 text-neutral-300 font-bold text-[15px] rounded-xl hover:border-neutral-500 hover:text-white transition-colors min-h-[52px]"
-              >
-                Explore Advisory Services
-              </Link>
+          <ScrollReveal>
+            <div className="bg-[#0A0A0A] dark:bg-neutral-900 border border-transparent dark:border-neutral-800 p-10 md:p-14 rounded-[32px] text-center shadow-xl max-w-4xl mx-auto hover-lift transition-all">
+              <span className="text-[11px] font-mono font-bold text-[#16a34a] uppercase tracking-widest block mb-4">
+                COMMERCIAL DISCOVERY
+              </span>
+              <h2 className="text-white font-extrabold text-[28px] md:text-[40px] mb-4 leading-tight">
+                Ready to Discuss Your Business Technology Architecture?
+              </h2>
+              <p className="text-[16px] md:text-[18px] text-neutral-400 leading-relaxed mb-8 max-w-2xl mx-auto">
+                Book a 30-minute discovery call with our leadership to evaluate your operating bottlenecks, current software stack, and growth goals.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-[#16a34a] text-white font-bold text-[15px] rounded-xl hover:bg-[#15803d] hover:-translate-y-0.5 transition-all shadow-md min-h-[52px]"
+                >
+                  Book a 30-Minute Architecture Call <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+                <Link
+                  href="/pricing"
+                  className="inline-flex items-center justify-center px-7 py-4 border border-neutral-700 text-neutral-300 font-bold text-[15px] rounded-xl hover:border-neutral-500 hover:text-white hover:-translate-y-0.5 transition-all min-h-[52px]"
+                >
+                  View Investment Guide
+                </Link>
+                <Link
+                  href="/advisory"
+                  className="inline-flex items-center justify-center px-7 py-4 border border-neutral-700 text-neutral-300 font-bold text-[15px] rounded-xl hover:border-neutral-500 hover:text-white hover:-translate-y-0.5 transition-all min-h-[52px]"
+                >
+                  Explore Advisory Services
+                </Link>
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* Sticky Mobile CTA */}
