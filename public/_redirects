@@ -104,3 +104,23 @@
 /work/* /evidence 301!
 /operating-systems /evidence/sattvaos 301!
 /studio / 301!
+
+# Additional Legacy WordPress 301 Redirect Mappings
+/seo-service /search-automation/seo-search-visibility 301!
+/seo-service/* /search-automation/seo-search-visibility 301!
+/performance-marketing-service /search-automation/seo-search-visibility 301!
+/performance-marketing-service/* /search-automation/seo-search-visibility 301!
+/video-editing-services /design-services 301!
+/video-editing-services/* /design-services 301!
+/carrers /founder 301!
+/carrers/* /founder 301!
+/careers /founder 301!
+/careers/* /founder 301!
+/case-study /evidence 301!
+/case-study/* /evidence 301!
+/case-study/case-study-06 /evidence 301!
+/ai-and-the-future-of-work-partner-or-replacement /search-automation/ai-search-optimization-geo 301!
+/ai-and-the-future-of-work-partner-or-replacement/* /search-automation/ai-search-optimization-geo 301!
+/the-big-4 /knowledge 301!
+/the-big-4/* /knowledge 301!
+
