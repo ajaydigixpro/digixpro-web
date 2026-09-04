@@ -51,6 +51,14 @@ if (fs.existsSync(outDir)) {
     }
   });
 
+  // 2. Ensure Cloudflare Pages _redirects file is copied into out/ directory
+  const redirectsSrc = path.join(__dirname, '..', 'public', '_redirects');
+  const redirectsDest = path.join(outDir, '_redirects');
+  if (fs.existsSync(redirectsSrc)) {
+    fs.copyFileSync(redirectsSrc, redirectsDest);
+    console.log('[POST-BUILD OPT] Successfully copied _redirects to out/_redirects');
+  }
+
   console.log(`[POST-BUILD OPT] Successfully optimized ${modifiedCount} HTML files (Eliminated render-blocking scripts in <head>).`);
 } else {
   console.warn('[POST-BUILD OPT] out/ directory not found, skipping.');
