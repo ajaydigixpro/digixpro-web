@@ -139,8 +139,8 @@ export default function AdvisoryPage() {
             </div>
             
             <h1 className="text-[40px] md:text-[62px] font-extrabold tracking-tight leading-[1.06] mb-6 text-black dark:text-white">
-              Independent Technology Architecture<br />
-              <span className="text-[#16a34a]">&amp; Business Systems Advisory</span>
+              Technology Architecture<br />
+              <span className="text-[#16a34a]">&amp; Strategic IT Advisory</span>
             </h1>
             
             <p className="text-[18px] md:text-[22px] font-medium text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-3xl mb-8">
