@@ -45,6 +45,7 @@ export interface ServiceCluster {
   name: string;
   slug: string;
   descriptor: string;
+  icon: LucideIcon;
   services: ServiceItem[];
 }
 
@@ -54,6 +55,7 @@ export const SERVICE_CLUSTERS: ServiceCluster[] = [
     name: 'ADVISORY',
     slug: '/advisory',
     descriptor: 'Independent architecture, due diligence & technology leadership.',
+    icon: Compass,
     services: [
       { title: 'IT Consulting & Technology Strategy', href: '/advisory/it-consulting-technology-strategy', icon: Compass },
       { title: 'Technology Due Diligence & Vendor Evaluation', href: '/advisory/technology-due-diligence-vendor-evaluation', icon: ShieldCheck },
@@ -68,6 +70,7 @@ export const SERVICE_CLUSTERS: ServiceCluster[] = [
     name: 'DESIGN & BUILD',
     slug: '/design-services',
     descriptor: 'High-performance Next.js websites, conversion UX & clean rebuilds.',
+    icon: Code2,
     services: [
       { title: 'Custom Business Website Design', href: '/design-services/custom-business-website-design', icon: Code2 },
       { title: 'Website Redesign & SEO-Safe Rebuild', href: '/design-services/website-redesign', icon: RefreshCw },
@@ -82,6 +85,7 @@ export const SERVICE_CLUSTERS: ServiceCluster[] = [
     name: 'SEARCH, AI & AUTOMATION',
     slug: '/search-automation',
     descriptor: 'SEO, Generative Engine Optimization & n8n workflow pipelines.',
+    icon: Search,
     services: [
       { title: 'SEO & Search Visibility', href: '/search-automation/seo-search-visibility', icon: Search },
       { title: 'AI Search Optimization & GEO', href: '/search-automation/ai-search-optimization-geo', icon: Sparkles },
@@ -105,11 +109,6 @@ export const PRIMARY_NAV_LINKS = [
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const [openMobileClusters, setOpenMobileClusters] = useState<Record<string, boolean>>({
-    advisory: false,
-    'design-services': false,
-    'search-automation': false,
-  });
   const [isScrolled, setIsScrolled] = useState(false);
 
   const pathname = usePathname();
@@ -155,13 +154,6 @@ export default function Navbar() {
     pathname.startsWith('/advisory') ||
     pathname.startsWith('/design-services') ||
     pathname.startsWith('/search-automation');
-
-  const toggleMobileCluster = (clusterId: string) => {
-    setOpenMobileClusters((prev) => ({
-      ...prev,
-      [clusterId]: !prev[clusterId],
-    }));
-  };
 
   return (
     <nav
@@ -259,7 +251,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* DESKTOP SERVICES MEGA MENU DROPDOWN */}
+      {/* DESKTOP SERVICES MEGA MENU DROPDOWN (ALL 18 CANONICAL SERVICES) */}
       {isServicesOpen && (
         <div
           id="services-mega-menu"
@@ -361,7 +353,7 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* MOBILE HYBRID ACCORDION NAVIGATION MENU */}
+      {/* MOBILE ACCORDION NAVIGATION MENU (3 LIGHTWEIGHT CLUSTER CARDS LINKING TO HUBS) */}
       <div
         id="mobile-nav-menu"
         role="navigation"
@@ -370,7 +362,7 @@ export default function Navbar() {
           isMobileMenuOpen ? 'py-5 max-h-[calc(100vh-5rem)] opacity-100' : 'max-h-0 py-0 opacity-0 overflow-hidden'
         } flex flex-col space-y-4 shadow-xl absolute w-full left-0 top-20`}
       >
-        {/* Services Hybrid Cluster Cards */}
+        {/* 3 Cluster-Level Entries linking to Hub pages */}
         <div className="space-y-3 pb-2 border-b border-neutral-100 dark:border-neutral-800">
           <p className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
             Service Track Hubs
@@ -378,60 +370,34 @@ export default function Navbar() {
 
           <div className="grid grid-cols-1 gap-2.5">
             {SERVICE_CLUSTERS.map((cluster) => {
-              const isClusterOpen = openMobileClusters[cluster.id];
+              const ClusterIcon = cluster.icon;
+              const isClusterActive = pathname.startsWith(cluster.slug);
               return (
-                <div
+                <Link
                   key={cluster.id}
-                  className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-900/60 p-3.5 space-y-2"
+                  href={cluster.slug}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`group rounded-xl border p-3.5 flex items-center justify-between transition-all ${
+                    isClusterActive
+                      ? 'border-[#009E73] bg-[#009E73]/5 dark:bg-[#009E73]/10'
+                      : 'border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-900/60 hover:border-[#009E73]'
+                  }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <Link
-                      href={cluster.slug}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="text-sm font-extrabold text-neutral-900 dark:text-white hover:text-[#009E73]"
-                    >
-                      {cluster.name}
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => toggleMobileCluster(cluster.id)}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-[#009E73] bg-[#009E73]/10 px-2.5 py-1 rounded-lg hover:bg-[#009E73]/20 transition-colors"
-                      aria-expanded={isClusterOpen}
-                    >
-                      <span>{isClusterOpen ? 'Hide Services' : 'View 6 Services'}</span>
-                      <ChevronDown
-                        size={14}
-                        className={`transition-transform duration-200 ${isClusterOpen ? 'rotate-180' : ''}`}
-                      />
-                    </button>
+                  <div className="flex items-center space-x-3 min-w-0 pr-2">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white dark:bg-neutral-800 text-[#009E73] shadow-xs">
+                      <ClusterIcon className="h-5 w-5" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-sm font-extrabold text-neutral-900 dark:text-white group-hover:text-[#009E73] transition-colors">
+                        {cluster.name}
+                      </div>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate mt-0.5">
+                        {cluster.descriptor}
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-snug">
-                    {cluster.descriptor}
-                  </p>
-
-                  {/* Expandable 6-service list */}
-                  {isClusterOpen && (
-                    <ul className="mt-3 pt-2.5 border-t border-neutral-200/70 dark:border-neutral-800 space-y-2" role="list">
-                      {cluster.services.map((service) => {
-                        const Icon = service.icon;
-                        return (
-                          <li key={service.href}>
-                            <Link
-                              href={service.href}
-                              onClick={() => setIsMobileMenuOpen(false)}
-                              className="flex items-center space-x-2.5 py-1.5 min-h-[44px] text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:text-[#009E73]"
-                            >
-                              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-neutral-200/60 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400">
-                                <Icon className="h-3.5 w-3.5" />
-                              </div>
-                              <span className="line-clamp-1">{service.title}</span>
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </div>
+                  <ChevronRight size={18} className="text-neutral-400 group-hover:text-[#009E73] group-hover:translate-x-0.5 transition-all shrink-0" />
+                </Link>
               );
             })}
           </div>
