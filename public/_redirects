@@ -1,5 +1,4 @@
 # Cloudflare Pages 301 Permanent Redirects for Legacy WordPress & Merged Routes
-https://digixpro.in/* https://www.digixpro.in/:splat 301!
 
 # WordPress System & Core Paths
 /wp-admin / 301
@@ -36,6 +35,8 @@ https://digixpro.in/* https://www.digixpro.in/:splat 301!
 /about-us/* /founder 301
 /about /founder 301
 /about/* /founder 301
+/contact-us /contact 301
+/contact-us/* /contact 301
 /team /founder 301
 /our-team /founder 301
 /company /founder 301
