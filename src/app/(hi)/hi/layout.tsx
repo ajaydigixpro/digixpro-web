@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SalesConcierge from "@/components/layout/SalesConcierge";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
+import MicrosoftClarity from "@/components/seo/MicrosoftClarity";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -39,6 +40,7 @@ export default function HindiRootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <OrganizationSchema />
+          <MicrosoftClarity />
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />
