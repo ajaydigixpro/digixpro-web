@@ -6,8 +6,9 @@ import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import FAQSchema from '@/components/seo/FAQSchema';
 
 export const metadata: Metadata = {
-  title: 'DigiXPro Architecture Evidence | Autonomous Production Systems',
-  description: 'Technical architecture breakdown of DigiXPro self-architecture: multilingual 24/7 AI Assist concierge, multi-model automated publishing pipelines, and compounding engineering IP.',
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: 'Platform Architecture Evidence — Autonomous Production Systems',
+  description: 'Technical architecture case study of DigiXPro: multilingual 24/7 AI concierge, automated content publishing pipelines, and custom Next.js engineering.',
   alternates: {
     canonical: 'https://www.digixpro.in/evidence/digixpro',
   },

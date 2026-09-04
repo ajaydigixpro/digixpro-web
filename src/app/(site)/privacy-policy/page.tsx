@@ -1,10 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { ShieldCheck } from 'lucide-react';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description: 'DigiXPro Privacy Policy — how we collect, process, store, and protect personal and operational information across our advisory, web engineering, and automation services.',
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: { absolute: 'Privacy Policy — DigiXPro Digital Solution' },
+  description: "DigiXPro privacy policy detailing our data handling practices, storage protocols, and commitment to safeguarding confidential client operational data.",
   alternates: {
     canonical: 'https://www.digixpro.in/privacy-policy',
   },
@@ -19,6 +21,12 @@ export default function PrivacyPolicyPage() {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans px-6 py-16 max-w-3xl mx-auto transition-colors duration-200">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://www.digixpro.in' },
+          { name: 'Privacy Policy', url: 'https://www.digixpro.in/privacy-policy' },
+        ]}
+      />
       {/* Header */}
       <div className="mb-12 border-b border-neutral-200 dark:border-neutral-800 pb-8">
         <div className="flex items-center gap-2 mb-4">

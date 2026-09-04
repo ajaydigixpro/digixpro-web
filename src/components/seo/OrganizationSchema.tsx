@@ -1,4 +1,3 @@
-import Script from "next/script";
 import React from "react";
 
 export default function OrganizationSchema() {
@@ -7,6 +6,7 @@ export default function OrganizationSchema() {
     "@type": "Organization",
     "@id": "https://www.digixpro.in/#organization",
     "name": "DigiXPro Digital Solution",
+    "legalName": "DigiXPro Digital Solution",
     "alternateName": "DigiXPro",
     "description": "Independent Technology Architecture Advisory. DigiXPro designs business operating systems before clients allocate software budgets.",
     "url": "https://www.digixpro.in",
@@ -48,8 +48,7 @@ export default function OrganizationSchema() {
   };
 
   return (
-    <Script
-      id="org-schema"
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />

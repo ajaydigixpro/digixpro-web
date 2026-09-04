@@ -28,14 +28,27 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Independent Technology Architecture & Business Systems Advisory | DigiXPro',
-  description: 'Independent technology architecture, business systems advisory, custom web engineering, search visibility, AI discovery, and workflow automation by DigiXPro.',
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: 'Technology Consulting & Custom Web Systems Architecture | DigiXPro',
+  description: 'DigiXPro provides independent technology consulting, IT advisory services, custom website engineering, and workflow automation for growing businesses.',
+  keywords: [
+    'technology consulting',
+    'IT consulting services',
+    'technology advisory',
+    'technology strategy',
+    'systems architecture',
+    'custom website design',
+    'web engineering',
+    'SEO search visibility',
+    'AI search optimization',
+    'workflow automation'
+  ],
   alternates: {
     canonical: 'https://www.digixpro.in',
   },
   openGraph: {
-    title: 'Independent Technology Architecture & Business Systems Advisory | DigiXPro',
-    description: 'Independent technology architecture, business systems advisory, custom web engineering, search visibility, AI discovery, and workflow automation.',
+    title: 'Technology Consulting & Custom Web Systems Architecture | DigiXPro',
+    description: 'Independent technology consulting and IT advisory firm providing custom website engineering, search visibility, and workflow automation.',
     url: 'https://www.digixpro.in',
     type: 'website',
     images: [
@@ -43,15 +56,15 @@ export const metadata: Metadata = {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'DigiXPro — Independent Technology Architecture & Business Systems Advisory',
+        alt: 'DigiXPro — Technology Consulting & IT Advisory',
         type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Independent Technology Architecture & Business Systems Advisory | DigiXPro',
-    description: 'Independent technology architecture, business systems advisory, and modern web engineering.',
+    title: 'Technology Consulting & Custom Web Systems Architecture | DigiXPro',
+    description: 'Independent technology consulting and IT advisory firm providing custom website engineering and workflow automation.',
     images: ['/twitter-image.png'],
   },
 };
@@ -59,36 +72,28 @@ export const metadata: Metadata = {
 export default function HomePage() {
   const faqItems = [
     {
-      question: "Do I need a new website, or is my existing website the real problem?",
-      answer: "We diagnose before prescribing. We evaluate your current website's underlying code, performance, conversion paths, and search architecture to determine whether a targeted redesign, complete rebuild, or content/SEO optimization is the right strategic move."
+      question: "What does DigiXPro actually do?",
+      answer: "DigiXPro is an independent technology architecture and business systems advisory. Work spans three connected areas: Advisory (technology strategy, due diligence, fractional CTO leadership), Design & Build (websites and web systems engineered for growth, not just visual design), and Search, AI & Automation (SEO, AI search visibility, and workflow automation). Most clients start in one area and expand once the underlying systems are in place."
     },
     {
-      question: "Can DigiXPro help if I already have a CRM, ERP or other software?",
-      answer: "Yes. DigiXPro provides vendor-neutral architecture advisory. We inspect your existing software stack to eliminate duplicate subscriptions, fix data silos, and integrate tools into one cohesive operating system rather than pushing unnecessary replacements."
+      question: "How is DigiXPro different from a typical web design or digital marketing agency?",
+      answer: "A typical agency sells a deliverable — a website, a set of social posts, a monthly SEO report. DigiXPro starts from the business problem underneath the request: why isn't the website converting, why doesn't the CRM talk to the booking system, why does traffic exist but leads don't. The technology and design work that follows solves that root problem — this is why advisory and architecture sit alongside design and automation as equal, connected capabilities rather than upsells."
     },
     {
-      question: "What does a 30-minute architecture call actually cover?",
-      answer: "The call is a direct technical discovery conversation with leadership. We discuss your operational bottlenecks, current software setup, search visibility, and desired business outcomes to determine whether advisory, web engineering, automation, or custom architecture is the appropriate next step."
+      question: "Who does DigiXPro typically work with?",
+      answer: "Primarily growing businesses and founders — in India (particularly Delhi-NCR) and internationally across the US, UK, Australia, and Singapore — who have outgrown ad-hoc tools but aren't yet at the size where a large enterprise agency or full in-house technology team makes sense."
     },
     {
-      question: "Can you help us identify where AI or automation would actually save time?",
-      answer: "We evaluate your human, data, and operational workflows process-first to pinpoint high-leverage automation opportunities. We implement production webhooks and AI discovery layers only where they deliver measurable time savings and eliminate manual errors."
+      question: "Do I need to know which service I need before reaching out?",
+      answer: "No. The complimentary Systems Audit exists specifically for this — it takes a few minutes and identifies which service area (or combination) actually fits, rather than asking a visitor to self-diagnose first."
     },
     {
-      question: "Do I need SEO if my website is being redesigned?",
-      answer: "Yes. Technical search architecture, semantic HTML5 structure, and canonical integrity must be built into the web application during design and engineering. Retrofitting SEO after a redesign risks severe keyword ranking drops and broken URLs."
+      question: "What's the difference between the Audit, the Investment Guide, and an Architecture Call?",
+      answer: "The Audit diagnoses what's actually going on. The Investment Guide (/pricing) shows indicative investment ranges for every service, so there's budget context before any conversation. The Architecture Call is where an exact scope and final number get confirmed once real requirements are understood."
     },
     {
-      question: "What if I already have an internal technical team?",
-      answer: "DigiXPro acts as an independent system architect and decision-support advisor. We deliver the operating blueprint, software selection matrices, and implementation roadmaps, allowing your internal team or external partners to execute with clarity."
-    },
-    {
-      question: "Why is my website getting visitors but not enough enquiries?",
-      answer: "We evaluate your site's positioning, message-to-market fit, user journey, and conversion architecture. Often, traffic isn't the issue — the bottleneck is an unclear value proposition, weak call-to-actions, or a disconnected conversion pathway."
-    },
-    {
-      question: "How do we know what should be fixed first?",
-      answer: "Every engagement produces a prioritized technology roadmap. We sequence initiatives based on operational friction, revenue impact, technical dependencies, and immediate business ROI."
+      question: "How do I get started?",
+      answer: "The fastest path is the complimentary Systems Audit at /audit. For those who already know the service area and are ready to discuss scope, booking an Architecture Call is the more direct route."
     }
   ];
 
@@ -491,7 +496,7 @@ export default function HomePage() {
                 { title: "Custom Next.js & React Codebase", icon: <Code2 className="w-5 h-5 text-[#16a34a]" />, desc: "Clean web applications built for speed and security." },
                 { title: "Technical SEO & Schema Plumbing", icon: <Search className="w-5 h-5 text-[#16a34a]" />, desc: "Built-in search indexability and JSON-LD schemas." },
                 { title: "Automated Workflow Pipelines", icon: <Zap className="w-5 h-5 text-[#16a34a]" />, desc: "Production API webhooks connecting core software." },
-                { title: "100% Core Web Vitals Performance", icon: <Cpu className="w-5 h-5 text-[#16a34a]" />, desc: "Sub-second load speeds on desktop and mobile." },
+                { title: "Top-Tier Core Web Vitals Performance", icon: <Cpu className="w-5 h-5 text-[#16a34a]" />, desc: "Fast Core Web Vitals metrics on desktop and mobile." },
                 { title: "Machine-Readable AI Context", icon: <Sparkles className="w-5 h-5 text-[#16a34a]" />, desc: "Structured data and llms.txt for AI search discovery." }
               ].map((item, idx) => (
                 <div key={idx} className="flex flex-col p-6 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-neutral-50 dark:bg-neutral-900 hover:border-[#16a34a]/40 transition-colors shadow-sm">
@@ -521,7 +526,7 @@ export default function HomePage() {
                 We Build What We Advise
               </h2>
               <p className="text-[17px] text-neutral-600 dark:text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto">
-                The DigiXPro platform itself is built on the exact web engineering architecture we deliver for clients: decoupled Next.js static output, 100% Core Web Vitals performance, automated JSON-LD schemas, and production n8n webhook lead routing.
+                The DigiXPro platform itself is built on the exact web engineering architecture we deliver for clients: decoupled Next.js static output, fast Core Web Vitals performance, automated JSON-LD schemas, and production n8n webhook lead routing.
               </p>
 
               <div className="grid sm:grid-cols-2 gap-6 text-left max-w-3xl mx-auto mb-10">

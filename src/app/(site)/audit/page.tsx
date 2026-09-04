@@ -4,16 +4,31 @@ import AuditClient from "@/components/audit/AuditClient";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 export const metadata: Metadata = {
-  title: "Website Performance & Architecture Audit | DigiXPro",
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: "Website Audit Services, SEO & Performance Health Diagnosis",
   description:
-    "Run a free website architecture, Core Web Vitals, and technical SEO audit. Get an empirical breakdown with prioritized engineering solutions and download a PDF report.",
+    "Independent website audit services evaluating technical SEO, page load speeds, UX conversion bottlenecks, and underlying platform security risks.",
+  keywords: [
+    "website audit",
+    "website audit services",
+    "website audit for SEO",
+    "website audit report",
+    "website audit checklist",
+    "SEO website audit",
+    "website performance audit",
+    "website health",
+    "technical SEO",
+    "conversion issues",
+    "search visibility",
+    "business diagnosis"
+  ],
   alternates: {
     canonical: "https://www.digixpro.in/audit",
   },
   openGraph: {
-    title: "Website Performance & Architecture Audit | DigiXPro",
+    title: "Website Audit Services, SEO & Performance Health Diagnosis | DigiXPro",
     description:
-      "Run a free website architecture, Core Web Vitals, and technical SEO audit. Get an empirical breakdown with prioritized engineering solutions.",
+      "Independent website audit services evaluating technical SEO, page load speeds, UX conversion bottlenecks, and underlying platform security risks.",
     url: "https://www.digixpro.in/audit",
     type: "website",
     images: [
@@ -21,16 +36,16 @@ export const metadata: Metadata = {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "DigiXPro — Website Performance & Architecture Audit",
+        alt: "DigiXPro — Website Audit Services & Health Diagnosis",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Website Performance & Architecture Audit | DigiXPro",
+    title: "Website Audit Services, SEO & Performance Health Diagnosis | DigiXPro",
     description:
-      "Run a free website architecture, Core Web Vitals, and technical SEO audit. Get an empirical breakdown with prioritized engineering solutions.",
+      "Independent website audit services evaluating technical SEO, page load speeds, UX conversion bottlenecks, and underlying platform security risks.",
     images: ["/twitter-image.png"],
   },
 };

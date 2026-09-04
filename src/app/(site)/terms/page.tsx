@@ -1,10 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { FileText } from 'lucide-react';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use',
-  description: 'DigiXPro Terms of Use — conditions governing use of our website, technology advisory, web engineering, and commercial automation services.',
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: { absolute: 'Terms of Use — DigiXPro Digital Solution' },
+  description: 'DigiXPro Terms of Use — clear conditions governing use of our website, technology architecture advisory, web engineering, and automation services.',
   alternates: {
     canonical: 'https://www.digixpro.in/terms',
   },
@@ -19,6 +21,12 @@ export default function TermsPage() {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans px-6 py-16 max-w-3xl mx-auto transition-colors duration-200">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://www.digixpro.in' },
+          { name: 'Terms of Use', url: 'https://www.digixpro.in/terms' },
+        ]}
+      />
       {/* Header */}
       <div className="mb-12 border-b border-neutral-200 dark:border-neutral-800 pb-8">
         <div className="flex items-center gap-2 mb-4">

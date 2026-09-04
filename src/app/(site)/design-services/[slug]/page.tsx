@@ -11,18 +11,32 @@ import {
   ArrowLeft,
   CheckCircle2, 
   HelpCircle, 
-  ShieldCheck, 
-  Layers, 
-  Cpu, 
-  Code2, 
-  Search, 
-  Zap,
-  Globe,
-  RefreshCw,
-  Briefcase,
-  MessageSquare,
-  Sparkles
+  ShieldCheck
 } from 'lucide-react';
+
+function renderTextWithLinks(text: string) {
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index));
+    }
+    const [, linkText, url] = match;
+    parts.push(
+      <Link key={match.index} href={url} className="text-[#16a34a] font-semibold hover:underline">
+        {linkText}
+      </Link>
+    );
+    lastIndex = regex.lastIndex;
+  }
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+  return parts.length > 0 ? parts : text;
+}
 
 export async function generateStaticParams() {
   return designSubServices.map((service) => ({
@@ -36,7 +50,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!service) {
     return {
-      title: "Service Not Found",
+    metadataBase: new URL('https://www.digixpro.in'),
+    title: "Service Not Found",
       description: "The requested design service could not be found.",
     };
   }
@@ -44,6 +59,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const url = `https://www.digixpro.in/design-services/${service.slug}`;
 
   return {
+    metadataBase: new URL('https://www.digixpro.in'),
     title: service.metaTitle,
     description: service.metaDescription,
     keywords: [
@@ -55,7 +71,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       canonical: url,
     },
     openGraph: {
-      title: service.metaTitle,
+      title: `${service.metaTitle} | DigiXPro`,
       description: service.metaDescription,
       url: url,
       type: 'website',
@@ -71,7 +87,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     twitter: {
       card: 'summary_large_image',
-      title: service.metaTitle,
+      title: `${service.metaTitle} | DigiXPro`,
       description: service.metaDescription,
       images: ['/twitter-image.png'],
     },
@@ -247,9 +263,105 @@ export default async function DesignSubServicePage({ params }: { params: Promise
       </section>
 
       {/* ==========================================
+          SECTION 3.5 — DECISION FRAMEWORK & OVERVIEW (IF PRESENT)
+      ========================================== */}
+      {service.overviewSections && service.overviewSections.length > 0 && (
+        <section className="py-24 max-w-[1200px] mx-auto px-6 border-b border-neutral-200 dark:border-neutral-800">
+          <div className="space-y-16">
+            {service.overviewSections.map((sec, idx) => (
+              <div key={idx} className="max-w-4xl">
+                <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                  DECISION SUPPORT 0{idx + 1}
+                </div>
+                <h2 className="text-[28px] md:text-[38px] font-extrabold mb-4 text-black dark:text-white leading-tight">
+                  {sec.heading}
+                </h2>
+                {sec.subheading && (
+                  <p className="text-[17px] font-medium text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
+                    {sec.subheading}
+                  </p>
+                )}
+                <div className="space-y-4 mb-6">
+                  {sec.paragraphs.map((p, pIdx) => (
+                    <p key={pIdx} className="text-[15px] md:text-[16px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                      {renderTextWithLinks(p)}
+                    </p>
+                  ))}
+                </div>
+                {sec.subsections && sec.subsections.length > 0 && (
+                  <div className="grid md:grid-cols-3 gap-4 mt-6">
+                    {sec.subsections.map((sub, sIdx) => (
+                      <div key={sIdx} className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800">
+                        <h3 className="text-base font-bold text-black dark:text-white mb-2">{sub.title}</h3>
+                        <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">{sub.description}</p>
+                        {sub.bullets && sub.bullets.length > 0 && (
+                          <ul className="mt-3 space-y-1.5 border-t border-neutral-200 dark:border-neutral-800 pt-3">
+                            {sub.bullets.map((b, bIdx) => (
+                              <li key={bIdx} className="text-xs text-neutral-700 dark:text-neutral-300 flex items-center">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a] mr-2 shrink-0"></span>
+                                {b}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ==========================================
+          SECTION 3.6 — ARCHITECTURE COMPARISON TABLE (IF PRESENT)
+      ========================================== */}
+      {service.comparisonTable && (
+        <section className="py-24 bg-neutral-50 dark:bg-neutral-900/50 border-b border-neutral-200 dark:border-neutral-800">
+          <div className="max-w-[1200px] mx-auto px-6">
+            <div className="max-w-3xl mb-12">
+              <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                ARCHITECTURE EVALUATION
+              </div>
+              <h2 className="text-[28px] md:text-[40px] font-extrabold mb-3 text-black dark:text-white">
+                {service.comparisonTable.title}
+              </h2>
+              {service.comparisonTable.subtitle && (
+                <p className="text-[16px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  {service.comparisonTable.subtitle}
+                </p>
+              )}
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 shadow-sm">
+                <thead>
+                  <tr className="border-b border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-800/80">
+                    <th className="p-4 md:p-5 text-xs font-mono font-bold uppercase text-neutral-600 dark:text-neutral-300 w-1/4">Evaluation Factor</th>
+                    <th className="p-4 md:p-5 text-xs font-mono font-bold uppercase text-[#16a34a] w-3/8">{service.comparisonTable.columnAHeader}</th>
+                    <th className="p-4 md:p-5 text-xs font-mono font-bold uppercase text-neutral-500 dark:text-neutral-400 w-3/8">{service.comparisonTable.columnBHeader}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800">
+                  {service.comparisonTable.rows.map((row, rIdx) => (
+                    <tr key={rIdx} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors">
+                      <td className="p-4 md:p-5 text-xs font-bold text-black dark:text-white align-top">{row.feature}</td>
+                      <td className="p-4 md:p-5 text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed align-top bg-emerald-50/30 dark:bg-emerald-950/20">{row.columnA}</td>
+                      <td className="p-4 md:p-5 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed align-top">{row.columnB}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ==========================================
           SECTION 4 — SEARCH & CONVERSION ARCHITECTURE
       ========================================== */}
-      <section className="bg-neutral-50 dark:bg-neutral-900/50 py-24 border-b border-neutral-200 dark:border-neutral-800">
+      <section className="bg-white dark:bg-neutral-900 py-24 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -272,24 +384,24 @@ export default async function DesignSubServicePage({ params }: { params: Promise
               </div>
             </div>
 
-            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-8 rounded-3xl shadow-sm">
+            <div className="bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-8 rounded-3xl shadow-sm">
               <h3 className="text-lg font-bold text-black dark:text-white mb-4 flex items-center">
                 <ShieldCheck className="w-5 h-5 text-[#16a34a] mr-2" /> Engineering Standard
               </h3>
               <ul className="space-y-3 font-mono text-xs text-neutral-600 dark:text-neutral-300">
-                <li className="p-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 flex justify-between">
+                <li className="p-2.5 bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 flex justify-between">
                   <span>Primary Keyword Strategy</span>
                   <span className="text-[#16a34a] font-bold">{service.primaryKeyword}</span>
                 </li>
-                <li className="p-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 flex justify-between">
+                <li className="p-2.5 bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 flex justify-between">
                   <span>Structured Data Schema</span>
                   <span className="text-[#16a34a] font-bold">JSON-LD (Service + FAQ)</span>
                 </li>
-                <li className="p-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 flex justify-between">
+                <li className="p-2.5 bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 flex justify-between">
                   <span>Core Web Vitals Target</span>
                   <span className="text-[#16a34a] font-bold">100 / 100</span>
                 </li>
-                <li className="p-2.5 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 flex justify-between">
+                <li className="p-2.5 bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 flex justify-between">
                   <span>Lead Pipeline Handoff</span>
                   <span className="text-[#16a34a] font-bold">Direct API Webhook</span>
                 </li>
@@ -351,9 +463,9 @@ export default async function DesignSubServicePage({ params }: { params: Promise
                   <HelpCircle className="w-5 h-5 text-[#16a34a] mr-3 shrink-0 mt-0.5" />
                   {item.question}
                 </h3>
-                <p className="text-[14px] md:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed pl-8">
-                  {item.answer}
-                </p>
+                <div className="text-[14px] md:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed pl-8">
+                  {renderTextWithLinks(item.answer)}
+                </div>
               </div>
             ))}
           </div>
@@ -414,11 +526,6 @@ export default async function DesignSubServicePage({ params }: { params: Promise
             >
               {service.ctaButtonText} <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
-            {/* PHASE 25 (Part 5/6 funnel gap): no canonical service page linked
-                to /pricing anywhere on the site before this - a visitor here
-                had no decision context (indicative investment) before being
-                asked to Contact. Reuses the existing canonical /pricing page
-                (Phase 24), not a new pricing surface. */}
             <Link
               href="/pricing"
               className="inline-flex items-center justify-center px-7 py-4 border border-neutral-700 text-neutral-300 font-bold text-[15px] rounded-xl hover:border-neutral-500 hover:text-white transition-colors min-h-[52px]"

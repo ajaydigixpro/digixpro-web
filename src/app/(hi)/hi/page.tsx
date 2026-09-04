@@ -14,7 +14,7 @@ import {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.digixpro.in"),
-  title: 'स्वतंत्र IT Consulting और Business Process Automation | DigiXPro',
+  title: 'स्वतंत्र IT Consulting और Business Process Automation',
   description: 'बढ़ते व्यवसायों के लिए स्वतंत्र IT Consulting, Business Process Automation, Fractional CTO सलाह और आधुनिक web design systems।',
   alternates: {
     canonical: 'https://www.digixpro.in/hi',
@@ -29,6 +29,13 @@ export const metadata: Metadata = {
     description: 'सही software खरीदने से पहले सही business problem को समझें और अपना operating system डिजाइन करें।',
     url: 'https://www.digixpro.in/hi',
     type: 'website',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'DigiXPro' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'स्वतंत्र IT Consulting और Business Process Automation | DigiXPro',
+    description: 'सही software खरीदने से पहले सही business problem को समझें और अपना operating system डिजाइन करें।',
+    images: ['/twitter-image.png'],
   },
 };
 

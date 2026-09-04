@@ -27,8 +27,9 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Website Design & Web Engineering Services | DigiXPro',
-  description: 'Custom website design, website redesign & SEO-safe rebuilds, landing page conversion design, small business web platforms, and SEO-ready web engineering by DigiXPro.',
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: 'Custom Website Design Services & High-Speed Engineering',
+  description: "Custom web design and engineering services. We build high-speed Next.js websites optimized for search visibility, conversion performance, and authority.",
   keywords: [
     'custom website design',
     'business website design',
@@ -52,8 +53,8 @@ export const metadata: Metadata = {
     canonical: 'https://www.digixpro.in/design-services',
   },
   openGraph: {
-    title: 'Website Design & Web Engineering Services | DigiXPro',
-    description: 'Custom website design, website redesign & SEO-safe rebuilds, landing page conversion design, and SEO-ready web engineering by DigiXPro.',
+    title: 'Custom Website Design Services & High-Speed Engineering | DigiXPro',
+    description: "Custom web design and engineering services. We build high-speed Next.js websites optimized for search visibility, conversion performance, and authority.",
     url: 'https://www.digixpro.in/design-services',
     type: 'website',
     images: [
@@ -68,8 +69,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Website Design & Web Engineering Services | DigiXPro',
-    description: 'Custom website design, website redesign, landing page lead generation, and SEO-ready web engineering.',
+    title: 'Custom Website Design Services & High-Speed Engineering | DigiXPro',
+    description: "Custom web design and engineering services. We build high-speed Next.js websites optimized for search visibility, conversion performance, and authority.",
     images: ['/twitter-image.png'],
   },
 };

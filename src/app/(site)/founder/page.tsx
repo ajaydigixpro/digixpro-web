@@ -20,22 +20,29 @@ import Script from 'next/script';
 import { evidenceItems } from '@/data/evidence';
 
 export const metadata: Metadata = {
-  title: 'Founder & Technology Architect | Dr. Ajay Shukla',
-  description: 'Technology decisions engineered to outlast the next six months of growth — not just the next funding round. Founder & Technology Architect at DigiXPro.',
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: 'Dr. Ajay Shukla — Founder & Technology Architect',
+  description: 'Meet Dr. Ajay Shukla, Founder & Technology Architect at DigiXPro. Independent systems architecture, operational strategy, and technology advisory.',
+  keywords: [
+    'Dr. Ajay Shukla',
+    'DigiXPro founder',
+    'technology architect',
+    'technology advisory',
+  ],
   alternates: {
     canonical: 'https://www.digixpro.in/founder',
   },
   openGraph: {
-    title: 'Founder & Technology Architect | Dr. Ajay Shukla',
-    description: 'Technology decisions engineered to outlast the next six months of growth — not just the next funding round.',
+    title: 'Dr. Ajay Shukla — Founder & Technology Architect | DigiXPro',
+    description: 'Meet Dr. Ajay Shukla, Founder & Technology Architect at DigiXPro. Independent systems architecture, operational strategy, and technology advisory.',
     url: 'https://www.digixpro.in/founder',
     type: 'profile',
     images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Dr. Ajay Shukla - Founder & Technology Architect' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Founder & Technology Architect | Dr. Ajay Shukla',
-    description: 'Technology decisions engineered to outlast the next six months of growth — not just the next funding round.',
+    title: 'Dr. Ajay Shukla — Technology Consultant & IT Advisory Founder | DigiXPro',
+    description: 'Meet Dr. Ajay Shukla, Founder and Technology Consultant at DigiXPro.',
     images: ['/twitter-image.png'],
   },
 };

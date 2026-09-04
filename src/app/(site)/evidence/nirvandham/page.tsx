@@ -6,8 +6,9 @@ import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import FAQSchema from '@/components/seo/FAQSchema';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.digixpro.in'),
   title: 'Nirvandham Platform Architecture Evidence',
-  description: 'Production evidence for Nirvandham digital platform, community OS, and workflow infrastructure.',
+  description: 'Production evidence and case study for Nirvandham digital platform, community OS, custom Web Application, and business workflow infrastructure.',
   alternates: {
     canonical: 'https://www.digixpro.in/evidence/nirvandham',
   },

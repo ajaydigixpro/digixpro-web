@@ -6,8 +6,9 @@ import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import FAQSchema from '@/components/seo/FAQSchema';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.digixpro.in'),
   title: 'ScanCentreNearMe Marketplace Architecture Evidence',
-  description: 'Production evidence for ScanCentreNearMe diagnostic marketplace platform, booking workflow, and inventory management.',
+  description: 'Production evidence and case study for ScanCentreNearMe: diagnostic center marketplace platform, booking workflows, and real-time inventory management.',
   alternates: {
     canonical: 'https://www.digixpro.in/evidence/scan-centre',
   },

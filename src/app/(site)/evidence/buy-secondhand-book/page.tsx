@@ -7,13 +7,14 @@ import ArticleSchema from '@/components/seo/ArticleSchema';
 import FAQSchema from '@/components/seo/FAQSchema';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.digixpro.in'),
   title: 'Buy Secondhand Book Case Study',
-  description: 'Production evidence for BuySecondHandBook: Delhi heritage bookstore migrated from WordPress to custom PHP 8.4 commerce engine. Zero data loss, 12,272 URL redirects, 99 Desktop PageSpeed, and Smart Bulk Upload.',
+  description: 'Production case study for BuySecondHandBook: Delhi bookstore migrated to PHP 8.4 commerce engine with 12,272 redirects and 99 Desktop PageSpeed score.',
   alternates: {
     canonical: 'https://www.digixpro.in/evidence/buy-secondhand-book',
   },
   openGraph: {
-    title: 'Buy Secondhand Book Case Study | DigiXPro Evidence',
+    title: 'Buy Secondhand Book Case Study | DigiXPro',
     description: 'Delhi heritage bookstore migrated from legacy WordPress to custom PHP 8.4 single-copy commerce engine. Zero data loss, 12,272 URL redirects, 99 Desktop PageSpeed, and Smart Bulk Upload.',
     url: 'https://www.digixpro.in/evidence/buy-secondhand-book',
     type: 'article',
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Buy Secondhand Book Case Study | DigiXPro Evidence',
+    title: 'Buy Secondhand Book Case Study | DigiXPro',
     description: 'Custom PHP 8.4 commerce engine migration for Delhi heritage bookstore. 12,272 redirects, 99 PageSpeed, Smart Bulk Upload.',
     images: ['/evidence/buy-secondhand-book/Homepage.png'],
   },

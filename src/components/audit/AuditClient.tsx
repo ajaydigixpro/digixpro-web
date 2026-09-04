@@ -1766,48 +1766,44 @@ export default function AuditClient() {
 
 const AUDIT_FAQS = [
   {
-    question: "What does branding cost for a small business?",
-    answer: "A complete branding package - logo, color system, typography, and usage guidelines - typically costs ₹1.15 lakh to ₹7.5 lakh ($1,350 to $8,800) in India, depending on scope. This isn't just a logo file; it's a full identity system built to work consistently across signage, invoices, and digital platforms. DigiXPro's free Audit tool scopes this to your exact need in a few minutes.",
+    question: "What is a website audit?",
+    answer: "A website audit is a comprehensive diagnostic evaluation of a website's technical health, search engine visibility, user experience, and conversion path. It identifies technical errors, performance bottlenecks, indexation barriers, and layout friction that prevent online visibility and customer engagement.",
   },
   {
-    question: "What are typical SEO pricing packages in India?",
-    answer: "SEO packages in India typically range from ₹25,000 to ₹60,000 ($300 to $700) per month for focused local or service-business SEO, rising to ₹60,000 to ₹1.25 lakh ($700 to $1,500) per month for competitive, multi-location, or content-heavy programs. The right package depends heavily on competition and goals - DigiXPro's free Audit tool scopes this to your specific business.",
+    question: "What does a website audit check?",
+    answer: "A thorough website audit inspects technical SEO (crawlability, status codes, indexation, sitemaps), performance (Core Web Vitals, page speed, asset bloat), user experience (mobile responsiveness, layout stability, navigation friction), and conversion paths across key landing pages.",
   },
   {
-    question: "What does IT consulting typically cost?",
-    answer: "IT consulting typically runs ₹3,500 to ₹6,500 ($40 to $75) per hour, or ₹1.9 lakh to ₹14 lakh ($2,200 to $16,500) for a defined project such as a technology audit or architecture review. DigiXPro's free Audit tool scopes this to your specific situation.",
+    question: "What is a website audit for SEO?",
+    answer: "A website audit for SEO specifically evaluates technical and structural factors affecting organic search engine rankings. It analyzes indexation status, canonicalization, heading hierarchy, internal linking, XML sitemaps, structured data markup, and keyword targeting alignment.",
   },
   {
-    question: "How much does AI automation cost for a business?",
-    answer: "AI automation projects - workflow automation, lead systems, custom integrations - typically range from ₹75,000 to ₹17 lakh ($900 to $20,000) depending on complexity. A free Audit gives a scoped estimate for your specific need.",
+    question: "What is an SEO website audit?",
+    answer: "An SEO website audit is a targeted technical review focused on search engine compliance, technical SEO health, content relevance, and indexability to ensure search engines can properly discover, crawl, and rank your key commercial pages.",
   },
   {
-    question: "How much does an AI chatbot cost?",
-    answer: "A business AI chatbot generally falls in the same ₹75,000 to ₹17 lakh ($900 to $20,000) range as other AI automation work, with cost driven mainly by how much it needs to understand, remember, and integrate with other systems. DigiXPro's free Audit tool scopes this precisely.",
+    question: "What is included in website audit services?",
+    answer: "Website audit services include automated diagnostic scanning, manual code inspection, Core Web Vitals profiling, technical SEO evaluation, UX friction analysis, and a prioritized diagnostic report outlining actionable step-by-step technical recommendations.",
   },
   {
-    question: "How much does social media management or automation cost?",
-    answer: "Ongoing AI-driven social media management - where content is written, brand-voice matched, and published automatically - typically runs ₹50,000 to ₹2.9 lakh ($600 to $3,400) per month depending on volume and platforms. This is different from basic scheduling tools, which only publish what you write yourself. DigiXPro's free Audit tool scopes this to your business.",
+    question: "What does a website audit report include?",
+    answer: "A website audit report provides a structured breakdown of diagnostic findings categorized by severity. It details technical errors, affected URLs, root-cause analyses, and prioritized remediation steps to resolve performance, search, and conversion barriers.",
   },
   {
-    question: "How much does website design cost in India?",
-    answer: "A professional business website in India typically costs ₹90,000 to ₹2.3 lakh ($1,050 to $2,700) for a standard site, or ₹3 lakh to ₹11.5 lakh ($3,500 to $13,500) for a custom platform with advanced features. DigiXPro's free Audit tool gives a scoped estimate in a few minutes.",
+    question: "How do you perform a website audit?",
+    answer: "A website audit is performed by combining automated crawling diagnostics, performance measurement tools, DOM inspection, and manual expert analysis to systematically evaluate site architecture, speed metrics, and search compliance against modern web standards.",
   },
   {
-    question: "How much does a website cost?",
-    answer: "A professional website generally costs ₹90,000 to ₹2.3 lakh ($1,050 to $2,700) for a standard business site, or significantly more for custom-built platforms with advanced functionality. The real cost driver is complexity, not design alone - run a free Audit for a number scoped to your actual needs.",
+    question: "Can a website audit identify SEO, UX and conversion issues?",
+    answer: "Yes. A comprehensive website audit evaluates the complete digital experience—pinpointing technical SEO barriers, mobile layout friction, slow page loading, and unclear CTA conversion paths that hinder user engagement and sales leads.",
   },
   {
-    question: "How much does a website cost per month if I'm not paying upfront?",
-    answer: "Website costs are usually a one-time build fee plus a small ongoing hosting/maintenance cost, rather than a pure monthly subscription - unless you choose a template platform. DigiXPro's free Audit tool breaks down what a realistic one-time-plus-monthly structure looks like for your case.",
+    question: "What is the difference between a website audit and ongoing SEO services?",
+    answer: "A website audit is an independent diagnostic assessment that identifies existing technical debt and growth barriers. Ongoing SEO services involve executing the recommended technical fixes, publishing content, and managing continuous optimization over time.",
   },
   {
-    question: "How much does a website cost for a small business specifically?",
-    answer: "Small businesses usually need the standard site tier (₹90,000 to ₹2.3 lakh / $1,050 to $2,700) rather than a custom platform, unless there's e-commerce or complex functionality involved. DigiXPro's free Audit tool tells you which tier actually fits your business.",
-  },
-  {
-    question: "What does business process automation pricing look like?",
-    answer: "Business process automation pricing depends heavily on how many systems need to connect and how complex the workflow is - it's typically scoped case by case rather than sold as a fixed package (usually starting around ₹1.5 lakh / $1,800). DigiXPro's free Audit tool gives an indicative starting estimate based on your specific process.",
+    question: "What happens after a website audit?",
+    answer: "After a website audit, you receive a clear diagnostic report and prioritized execution roadmap. You can choose to implement the fixes with your internal engineering team, or engage DigiXPro to execute the technical recommendations; investment breakdowns can be reviewed on our [pricing page](/pricing).",
   },
 ];
 
@@ -1829,22 +1825,45 @@ function AuditFAQSection() {
   };
 
   const renderAnswerWithLinks = (text: string) => {
-    const parts = text.split(/(free Audit tool|free Audit)/g);
-    return parts.map((part, i) => {
-      if (part === "free Audit tool" || part === "free Audit") {
-        return (
+    const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+      const label = match[1];
+      const url = match[2];
+      if (url.startsWith("#")) {
+        parts.push(
           <a
-            key={i}
-            href="#audit-top"
+            key={match.index}
+            href={url}
             onClick={scrollToTop}
-            className="text-[#009E73] font-semibold underline hover:text-[#007a5a] transition cursor-pointer"
+            className="text-[#009E73] dark:text-[#4ade80] font-semibold underline hover:text-[#007a5a] dark:hover:text-[#22c55e] transition cursor-pointer"
           >
-            {part}
+            {label}
           </a>
         );
+      } else {
+        parts.push(
+          <Link
+            key={match.index}
+            href={url}
+            className="text-[#009E73] dark:text-[#4ade80] font-semibold underline hover:text-[#007a5a] dark:hover:text-[#22c55e] transition"
+          >
+            {label}
+          </Link>
+        );
       }
-      return part;
-    });
+      lastIndex = regex.lastIndex;
+    }
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+    return parts.length > 0 ? parts : text;
   };
 
   return (
@@ -1852,11 +1871,11 @@ function AuditFAQSection() {
       <FAQSchema items={AUDIT_FAQS} />
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#007a55] dark:text-[#4ade80] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-full inline-block mb-3">
-            Pricing &amp; Investment FAQ
+          <span className="text-[#007a55] dark:text-[#4ade80] text-xs font-mono font-bold uppercase tracking-widest bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-full inline-block mb-3">
+            Website Audit &amp; Diagnostic FAQ
           </span>
           <h2 className="text-2xl md:text-3xl font-extrabold text-black dark:text-white tracking-tight">
-            Frequently Asked Questions About Service Pricing
+            Frequently Asked Questions About Website Audits
           </h2>
         </div>
 

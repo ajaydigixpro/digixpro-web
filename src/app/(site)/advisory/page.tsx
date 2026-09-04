@@ -23,8 +23,9 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Independent Technology Architecture & Business Systems Advisory | DigiXPro',
-  description: 'Independent technology architecture advisory, IT consulting strategy, technology due diligence, digital transformation, and Fractional CTO leadership for growing enterprises.',
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: 'Vendor-Neutral Technology Architecture Advisory',
+  description: 'Independent technology architecture advisory, IT consulting, technology due diligence, digital transformation, and Fractional CTO leadership by DigiXPro.',
   keywords: [
     'technology architecture advisory',
     'IT strategy consulting',
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.digixpro.in/advisory',
   },
   openGraph: {
-    title: 'Independent Technology Architecture & Business Systems Advisory | DigiXPro',
+    title: 'Vendor-Neutral Technology Architecture Advisory | DigiXPro',
     description: 'Independent technology architecture advisory for growing businesses. Independent evaluation before major technology commitments.',
     url: 'https://www.digixpro.in/advisory',
     type: 'website',
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Technology Architecture Advisory Services | DigiXPro',
+    title: 'Vendor-Neutral Technology Architecture Advisory | DigiXPro',
     description: 'Independent technology architecture advisory for growing businesses.',
     images: ['/twitter-image.png'],
   },

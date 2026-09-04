@@ -25,8 +25,9 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.digixpro.in'),
   title: 'SattvaOS Architecture Evidence',
-  description: 'Production evidence for SattvaOS enterprise AI infrastructure, governed multi-tenant architecture, and policy guardrails.',
+  description: 'Production evidence and case study for SattvaOS: enterprise AI infrastructure, governed multi-tenant system architecture, and security guardrails.',
   alternates: {
     canonical: 'https://www.digixpro.in/evidence/sattvaos',
   },

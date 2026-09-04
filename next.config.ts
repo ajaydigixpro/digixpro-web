@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
       {
         source: '/studio',
         destination: '/',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/services/unlimited-graphic-design',
@@ -64,7 +64,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/services/branding-services',
-        destination: '/design-services/custom-business-website-design',
+        destination: '/design-services',
         permanent: true,
       },
       {

@@ -23,8 +23,9 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.digixpro.in'),
   title: 'Aatma Guru Architecture Evidence',
-  description: 'Production evidence for Aatma Guru organization onboarding platform, multi-tenant workspace provisioning, and governance OS.',
+  description: 'Production evidence and case study for Aatma Guru: multi-tenant organization onboarding platform, workspace provisioning, and enterprise governance OS.',
   alternates: {
     canonical: 'https://www.digixpro.in/evidence/aatma-guru',
   },

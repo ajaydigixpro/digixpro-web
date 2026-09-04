@@ -15,13 +15,14 @@ import {
 
 // 1️⃣ SEO METADATA
 export const metadata: Metadata = {
-  title: 'Operational Evidence & Case Studies',
-  description: 'Real analytics, architecture logs, verified public footprints, and business outcomes engineered by DigiXPro across Healthcare, Marketplaces, AI Systems, and Design Platforms.',
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: 'Operational Evidence: Healthcare, E-Commerce & Web OS',
+  description: 'Explore real analytics, architecture logs, verified footprints, and business outcomes engineered by DigiXPro across Healthcare, AI, and Marketplaces.',
   alternates: {
     canonical: 'https://www.digixpro.in/evidence',
   },
   openGraph: {
-    title: 'Operational Evidence & Case Studies | DigiXPro',
+    title: 'Operational Evidence: Healthcare, E-Commerce & Web OS | DigiXPro',
     description: 'Explore our production-grade architecture case studies and operational evidence across technology and design tracks.',
     url: 'https://www.digixpro.in/evidence',
     type: 'website',
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Operational Evidence & Case Studies | DigiXPro',
+    title: 'Operational Evidence: Healthcare, E-Commerce & Web OS | DigiXPro',
     description: 'Explore our production-grade architecture case studies and operational evidence.',
     images: ['/twitter-image.png'],
   },

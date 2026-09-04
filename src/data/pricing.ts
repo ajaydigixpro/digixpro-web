@@ -52,39 +52,9 @@ export interface PricingRange {
 }
 
 export const PRICING_RANGES: PricingRange[] = [
-  {
-    id: 'branding',
-    service: null, // not one of the 18 canonical services — pre-existing FAQ content, see Phase 23/24 reports
-    cluster: 'design-build',
-    label: 'Branding package (logo, color system, typography, usage guidelines)',
-    unit: 'one-time',
-    inrMin: 115_000,
-    inrMax: 750_000,
-    usdMin: 1_350,
-    usdMax: 8_800
-  },
-  {
-    id: 'seo-focused',
-    service: 'SEO & Search Visibility',
-    cluster: 'search-ai-automation',
-    label: 'SEO — focused local / single-service program',
-    unit: 'per-month',
-    inrMin: 25_000,
-    inrMax: 60_000,
-    usdMin: 300,
-    usdMax: 700
-  },
-  {
-    id: 'seo-competitive',
-    service: 'SEO & Search Visibility',
-    cluster: 'search-ai-automation',
-    label: 'SEO — competitive, multi-location, or content-heavy program',
-    unit: 'per-month',
-    inrMin: 60_000,
-    inrMax: 125_000,
-    usdMin: 700,
-    usdMax: 1_500
-  },
+  // ============================================================================
+  // ADVISORY SEGMENT
+  // ============================================================================
   {
     id: 'it-consulting-hourly',
     service: 'IT Consulting & Technology Strategy',
@@ -108,26 +78,74 @@ export const PRICING_RANGES: PricingRange[] = [
     usdMax: 16_500
   },
   {
-    id: 'ai-automation',
-    service: 'Workflow & AI Automation',
-    cluster: 'search-ai-automation',
-    label: 'AI / workflow automation (lead systems, custom integrations, AI chatbot)',
-    unit: 'starting-from',
-    inrMin: 75_000,
-    inrMax: 1_700_000,
-    usdMin: 900,
-    usdMax: 20_000
+    id: 'vendor-evaluation',
+    service: 'Technology Due Diligence & Vendor Evaluation',
+    cluster: 'advisory',
+    label: 'Technology Due Diligence & Vendor Evaluation',
+    unit: 'per-project',
+    inrMin: 190_000,
+    inrMax: 800_000,
+    usdMin: 2_200,
+    usdMax: 9_400
   },
   {
-    id: 'social-media-management',
-    service: 'Social Media Management & Content Systems',
-    cluster: 'search-ai-automation',
-    label: 'AI-driven social media management',
+    id: 'digital-transformation',
+    service: 'Digital Transformation Consulting',
+    cluster: 'advisory',
+    label: 'Digital Transformation Consulting',
+    unit: 'per-project',
+    inrMin: 200_000,
+    inrMax: 800_000,
+    usdMin: 2_350,
+    usdMax: 9_400
+  },
+  {
+    id: 'systems-architecture',
+    service: 'Business Systems & Process Architecture',
+    cluster: 'advisory',
+    label: 'Business Systems & Process Architecture',
+    unit: 'per-project',
+    inrMin: 150_000,
+    inrMax: 600_000,
+    usdMin: 1_800,
+    usdMax: 7_000
+  },
+  {
+    id: 'technology-roadmaps',
+    service: 'Technology Roadmaps & Architecture',
+    cluster: 'advisory',
+    label: 'Technology Roadmaps & Architecture',
+    unit: 'per-project',
+    inrMin: 100_000,
+    inrMax: 400_000,
+    usdMin: 1_200,
+    usdMax: 4_700
+  },
+  {
+    id: 'fractional-cto',
+    service: 'Fractional CTO & Technology Leadership',
+    cluster: 'advisory',
+    label: 'Fractional CTO & Technology Leadership',
     unit: 'per-month',
-    inrMin: 50_000,
-    inrMax: 290_000,
-    usdMin: 600,
-    usdMax: 3_400
+    inrMin: 100_000,
+    inrMax: 300_000,
+    usdMin: 1_200,
+    usdMax: 3_500
+  },
+
+  // ============================================================================
+  // DESIGN & BUILD SEGMENT
+  // ============================================================================
+  {
+    id: 'branding',
+    service: null, // not one of the 18 canonical services — pre-existing FAQ content, see Phase 23/24 reports
+    cluster: 'design-build',
+    label: 'Branding package (logo, color system, typography, usage guidelines)',
+    unit: 'one-time',
+    inrMin: 115_000,
+    inrMax: 750_000,
+    usdMin: 1_350,
+    usdMax: 8_800
   },
   {
     id: 'website-standard',
@@ -150,6 +168,65 @@ export const PRICING_RANGES: PricingRange[] = [
     inrMax: 1_150_000,
     usdMin: 3_500,
     usdMax: 13_500
+  },
+
+  // ============================================================================
+  // SEARCH, AI & AUTOMATION SEGMENT
+  // ============================================================================
+  {
+    id: 'seo-focused',
+    service: 'SEO & Search Visibility',
+    cluster: 'search-ai-automation',
+    label: 'SEO — focused local / single-service program (including Local SEO & Google Business Profile visibility)',
+    unit: 'per-month',
+    inrMin: 25_000,
+    inrMax: 60_000,
+    usdMin: 300,
+    usdMax: 700
+  },
+  {
+    id: 'seo-competitive',
+    service: 'SEO & Search Visibility',
+    cluster: 'search-ai-automation',
+    label: 'SEO — competitive, multi-location, or content-heavy program',
+    unit: 'per-month',
+    inrMin: 60_000,
+    inrMax: 125_000,
+    usdMin: 700,
+    usdMax: 1_500
+  },
+  {
+    id: 'ai-search-optimization-geo',
+    service: 'AI Search Optimization & GEO',
+    cluster: 'search-ai-automation',
+    label: 'AI Search Optimization / GEO',
+    unit: 'per-month',
+    inrMin: 45_000,
+    inrMax: 110_000,
+    usdMin: 550,
+    usdMax: 1_300
+  },
+  {
+    id: 'social-media-management',
+    service: 'Social Media Management & Content Systems',
+    cluster: 'search-ai-automation',
+    label: 'AI-driven social media management',
+    unit: 'per-month',
+    inrMin: 50_000,
+    inrMax: 290_000,
+    usdMin: 600,
+    usdMax: 3_400
+  },
+  {
+    id: 'ai-automation',
+    service: 'Workflow & AI Automation',
+    cluster: 'search-ai-automation',
+    label: 'AI & workflow automation (lead systems, CRM automation, custom integrations, AI chatbot)',
+    unit: 'starting-from',
+    inrMin: 75_000,
+    inrMax: 1_700_000,
+    usdMin: 900,
+    usdMax: 20_000
   },
   {
     id: 'process-automation',

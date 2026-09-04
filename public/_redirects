@@ -27,8 +27,8 @@
 /services/website-design-services /design-services 301
 /services/website-design-services/* /design-services 301
 /services/social-media-campaign-strategy /search-automation/social-media-management 301
-/services/branding-services /design-services/custom-business-website-design 301
+/services/branding-services /design-services 301
 /services/website-design-for-trades-and-contractors /design-services/small-business-websites 301
 /services/fractional-cto-services /advisory/fractional-cto-technology-leadership 301
 /services/fractional-ceo-services /advisory 301
-/studio / 307
+/studio / 301

@@ -28,8 +28,9 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Search Visibility, AI Discovery & Automation Services | DigiXPro',
-  description: 'Connect search visibility, AI search optimization (GEO), local SEO, social content systems, workflow automation, and CRM lead capture into one digital acquisition system.',
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: 'Search Automation Services & Instant Lead Workflows',
+  description: "Search visibility and operational automation services combining technical SEO, AI search readiness (GEO), local search ranking, and n8n lead workflows.",
   keywords: [
     'search visibility services',
     'AI search optimization',
@@ -45,8 +46,8 @@ export const metadata: Metadata = {
     canonical: 'https://www.digixpro.in/search-automation',
   },
   openGraph: {
-    title: 'Search Visibility, AI Discovery & Automation Services | DigiXPro',
-    description: 'Connect organic search, AI discovery, content systems, workflow automation, and lead capture into one connected system.',
+    title: 'Search Automation Services & Instant Lead Workflows | DigiXPro',
+    description: "Search visibility and operational automation services combining technical SEO, AI search readiness (GEO), local search ranking, and n8n lead workflows.",
     url: 'https://www.digixpro.in/search-automation',
     type: 'website',
     images: [
@@ -61,8 +62,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Search Visibility, AI Discovery & Automation | DigiXPro',
-    description: 'Connect search visibility, AI discovery, social content, and workflow automation into one acquisition system.',
+    title: 'Search Automation Services & Instant Lead Workflows | DigiXPro',
+    description: "Search visibility and operational automation services combining technical SEO, AI search readiness (GEO), local search ranking, and n8n lead workflows.",
     images: ['/twitter-image.png'],
   },
 };

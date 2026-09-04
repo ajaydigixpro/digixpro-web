@@ -10,7 +10,7 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 // The homepage LCP is text. Optional display keeps the critical heading
 // paintable with the system fallback instead of waiting for Inter to arrive.
-const inter = Inter({ subsets: ["latin"], display: "optional" });
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const viewport: Viewport = {
   themeColor: "#009E73",

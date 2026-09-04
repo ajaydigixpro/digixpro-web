@@ -20,7 +20,10 @@ export const metadata: Metadata = {
   applicationName: "DigiXPro",
   robots: {
     index: false,
-    follow: false,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://www.digixpro.in/hi",
   },
 };
 

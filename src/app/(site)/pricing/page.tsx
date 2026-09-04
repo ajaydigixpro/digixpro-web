@@ -5,16 +5,17 @@ import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ProfessionalServiceSchema from "@/components/seo/ProfessionalServiceSchema";
 
 export const metadata: Metadata = {
-  title: "Investment Guide — Digital Services Pricing in India | DigiXPro",
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: "Investment Guide — Digital Services Pricing in India",
   description:
-    "DigiXPro Investment Guide — Indicative pricing for custom website development, technical SEO, AI automation, and technology advisory in India. Exact quotes follow an audit.",
+    "DigiXPro Investment Guide — Indicative website development cost India, SEO pricing India, fractional CTO cost, and fractional CTO hourly rate.",
   keywords: [
     "digixpro pricing",
-    "website development cost india",
-    "seo pricing india",
-    "ai automation cost",
-    "technology advisory investment",
-    "digital services pricing in india"
+    "website development cost India",
+    "SEO pricing India",
+    "fractional CTO cost",
+    "fractional CTO hourly rate",
+    "digital services pricing in India"
   ],
   alternates: {
     canonical: "https://www.digixpro.in/pricing",
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Investment Guide — Digital Services Pricing in India | DigiXPro",
     description:
-      "Indicative investment ranges for website development, SEO, AI automation, and technology advisory in India — in INR, USD, GBP, AUD, or SGD.",
+      "Indicative investment ranges for website development cost India, SEO pricing India, fractional CTO cost, and fractional CTO hourly rate in INR, USD, GBP, AUD, or SGD.",
     url: "https://www.digixpro.in/pricing",
     type: "website",
     images: [
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Investment Guide — Digital Services Pricing in India | DigiXPro",
     description:
-      "Indicative investment ranges for website development, SEO, AI automation, and technology advisory in India — in INR, USD, GBP, AUD, or SGD.",
+      "Indicative investment ranges for website development cost India, SEO pricing India, fractional CTO cost, and fractional CTO hourly rate in INR, USD, GBP, AUD, or SGD.",
     images: ["/twitter-image.png"],
   },
 };
@@ -53,11 +54,6 @@ export default function PricingPage() {
           { name: "Pricing", url: "https://www.digixpro.in/pricing" },
         ]}
       />
-      {/* PHASE 26 (technical SEO): reuses the EXISTING ProfessionalServiceSchema
-          component (already used on the homepage, advisory, and
-          search-automation service pages) - its currenciesAccepted field is
-          directly relevant here, and no new structured-data type is
-          introduced. */}
       <ProfessionalServiceSchema />
       <PricingClient />
     </div>

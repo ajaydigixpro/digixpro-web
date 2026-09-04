@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ADVISORY_SERVICES, AdvisoryServiceItem } from '@/data/advisoryServicesData';
+import { ADVISORY_SERVICES } from '@/data/advisoryServicesData';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import FAQSchema from '@/components/seo/FAQSchema';
 import ProfessionalServiceSchema from '@/components/seo/ProfessionalServiceSchema';
@@ -11,12 +11,7 @@ import {
   ArrowRight, 
   CheckCircle2, 
   HelpCircle, 
-  ShieldCheck, 
-  Layers, 
-  Briefcase, 
-  Building2, 
-  Cpu, 
-  FileText,
+  ShieldCheck,
   HelpCircle as QuestionIcon
 } from 'lucide-react';
 
@@ -24,6 +19,30 @@ interface PageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+function renderTextWithLinks(text: string) {
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index));
+    }
+    const [, linkText, url] = match;
+    parts.push(
+      <Link key={match.index} href={url} className="text-[#16a34a] font-semibold hover:underline">
+        {linkText}
+      </Link>
+    );
+    lastIndex = regex.lastIndex;
+  }
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+  return parts.length > 0 ? parts : text;
 }
 
 export async function generateStaticParams() {
@@ -38,7 +57,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!service) {
     return {
-      title: 'Service Not Found | DigiXPro',
+    metadataBase: new URL('https://www.digixpro.in'),
+    title: 'Service Not Found',
       description: 'The requested advisory service could not be found.',
     };
   }
@@ -46,6 +66,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const canonicalUrl = `https://www.digixpro.in/advisory/${service.slug}`;
 
   return {
+    metadataBase: new URL('https://www.digixpro.in'),
     title: service.metaTitle,
     description: service.metaDescription,
     keywords: [service.primaryKeyword, ...service.supportingKeywords],
@@ -53,7 +74,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: service.metaTitle,
+      title: `${service.metaTitle} | DigiXPro`,
       description: service.metaDescription,
       url: canonicalUrl,
       type: 'website',
@@ -68,7 +89,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: 'summary_large_image',
-      title: service.metaTitle,
+      title: `${service.metaTitle} | DigiXPro`,
       description: service.metaDescription,
       images: ['/twitter-image.png'],
     },
@@ -206,6 +227,98 @@ export default async function AdvisorySubServicePage({ params }: PageProps) {
           </div>
         </section>
 
+        {/* DECISION SUPPORT & OVERVIEW (IF PRESENT) */}
+        {service.overviewSections && service.overviewSections.length > 0 && (
+          <section className="py-20 max-w-[1200px] mx-auto px-6 border-b border-neutral-200 dark:border-neutral-800">
+            <div className="space-y-16">
+              {service.overviewSections.map((sec, idx) => (
+                <div key={idx} className="max-w-4xl">
+                  <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                    STRATEGIC FRAMEWORK 0{idx + 1}
+                  </div>
+                  <h2 className="text-[28px] md:text-[38px] font-extrabold mb-4 text-black dark:text-white leading-tight">
+                    {sec.heading}
+                  </h2>
+                  {sec.subheading && (
+                    <p className="text-[17px] font-medium text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
+                      {sec.subheading}
+                    </p>
+                  )}
+                  <div className="space-y-4 mb-6">
+                    {sec.paragraphs.map((p, pIdx) => (
+                      <p key={pIdx} className="text-[15px] md:text-[16px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                        {renderTextWithLinks(p)}
+                      </p>
+                    ))}
+                  </div>
+                  {sec.subsections && sec.subsections.length > 0 && (
+                    <div className="grid md:grid-cols-3 gap-4 mt-6">
+                      {sec.subsections.map((sub, sIdx) => (
+                        <div key={sIdx} className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-2xl border border-neutral-200 dark:border-neutral-800">
+                          <h3 className="text-base font-bold text-black dark:text-white mb-2">{sub.title}</h3>
+                          <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">{sub.description}</p>
+                          {sub.bullets && sub.bullets.length > 0 && (
+                            <ul className="mt-3 space-y-1.5 border-t border-neutral-200 dark:border-neutral-800 pt-3">
+                              {sub.bullets.map((b, bIdx) => (
+                                <li key={bIdx} className="text-xs text-neutral-700 dark:text-neutral-300 flex items-center">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a] mr-2 shrink-0"></span>
+                                  {b}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ARCHITECTURE COMPARISON TABLE (IF PRESENT) */}
+        {service.comparisonTable && (
+          <section className="py-20 bg-neutral-50 dark:bg-neutral-900/50 border-b border-neutral-200 dark:border-neutral-800">
+            <div className="max-w-[1200px] mx-auto px-6">
+              <div className="max-w-3xl mb-12">
+                <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
+                  STRATEGIC EVALUATION
+                </div>
+                <h2 className="text-[28px] md:text-[40px] font-extrabold mb-3 text-black dark:text-white">
+                  {service.comparisonTable.title}
+                </h2>
+                {service.comparisonTable.subtitle && (
+                  <p className="text-[16px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {service.comparisonTable.subtitle}
+                  </p>
+                )}
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 shadow-sm">
+                  <thead>
+                    <tr className="border-b border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-800/80">
+                      <th className="p-4 md:p-5 text-xs font-mono font-bold uppercase text-neutral-600 dark:text-neutral-300 w-1/4">Evaluation Factor</th>
+                      <th className="p-4 md:p-5 text-xs font-mono font-bold uppercase text-[#16a34a] w-3/8">{service.comparisonTable.columnAHeader}</th>
+                      <th className="p-4 md:p-5 text-xs font-mono font-bold uppercase text-neutral-500 dark:text-neutral-400 w-3/8">{service.comparisonTable.columnBHeader}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800">
+                    {service.comparisonTable.rows.map((row, rIdx) => (
+                      <tr key={rIdx} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors">
+                        <td className="p-4 md:p-5 text-xs font-bold text-black dark:text-white align-top">{row.feature}</td>
+                        <td className="p-4 md:p-5 text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed align-top bg-emerald-50/30 dark:bg-emerald-950/20">{row.columnA}</td>
+                        <td className="p-4 md:p-5 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed align-top">{row.columnB}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* REAL CONTEXTUAL EVIDENCE */}
         <section className="py-20 max-w-[1200px] mx-auto px-6 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/40">
           <div className="max-w-4xl mx-auto text-center">
@@ -248,9 +361,9 @@ export default async function AdvisorySubServicePage({ params }: PageProps) {
                   <HelpCircle className="w-5 h-5 text-[#16a34a] mr-3 shrink-0 mt-0.5" />
                   {faq.question}
                 </h3>
-                <p className="text-[14px] md:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed pl-8">
-                  {faq.answer}
-                </p>
+                <div className="text-[14px] md:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed pl-8">
+                  {renderTextWithLinks(faq.answer)}
+                </div>
               </div>
             ))}
           </div>
@@ -276,8 +389,6 @@ export default async function AdvisorySubServicePage({ params }: PageProps) {
               >
                 {service.ctaButtonText} <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
-              {/* PHASE 25 (Part 5/6 funnel gap): no canonical service page
-                  linked to /pricing anywhere on the site before this. */}
               <Link
                 href="/pricing"
                 className="inline-flex items-center justify-center px-6 py-4 border border-neutral-700 text-neutral-300 font-bold text-[14px] rounded-xl hover:border-neutral-500 hover:text-white transition-colors min-h-[52px]"

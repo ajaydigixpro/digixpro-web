@@ -4,12 +4,31 @@ import CallbackRequestForm from '@/components/contact/CallbackRequestForm';
 import { AlertCircle, ArrowRight, CalendarDays, CheckCircle2, Mail, MapPin, PhoneCall, Plane, XCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Contact Us — Request a Discovery Call',
-  description: 'Discuss business architecture, operational bottlenecks, and technology decisions with DigiXPro. Based in Greater Noida West, India. Serving founders and growing businesses nationwide.',
-  keywords: ['contact DigiXPro', 'technology advisory consultation India', 'book discovery call', 'technology architecture consultant Greater Noida West'],
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: 'Contact Us — Request a Discovery Call & Technology Advisory',
+  description: 'Get in touch with DigiXPro. Request a discovery call or schedule a technology advisory consultation to discuss your business architecture and software strategy.',
+  keywords: [
+    'contact DigiXPro',
+    'technology advisory consultation',
+    'book discovery call',
+    'IT consulting contact',
+    'technology architecture consultant Greater Noida West',
+    'schedule discovery call',
+  ],
   alternates: { canonical: 'https://www.digixpro.in/contact' },
-  openGraph: { title: 'Contact Us — Request a Discovery Call | DigiXPro', description: 'Discuss your business architecture, operational bottlenecks, and technology decisions with DigiXPro.', url: 'https://www.digixpro.in/contact', type: 'website', images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'DigiXPro — Book a Discovery Call', type: 'image/png' }] },
-  twitter: { card: 'summary_large_image', title: 'Contact Us — Request a Discovery Call | DigiXPro', description: 'Discuss your technology architecture with DigiXPro.', images: ['/twitter-image.png'] },
+  openGraph: {
+    title: 'Contact Us — Request a Discovery Call & Technology Advisory | DigiXPro',
+    description: 'Get in touch with DigiXPro. Request a discovery call or schedule a technology advisory consultation to discuss your business architecture and software strategy.',
+    url: 'https://www.digixpro.in/contact',
+    type: 'website',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'DigiXPro — Book a Discovery Call', type: 'image/png' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact Us — Request a Discovery Call & Technology Advisory | DigiXPro',
+    description: 'Get in touch with DigiXPro to discuss your technology architecture.',
+    images: ['/twitter-image.png'],
+  },
 };
 
 const goodFit = ['You are evaluating a consequential technology decision.', 'Operations are becoming difficult to manage manually.', 'Automation or AI integration is now on the roadmap.', 'Growth needs a stronger operating system, not another patch.'];
@@ -75,7 +94,7 @@ export default function ContactPage() {
         <article className="rounded-[24px] border border-neutral-200 p-7 md:p-8 dark:border-neutral-800"><p className="mb-2 font-mono text-[11px] font-bold uppercase tracking-widest text-[#009E73]">Engagement options</p><h2 className="text-[24px] font-extrabold tracking-tight text-black dark:text-white">Ways to work with DigiXPro.</h2><ul className="mt-6 divide-y divide-neutral-200 dark:divide-neutral-800">{[['Architecture Review (Audit)', 'Technical due diligence for an existing system, supplier decision, or planned change.'], ['Remote Advisory Retainer', 'Ongoing architectural intelligence alongside an internal team.'], ['On-Site Discovery Workshops', 'Deep operational mapping with the people closest to the work.']].map(([title, copy]) => <li key={title} className="flex gap-3 py-4 first:pt-0 last:pb-0"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#009E73]" /><div><h3 className="text-[15px] font-extrabold text-black dark:text-white">{title}</h3><p className="mt-1 text-[14px] leading-relaxed text-neutral-600 dark:text-neutral-400">{copy}</p></div></li>)}</ul></article>
       </section>
       <section className="mx-auto max-w-[1200px] px-6 pb-6"><div className="rounded-[24px] border border-neutral-200 bg-neutral-50 p-7 md:p-8 dark:border-neutral-800 dark:bg-neutral-900/50"><div className="flex flex-col justify-between gap-4 md:flex-row md:items-end"><div><p className="font-mono text-[11px] font-bold uppercase tracking-widest text-[#009E73]">Typical output</p><h2 className="mt-2 text-[24px] font-extrabold tracking-tight text-black dark:text-white">What a well-scoped engagement can produce.</h2></div><p className="max-w-md text-[14px] leading-relaxed text-neutral-600 dark:text-neutral-400">The exact deliverables follow the operating context and scope; they are not treated as a one-size-fits-all checklist.</p></div><div className="mt-6 flex flex-wrap gap-2.5">{['Operating-System Blueprint', 'Decision Rationale', 'Technology Roadmap', 'Implementation Strategy', 'Risk Report'].map((item) => <span key={item} className="rounded-lg border border-neutral-200 bg-white px-3.5 py-2 text-[13px] font-bold text-neutral-700 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-300">{item}</span>)}</div></div></section>
-      <aside className="mx-auto max-w-[1200px] px-6" aria-labelledby="operational-details-heading"><div className="rounded-[24px] bg-[#0A0A0A] p-7 text-white md:p-8"><div className="mb-6 flex items-center gap-2"><AlertCircle className="h-5 w-5 text-[#57d6af]" /><h2 id="operational-details-heading" className="text-[18px] font-extrabold">Operational details</h2></div><div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"><div><CheckCircle2 className="mb-3 h-5 w-5 text-[#57d6af]" /><h3 className="text-[14px] font-extrabold">Discovery first</h3><p className="mt-2 text-[13px] leading-relaxed text-neutral-400">Implementation is considered only after the architecture and operating context are understood.</p></div><div><Plane className="mb-3 h-5 w-5 text-neutral-400" /><h3 className="text-[14px] font-extrabold">On-site work</h3><p className="mt-2 text-[13px] leading-relaxed text-neutral-400">For in-person discovery, travel and commute expenses, including Delhi NCR, are borne by the client.</p></div><div><Mail className="mb-3 h-5 w-5 text-neutral-400" /><h3 className="text-[14px] font-extrabold">Direct email</h3><a href="mailto:ajay%40digixpro.in" aria-label="Email ajay at digixpro dot in" className="mt-2 inline-block text-[13px] font-medium text-neutral-300 underline decoration-neutral-600 underline-offset-4 transition hover:text-white"><span>ajay</span><span aria-hidden="true">@</span><span>digixpro.in</span></a></div><div><MapPin className="mb-3 h-5 w-5 text-neutral-400" /><h3 className="text-[14px] font-extrabold">Base location</h3><p className="mt-2 text-[13px] leading-relaxed text-neutral-400">Greater Noida West, Uttar Pradesh, India</p></div></div></div></aside>
+      <aside className="mx-auto max-w-[1200px] px-6" aria-labelledby="operational-details-heading"><div className="rounded-[24px] bg-[#0A0A0A] p-7 text-white md:p-8"><div className="mb-6 flex items-center gap-2"><AlertCircle className="h-5 w-5 text-[#57d6af]" /><h2 id="operational-details-heading" className="text-[18px] font-extrabold">Operational details</h2></div><div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"><div><CheckCircle2 className="mb-3 h-5 w-5 text-[#57d6af]" /><h3 className="text-[14px] font-extrabold">Discovery first</h3><p className="mt-2 text-[13px] leading-relaxed text-neutral-400">Implementation is considered only after the architecture and operating context are understood.</p></div><div><Plane className="mb-3 h-5 w-5 text-neutral-400" /><h3 className="text-[14px] font-extrabold">On-site work</h3><p className="mt-2 text-[13px] leading-relaxed text-neutral-400">For in-person discovery, travel and commute expenses, including Delhi NCR, are borne by the client.</p></div><div><Mail className="mb-3 h-5 w-5 text-neutral-400" /><h3 className="text-[14px] font-extrabold">Direct email</h3><a href="mailto:ajay@digixpro.in" aria-label="Email ajay at digixpro dot in" className="mt-2 inline-block text-[13px] font-medium text-neutral-300 underline decoration-neutral-600 underline-offset-4 transition hover:text-white"><span>ajay</span><span aria-hidden="true">@</span><span>digixpro.in</span></a></div><div><MapPin className="mb-3 h-5 w-5 text-neutral-400" /><h3 className="text-[14px] font-extrabold">Base location</h3><p className="mt-2 text-[13px] leading-relaxed text-neutral-400">Greater Noida West, Uttar Pradesh, India</p></div></div></div></aside>
     </div>
   );
 }

@@ -1,3 +1,19 @@
+export interface DesignServiceOverviewSection {
+  heading: string;
+  subheading?: string;
+  paragraphs: string[];
+  subsections?: { title: string; description?: string; bullets?: string[] }[];
+  bulletPoints?: string[];
+}
+
+export interface DesignServiceComparisonTable {
+  title?: string;
+  subtitle?: string;
+  columnAHeader?: string;
+  columnBHeader?: string;
+  rows: { feature?: string; columnA: string; columnB: string }[];
+}
+
 export interface DesignServiceFAQ {
   question: string;
   answer: string;
@@ -28,6 +44,8 @@ export interface DesignServiceItem {
   solutionDeliverables: DesignServiceDeliverable[];
   capabilitySignals: string[];
   faqs: DesignServiceFAQ[];
+  overviewSections?: DesignServiceOverviewSection[];
+  comparisonTable?: DesignServiceComparisonTable;
   ctaHeading: string;
   ctaButtonText: string;
   ctaSubtext: string;
@@ -61,7 +79,7 @@ export const designSubServices: DesignServiceItem[] = [
     buyerSituation: "I need a new business website.",
     heroHeading: "Custom Business Website Design & Codebase Engineering.",
     heroSubheading: "We design and build bespoke, high-performance web applications in Next.js and React—engineered for visual authority, fast Core Web Vitals, built-in search indexability, and frictionless B2B lead capture.",
-    metaTitle: "Custom Business Website Design & Development Services | DigiXPro",
+    metaTitle: "Custom Business Website Design & Development Services",
     metaDescription: "Bespoke custom business website design and React/Next.js codebase engineering. Built for visual authority, 100% Core Web Vitals performance, and B2B lead capture.",
     shortDesc: "Bespoke web applications built on modern Next.js and React architecture. Engineered for visual authority, fast performance, search indexability, and B2B lead capture.",
     problemHeading: "Common Obstacles When Building a New Business Website",
@@ -143,7 +161,7 @@ export const designSubServices: DesignServiceItem[] = [
     buyerSituation: "I already have a website, but it isn't working properly.",
     heroHeading: "Website Redesign & SEO-Safe Codebase Rebuild.",
     heroSubheading: "Modernize legacy WordPress or CMS platforms without risking existing Google rankings. We preserve canonical integrity, fix Core Web Vitals bottlenecks, and eliminate plugin security vulnerabilities.",
-    metaTitle: "Website Redesign & SEO-Safe Rebuild Services | DigiXPro",
+    metaTitle: "Website Redesign & SEO-Safe Rebuild Services",
     metaDescription: "Modernize legacy websites without losing Google rankings. SEO-safe website redesign service preserving canonical integrity, 301 mappings, and Core Web Vitals speed.",
     shortDesc: "Modernize legacy WordPress or CMS platforms without risking existing Google rankings. Preserves canonical integrity, fixes Core Web Vitals bottlenecks, and eliminates plugin vulnerabilities.",
     problemHeading: "Critical Risks When Redesigning an Existing Business Website",
@@ -224,7 +242,7 @@ export const designSubServices: DesignServiceItem[] = [
     buyerSituation: "I need a website designed around how my business actually gets enquiries.",
     heroHeading: "Small Business & Service Business Web Engineering.",
     heroSubheading: "We design and build purpose-built web platforms for service enterprises. Structured around clear service packaging, high-intent lead capture UX, search indexability, and direct customer acquisition.",
-    metaTitle: "Small Business Website Design Services | DigiXPro",
+    metaTitle: "Small Business Website Design Services",
     metaDescription: "Purpose-built small business website design services. Structured around service packaging, B2B lead capture UX, search visibility, and automated lead handoffs.",
     shortDesc: "Purpose-built web platforms for service enterprises. Structured around lead capture pathways, service-business UX, search visibility, and real customer acquisition.",
     problemHeading: "Why Generic Small Business Websites Fail to Convert",
@@ -306,7 +324,7 @@ export const designSubServices: DesignServiceItem[] = [
     buyerSituation: "I need a specific offer or campaign to generate enquiries.",
     heroHeading: "Landing Page & Lead Generation Conversion Design.",
     heroSubheading: "We design and engineer high-converting landing pages built for offer clarity, visitor intent alignment, friction-free lead capture forms, and automated CRM webhook routing.",
-    metaTitle: "Landing Page Design & Lead Generation Services | DigiXPro",
+    metaTitle: "Landing Page Design & Lead Generation Services",
     metaDescription: "High-converting landing page design services. Engineered for campaign offer clarity, visitor intent alignment, friction-free lead forms, and automated CRM webhooks.",
     shortDesc: "High-converting landing pages engineered for offer clarity, visitor intent alignment, friction-free lead capture forms, and automated CRM webhook routing.",
     problemHeading: "Why Ad Campaigns & Promotional Landing Pages Fail to Convert",
@@ -387,7 +405,7 @@ export const designSubServices: DesignServiceItem[] = [
     buyerSituation: "My website gets visitors, but it doesn't generate enough enquiries.",
     heroHeading: "Website UX & Conversion Rate Optimization Services.",
     heroSubheading: "We diagnose user drop-off bottlenecks, eliminate conversion friction, and rebuild message hierarchy—connecting your web traffic directly with your commercial pipeline to turn visitors into booked calls.",
-    metaTitle: "Website Conversion Optimization & UX Services | DigiXPro",
+    metaTitle: "Website Conversion Optimization & UX Services",
     metaDescription: "Turn existing website traffic into qualified enquiries. Website conversion optimization services, UX drop-off diagnostics, message hierarchy overhaul, and lead form friction reduction.",
     shortDesc: "Diagnose user drop-off, eliminate conversion friction, and rebuild message hierarchy. Connects directly with your commercial pipeline to turn traffic into qualified calls.",
     problemHeading: "Why High Website Traffic Fails to Produce Business Enquiries",
@@ -469,7 +487,7 @@ export const designSubServices: DesignServiceItem[] = [
     buyerSituation: "I need a website that doesn't sacrifice search visibility.",
     heroHeading: "SEO-Ready Website Engineering & Codebase Architecture.",
     heroSubheading: "We build search visibility directly into the codebase from line one—injecting automated JSON-LD schemas, clean HTML5 hierarchy, 100% Core Web Vitals speed, and machine-readable AI search (GEO) compatibility.",
-    metaTitle: "SEO-Ready Website Engineering Services | DigiXPro",
+    metaTitle: "SEO-Ready Website Engineering Services",
     metaDescription: "Search visibility built into code, not bolted on later. SEO-ready website engineering with automated JSON-LD schemas, Core Web Vitals speed, and clean HTML5 hierarchy.",
     shortDesc: "Technical search architecture engineered into the codebase from line one. Automated JSON-LD schemas, clean HTML5 hierarchy, and machine-readable AI search (GEO) compatibility.",
     problemHeading: "Why Traditional Web Development Breaks Search Visibility",

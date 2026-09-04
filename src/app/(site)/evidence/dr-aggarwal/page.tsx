@@ -6,13 +6,14 @@ import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import FAQSchema from '@/components/seo/FAQSchema';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.digixpro.in'),
   title: 'Dr Aggarwal Physio Centre Case Study',
-  description: 'Zero-to-One digital footprint and patient acquisition system for Dr Aggarwal Physio Centre — a physiotherapy clinic network operating two locations in Noida, including the specialist 360 Neck & Shoulder clinic.',
+  description: 'Case study for Dr Aggarwal Physio Centre: patient acquisition engine and digital footprint for a 2-location physiotherapy clinic network in Noida.',
   alternates: {
     canonical: 'https://www.digixpro.in/evidence/dr-aggarwal',
   },
   openGraph: {
-    title: 'Dr Aggarwal Physio Centre Case Study | DigiXPro Evidence',
+    title: 'Dr Aggarwal Physio Centre Case Study | DigiXPro',
     description: 'Zero-to-One digital footprint and patient acquisition system across two Noida clinic locations: draggarwalphysio.com and 360neckshoulder.com.',
     url: 'https://www.digixpro.in/evidence/dr-aggarwal',
     type: 'article',
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dr Aggarwal Physio Centre Case Study | DigiXPro Evidence',
+    title: 'Dr Aggarwal Physio Centre Case Study | DigiXPro',
     description: 'Zero-to-One digital footprint across two clinic locations in Noida. Top 3 rank for physiotherapy keywords.',
     images: ['/twitter-image.png'],
   },

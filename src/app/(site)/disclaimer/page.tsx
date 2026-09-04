@@ -1,10 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { AlertTriangle } from 'lucide-react';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 
 export const metadata: Metadata = {
-  title: 'Disclaimer',
-  description: 'DigiXPro Disclaimer — advisory boundaries, search performance limitations, vendor neutrality, AI model context, and case study notices.',
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: { absolute: 'Disclaimer — DigiXPro Digital Solution' },
+  description: 'DigiXPro Disclaimer — independent advisory boundaries, search performance expectations, vendor neutrality, AI context, and case study notices.',
   alternates: {
     canonical: 'https://www.digixpro.in/disclaimer',
   },
@@ -19,6 +21,12 @@ export default function DisclaimerPage() {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans px-6 py-16 max-w-3xl mx-auto transition-colors duration-200">
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://www.digixpro.in' },
+          { name: 'Disclaimer', url: 'https://www.digixpro.in/disclaimer' },
+        ]}
+      />
       {/* Header */}
       <div className="mb-12 border-b border-neutral-200 dark:border-neutral-800 pb-8">
         <div className="flex items-center gap-2 mb-4">

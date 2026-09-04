@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import StickyMobileCTA from '@/components/layout/StickyMobileCTA';
+import HowWeWorkFAQSection from '@/components/how-we-work/HowWeWorkFAQSection';
 import { 
   ArrowRight, 
   ArrowDown,
@@ -15,21 +16,26 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Engineering Methodology & Operating Rhythms | DigiXPro',
-  description: 'The 7-step architecture hierarchy and independent advisory methodology. Designing business operating systems prior to technology investment: Business, People, Process, Information, Automation, Technology, Software.',
+  metadataBase: new URL('https://www.digixpro.in'),
+  title: 'Our Web Development Process & Architecture Methodology',
+  description: 'Explore our transparent 7-step website design and web development process. From discovery and architecture to development, QA, and post-launch support.',
   keywords: [
-    'technology architecture methodology',
-    'business operating system design',
-    'how DigiXPro works',
-    'IT advisory process',
-    'operational clarity consulting',
+    'website design process',
+    'web development process',
+    'how we work',
+    'web development workflow',
+    'web design steps',
+    'website creation process',
+    'website implementation phase',
+    'quality assurance',
+    'post launch support',
   ],
   alternates: {
     canonical: 'https://www.digixpro.in/how-we-work',
   },
   openGraph: {
-    title: 'Our Methodology — How We Work | DigiXPro',
-    description: 'Our 7-step architecture hierarchy and independent advisory methodology for designing business operating systems.',
+    title: 'Our Web Development Process & Architecture Methodology | DigiXPro',
+    description: 'Explore our transparent 7-step website design and web development process. From discovery and architecture to development, QA, and post-launch support.',
     url: 'https://www.digixpro.in/how-we-work',
     type: 'website',
     images: [
@@ -37,15 +43,15 @@ export const metadata: Metadata = {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'DigiXPro — Architecture Methodology: Business to Software',
+        alt: 'DigiXPro — Website Design & Web Development Process',
         type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Our Methodology — How We Work | DigiXPro',
-    description: 'Our 7-step architecture hierarchy and independent advisory methodology.',
+    title: 'Our Web Development Process & Architecture Methodology | DigiXPro',
+    description: 'Explore our transparent 7-step website design and web development process.',
     images: ['/twitter-image.png'],
   },
 };
@@ -285,6 +291,9 @@ export default function HowWeWorkPage() {
           ))}
         </div>
       </section>
+
+      {/* FAQ SECTION */}
+      <HowWeWorkFAQSection />
 
       {/* CTA SECTION */}
       <section className="max-w-[1200px] mx-auto px-6 py-16 md:py-24">

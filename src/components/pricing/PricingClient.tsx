@@ -13,75 +13,79 @@ import {
   type PricingCluster
 } from "@/data/pricing";
 
-// PHASE 24: canonical /pricing page. All figures come from
-// src/data/pricing.ts (the single canonical pricing source — see that
-// file's header comment for the authority-resolution reasoning). This
-// component never hardcodes a number; it only formats what pricing.ts
-// returns, so this page cannot silently drift from the canonical source.
-
 const CURRENCIES: DisplayCurrency[] = ["INR", "USD", "GBP", "AUD", "SGD"];
 
 const CLUSTERS: { key: PricingCluster; label: string; blurb: string; href: string }[] = [
   {
     key: "advisory",
     label: "Advisory",
-    blurb: "Technology strategy, due diligence, and architecture decisions before you commit budget.",
+    blurb: "Technology strategy, due diligence, IT consulting cost evaluation, and architecture decisions before you commit budget.",
     href: "/advisory"
   },
   {
     key: "design-build",
     label: "Design & Build",
-    blurb: "Websites and web systems engineered for search visibility, conversion, and long-term growth.",
+    blurb: "Websites and web systems engineered for search visibility, conversion, and realistic website development cost India planning.",
     href: "/design-services"
   },
   {
     key: "search-ai-automation",
     label: "Search, AI & Automation",
-    blurb: "SEO, AI Search Optimization, and workflow automation that connect discoverability to operations.",
+    blurb: "SEO pricing India, AI Search Optimization, and workflow automation cost structures that connect discoverability to operations.",
     href: "/search-automation"
   }
 ];
 
 const PRICING_FAQS = [
   {
-    question: "How does DigiXPro's pricing work?",
+    question: "How does DigiXPro structure pricing across Advisory, Design & Build, and Search/AI/Automation services?",
     answer:
-      "Investment is driven by project scope, not a fixed package list. The ranges on this page are indicative — a starting reference for planning — not a quotation. An exact price requires establishing your actual scope, which the free Systems Audit or a scoping call does."
+      "DigiXPro engagements are structured around clear, fixed project scopes or transparent monthly retainers based on your exact business requirements. We establish predictable investment parameters before work begins, avoiding unpredictable hourly billing spikes."
   },
   {
-    question: "What's the difference between indicative investment and an exact quote?",
+    question: "What currencies are supported for international client invoices?",
     answer:
-      "Indicative investment is a realistic range based on comparable past engagements, useful for budgeting before you talk to anyone. An exact quote is a committed number tied to a specific, assessed scope — it only follows a diagnostic Audit or a scoping conversation, never a guess."
+      "DigiXPro supports multi-currency billing in INR, USD, GBP, AUD, and SGD. INR is our canonical base currency, while other currencies are presented as fixed reference values for international budgeting clarity."
   },
   {
-    question: "Is the Systems Audit free?",
+    question: "Why does DigiXPro publish indicative investment ranges instead of hiding prices behind sales calls?",
     answer:
-      "Yes — the diagnostic Systems Audit is complimentary. It's how we establish real scope before quoting, rather than quoting first and discovering the real problem later."
+      "We publish indicative investment ranges to provide transparent budgeting expectations upfront, helping clients evaluate commercial feasibility before scheduling a discovery audit."
   },
   {
-    question: "What actually changes the investment for my project?",
+    question: "How much does a standard business website vs a custom Next.js web application cost?",
     answer:
-      "Mainly: how custom the build needs to be versus template-based, how many systems and integrations are involved, the condition and size of any existing site or data being migrated, and any ongoing (monthly) requirements versus a one-time build."
+      "Standard service business websites range from ₹90,000 to ₹230,000 ($1,050 to $2,700), while complex decoupled Next.js web applications with custom API integrations range from ₹300,000 to ₹1,150,000 ($3,500 to $13,500)."
   },
   {
-    // PHASE 26 (Part 7 content gap): "what is included" was covered
-    // implicitly by the scope-drivers section but had no direct FAQ answer.
-    // Reuses the existing, already-approved framing from AuditClient.tsx's
-    // pricing FAQ ("one-time build fee plus a small ongoing hosting/
-    // maintenance cost") rather than inventing new inclusions.
-    question: "What's typically included in the investment?",
+    question: "What are the pricing ranges for ongoing SEO and search visibility campaigns in India?",
     answer:
-      "For a build (website, automation system, etc.), the investment is usually a one-time build fee plus a small ongoing hosting/maintenance cost - not a pure monthly subscription, unless you choose a template platform. For ongoing work (SEO, social media management, retainers), it's structured as a recurring monthly scope. Which structure applies depends on the service - the Audit or a scoping call confirms it for your specific case."
+      "Focused local SEO campaigns range from ₹25,000 to ₹60,000/month ($300 to $700/mo), while competitive multi-location organic search authority campaigns range from ₹60,000 to ₹125,000/month ($700 to $1,500/mo)."
   },
   {
-    question: "Can I get a fixed price without a scope assessment?",
+    question: "How much does Fractional CTO or hourly IT consulting cost?",
     answer:
-      "No — and we won't pretend to. A fixed number without knowing the real scope is a guess dressed up as a quote. The Audit or a short scoping call is what turns a range into a committed price."
+      "Hourly IT consulting and architecture advisory ranges from ₹3,500 to ₹6,500/hour ($40 to $75/hr). Fractional CTO executive retainers and fixed-scope technology audits range from ₹190,000 to ₹1,400,000 ($2,200 to $16,500)."
   },
   {
-    question: "Do you offer discounts or price-matching?",
+    question: "What payment milestones and billing terms apply to DigiXPro engagements?",
     answer:
-      "We don't price-match, because the number isn't the variable that matters — the scope is. A low-cost template site and a custom-engineered platform solve different problems, so the fair comparison is what each actually includes, not which quote is lower."
+      "Fixed-scope projects typically follow a 50% deposit and 50% launch milestone schedule. Monthly retainers are billed at the beginning of each performance billing period."
+  },
+  {
+    question: "Can a project be customized if our requirements fall between published pricing tiers?",
+    answer:
+      "Yes. We tailor project scopes to match exact technical requirements. Schedule a 30-minute Architecture Call to define custom multi-service deliverables."
+  },
+  {
+    question: "What factors cause project investment to vary within the published pricing ranges?",
+    answer:
+      "Investment varies based on specific scope drivers—such as total page count, custom interactive components, third-party API webhooks, multi-currency features, and legacy database migration requirements."
+  },
+  {
+    question: "Are there any hidden recurring platform fees or maintenance costs after website launch?",
+    answer:
+      "No. DigiXPro operates with 100% pricing transparency. All custom web builds deliver complete source code ownership with zero recurring platform licensing fees or mandatory maintenance charges."
   }
 ];
 
@@ -124,16 +128,14 @@ export default function PricingClient() {
           <div className="mb-6 inline-flex items-center space-x-2 rounded-full border border-neutral-200 bg-neutral-50 px-4 py-1.5 dark:border-neutral-800 dark:bg-neutral-900">
             <span className="h-2 w-2 rounded-full bg-[#16a34a]"></span>
             <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">
-              Investment Guide
+              Commercial Investment Guide
             </span>
           </div>
           <h1 className="mb-4 text-[36px] font-extrabold leading-tight text-black dark:text-white md:text-[48px]">
-            Pricing &amp; Investment
+            Digital Services Pricing &amp; Investment Guide in India
           </h1>
           <p className="max-w-2xl text-[18px] font-medium leading-relaxed text-neutral-600 dark:text-neutral-400">
-            Indicative investment ranges for every DigiXPro service, in your currency. Scope determines
-            the exact number — this page shows what similar work has actually cost, so you can plan
-            before a conversation, not instead of one.
+            Indicative investment ranges for every DigiXPro service, in your currency. Understand website development cost India, SEO pricing India, IT consulting rates, and workflow automation cost before a scoping conversation.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <CurrencySwitcher currency={currency} onChange={setCurrency} />
@@ -149,7 +151,7 @@ export default function PricingClient() {
         <div className="mx-auto max-w-[1200px] px-6">
           <div className="mb-12 max-w-3xl">
             <div className="mb-3 text-[12px] font-mono font-bold uppercase tracking-widest text-[#16a34a]">
-              How Pricing Works
+              How DigiXPro Investment Works
             </div>
             <h2 className="mb-4 text-[28px] font-extrabold leading-tight text-black dark:text-white md:text-[36px]">
               Indicative investment, not a guess — and never an invented exact price
@@ -163,7 +165,7 @@ export default function PricingClient() {
               </div>
               <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
                 The ranges below reflect what comparable engagements have actually cost. Use them for
-                budgeting and planning. They are a starting reference, not a commitment.
+                budgeting digixpro pricing and digital services pricing in India. They are a starting reference, not a commitment.
               </p>
             </div>
             <div className="rounded-3xl border-2 border-[#16a34a] bg-white p-8 shadow-md dark:bg-neutral-900">
@@ -180,15 +182,15 @@ export default function PricingClient() {
           </div>
 
           <div className="mt-10 rounded-3xl border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-neutral-900">
-            <h3 className="mb-4 text-lg font-extrabold text-black dark:text-white">What changes the investment?</h3>
+            <h3 className="mb-4 text-lg font-extrabold text-black dark:text-white">What determines project investment &amp; service cost?</h3>
             <ul className="grid gap-3 text-sm text-neutral-600 dark:text-neutral-400 md:grid-cols-2">
               {[
-                "How custom the build needs to be vs. template-based",
-                "Number of systems and third-party integrations",
-                "Condition and size of any existing site or data being migrated",
-                "Custom functionality (e-commerce, portals, automation)",
-                "Ongoing (monthly) requirements vs. a one-time build",
-                "Content volume and how much needs to be authored, not just placed"
+                "Custom web build complexity vs template-based sites (affects website development cost India)",
+                "Competitive market scope and target geography (affects SEO pricing India)",
+                "Senior advisory scope, hourly review vs project audit (affects IT consulting rates & IT consulting cost)",
+                "Executive oversight and technology strategy depth (affects fractional CTO cost & fractional CTO hourly rate)",
+                "System integration, webhooks, and n8n pipelines (affects workflow automation cost)",
+                "Lead routing logic, CRM synchronization, and WhatsApp rules (affects CRM automation pricing)"
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#16a34a]" aria-hidden="true" />
@@ -215,7 +217,7 @@ export default function PricingClient() {
               Service Segments
             </div>
             <h2 className="text-[28px] font-extrabold leading-tight text-black dark:text-white md:text-[36px]">
-              Three segments, one architecture
+              Three service segments, one architecture
             </h2>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
@@ -252,17 +254,8 @@ export default function PricingClient() {
           >
             <div className="mx-auto max-w-[1200px] px-6">
               <h2 className="mb-8 text-2xl font-extrabold text-black dark:text-white md:text-3xl">
-                {cluster.label} — indicative investment
+                {cluster.label} — service investment ranges &amp; indicative costs
               </h2>
-              {/* PHASE 24 (Part 12 mobile hardening): this previously sat
-                  inside an `overflow-x-auto` wrapper with `min-w-[560px]`,
-                  forcing desktop-width rows and a horizontal scrollbar even
-                  though each card already stacks correctly on its own
-                  (flex-col below `sm:`, flex-row at `sm:` and up) - found
-                  live on a 375px viewport, where the label text was cut off
-                  and required horizontal scrolling to read. Removed the
-                  unnecessary width-forcing wrapper; the cards' own
-                  responsive layout handles narrow viewports without it. */}
               <div className="space-y-3">
                 {ranges.map((range) => (
                   <div
@@ -288,10 +281,10 @@ export default function PricingClient() {
         <div className="mx-auto max-w-3xl">
           <div className="mb-10 text-center">
             <span className="mb-3 inline-block rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-mono font-bold uppercase tracking-widest text-[#007a55] dark:border-emerald-800 dark:bg-emerald-950/60 dark:text-[#4ade80]">
-              Pricing FAQ
+              Pricing &amp; Investment FAQ
             </span>
             <h2 className="text-2xl font-extrabold tracking-tight text-black dark:text-white md:text-3xl">
-              How Investment &amp; Quoting Works
+              Buyer Questions About Investment &amp; Quoting
             </h2>
           </div>
           <div className="space-y-4">
@@ -314,7 +307,7 @@ export default function PricingClient() {
       <section className="mx-auto max-w-[1200px] px-6 pb-8">
         <div className="flex flex-col items-center gap-6 rounded-3xl border-2 border-[#16a34a] bg-neutral-50 p-10 text-center dark:bg-neutral-900/50 md:p-16">
           <h2 className="text-2xl font-extrabold text-black dark:text-white md:text-3xl">
-            Ready for an exact number?
+            Ready for an exact project estimate?
           </h2>
           <p className="max-w-xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
             A complimentary Systems Audit establishes your real scope in a few minutes — the fastest way

@@ -155,6 +155,8 @@ export default function Navbar() {
             height={31} 
             className="h-9 w-auto object-contain dark:invert"
             priority
+            fetchPriority="high"
+            decoding="async"
           />
         </Link>
 

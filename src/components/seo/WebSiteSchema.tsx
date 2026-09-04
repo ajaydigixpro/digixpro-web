@@ -1,4 +1,3 @@
-import Script from 'next/script';
 import React from 'react';
 
 export default function WebSiteSchema() {
@@ -15,5 +14,5 @@ export default function WebSiteSchema() {
     }
   };
 
-  return <Script id="website-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
-}
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
+}

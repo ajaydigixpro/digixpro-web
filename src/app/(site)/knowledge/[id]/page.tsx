@@ -5,6 +5,7 @@ import DOMPurify from 'isomorphic-dompurify';
 import { ArrowLeft, Calendar, ArrowRight } from 'lucide-react';
 import { knowledgeArticles } from '@/data/knowledge';
 import ArticleSchema from '@/components/seo/ArticleSchema';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 
 export async function generateStaticParams() {
   return knowledgeArticles.map((article) => ({
@@ -16,10 +17,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const resolvedParams = await params;
   const article = knowledgeArticles.find((item) => item.id === resolvedParams.id);
   const title = article ? article.title : "Article Not Found";
-  const description = article ? article.summary : "Decision Library Article";
+  const description = article ? article.summary : "Explore web engineering, technical SEO, and systems architecture insights from DigiXPro production implementations in our Decision Library.";
   const url = `https://www.digixpro.in/knowledge/${resolvedParams.id}`;
 
   return {
+    metadataBase: new URL('https://www.digixpro.in'),
     title: `${title} — Decision Library`,
     description,
     alternates: {
@@ -75,6 +77,13 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
         url={articleUrl}
         publishedAt={article.publishedIsoDate}
         updatedAt={article.updatedIsoDate}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: 'https://www.digixpro.in' },
+          { name: 'Knowledge', url: 'https://www.digixpro.in/knowledge' },
+          { name: article.title, url: articleUrl },
+        ]}
       />
 
       <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#009E73]/20 pb-24 transition-colors duration-200">
@@ -158,10 +167,6 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
               >
                 Book a 30-Minute Architecture Call <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
-              {/* PHASE 25 (Part 7 funnel gap): the blog's shared conversion
-                  card (every article uses this ONE template) never linked to
-                  /pricing - a reader had no investment context before
-                  Contact. One edit here fixes every article. */}
               <Link
                 href="/pricing"
                 className="inline-flex items-center justify-center px-5 py-3.5 border border-neutral-700 text-neutral-300 font-bold text-[14px] rounded-xl hover:border-neutral-500 hover:text-white transition-colors"
