@@ -57,26 +57,13 @@ export default function ScrollReveal({
     };
   }, []);
 
-  const baseStyle: React.CSSProperties = {
-    transitionDuration: "450ms",
-    transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-    transitionProperty: "opacity, transform",
-    transitionDelay: `${delayMs}ms`,
-  };
-
-  const hiddenClasses =
-    direction === "up"
-      ? "opacity-0 translate-y-8"
-      : "opacity-0";
-  const visibleClasses = "opacity-100 translate-y-0";
+  const delayStyle: React.CSSProperties = delayMs > 0 ? { transitionDelay: `${delayMs}ms` } : {};
 
   return (
     <div
       ref={ref}
-      style={baseStyle}
-      className={`will-change-[opacity,transform] ${
-        isVisible ? visibleClasses : hiddenClasses
-      } ${className}`}
+      style={delayStyle}
+      className={isVisible ? `reveal-visible ${className}` : `reveal-hidden ${className}`}
     >
       {children}
     </div>
