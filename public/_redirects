@@ -1,6 +1,7 @@
 # Cloudflare Pages 301 Permanent Redirects for Legacy WordPress & Merged Routes
+# STRICT REQUIREMENT: Total rules must remain strictly under Cloudflare's 100-rule limit.
 
-# WordPress System & Core Paths
+# 1. WordPress System & Core Paths
 /wp-admin / 301
 /wp-admin/* / 301
 /wp-login.php / 301
@@ -9,128 +10,77 @@
 /wp-json/* / 301
 /xmlrpc.php / 301
 
-# WordPress Taxonomy, Feeds & Archives
+# 2. WordPress Feeds & Archives
 /feed /knowledge 301
 /feed/* /knowledge 301
-/rss /knowledge 301
-/rss/* /knowledge 301
-/atom /knowledge 301
-/atom/* /knowledge 301
+/rss* /knowledge 301
+/atom* /knowledge 301
 /category/* /knowledge 301
 /tag/* /knowledge 301
 /author/* /founder 301
 
-# Legacy PHP File Endpoints
+# 3. Legacy PHP Endpoints
 /index.php / 301
 /home.php / 301
 /contact.php /contact 301
-/contact-us.php /contact 301
 /about.php /founder 301
-/about-us.php /founder 301
 /services.php /advisory 301
 /pricing.php /pricing 301
 
-# Primary Company & Contact Pages
-/about-us /founder 301
-/about-us/* /founder 301
-/about /founder 301
-/about/* /founder 301
-/contact-us /contact 301
-/contact-us/* /contact 301
+# 4. Primary Company, Careers & Contact Aliases
+/about* /founder 301
+/contact-us* /contact 301
 /team /founder 301
 /our-team /founder 301
 /company /founder 301
+/carrer* /founder 301
+/career* /founder 301
 /get-in-touch /contact 301
 /schedule /contact 301
 /book /contact 301
 
-# Specific Legacy Service Slugs (Precedence Order)
+# 5. Specific Legacy Service Slugs (Precedence Order)
 /services/unlimited-graphic-design /design-services 301
 /services/erp-consultant-services /advisory/business-systems-process-architecture 301
 /services/it-consulting-services /advisory/it-consulting-technology-strategy 301
 /services/ai-consulting-services /search-automation/ai-search-optimization-geo 301
 /services/ai-automation-agency /search-automation/workflow-ai-automation 301
 /services/business-process-automation /search-automation/workflow-ai-automation 301
-/services/website-design-services /design-services 301
-/services/website-design-services/* /design-services 301
+/services/website-design-services* /design-services 301
 /services/social-media-campaign-strategy /search-automation/social-media-management 301
 /services/branding-services /design-services 301
 /services/website-design-for-trades-and-contractors /design-services/small-business-websites 301
 /services/fractional-cto-services /advisory/fractional-cto-technology-leadership 301
 /services/fractional-ceo-services /advisory 301
 
-# Service Cluster Catch-Alls
-/web-design /design-services/custom-business-website-design 301
-/web-design/* /design-services 301
-/web-development /design-services/custom-business-website-design 301
-/web-development/* /design-services 301
-/website-development /design-services/custom-business-website-design 301
-/website-development/* /design-services 301
+# 6. Service Cluster Aliases & Specific Service Redirects
+/web-design* /design-services 301
+/web-development* /design-services 301
+/website-development* /design-services 301
 /seo /search-automation/seo-search-visibility 301
 /seo/* /search-automation/seo-search-visibility 301
-/seo-services /search-automation/seo-search-visibility 301
-/seo-services/* /search-automation/seo-search-visibility 301
-/digital-marketing /search-automation 301
-/digital-marketing/* /search-automation 301
-/social-media /search-automation/social-media-management 301
-/social-media/* /search-automation/social-media-management 301
-/automation /search-automation/workflow-ai-automation 301
-/automation/* /search-automation/workflow-ai-automation 301
+/seo-service* /search-automation/seo-search-visibility 301
+/performance-marketing-service* /search-automation/seo-search-visibility 301
+/video-editing-services* /design-services 301
+/digital-marketing* /search-automation 301
+/social-media* /search-automation/social-media-management 301
+/automation* /search-automation/workflow-ai-automation 301
 /services /advisory 301
 /services/* /advisory 301
-/our-services /advisory 301
-/our-services/* /advisory 301
-/solutions /advisory 301
-/solutions/* /advisory 301
+/our-services* /advisory 301
+/solutions* /advisory 301
 
-# Content, Knowledge & Case Study Catch-Alls
-/blog /knowledge 301
-/blog/* /knowledge 301
-/articles /knowledge 301
-/articles/* /knowledge 301
-/news /knowledge 301
-/news/* /knowledge 301
-/posts /knowledge 301
-/posts/* /knowledge 301
-/testimonials /evidence 301
-/testimonials/* /evidence 301
-/reviews /evidence 301
-/reviews/* /evidence 301
-/case-studies /evidence 301
-/case-studies/* /evidence 301
-/portfolio /evidence 301
-/portfolio/* /evidence 301
-/work /evidence 301
-/work/* /evidence 301
-/operating-systems /evidence/sattvaos 301
+# 7. Content, Case Studies & Knowledge Redirects
+/blog* /knowledge 301
+/articles* /knowledge 301
+/news* /knowledge 301
+/posts* /knowledge 301
+/testimonials* /evidence 301
+/reviews* /evidence 301
+/case-stud* /evidence 301
+/portfolio* /evidence 301
+/work* /evidence 301
+/operating-systems* /evidence/sattvaos 301
 /studio / 301
-
-# Additional Legacy WordPress 301 Redirect Mappings
-/seo-service /search-automation/seo-search-visibility 301
-/seo-service/ /search-automation/seo-search-visibility 301
-/seo-service/* /search-automation/seo-search-visibility 301
-/performance-marketing-service /search-automation/seo-search-visibility 301
-/performance-marketing-service/ /search-automation/seo-search-visibility 301
-/performance-marketing-service/* /search-automation/seo-search-visibility 301
-/video-editing-services /design-services 301
-/video-editing-services/ /design-services 301
-/video-editing-services/* /design-services 301
-/carrers /founder 301
-/carrers/ /founder 301
-/carrers/* /founder 301
-/careers /founder 301
-/careers/ /founder 301
-/careers/* /founder 301
-/case-study /evidence 301
-/case-study/ /evidence 301
-/case-study/* /evidence 301
-/case-study/case-study-06 /evidence 301
-/case-study/case-study-06/ /evidence 301
-/case-study/case-study-06/* /evidence 301
-/ai-and-the-future-of-work-partner-or-replacement /search-automation/ai-search-optimization-geo 301
-/ai-and-the-future-of-work-partner-or-replacement/ /search-automation/ai-search-optimization-geo 301
-/ai-and-the-future-of-work-partner-or-replacement/* /search-automation/ai-search-optimization-geo 301
-/the-big-4 /knowledge 301
-/the-big-4/ /knowledge 301
-/the-big-4/* /knowledge 301
-
+/ai-and-the-future-of-work-partner-or-replacement* /search-automation/ai-search-optimization-geo 301
+/the-big-4* /knowledge 301
