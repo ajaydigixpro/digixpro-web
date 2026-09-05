@@ -8,6 +8,7 @@ import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import WebSiteSchema from "@/components/seo/WebSiteSchema";
 import MicrosoftClarity from "@/components/seo/MicrosoftClarity";
 import CookieConsent from "@/components/layout/CookieConsent";
+import WeaveTrail from "@/components/ui/WeaveTrail";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 // The homepage LCP is text. Optional display keeps the critical heading
@@ -128,6 +129,7 @@ export default function RootLayout({
           <OrganizationSchema />
           <WebSiteSchema />
           <MicrosoftClarity />
+          <WeaveTrail />
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />
