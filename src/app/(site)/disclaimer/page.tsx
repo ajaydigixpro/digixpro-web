@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default function DisclaimerPage() {
-  const lastUpdated = 'August 26, 2026';
+  const lastUpdated = 'September 5, 2026';
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans px-6 py-16 max-w-3xl mx-auto transition-colors duration-200">
@@ -53,7 +53,7 @@ export default function DisclaimerPage() {
         <section>
           <h2 className="text-base font-bold text-black dark:text-white mb-3">2. Case Study Evidence &amp; Performance Context</h2>
           <p>
-            Evidence pages document real production systems engineered or advised by DigiXPro. Specific metrics — including page speed scores, redirect counts, traffic growth, and conversion improvements — reflect actual historical performance under specific operating conditions.
+            Evidence pages document real production systems engineered or advised by DigiXPro Digital Solution. Specific metrics — including page speed scores, redirect counts, traffic growth, and conversion improvements — reflect actual historical performance under specific operating conditions.
           </p>
           <p className="mt-3 font-semibold text-black dark:text-white">
             Past outcomes are not guarantees of future performance for other businesses. Results vary based on industry competition, execution speed, domain history, and client resource allocation.
@@ -66,21 +66,21 @@ export default function DisclaimerPage() {
             Search indexation, organic Google rankings, and AI answer engine (ChatGPT, Perplexity, Claude, Gemini) citations depend on autonomous third-party algorithms.
           </p>
           <p className="mt-3">
-            DigiXPro delivers technical SEO compliance, pre-rendered HTML5 markup, automated JSON-LD schemas, and Core Web Vitals speed architecture. However, <strong>DigiXPro does not promise exact #1 keyword positions, specific search impression numbers, fixed lead quantities, or revenue figures</strong>.
+            DigiXPro Digital Solution delivers technical SEO compliance, pre-rendered HTML5 markup, automated JSON-LD schemas, and Core Web Vitals speed architecture. However, <strong>DigiXPro Digital Solution does not promise exact #1 keyword positions, specific search impression numbers, fixed lead quantities, or revenue figures</strong>.
           </p>
         </section>
 
         <section>
           <h2 className="text-base font-bold text-black dark:text-white mb-3">4. Vendor-Neutral Policy</h2>
           <p>
-            DigiXPro accepts <strong>zero financial commissions, referral fees, or kickbacks</strong> from software vendors, hosting providers, or SaaS platforms recommended in our advisory reports or website blueprints. Our evaluations are 100% vendor-neutral.
+            DigiXPro Digital Solution accepts <strong>zero financial commissions, referral fees, or kickbacks</strong> from software vendors, hosting providers, or SaaS platforms recommended in our advisory reports or website blueprints. Our evaluations are 100% vendor-neutral.
           </p>
         </section>
 
         <section>
           <h2 className="text-base font-bold text-black dark:text-white mb-3">5. AI Model Limitations &amp; Human Verification</h2>
           <p>
-            Generative AI tools and Large Language Model APIs process data probabilistically. DigiXPro enforces human editorial review and factual verification across all client deliverables, content pipelines, and automated workflows to mitigate AI hallucination risks.
+            Generative AI tools and Large Language Model APIs process data probabilistically. DigiXPro Digital Solution enforces human editorial review and factual verification across all client deliverables, content pipelines, and automated workflows to mitigate AI hallucination risks.
           </p>
         </section>
 
@@ -92,7 +92,14 @@ export default function DisclaimerPage() {
         </section>
 
         <section>
-          <h2 className="text-base font-bold text-black dark:text-white mb-3">7. Contact Information</h2>
+          <h2 className="text-base font-bold text-black dark:text-white mb-3">7. Third-Party Links &amp; Advertising Disclosures</h2>
+          <p>
+            The Website may contain links to external third-party websites or deploy digital campaign tracking tags (such as Meta Pixel and Google Ads) to measure marketing effectiveness. DigiXPro Digital Solution does not control or guarantee the content, privacy practices, or security of external third-party websites, and participation in advertising campaigns does not constitute an endorsement of third-party products or SaaS platforms.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-base font-bold text-black dark:text-white mb-3">8. Contact Information</h2>
           <p>
             <strong>DigiXPro Digital Solution</strong><br />
             Noida, Uttar Pradesh, India<br />

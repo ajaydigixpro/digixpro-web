@@ -75,6 +75,7 @@ export default function PrivacyPolicyPage() {
           <ul className="list-disc pl-5 space-y-2 mt-2">
             <li><strong>Hosting &amp; Content Delivery</strong> — Served via Cloudflare Pages and Vercel static pre-rendering networks.</li>
             <li><strong>Analytics &amp; User Experience Telemetry</strong> — Microsoft Clarity used strictly for aggregated website usage analytics, scroll heatmaps, and interface optimization upon explicit user consent. Telemetry is anonymized.</li>
+            <li><strong>Digital Advertising &amp; Campaign Retargeting</strong> — Meta (Facebook) Pixel and Google Ads tags utilized to measure digital campaign conversions and present relevant promotional content on third-party networks.</li>
             <li><strong>Workflow &amp; Webhook Lead Automation</strong> — Self-hosted n8n automation pipelines and Notion lead management databases for secure, encrypted form routing.</li>
             <li><strong>Discovery Scheduling</strong> — Calendly for self-service consultation booking.</li>
             <li><strong>AI Model &amp; API Processing</strong> — Third-party Large Language Model APIs (e.g. OpenAI, Anthropic, Google Gemini) used statelessly for query parsing and content structuring. Client data is not submitted to public training sets.</li>
@@ -91,21 +92,21 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2 className="text-base font-bold text-black dark:text-white mb-3">6. Cookies &amp; Tracking Policy</h2>
           <p>
-            DigiXPro Digital Solution uses cookies and local storage strictly to ensure site security, remember visitor preferences, and measure website performance:
+            DigiXPro Digital Solution uses cookies and browser local storage across three distinct categories:
           </p>
           <ul className="list-disc pl-5 space-y-2 mt-2">
             <li>
-              <strong>Analytics Cookies (Microsoft Clarity)</strong> — Activated only upon explicit visitor consent via our cookie banner. These cookies gather anonymized session data, interaction heatmaps, and rendering telemetry to evaluate usability and improve technical architecture.
+              <strong>Essential &amp; Preference Storage</strong> — Essential key-value pairs required for website operation, security, user preference retention (such as dark/light mode preference), and your cookie consent decision (<code className="text-xs font-mono bg-neutral-100 dark:bg-neutral-800 px-1 py-0.5 rounded">digixpro_cookie_consent</code>) stored locally in your browser.
             </li>
             <li>
-              <strong>Preference &amp; Essential Local Storage</strong> — Essential key-value pairs (such as dark/light theme choice and your cookie consent decision <code className="text-xs font-mono bg-neutral-100 dark:bg-neutral-800 px-1 py-0.5 rounded">digixpro_cookie_consent</code>) stored locally in your browser.
+              <strong>Analytics Cookies (Microsoft Clarity)</strong> — Activated upon explicit visitor consent via our cookie banner. Microsoft Clarity collects anonymized session telemetry, interaction heatmaps, and rendering metrics to evaluate website usability and technical performance.
             </li>
             <li>
-              <strong>Zero Advertising / Marketing Tracking</strong> — DigiXPro Digital Solution does <strong>not</strong> deploy third-party advertising cookies, cross-site tracking pixels, or remarketing scripts.
+              <strong>Digital Advertising &amp; Retargeting Tags (Meta Pixel &amp; Google Ads)</strong> — Campaign measurement and audience retargeting tags (including Meta/Facebook Pixel and Google Ads tags) deployed to measure marketing performance and serve relevant advertisements to prior visitors on third-party platforms. Activated based on visitor consent choices.
             </li>
           </ul>
           <p className="mt-3">
-            Visitors may alter or revoke their cookie preferences at any time by clearing their browser&apos;s local storage or adjusting their browser cookie management settings.
+            Visitors may alter or revoke their cookie preferences at any time by clearing their browser&apos;s local storage or adjusting browser cookie settings.
           </p>
         </section>
 
