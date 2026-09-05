@@ -6,6 +6,7 @@ interface NodePoint {
   x: number;
   y: number;
   time: number;
+  dist: number;
 }
 
 export default function WeaveTrail() {
@@ -29,10 +30,11 @@ export default function WeaveTrail() {
     let animFrameId: number | null = null;
     const nodes: NodePoint[] = [];
 
-    const MAX_NODES = 18;
-    const MIN_DISTANCE = 14; // min pixels moved to log a new node
-    const FADE_DURATION = 1200; // ms node lifetime
-    const ANGLE_THRESHOLD = 0.785398; // 45 degrees in radians
+    const MAX_NODES = 20;
+    const MIN_DISTANCE = 12; // min pixels moved to log a new node
+    const FADE_DURATION = 1300; // ms node lifetime
+    const WAVELENGTH = 65; // px for complete weave oscillation cycle
+    const BASE_WIDTH = 16; // max weave ribbon half-width in px
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -47,13 +49,15 @@ export default function WeaveTrail() {
       const x = e.clientX;
       const y = e.clientY;
 
+      let cumDist = 0;
       if (nodes.length > 0) {
         const lastNode = nodes[nodes.length - 1];
-        const dist = Math.hypot(x - lastNode.x, y - lastNode.y);
-        if (dist < MIN_DISTANCE) return;
+        const stepDist = Math.hypot(x - lastNode.x, y - lastNode.y);
+        if (stepDist < MIN_DISTANCE) return;
+        cumDist = lastNode.dist + stepDist;
       }
 
-      nodes.push({ x, y, time: now });
+      nodes.push({ x, y, time: now, dist: cumDist });
 
       if (nodes.length > MAX_NODES) {
         nodes.shift();
@@ -77,108 +81,183 @@ export default function WeaveTrail() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       if (nodes.length >= 2) {
-        // Draw strands
-        for (let i = 1; i < nodes.length; i++) {
-          const prevNode = nodes[i - 1];
-          const currNode = nodes[i];
+        // Prepare Segment Offsets for Dual-Strand Weave (Layer 3) & Apex Convergence (Layer 4)
+        const pointsStrandA: { x: number; y: number; alpha: number; isOver: boolean }[] = [];
+        const pointsStrandB: { x: number; y: number; alpha: number; isOver: boolean }[] = [];
 
-          const alphaA = Math.max(0, 1 - (now - prevNode.time) / FADE_DURATION);
-          const alphaB = Math.max(0, 1 - (now - currNode.time) / FADE_DURATION);
-          const segAlpha = (alphaA + alphaB) / 2;
+        for (let i = 0; i < nodes.length; i++) {
+          const n = nodes[i];
+          const alpha = Math.max(0, 1 - (now - n.time) / FADE_DURATION);
 
-          if (segAlpha <= 0) continue;
-
-          let isWeaveTurn = false;
-          let cpX = (prevNode.x + currNode.x) / 2;
-          let cpY = (prevNode.y + currNode.y) / 2;
-          let isOver = i % 2 === 0;
-
-          if (i >= 2) {
-            const nodePrev2 = nodes[i - 2];
-            const v1x = prevNode.x - nodePrev2.x;
-            const v1y = prevNode.y - nodePrev2.y;
-            const v2x = currNode.x - prevNode.x;
-            const v2y = currNode.y - prevNode.y;
-
-            const len1 = Math.hypot(v1x, v1y);
-            const len2 = Math.hypot(v2x, v2y);
-
-            if (len1 > 0 && len2 > 0) {
-              const a1 = Math.atan2(v1y, v1x);
-              const a2 = Math.atan2(v2y, v2x);
-
-              let angleDelta = Math.abs(a2 - a1);
-              if (angleDelta > Math.PI) angleDelta = 2 * Math.PI - angleDelta;
-
-              // Rule-based deterministic trigger: Turn angle >= 45 degrees
-              if (angleDelta >= ANGLE_THRESHOLD) {
-                isWeaveTurn = true;
-                // Normal vector perpendicular to v2
-                const nx = -v2y / len2;
-                const ny = v2x / len2;
-                const side = isOver ? 1 : -1;
-                const offset = 18;
-
-                cpX = (prevNode.x + currNode.x) / 2 + nx * offset * side;
-                cpY = (prevNode.y + currNode.y) / 2 + ny * offset * side;
-              }
-            }
+          if (i === 0 || i === nodes.length - 1) {
+            // LAYER 4: Convergence — Endpoints converge to single apex node point
+            pointsStrandA.push({ x: n.x, y: n.y, alpha, isOver: true });
+            pointsStrandB.push({ x: n.x, y: n.y, alpha, isOver: false });
+            continue;
           }
+
+          const prev = nodes[i - 1];
+          const next = nodes[i + 1];
+
+          // Tangent & Normal vectors along the motion path
+          const vx = next.x - prev.x;
+          const vy = next.y - prev.y;
+          const len = Math.hypot(vx, vy);
+
+          if (len < 0.001) {
+            pointsStrandA.push({ x: n.x, y: n.y, alpha, isOver: true });
+            pointsStrandB.push({ x: n.x, y: n.y, alpha, isOver: false });
+            continue;
+          }
+
+          const nx = -vy / len;
+          const ny = vx / len;
+
+          // LAYER 4: Convergence Factor — calculate turn angle / speed deceleration
+          const v1x = n.x - prev.x;
+          const v1y = n.y - prev.y;
+          const v2x = next.x - n.x;
+          const v2y = next.y - n.y;
+          const a1 = Math.atan2(v1y, v1x);
+          const a2 = Math.atan2(v2y, v2x);
+          let turnAngle = Math.abs(a2 - a1);
+          if (turnAngle > Math.PI) turnAngle = 2 * Math.PI - turnAngle;
+
+          // If turn angle is sharp (> 50 deg), converge strands together (Apex pinch)
+          let convergenceWidth = BASE_WIDTH;
+          if (turnAngle > 0.872665) {
+            // 50 degrees
+            convergenceWidth = BASE_WIDTH * 0.2; // Pinch strands together at sharp turn apex
+          }
+
+          // LAYER 3: Interlacing Dual-Strand Weave Offset Calculation
+          const phase = (n.dist / WAVELENGTH) * 2 * Math.PI;
+          const offset = Math.sin(phase) * convergenceWidth;
+
+          // Strand A & Strand B oppose each other in exact counter-phase
+          const ax = n.x + nx * offset;
+          const ay = n.y + ny * offset;
+          const bx = n.x - nx * offset;
+          const by = n.y - ny * offset;
+
+          // Deterministic Over/Under determination based on cosine phase derivative
+          const isOver = Math.cos(phase) >= 0;
+
+          pointsStrandA.push({ x: ax, y: ay, alpha, isOver });
+          pointsStrandB.push({ x: bx, y: by, alpha, isOver: !isOver });
+        }
+
+        // =========================================================
+        // RENDER LAYER 2: Primary Central Path Spine
+        // =========================================================
+        ctx.save();
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        for (let i = 1; i < nodes.length; i++) {
+          const p1 = nodes[i - 1];
+          const p2 = nodes[i];
+          const alpha = Math.max(0, 1 - (now - p2.time) / FADE_DURATION);
+
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(0, 158, 115, ${0.15 * alpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // =========================================================
+        // RENDER LAYER 3 & LAYER 4: Interlaced Dual-Strand Weave + Convergence
+        // Render UNDER strands first, then OVER strands with shadow mask
+        // =========================================================
+        const renderStrandSegment = (
+          p1: { x: number; y: number; alpha: number; isOver: boolean },
+          p2: { x: number; y: number; alpha: number; isOver: boolean },
+          isOverStrand: boolean
+        ) => {
+          const segAlpha = (p1.alpha + p2.alpha) / 2;
+          if (segAlpha <= 0) return;
+
+          const cpX = (p1.x + p2.x) / 2;
+          const cpY = (p1.y + p2.y) / 2;
 
           ctx.save();
           ctx.lineCap = "round";
           ctx.lineJoin = "round";
 
-          if (isWeaveTurn) {
-            if (isOver) {
-              // OVER strand: background shadow mask + vibrant green top strand
-              ctx.beginPath();
-              ctx.moveTo(prevNode.x, prevNode.y);
-              ctx.quadraticCurveTo(cpX, cpY, currNode.x, currNode.y);
-              ctx.strokeStyle = `rgba(10, 10, 10, ${0.35 * segAlpha})`;
-              ctx.lineWidth = 6;
-              ctx.stroke();
-
-              ctx.beginPath();
-              ctx.moveTo(prevNode.x, prevNode.y);
-              ctx.quadraticCurveTo(cpX, cpY, currNode.x, currNode.y);
-              ctx.strokeStyle = `rgba(0, 158, 115, ${0.9 * segAlpha})`;
-              ctx.lineWidth = 2.5;
-              ctx.stroke();
-            } else {
-              // UNDER strand: deeper, slightly muted interlock strand
-              ctx.beginPath();
-              ctx.moveTo(prevNode.x, prevNode.y);
-              ctx.quadraticCurveTo(cpX, cpY, currNode.x, currNode.y);
-              ctx.strokeStyle = `rgba(0, 130, 95, ${0.65 * segAlpha})`;
-              ctx.lineWidth = 2;
-              ctx.stroke();
-            }
-          } else {
-            // Straight / mild curve: natural smooth path
+          if (isOverStrand) {
+            // OVER STRAND: Dark background shadow mask + Vibrant Green Strand
             ctx.beginPath();
-            ctx.moveTo(prevNode.x, prevNode.y);
-            ctx.quadraticCurveTo(cpX, cpY, currNode.x, currNode.y);
-            ctx.strokeStyle = `rgba(0, 158, 115, ${0.7 * segAlpha})`;
+            ctx.moveTo(p1.x, p1.y);
+            ctx.quadraticCurveTo(cpX, cpY, p2.x, p2.y);
+            ctx.strokeStyle = `rgba(10, 10, 10, ${0.45 * segAlpha})`;
+            ctx.lineWidth = 6;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.quadraticCurveTo(cpX, cpY, p2.x, p2.y);
+            ctx.strokeStyle = `rgba(0, 158, 115, ${0.95 * segAlpha})`;
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+          } else {
+            // UNDER STRAND: Deeper, muted green strand weaving underneath
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.quadraticCurveTo(cpX, cpY, p2.x, p2.y);
+            ctx.strokeStyle = `rgba(0, 130, 95, ${0.6 * segAlpha})`;
             ctx.lineWidth = 2;
             ctx.stroke();
           }
 
           ctx.restore();
+        };
+
+        // Draw Under Segments for Strand A & Strand B
+        for (let i = 1; i < pointsStrandA.length; i++) {
+          if (!pointsStrandA[i].isOver) {
+            renderStrandSegment(pointsStrandA[i - 1], pointsStrandA[i], false);
+          }
+          if (!pointsStrandB[i].isOver) {
+            renderStrandSegment(pointsStrandB[i - 1], pointsStrandB[i], false);
+          }
         }
 
-        // Render Glowing Node Points
+        // Draw Over Segments for Strand A & Strand B (with shadow masks)
+        for (let i = 1; i < pointsStrandA.length; i++) {
+          if (pointsStrandA[i].isOver) {
+            renderStrandSegment(pointsStrandA[i - 1], pointsStrandA[i], true);
+          }
+          if (pointsStrandB[i].isOver) {
+            renderStrandSegment(pointsStrandB[i - 1], pointsStrandB[i], true);
+          }
+        }
+
+        // =========================================================
+        // RENDER LAYER 1: Glowing Node Apex Points
+        // =========================================================
         for (let i = 0; i < nodes.length; i++) {
           const n = nodes[i];
           const nodeAlpha = Math.max(0, 1 - (now - n.time) / FADE_DURATION);
           if (nodeAlpha <= 0) continue;
 
           ctx.save();
+          // Radial glow
+          const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 8);
+          grad.addColorStop(0, `rgba(0, 158, 115, ${0.9 * nodeAlpha})`);
+          grad.addColorStop(0.5, `rgba(0, 158, 115, ${0.4 * nodeAlpha})`);
+          grad.addColorStop(1, `rgba(0, 158, 115, 0)`);
+
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, 8, 0, 2 * Math.PI);
+          ctx.fillStyle = grad;
+          ctx.fill();
+
+          // Node core
           ctx.beginPath();
           ctx.arc(n.x, n.y, 3.5, 0, 2 * Math.PI);
-          ctx.fillStyle = `rgba(0, 158, 115, ${nodeAlpha})`;
-          ctx.shadowColor = "rgba(0, 158, 115, 0.6)";
-          ctx.shadowBlur = 6;
+          ctx.fillStyle = `rgba(255, 255, 255, ${0.95 * nodeAlpha})`;
           ctx.fill();
           ctx.restore();
         }
