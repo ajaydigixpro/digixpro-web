@@ -12,7 +12,8 @@ import {
   Code2,
   Layers,
   Zap,
-  Globe
+  Globe,
+  ListFilter
 } from 'lucide-react';
 
 function renderTextWithLinks(text: string) {
@@ -37,6 +38,14 @@ function renderTextWithLinks(text: string) {
     parts.push(text.substring(lastIndex));
   }
   return parts.length > 0 ? parts : text;
+}
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
 }
 
 export const customBusinessWebsiteFaqs = [
@@ -82,6 +91,17 @@ export const customBusinessWebsiteFaqs = [
   }
 ];
 
+export const h2TocSections = [
+  { text: "What Is Custom Business Website Design?", id: "what-is-custom-business-website-design" },
+  { text: "Who Custom Website Design Services Are For", id: "who-custom-website-design-services-are-for" },
+  { text: "DigiXPro's Website Design & Development Process", id: "digixpros-website-design-development-process" },
+  { text: "What's Included in Custom Website Development", id: "whats-included-in-custom-website-development" },
+  { text: "Custom Website vs Template vs Platform", id: "custom-website-vs-template-vs-platform" },
+  { text: "Evidence: Custom Business Website Design in Action", id: "evidence-custom-business-website-design-in-action" },
+  { text: "Custom Website Design Company Serving Delhi NCR", id: "custom-website-design-company-serving-delhi-ncr" },
+  { text: "Frequently Asked Questions", id: "frequently-asked-questions" }
+];
+
 export default function CustomBusinessWebsiteDesignView() {
   const currentUrl = "https://www.digixpro.in/design-services/custom-business-website-design";
 
@@ -91,12 +111,13 @@ export default function CustomBusinessWebsiteDesignView() {
     "name": "Custom Website Design Services for Small & Growing Businesses",
     "provider": {
       "@type": "ProfessionalService",
-      "name": "DigiXPro",
+      "name": "DigiXPro Digital Solution",
       "url": "https://www.digixpro.in"
     },
     "serviceType": "Custom Website Design & Development",
     "description": "Bespoke custom website design services and React/Next.js codebase engineering for small business website design requirements. 100% Core Web Vitals & lead capture.",
     "url": currentUrl,
+    "dateModified": "2026-09-05",
     "areaServed": ["Delhi NCR", "Delhi", "Noida", "Gurgaon", "US", "UK", "AU", "SG", "IN"],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -143,7 +164,7 @@ export default function CustomBusinessWebsiteDesignView() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#16a34a]/20 pb-16 transition-colors duration-200">
+    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans selection:bg-[#16a34a]/20 pb-16 transition-colors duration-200 scroll-smooth">
       {/* Schemas */}
       <script
         type="application/ld+json"
@@ -168,11 +189,12 @@ export default function CustomBusinessWebsiteDesignView() {
             <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> Back to Website Design &amp; Engineering Hub
           </Link>
 
-          <div className="flex items-center space-x-3 mb-6">
+          <div className="flex flex-wrap items-center gap-3 mb-6">
             <span className="text-xs font-mono font-bold text-[#16a34a] bg-emerald-50 dark:bg-emerald-950/50 px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-200 dark:border-emerald-800">
               SERVICE 01
             </span>
             <span className="text-xs font-mono text-neutral-500 font-bold uppercase">Commercial Acquisition Layer</span>
+            <span className="text-xs font-mono text-neutral-400 font-medium">Last updated: September 2026</span>
           </div>
 
           {/* EXACT H1 TAG (1 ONLY ON PAGE) */}
@@ -180,8 +202,19 @@ export default function CustomBusinessWebsiteDesignView() {
             Custom Website Design Services for Small &amp; Growing Businesses
           </h1>
 
-          <div className="border-l-4 border-[#16a34a] pl-4 md:pl-6 mb-8">
-            <p className="text-[17px] md:text-[21px] font-medium text-neutral-700 dark:text-neutral-300 leading-relaxed mb-3">
+          {/* GEO QUICK SUMMARY / TL;DR BLOCK (C3) */}
+          <div className="bg-emerald-50/70 dark:bg-emerald-950/40 border-l-4 border-[#16a34a] p-5 rounded-r-2xl mb-8">
+            <div className="text-[11px] font-mono font-bold text-[#16a34a] uppercase tracking-wider mb-2">
+              QUICK SUMMARY / TL;DR
+            </div>
+            <p className="text-[15px] md:text-[17px] font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">
+              Custom business website design services engineer bespoke Next.js and React web applications tailored for small and growing B2B enterprises. This service replaces slow, plugin-heavy template platforms with decoupled frontend architecture, 100% Core Web Vitals speed, automated search indexability, and direct API lead capture webhooks.
+            </p>
+          </div>
+
+          {/* DEFINITION & SITUATION */}
+          <div className="border-l-4 border-neutral-300 dark:border-neutral-700 pl-4 md:pl-6 mb-8">
+            <p className="text-[17px] md:text-[20px] font-medium text-neutral-700 dark:text-neutral-300 leading-relaxed mb-3">
               Custom business website design is the engineering of bespoke web applications tailored directly to a company&apos;s brand authority, operational workflows, and commercial lead capture targets. Unlike rigid pre-made templates, professional custom website design services build decoupled frontend architecture using React and Next.js, ensuring 100% Core Web Vitals page speed, immune site security, and native search indexability for small business website design requirements.
             </p>
             <div className="text-xs font-mono font-semibold text-[#16a34a]">
@@ -221,7 +254,7 @@ export default function CustomBusinessWebsiteDesignView() {
             <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
               DEFINITIVE ARCHITECTURE
             </div>
-            <h2 className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white">
+            <h2 id="what-is-custom-business-website-design" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24">
               What Is Custom Business Website Design?
             </h2>
             <p className="text-[16px] md:text-[18px] text-neutral-700 dark:text-neutral-300 leading-relaxed mb-6">
@@ -266,13 +299,57 @@ export default function CustomBusinessWebsiteDesignView() {
         </div>
       </section>
 
+      {/* TABLE OF CONTENTS BLOCK (PHASE B — PLACED IMMEDIATELY AFTER SECTION 1) */}
+      <section className="max-w-[1200px] mx-auto px-6 py-8 border-b border-neutral-200 dark:border-neutral-800">
+        <div className="max-w-4xl">
+          {/* Mobile Accordion Details / Summary */}
+          <details className="group bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-sm md:hidden" open>
+            <summary className="flex items-center justify-between font-mono text-xs font-bold uppercase tracking-wider text-[#16a34a] cursor-pointer select-none">
+              <span className="flex items-center">
+                <ListFilter className="w-4 h-4 mr-2" /> On This Page — Table of Contents
+              </span>
+              <span className="text-neutral-400 group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <div className="mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-800 grid gap-2 text-xs">
+              {h2TocSections.map((sec, idx) => (
+                <a
+                  key={sec.id}
+                  href={`#${sec.id}`}
+                  className="text-neutral-700 dark:text-neutral-300 hover:text-[#16a34a] dark:hover:text-[#16a34a] font-medium transition-colors py-1 flex items-center"
+                >
+                  <span className="font-mono text-[#16a34a] mr-2">0{idx + 1}.</span> {sec.text}
+                </a>
+              ))}
+            </div>
+          </details>
+
+          {/* Desktop Direct View */}
+          <div className="hidden md:block bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-sm">
+            <div className="flex items-center font-mono text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-4">
+              <ListFilter className="w-4 h-4 mr-2" /> Table of Contents — On This Page
+            </div>
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              {h2TocSections.map((sec, idx) => (
+                <a
+                  key={sec.id}
+                  href={`#${sec.id}`}
+                  className="text-neutral-700 dark:text-neutral-300 hover:text-[#16a34a] dark:hover:text-[#16a34a] font-medium transition-colors p-2 rounded-lg hover:bg-white dark:hover:bg-neutral-800 flex items-center border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700"
+                >
+                  <span className="font-mono font-bold text-[#16a34a] mr-2">0{idx + 1}.</span> {sec.text}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 2 (H2) */}
       <section className="py-20 max-w-[1200px] mx-auto px-6 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-4xl">
           <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
             TARGET FIT &amp; AUDIENCE
           </div>
-          <h2 className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white">
+          <h2 id="who-custom-website-design-services-are-for" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24">
             Who Custom Website Design Services Are For
           </h2>
           <p className="text-[16px] md:text-[18px] text-neutral-700 dark:text-neutral-300 leading-relaxed mb-6">
@@ -320,7 +397,7 @@ export default function CustomBusinessWebsiteDesignView() {
             <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
               METHODOLOGY &amp; EXECUTION
             </div>
-            <h2 className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white">
+            <h2 id="digixpros-website-design-development-process" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24">
               DigiXPro&apos;s Website Design &amp; Development Process
             </h2>
             <p className="text-[16px] md:text-[18px] text-neutral-700 dark:text-neutral-300 leading-relaxed mb-10">
@@ -370,7 +447,7 @@ export default function CustomBusinessWebsiteDesignView() {
           <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
             FULL SERVICE SCOPE
           </div>
-          <h2 className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white">
+          <h2 id="whats-included-in-custom-website-development" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24">
             What&apos;s Included in Custom Website Development
           </h2>
           <p className="text-[16px] md:text-[18px] text-neutral-700 dark:text-neutral-300 leading-relaxed mb-10">
@@ -424,7 +501,7 @@ export default function CustomBusinessWebsiteDesignView() {
             <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
               ARCHITECTURE COMPARISON
             </div>
-            <h2 className="text-[30px] md:text-[42px] font-extrabold mb-4 text-black dark:text-white">
+            <h2 id="custom-website-vs-template-vs-platform" className="text-[30px] md:text-[42px] font-extrabold mb-4 text-black dark:text-white scroll-mt-24">
               Custom Website vs Template vs Platform
             </h2>
             <p className="text-[16px] md:text-[18px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -468,21 +545,29 @@ export default function CustomBusinessWebsiteDesignView() {
         </div>
       </section>
 
-      {/* SECTION 6 (H2) */}
+      {/* SECTION 6 (H2) — PHASE A LOGO BUG FIX SCOPED HERE */}
       <section className="py-24 max-w-[1200px] mx-auto px-6 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-4xl mx-auto text-center">
           <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
             VERIFIED SYSTEM PROOF
           </div>
-          <h2 className="text-[32px] md:text-[44px] font-extrabold mb-6 text-black dark:text-white">
+          <h2 id="evidence-custom-business-website-design-in-action" className="text-[32px] md:text-[44px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24">
             Evidence: Custom Business Website Design in Action
           </h2>
           <p className="text-[16px] text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8">
             We practice exact engineering principles we recommend to our clients. The DigiXPro web platform is built on decoupled Next.js static architecture, automated JSON-LD schemas, 100% Core Web Vitals speed, and direct n8n API lead routing.
           </p>
 
-          <div className="p-8 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl max-w-2xl mx-auto text-left shadow-sm">
-            <div className="text-xs font-mono text-[#16a34a] font-bold mb-2">LIVE PLATFORM EVIDENCE</div>
+          {/* EVIDENCE BLOCK CONTAINER — FIXED PLAIN TEXT WORDMARK & RESTORED TOP PADDING */}
+          <div className="p-8 md:p-10 pt-8 md:pt-10 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl max-w-2xl mx-auto text-left shadow-sm">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <span className="text-2xl font-extrabold font-sans tracking-tight text-black dark:text-white">
+                DigiXPro
+              </span>
+              <span className="text-xs font-mono font-bold text-[#16a34a] bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
+                LIVE PLATFORM EVIDENCE
+              </span>
+            </div>
             <h3 className="text-lg font-bold text-black dark:text-white mb-2">DigiXPro Decoupled Web Platform Case Study</h3>
             <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
               Inspect how DigiXPro achieves sub-second page performance, zero third-party plugin bloat, and automated search engine indexability across 50+ commercial routes.
@@ -506,7 +591,7 @@ export default function CustomBusinessWebsiteDesignView() {
             <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
               REGIONAL PRESENCE &amp; GLOBAL DELIVERY
             </div>
-            <h2 className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white">
+            <h2 id="custom-website-design-company-serving-delhi-ncr" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24">
               Custom Website Design Company Serving Delhi NCR
             </h2>
             <p className="text-[16px] md:text-[18px] text-neutral-700 dark:text-neutral-300 leading-relaxed mb-6">
@@ -532,14 +617,14 @@ export default function CustomBusinessWebsiteDesignView() {
         </div>
       </section>
 
-      {/* SECTION 8 (H2) — FREQUENTLY ASKED QUESTIONS (10 H3 QUESTIONS) */}
+      {/* SECTION 8 (H2) — FREQUENTLY ASKED QUESTIONS (10 H3 QUESTIONS WITH SLUG IDs) */}
       <section className="py-24 max-w-[1200px] mx-auto px-6 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <div className="text-[12px] font-mono text-[#16a34a] font-bold uppercase tracking-widest mb-3">
               BUYER QUESTIONS &amp; OBJECTIONS
             </div>
-            <h2 className="text-[32px] md:text-[44px] font-extrabold mb-4 text-black dark:text-white">
+            <h2 id="frequently-asked-questions" className="text-[32px] md:text-[44px] font-extrabold mb-4 text-black dark:text-white scroll-mt-24">
               Frequently Asked Questions
             </h2>
             <p className="text-[16px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -548,17 +633,20 @@ export default function CustomBusinessWebsiteDesignView() {
           </div>
 
           <div className="space-y-6">
-            {customBusinessWebsiteFaqs.map((faq, idx) => (
-              <div key={idx} className="bg-neutral-50 dark:bg-neutral-900/50 p-6 md:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800">
-                <h3 className="text-[17px] md:text-[19px] font-bold text-black dark:text-white mb-3 flex items-start">
-                  <HelpCircle className="w-5 h-5 text-[#16a34a] mr-3 shrink-0 mt-0.5" />
-                  {faq.question}
-                </h3>
-                <div className="text-[14px] md:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed pl-8">
-                  {renderTextWithLinks(faq.answer)}
+            {customBusinessWebsiteFaqs.map((faq, idx) => {
+              const faqId = `faq-${slugify(faq.question)}`;
+              return (
+                <div key={idx} className="bg-neutral-50 dark:bg-neutral-900/50 p-6 md:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800">
+                  <h3 id={faqId} className="text-[17px] md:text-[19px] font-bold text-black dark:text-white mb-3 flex items-start scroll-mt-24">
+                    <HelpCircle className="w-5 h-5 text-[#16a34a] mr-3 shrink-0 mt-0.5" />
+                    {faq.question}
+                  </h3>
+                  <div className="text-[14px] md:text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed pl-8">
+                    {renderTextWithLinks(faq.answer)}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
