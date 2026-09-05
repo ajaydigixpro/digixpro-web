@@ -2,18 +2,55 @@
 
 import React, { useEffect, useRef } from "react";
 
-interface NodePoint {
+type ElementType =
+  | "node"
+  | "ring_node"
+  | "arc"
+  | "connector"
+  | "geomark"
+  | "double_strand"
+  // 18 Canonical Service Icons
+  | "service_compass"
+  | "service_shield"
+  | "service_cpu"
+  | "service_layers"
+  | "service_milestone"
+  | "service_user_check"
+  | "service_code"
+  | "service_refresh"
+  | "service_store"
+  | "service_layout"
+  | "service_zap"
+  | "service_lock"
+  | "service_search"
+  | "service_sparkles"
+  | "service_map_pin"
+  | "service_share"
+  | "service_workflow"
+  | "service_database";
+
+interface EjectedElement {
+  id: number;
+  type: ElementType;
   x: number;
   y: number;
-  time: number;
-  dist: number;
+  startX: number;
+  startY: number;
+  vx: number;
+  vy: number;
+  rotation: number;
+  rotSpeed: number;
+  spawnTime: number;
+  lifetime: number;
+  size: number;
+  weaveTargetId?: number;
+  convergeTarget?: { x: number; y: number };
 }
 
 export default function WeaveTrail() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    // Desktop-only and accessibility checks
     if (typeof window === "undefined") return;
 
     const isFinePointer = window.matchMedia("(pointer: fine)").matches;
@@ -28,14 +65,18 @@ export default function WeaveTrail() {
     if (!ctx) return;
 
     let animFrameId: number | null = null;
-    const nodes: NodePoint[] = [];
+    let nextId = 1;
+    const elements: EjectedElement[] = [];
 
-    const MAX_NODES = 5; // Sparse max active nodes
-    const MIN_DISTANCE = 45; // min pixels moved to log a new node
-    const MIN_TIME_GAP = 90; // min ms gap between node logging
-    const FADE_DURATION = 750; // ms node lifetime (quick clearing)
-    const WAVELENGTH = 45; // px for delicate weave oscillation cycle
-    const BASE_WIDTH = 7; // subtle weave ribbon half-width in px (14px peak-to-peak separation)
+    const MAX_ELEMENTS = 7;
+    const MIN_DISTANCE = 40; // px mouse travel required to eject
+    const MIN_TIME_GAP = 90; // ms min interval
+    const LIFETIME = 800; // ms lifecycle duration
+
+    let lastSpawnTime = 0;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+    let spawnCount = 0;
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -47,23 +88,130 @@ export default function WeaveTrail() {
 
     const onMouseMove = (e: MouseEvent) => {
       const now = Date.now();
-      const x = e.clientX;
-      const y = e.clientY;
+      const mx = e.clientX;
+      const my = e.clientY;
 
-      let cumDist = 0;
-      if (nodes.length > 0) {
-        const lastNode = nodes[nodes.length - 1];
-        const stepDist = Math.hypot(x - lastNode.x, y - lastNode.y);
-        const timeGap = now - lastNode.time;
-        if (stepDist < MIN_DISTANCE || timeGap < MIN_TIME_GAP) return;
-        cumDist = lastNode.dist + stepDist;
+      if (lastMouseX === 0 && lastMouseY === 0) {
+        lastMouseX = mx;
+        lastMouseY = my;
+        lastSpawnTime = now;
+        return;
       }
 
-      nodes.push({ x, y, time: now, dist: cumDist });
+      const dist = Math.hypot(mx - lastMouseX, my - lastMouseY);
+      const timeGap = now - lastSpawnTime;
 
-      if (nodes.length > MAX_NODES) {
-        nodes.shift();
+      if (dist < MIN_DISTANCE || timeGap < MIN_TIME_GAP) return;
+
+      lastMouseX = mx;
+      lastMouseY = my;
+      lastSpawnTime = now;
+
+      // Filter out expired elements before capping
+      while (elements.length > 0 && now - elements[0].spawnTime > LIFETIME) {
+        elements.shift();
       }
+
+      if (elements.length >= MAX_ELEMENTS) {
+        elements.shift();
+      }
+
+      // Eject element at randomized 20-40px radial offset from cursor
+      const offsetAngle = Math.random() * 2 * Math.PI;
+      const offsetRadius = 20 + Math.random() * 20; // 20-40px offset
+      const spawnX = mx + Math.cos(offsetAngle) * offsetRadius;
+      const spawnY = my + Math.sin(offsetAngle) * offsetRadius;
+
+      // 24 Total Varieties: 6 Geometric Shapes + 18 Canonical Service Icons
+      const types: ElementType[] = [
+        "node",
+        "ring_node",
+        "arc",
+        "connector",
+        "geomark",
+        "double_strand",
+        "service_compass",
+        "service_shield",
+        "service_cpu",
+        "service_layers",
+        "service_milestone",
+        "service_user_check",
+        "service_code",
+        "service_refresh",
+        "service_store",
+        "service_layout",
+        "service_zap",
+        "service_lock",
+        "service_search",
+        "service_sparkles",
+        "service_map_pin",
+        "service_share",
+        "service_workflow",
+        "service_database",
+      ];
+      const selectedType = types[Math.floor(Math.random() * types.length)];
+
+      // Slight directional drift (0.2 to 0.5 px/frame)
+      const driftAngle = Math.random() * 2 * Math.PI;
+      const driftSpeed = 0.2 + Math.random() * 0.3;
+      const vx = Math.cos(driftAngle) * driftSpeed;
+      const vy = Math.sin(driftAngle) * driftSpeed;
+
+      const elementId = nextId++;
+      spawnCount++;
+
+      // Check for OCCASIONAL WEAVE (~1 in 5-8 spawns, i.e. 18% probability)
+      let weaveTargetId: number | undefined;
+      if (elements.length > 0 && Math.random() < 0.25) {
+        // Find nearest active element within 90px
+        const candidates = elements.filter((el) => {
+          const d = Math.hypot(el.x - spawnX, el.y - spawnY);
+          return d > 15 && d < 90;
+        });
+        if (candidates.length > 0) {
+          weaveTargetId = candidates[candidates.length - 1].id;
+        }
+      }
+
+      // Check for RARE CONVERGENCE (~1 in 15-20 spawns, i.e. 6% probability)
+      let convergeTarget: { x: number; y: number } | undefined;
+      if (spawnCount % 16 === 0 && elements.length >= 3) {
+        // Calculate center point of active elements
+        let sumX = spawnX;
+        let sumY = spawnY;
+        elements.forEach((el) => {
+          sumX += el.x;
+          sumY += el.y;
+        });
+        const centerX = sumX / (elements.length + 1);
+        const centerY = sumY / (elements.length + 1);
+        convergeTarget = { x: centerX, y: centerY };
+
+        // Apply convergence target to active elements
+        elements.forEach((el) => {
+          el.convergeTarget = { x: centerX, y: centerY };
+        });
+      }
+
+      const newEl: EjectedElement = {
+        id: elementId,
+        type: selectedType,
+        x: spawnX,
+        y: spawnY,
+        startX: spawnX,
+        startY: spawnY,
+        vx,
+        vy,
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.04,
+        spawnTime: now,
+        lifetime: LIFETIME,
+        size: 7 + Math.random() * 4,
+        weaveTargetId,
+        convergeTarget,
+      };
+
+      elements.push(newEl);
 
       if (!animFrameId) {
         animFrameId = requestAnimationFrame(render);
@@ -75,201 +223,300 @@ export default function WeaveTrail() {
     const render = () => {
       const now = Date.now();
 
-      // Filter expired nodes
-      while (nodes.length > 0 && now - nodes[0].time > FADE_DURATION) {
-        nodes.shift();
+      // Clean up expired elements
+      for (let i = elements.length - 1; i >= 0; i--) {
+        if (now - elements[i].spawnTime > LIFETIME) {
+          elements.splice(i, 1);
+        }
       }
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      if (nodes.length >= 2) {
-        // Prepare Segment Offsets for Dual-Strand Weave (Layer 3) & Apex Convergence (Layer 4)
-        const pointsStrandA: { x: number; y: number; alpha: number; isOver: boolean }[] = [];
-        const pointsStrandB: { x: number; y: number; alpha: number; isOver: boolean }[] = [];
+      if (elements.length > 0) {
+        // Render Mini-Weave Connections first (underneath elements)
+        elements.forEach((el) => {
+          if (!el.weaveTargetId) return;
+          const target = elements.find((t) => t.id === el.weaveTargetId);
+          if (!target) return;
 
-        for (let i = 0; i < nodes.length; i++) {
-          const n = nodes[i];
-          const alpha = Math.max(0, 1 - (now - n.time) / FADE_DURATION);
+          const progressA = (now - el.spawnTime) / el.lifetime;
+          const progressB = (now - target.spawnTime) / target.lifetime;
+          const alpha = Math.max(0, 1 - Math.max(progressA, progressB)) * 0.5;
 
-          if (i === 0 || i === nodes.length - 1) {
-            // LAYER 4: Convergence — Endpoints converge to single apex node point
-            pointsStrandA.push({ x: n.x, y: n.y, alpha, isOver: true });
-            pointsStrandB.push({ x: n.x, y: n.y, alpha, isOver: false });
-            continue;
-          }
+          if (alpha <= 0) return;
 
-          const prev = nodes[i - 1];
-          const next = nodes[i + 1];
-
-          // Tangent & Normal vectors along the motion path
-          const vx = next.x - prev.x;
-          const vy = next.y - prev.y;
-          const len = Math.hypot(vx, vy);
-
-          if (len < 0.001) {
-            pointsStrandA.push({ x: n.x, y: n.y, alpha, isOver: true });
-            pointsStrandB.push({ x: n.x, y: n.y, alpha, isOver: false });
-            continue;
-          }
-
-          const nx = -vy / len;
-          const ny = vx / len;
-
-          // LAYER 4: Convergence Factor — calculate turn angle / speed deceleration
-          const v1x = n.x - prev.x;
-          const v1y = n.y - prev.y;
-          const v2x = next.x - n.x;
-          const v2y = next.y - n.y;
-          const a1 = Math.atan2(v1y, v1x);
-          const a2 = Math.atan2(v2y, v2x);
-          let turnAngle = Math.abs(a2 - a1);
-          if (turnAngle > Math.PI) turnAngle = 2 * Math.PI - turnAngle;
-
-          // If turn angle is sharp (> 50 deg), converge strands together (Apex pinch)
-          let convergenceWidth = BASE_WIDTH;
-          if (turnAngle > 0.872665) {
-            // 50 degrees
-            convergenceWidth = BASE_WIDTH * 0.15; // Pinch strands together at sharp turn apex
-          }
-
-          // LAYER 3: Interlacing Dual-Strand Weave Offset Calculation
-          const phase = (n.dist / WAVELENGTH) * 2 * Math.PI;
-          const offset = Math.sin(phase) * convergenceWidth;
-
-          // Strand A & Strand B oppose each other in exact counter-phase
-          const ax = n.x + nx * offset;
-          const ay = n.y + ny * offset;
-          const bx = n.x - nx * offset;
-          const by = n.y - ny * offset;
-
-          // Deterministic Over/Under determination based on cosine phase derivative
-          const isOver = Math.cos(phase) >= 0;
-
-          pointsStrandA.push({ x: ax, y: ay, alpha, isOver });
-          pointsStrandB.push({ x: bx, y: by, alpha, isOver: !isOver });
-        }
-
-        // =========================================================
-        // RENDER LAYER 2: Primary Central Path Spine (Subtle guide)
-        // =========================================================
-        ctx.save();
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        for (let i = 1; i < nodes.length; i++) {
-          const p1 = nodes[i - 1];
-          const p2 = nodes[i];
-          const alpha = Math.max(0, 1 - (now - p2.time) / FADE_DURATION);
-
-          ctx.beginPath();
-          ctx.moveTo(p1.x, p1.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = `rgba(0, 158, 115, ${0.08 * alpha})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
-        ctx.restore();
-
-        // =========================================================
-        // RENDER LAYER 3 & LAYER 4: Sparse Interlaced Dual-Strand Weave
-        // =========================================================
-        const renderStrandSegment = (
-          p1: { x: number; y: number; alpha: number; isOver: boolean },
-          p2: { x: number; y: number; alpha: number; isOver: boolean },
-          isOverStrand: boolean
-        ) => {
-          const segAlpha = (p1.alpha + p2.alpha) / 2;
-          if (segAlpha <= 0) return;
-
-          const cpX = (p1.x + p2.x) / 2;
-          const cpY = (p1.y + p2.y) / 2;
+          const midX = (el.x + target.x) / 2 + Math.sin(el.id) * 12;
+          const midY = (el.y + target.y) / 2 + Math.cos(el.id) * 12;
 
           ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(el.x, el.y);
+          ctx.quadraticCurveTo(midX, midY, target.x, target.y);
+          ctx.strokeStyle = `rgba(0, 160, 115, ${alpha * 0.8})`;
+          ctx.lineWidth = 1.2;
+          ctx.setLineDash([3, 3]);
+          ctx.stroke();
+          ctx.restore();
+        });
+
+        // Render Ejected Elements
+        elements.forEach((el) => {
+          const progress = (now - el.spawnTime) / el.lifetime;
+          const alpha = Math.max(0, 1 - progress);
+          if (alpha <= 0) return;
+
+          // Position update (drift or converge)
+          if (el.convergeTarget) {
+            el.x += (el.convergeTarget.x - el.x) * 0.08;
+            el.y += (el.convergeTarget.y - el.y) * 0.08;
+          } else {
+            el.x += el.vx;
+            el.y += el.vy;
+          }
+          el.rotation += el.rotSpeed;
+
+          ctx.save();
+          ctx.translate(el.x, el.y);
+          ctx.rotate(el.rotation);
+
+          const strokeColor = `rgba(0, 170, 120, ${0.88 * alpha})`;
+          const fillColor = `rgba(255, 255, 255, ${0.9 * alpha})`;
+          ctx.strokeStyle = strokeColor;
+          ctx.lineWidth = 1.3;
           ctx.lineCap = "round";
           ctx.lineJoin = "round";
 
-          if (isOverStrand) {
-            // OVER STRAND: Light drop shadow + Delicate Emerald Strand (1.8px wide)
+          if (el.type === "node") {
+            // GEOMETRIC SHAPE 1: Plain Small Circular Node
             ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.quadraticCurveTo(cpX, cpY, p2.x, p2.y);
-            ctx.strokeStyle = `rgba(10, 15, 12, ${0.25 * segAlpha})`;
-            ctx.lineWidth = 3.5;
+            ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = fillColor;
+            ctx.fill();
+            ctx.stroke();
+          } else if (el.type === "ring_node") {
+            // GEOMETRIC SHAPE 2: Ringed Node
+            ctx.beginPath();
+            ctx.arc(0, 0, 5.5, 0, Math.PI * 2);
             ctx.stroke();
 
             ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.quadraticCurveTo(cpX, cpY, p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0, 160, 115, ${0.90 * segAlpha})`;
-            ctx.lineWidth = 1.8;
+            ctx.arc(0, 0, 2.2, 0, Math.PI * 2);
+            ctx.fillStyle = fillColor;
+            ctx.fill();
             ctx.stroke();
-          } else {
-            // UNDER STRAND: Soft Muted Emerald Strand (1.5px wide)
+          } else if (el.type === "arc") {
+            // GEOMETRIC SHAPE 3: Curved Arc
             ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.quadraticCurveTo(cpX, cpY, p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0, 130, 95, ${0.65 * segAlpha})`;
-            ctx.lineWidth = 1.5;
+            ctx.arc(0, 0, 8, -Math.PI / 3, Math.PI / 3);
+            ctx.stroke();
+          } else if (el.type === "connector") {
+            // GEOMETRIC SHAPE 4: Connector Line + Terminal Dot
+            ctx.beginPath();
+            ctx.moveTo(-6, -3);
+            ctx.quadraticCurveTo(0, 3, 6, -1);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(6, -1, 1.8, 0, Math.PI * 2);
+            ctx.fillStyle = fillColor;
+            ctx.fill();
+          } else if (el.type === "geomark") {
+            // GEOMETRIC SHAPE 5: Plus / Diamond / Square
+            const subType = el.id % 3;
+            if (subType === 0) {
+              const s = 4;
+              ctx.beginPath();
+              ctx.moveTo(-s, 0);
+              ctx.lineTo(s, 0);
+              ctx.moveTo(0, -s);
+              ctx.lineTo(0, s);
+              ctx.stroke();
+            } else if (subType === 1) {
+              const d = 3.5;
+              ctx.beginPath();
+              ctx.moveTo(0, -d);
+              ctx.lineTo(d, 0);
+              ctx.lineTo(0, d);
+              ctx.lineTo(-d, 0);
+              ctx.closePath();
+              ctx.stroke();
+            } else {
+              const sq = 3;
+              ctx.beginPath();
+              ctx.rect(-sq, -sq, sq * 2, sq * 2);
+              ctx.stroke();
+            }
+          } else if (el.type === "double_strand") {
+            // GEOMETRIC SHAPE 6: Micro Double-Strand
+            ctx.beginPath();
+            ctx.moveTo(-5, -2);
+            ctx.quadraticCurveTo(0, 1, 5, -2);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(-5, 2);
+            ctx.quadraticCurveTo(0, 5, 5, 2);
+            ctx.stroke();
+          }
+          // =========================================================
+          // 18 CANONICAL SERVICE ICONS (Vector Paths)
+          // =========================================================
+          else if (el.type === "service_compass") {
+            // SERVICE 1: IT Consulting & Strategy (Compass)
+            ctx.beginPath();
+            ctx.arc(0, 0, 5.5, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(-2, 2);
+            ctx.lineTo(3, -3);
+            ctx.stroke();
+          } else if (el.type === "service_shield") {
+            // SERVICE 2: Tech Due Diligence (Shield Check)
+            ctx.beginPath();
+            ctx.moveTo(-4, -5);
+            ctx.lineTo(4, -5);
+            ctx.quadraticCurveTo(4, 1, 0, 5);
+            ctx.quadraticCurveTo(-4, 1, -4, -5);
+            ctx.closePath();
+            ctx.stroke();
+          } else if (el.type === "service_cpu") {
+            // SERVICE 3: Digital Transformation (CPU)
+            ctx.beginPath();
+            ctx.rect(-4, -4, 8, 8);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(-2, -6); ctx.lineTo(-2, -4);
+            ctx.moveTo(2, -6); ctx.lineTo(2, -4);
+            ctx.moveTo(-2, 4); ctx.lineTo(-2, 6);
+            ctx.moveTo(2, 4); ctx.lineTo(2, 6);
+            ctx.moveTo(-6, -2); ctx.lineTo(-4, -2);
+            ctx.moveTo(-6, 2); ctx.lineTo(-4, 2);
+            ctx.moveTo(4, -2); ctx.lineTo(6, -2);
+            ctx.moveTo(4, 2); ctx.lineTo(6, 2);
+            ctx.stroke();
+          } else if (el.type === "service_layers") {
+            // SERVICE 4: Business Systems Architecture (Layers)
+            ctx.beginPath();
+            ctx.moveTo(0, -4); ctx.lineTo(5, -1.5); ctx.lineTo(0, 1); ctx.lineTo(-5, -1.5); ctx.closePath();
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(-5, 1); ctx.lineTo(0, 3.5); ctx.lineTo(5, 1);
+            ctx.stroke();
+          } else if (el.type === "service_milestone") {
+            // SERVICE 5: Technology Roadmaps (Milestone)
+            ctx.beginPath();
+            ctx.moveTo(-2, -5); ctx.lineTo(-2, 5);
+            ctx.moveTo(-2, -5); ctx.lineTo(4, -2.5); ctx.lineTo(-2, 0);
+            ctx.stroke();
+          } else if (el.type === "service_user_check") {
+            // SERVICE 6: Fractional CTO (User Check)
+            ctx.beginPath();
+            ctx.arc(-1, -2.5, 2.5, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(-1, 4, 4, Math.PI, 0);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(3, 0); ctx.lineTo(4.5, 1.5); ctx.lineTo(7, -1);
+            ctx.stroke();
+          } else if (el.type === "service_code") {
+            // SERVICE 7: Custom Website Design (Code2 <>)
+            ctx.beginPath();
+            ctx.moveTo(-2, -4); ctx.lineTo(-5, 0); ctx.lineTo(-2, 4);
+            ctx.moveTo(2, -4); ctx.lineTo(5, 0); ctx.lineTo(2, 4);
+            ctx.stroke();
+          } else if (el.type === "service_refresh") {
+            // SERVICE 8: Website Redesign (RefreshCw)
+            ctx.beginPath();
+            ctx.arc(0, 0, 4.5, -Math.PI / 4, (3 * Math.PI) / 4);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(0, 0, 4.5, (3 * Math.PI) / 4 + 0.3, -Math.PI / 4 - 0.3);
+            ctx.stroke();
+          } else if (el.type === "service_store") {
+            // SERVICE 9: Small Business Web Systems (Store)
+            ctx.beginPath();
+            ctx.moveTo(-5, -2); ctx.lineTo(5, -2);
+            ctx.lineTo(4, -5); ctx.lineTo(-4, -5); ctx.closePath();
+            ctx.rect(-4, -2, 8, 7);
+            ctx.stroke();
+          } else if (el.type === "service_layout") {
+            // SERVICE 10: Landing Page & Lead Gen (Layout)
+            ctx.beginPath();
+            ctx.rect(-5, -4, 10, 8);
+            ctx.moveTo(-5, -1); ctx.lineTo(5, -1);
+            ctx.moveTo(0, -1); ctx.lineTo(0, 4);
+            ctx.stroke();
+          } else if (el.type === "service_zap") {
+            // SERVICE 11: UX & Conversion (Zap Lightning)
+            ctx.beginPath();
+            ctx.moveTo(2, -5); ctx.lineTo(-4, 0); ctx.lineTo(0, 0); ctx.lineTo(-2, 5); ctx.lineTo(4, 0); ctx.lineTo(0, 0); ctx.closePath();
+            ctx.stroke();
+          } else if (el.type === "service_lock") {
+            // SERVICE 12: SEO-Ready Engineering (Lock)
+            ctx.beginPath();
+            ctx.rect(-4, -1, 8, 6);
+            ctx.arc(0, -1, 3, Math.PI, 0);
+            ctx.stroke();
+          } else if (el.type === "service_search") {
+            // SERVICE 13: SEO & Search Visibility (Search)
+            ctx.beginPath();
+            ctx.arc(-1, -1, 3.5, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(1.5, 1.5); ctx.lineTo(4.5, 4.5);
+            ctx.stroke();
+          } else if (el.type === "service_sparkles") {
+            // SERVICE 14: AI Search Optimization & GEO (Sparkles ✦)
+            ctx.beginPath();
+            ctx.moveTo(0, -5); ctx.quadraticCurveTo(0, 0, 5, 0); ctx.quadraticCurveTo(0, 0, 0, 5); ctx.quadraticCurveTo(0, 0, -5, 0); ctx.quadraticCurveTo(0, 0, 0, -5);
+            ctx.stroke();
+          } else if (el.type === "service_map_pin") {
+            // SERVICE 15: Local SEO & Lead Visibility (MapPin)
+            ctx.beginPath();
+            ctx.arc(0, -2, 3, Math.PI * 0.75, Math.PI * 0.25);
+            ctx.lineTo(0, 5);
+            ctx.closePath();
+            ctx.stroke();
+          } else if (el.type === "service_share") {
+            // SERVICE 16: Social Media Systems (Share2)
+            ctx.beginPath();
+            ctx.arc(3, -3, 1.8, 0, Math.PI * 2);
+            ctx.arc(-3, 0, 1.8, 0, Math.PI * 2);
+            ctx.arc(3, 3, 1.8, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(-1.2, -0.8); ctx.lineTo(1.2, -2.2);
+            ctx.moveTo(-1.2, 0.8); ctx.lineTo(1.2, 2.2);
+            ctx.stroke();
+          } else if (el.type === "service_workflow") {
+            // SERVICE 17: Workflow & AI Automation (Workflow)
+            ctx.beginPath();
+            ctx.rect(-5, -4, 3.5, 3.5);
+            ctx.rect(1.5, -4, 3.5, 3.5);
+            ctx.rect(-1.75, 1.5, 3.5, 3.5);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, -2.25); ctx.lineTo(0, 1.5);
+            ctx.stroke();
+          } else if (el.type === "service_database") {
+            // SERVICE 18: Lead Capture & CRM (Database)
+            ctx.beginPath();
+            ctx.ellipse(0, -3, 5, 1.8, 0, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(-5, -3); ctx.lineTo(-5, 3); ctx.ellipse(0, 3, 5, 1.8, 0, 0, Math.PI); ctx.lineTo(5, -3);
             ctx.stroke();
           }
 
           ctx.restore();
-        };
-
-        // Draw Under Segments for Strand A & Strand B
-        for (let i = 1; i < pointsStrandA.length; i++) {
-          if (!pointsStrandA[i].isOver) {
-            renderStrandSegment(pointsStrandA[i - 1], pointsStrandA[i], false);
-          }
-          if (!pointsStrandB[i].isOver) {
-            renderStrandSegment(pointsStrandB[i - 1], pointsStrandB[i], false);
-          }
-        }
-
-        // Draw Over Segments for Strand A & Strand B (with shadow masks)
-        for (let i = 1; i < pointsStrandA.length; i++) {
-          if (pointsStrandA[i].isOver) {
-            renderStrandSegment(pointsStrandA[i - 1], pointsStrandA[i], true);
-          }
-          if (pointsStrandB[i].isOver) {
-            renderStrandSegment(pointsStrandB[i - 1], pointsStrandB[i], true);
-          }
-        }
-
-        // =========================================================
-        // RENDER LAYER 1: Sparse Glowing Node Apex Marks
-        // =========================================================
-        for (let i = 0; i < nodes.length; i++) {
-          const n = nodes[i];
-          const nodeAlpha = Math.max(0, 1 - (now - n.time) / FADE_DURATION);
-          if (nodeAlpha <= 0) continue;
-
-          ctx.save();
-          // Radial glow
-          const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 5);
-          grad.addColorStop(0, `rgba(0, 160, 115, ${0.60 * nodeAlpha})`);
-          grad.addColorStop(1, `rgba(0, 160, 115, 0)`);
-
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, 5, 0, 2 * Math.PI);
-          ctx.fillStyle = grad;
-          ctx.fill();
-
-          // Node core dot
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, 2.5, 0, 2 * Math.PI);
-          ctx.fillStyle = `rgba(255, 255, 255, ${0.90 * nodeAlpha})`;
-          ctx.fill();
-          ctx.strokeStyle = `rgba(0, 160, 115, ${0.70 * nodeAlpha})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-          ctx.restore();
-        }
+        });
       }
 
-      if (nodes.length > 0) {
+      if (elements.length > 0) {
         animFrameId = requestAnimationFrame(render);
       } else {
-        animFrameId = null; // Auto stop RAF loop when idle and nodes have faded
+        animFrameId = null;
       }
     };
 
@@ -288,3 +535,5 @@ export default function WeaveTrail() {
     />
   );
 }
+
+
