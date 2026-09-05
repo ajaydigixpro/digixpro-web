@@ -30,11 +30,12 @@ export default function WeaveTrail() {
     let animFrameId: number | null = null;
     const nodes: NodePoint[] = [];
 
-    const MAX_NODES = 25;
-    const MIN_DISTANCE = 10; // min pixels moved to log a new node
-    const FADE_DURATION = 1500; // ms node lifetime
-    const WAVELENGTH = 80; // px for complete weave oscillation cycle
-    const BASE_WIDTH = 22; // max weave ribbon half-width in px (44px peak-to-peak strand separation)
+    const MAX_NODES = 5; // Sparse max active nodes
+    const MIN_DISTANCE = 45; // min pixels moved to log a new node
+    const MIN_TIME_GAP = 90; // min ms gap between node logging
+    const FADE_DURATION = 750; // ms node lifetime (quick clearing)
+    const WAVELENGTH = 45; // px for delicate weave oscillation cycle
+    const BASE_WIDTH = 7; // subtle weave ribbon half-width in px (14px peak-to-peak separation)
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -53,7 +54,8 @@ export default function WeaveTrail() {
       if (nodes.length > 0) {
         const lastNode = nodes[nodes.length - 1];
         const stepDist = Math.hypot(x - lastNode.x, y - lastNode.y);
-        if (stepDist < MIN_DISTANCE) return;
+        const timeGap = now - lastNode.time;
+        if (stepDist < MIN_DISTANCE || timeGap < MIN_TIME_GAP) return;
         cumDist = lastNode.dist + stepDist;
       }
 
@@ -148,7 +150,7 @@ export default function WeaveTrail() {
         }
 
         // =========================================================
-        // RENDER LAYER 2: Primary Central Path Spine (Faint as designed)
+        // RENDER LAYER 2: Primary Central Path Spine (Subtle guide)
         // =========================================================
         ctx.save();
         ctx.lineCap = "round";
@@ -161,15 +163,14 @@ export default function WeaveTrail() {
           ctx.beginPath();
           ctx.moveTo(p1.x, p1.y);
           ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = `rgba(0, 158, 115, ${0.12 * alpha})`;
+          ctx.strokeStyle = `rgba(0, 158, 115, ${0.08 * alpha})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
         ctx.restore();
 
         // =========================================================
-        // RENDER LAYER 3 & LAYER 4: BOLD Interlaced Dual-Strand Weave + Convergence
-        // Render UNDER strands first, then OVER strands with shadow mask
+        // RENDER LAYER 3 & LAYER 4: Sparse Interlaced Dual-Strand Weave
         // =========================================================
         const renderStrandSegment = (
           p1: { x: number; y: number; alpha: number; isOver: boolean },
@@ -187,27 +188,27 @@ export default function WeaveTrail() {
           ctx.lineJoin = "round";
 
           if (isOverStrand) {
-            // OVER STRAND: Dark drop-shadow mask + Vivid High-Contrast Green Strand (3.5px wide)
+            // OVER STRAND: Light drop shadow + Delicate Emerald Strand (1.8px wide)
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.quadraticCurveTo(cpX, cpY, p2.x, p2.y);
-            ctx.strokeStyle = `rgba(5, 15, 10, ${0.6 * segAlpha})`;
-            ctx.lineWidth = 7.5;
+            ctx.strokeStyle = `rgba(10, 15, 12, ${0.25 * segAlpha})`;
+            ctx.lineWidth = 3.5;
             ctx.stroke();
 
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.quadraticCurveTo(cpX, cpY, p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0, 180, 130, ${0.98 * segAlpha})`;
-            ctx.lineWidth = 3.5;
+            ctx.strokeStyle = `rgba(0, 160, 115, ${0.90 * segAlpha})`;
+            ctx.lineWidth = 1.8;
             ctx.stroke();
           } else {
-            // UNDER STRAND: Deep Rich Emerald Strand (3.5px wide) weaving underneath
+            // UNDER STRAND: Soft Muted Emerald Strand (1.5px wide)
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.quadraticCurveTo(cpX, cpY, p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0, 145, 105, ${0.85 * segAlpha})`;
-            ctx.lineWidth = 3.5;
+            ctx.strokeStyle = `rgba(0, 130, 95, ${0.65 * segAlpha})`;
+            ctx.lineWidth = 1.5;
             ctx.stroke();
           }
 
@@ -235,7 +236,7 @@ export default function WeaveTrail() {
         }
 
         // =========================================================
-        // RENDER LAYER 1: Glowing Node Apex Points (Bold & Clear)
+        // RENDER LAYER 1: Sparse Glowing Node Apex Marks
         // =========================================================
         for (let i = 0; i < nodes.length; i++) {
           const n = nodes[i];
@@ -244,23 +245,22 @@ export default function WeaveTrail() {
 
           ctx.save();
           // Radial glow
-          const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 11);
-          grad.addColorStop(0, `rgba(0, 200, 145, ${0.95 * nodeAlpha})`);
-          grad.addColorStop(0.5, `rgba(0, 180, 130, ${0.5 * nodeAlpha})`);
+          const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 5);
+          grad.addColorStop(0, `rgba(0, 160, 115, ${0.60 * nodeAlpha})`);
           grad.addColorStop(1, `rgba(0, 160, 115, 0)`);
 
           ctx.beginPath();
-          ctx.arc(n.x, n.y, 11, 0, 2 * Math.PI);
+          ctx.arc(n.x, n.y, 5, 0, 2 * Math.PI);
           ctx.fillStyle = grad;
           ctx.fill();
 
           // Node core dot
           ctx.beginPath();
-          ctx.arc(n.x, n.y, 4.5, 0, 2 * Math.PI);
-          ctx.fillStyle = `rgba(255, 255, 255, ${0.98 * nodeAlpha})`;
+          ctx.arc(n.x, n.y, 2.5, 0, 2 * Math.PI);
+          ctx.fillStyle = `rgba(255, 255, 255, ${0.90 * nodeAlpha})`;
           ctx.fill();
-          ctx.strokeStyle = `rgba(0, 160, 115, ${0.9 * nodeAlpha})`;
-          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = `rgba(0, 160, 115, ${0.70 * nodeAlpha})`;
+          ctx.lineWidth = 1;
           ctx.stroke();
           ctx.restore();
         }

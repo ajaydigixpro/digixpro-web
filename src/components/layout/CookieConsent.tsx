@@ -53,33 +53,29 @@ export default function CookieConsent() {
       </div>
 
       <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
-        We use analytics cookies (Microsoft Clarity) to understand visitor behavior and improve our site.{" "}
-        <strong className="text-neutral-900 dark:text-white font-semibold">
-          No advertising or marketing tracking cookies are used.
-        </strong>
-      </p>
-
-      <div className="flex items-center justify-between gap-3 pt-2 border-t border-neutral-100 dark:border-neutral-800/80">
+        This website uses cookies. Learn more in our{" "}
         <Link
           href="/privacy-policy"
-          className="text-[11px] font-mono text-neutral-500 hover:text-[#009E73] dark:hover:text-[#009E73] underline underline-offset-2 transition-colors"
+          className="text-[#009E73] font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity"
         >
           Privacy Policy
         </Link>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={handleDecline}
-            className="px-3 py-1.5 text-xs font-bold text-neutral-700 dark:text-neutral-300 border border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-600 rounded-xl transition-colors"
-          >
-            Essential Only
-          </button>
-          <button
-            onClick={handleAccept}
-            className="px-4 py-1.5 text-xs font-bold text-white bg-[#009E73] hover:bg-[#007a55] rounded-xl shadow-xs transition-all"
-          >
-            Accept
-          </button>
-        </div>
+        .
+      </p>
+
+      <div className="flex items-center justify-end gap-2 pt-2 border-t border-neutral-100 dark:border-neutral-800/80">
+        <button
+          onClick={handleDecline}
+          className="px-3.5 py-1.5 text-xs font-bold text-neutral-700 dark:text-neutral-300 border border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-600 rounded-xl transition-colors"
+        >
+          Decline
+        </button>
+        <button
+          onClick={handleAccept}
+          className="px-4 py-1.5 text-xs font-bold text-white bg-[#009E73] hover:bg-[#007a55] rounded-xl shadow-xs transition-all"
+        >
+          Accept
+        </button>
       </div>
     </div>
   );
