@@ -80,7 +80,7 @@ export const designSubServices: DesignServiceItem[] = [
     buyerSituation: "I need a new business website engineered for speed, authority, and lead capture.",
     heroHeading: "Custom Website Design Services for Small & Growing Businesses",
     heroSubheading: "Custom business website design is the engineering of bespoke web applications tailored directly to a company's brand authority, operational workflows, and commercial lead capture targets. Unlike rigid pre-made templates, professional custom website design services build decoupled frontend architecture using React and Next.js, ensuring 100% Core Web Vitals page speed, immune site security, and native search indexability for small business website design requirements.",
-    metaTitle: "Custom Website Design Services for Small & Growing Businesses | DigiXPro",
+    metaTitle: "Custom Website Design Services for Small & Growing Businesses",
     metaDescription: "Bespoke custom website design services and React/Next.js codebase engineering for small business website design requirements. 100% Core Web Vitals & lead capture.",
     shortDesc: "Bespoke web applications built on modern Next.js and React architecture. Engineered for visual authority, fast performance, search indexability, and B2B lead capture.",
     problemHeading: "Common Obstacles When Building a New Business Website",
