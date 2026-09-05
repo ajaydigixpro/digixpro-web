@@ -94,7 +94,7 @@ export default function DisclaimerPage() {
         <section>
           <h2 className="text-base font-bold text-black dark:text-white mb-3">7. Third-Party Links &amp; Advertising Disclosures</h2>
           <p>
-            The Website may contain links to external third-party websites or deploy digital campaign tracking tags (such as Meta Pixel and Google Ads) to measure marketing effectiveness. DigiXPro Digital Solution does not control or guarantee the content, privacy practices, or security of external third-party websites, and participation in advertising campaigns does not constitute an endorsement of third-party products or SaaS platforms.
+            The Website contains links to external third-party websites and deploys digital campaign tracking tags (such as Meta Pixel and Google Ads) to measure marketing performance and campaign effectiveness. DigiXPro Digital Solution does not control or guarantee the content, privacy practices, or security of external third-party websites, and participation in advertising campaigns does not constitute an endorsement of third-party products or SaaS platforms.
           </p>
         </section>
 

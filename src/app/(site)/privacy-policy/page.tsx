@@ -75,7 +75,7 @@ export default function PrivacyPolicyPage() {
           <ul className="list-disc pl-5 space-y-2 mt-2">
             <li><strong>Hosting &amp; Content Delivery</strong> — Served via Cloudflare Pages and Vercel static pre-rendering networks.</li>
             <li><strong>Analytics &amp; User Experience Telemetry</strong> — Microsoft Clarity used strictly for aggregated website usage analytics, scroll heatmaps, and interface optimization upon explicit user consent. Telemetry is anonymized.</li>
-            <li><strong>Digital Advertising &amp; Campaign Retargeting</strong> — Meta (Facebook) Pixel and Google Ads tags utilized to measure digital campaign conversions and present relevant promotional content on third-party networks.</li>
+            <li><strong>Digital Advertising &amp; Campaign Retargeting</strong> — Meta (Facebook) Pixel and Google Ads tags deployed to measure digital campaign conversions and serve targeted advertising to past site visitors across third-party networks upon user consent.</li>
             <li><strong>Workflow &amp; Webhook Lead Automation</strong> — Self-hosted n8n automation pipelines and Notion lead management databases for secure, encrypted form routing.</li>
             <li><strong>Discovery Scheduling</strong> — Calendly for self-service consultation booking.</li>
             <li><strong>AI Model &amp; API Processing</strong> — Third-party Large Language Model APIs (e.g. OpenAI, Anthropic, Google Gemini) used statelessly for query parsing and content structuring. Client data is not submitted to public training sets.</li>
@@ -102,7 +102,7 @@ export default function PrivacyPolicyPage() {
               <strong>Analytics Cookies (Microsoft Clarity)</strong> — Activated upon explicit visitor consent via our cookie banner. Microsoft Clarity collects anonymized session telemetry, interaction heatmaps, and rendering metrics to evaluate website usability and technical performance.
             </li>
             <li>
-              <strong>Digital Advertising &amp; Retargeting Tags (Meta Pixel &amp; Google Ads)</strong> — Campaign measurement and audience retargeting tags (including Meta/Facebook Pixel and Google Ads tags) deployed to measure marketing performance and serve relevant advertisements to prior visitors on third-party platforms. Activated based on visitor consent choices.
+              <strong>Digital Advertising &amp; Retargeting Tags (Meta Pixel &amp; Google Ads)</strong> — Active campaign measurement and retargeting tags (Meta/Facebook Pixel and Google Ads) that measure advertising performance and deliver relevant promotional campaigns to past visitors across third-party networks, active upon visitor consent.
             </li>
           </ul>
           <p className="mt-3">
