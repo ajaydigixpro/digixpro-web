@@ -7,6 +7,7 @@ import SalesConcierge from "@/components/layout/SalesConcierge";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import WebSiteSchema from "@/components/seo/WebSiteSchema";
 import MicrosoftClarity from "@/components/seo/MicrosoftClarity";
+import CookieConsent from "@/components/layout/CookieConsent";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 // The homepage LCP is text. Optional display keeps the critical heading
@@ -131,6 +132,7 @@ export default function RootLayout({
           <main className="flex-grow">{children}</main>
           <Footer />
           <SalesConcierge />
+          <CookieConsent />
         </ThemeProvider>
       </body>
     </html>

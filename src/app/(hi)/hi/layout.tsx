@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import SalesConcierge from "@/components/layout/SalesConcierge";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import MicrosoftClarity from "@/components/seo/MicrosoftClarity";
+import CookieConsent from "@/components/layout/CookieConsent";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -45,6 +46,7 @@ export default function HindiRootLayout({
           <main className="flex-grow">{children}</main>
           <Footer />
           <SalesConcierge />
+          <CookieConsent />
         </ThemeProvider>
       </body>
     </html>

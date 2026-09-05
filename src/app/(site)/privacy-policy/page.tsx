@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPolicyPage() {
-  const lastUpdated = 'August 26, 2026';
+  const lastUpdated = 'September 5, 2026';
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-neutral-100 font-sans px-6 py-16 max-w-3xl mx-auto transition-colors duration-200">
@@ -66,7 +66,7 @@ export default function PrivacyPolicyPage() {
             <li>Route inbound lead notifications instantaneously to internal management databases via automated webhooks.</li>
             <li>Comply with statutory legal and accounting obligations.</li>
           </ul>
-          <p className="mt-3 font-semibold text-black dark:text-white">DigiXPro does not sell, rent, trade, or monetize personal or business data to third parties for marketing purposes.</p>
+          <p className="mt-3 font-semibold text-black dark:text-white">DigiXPro Digital Solution does not sell, rent, trade, or monetize personal or business data to third parties for marketing purposes.</p>
         </section>
 
         <section>
@@ -74,6 +74,7 @@ export default function PrivacyPolicyPage() {
           <p>Website and operational systems utilize selected third-party infrastructure providers:</p>
           <ul className="list-disc pl-5 space-y-2 mt-2">
             <li><strong>Hosting &amp; Content Delivery</strong> — Served via Cloudflare Pages and Vercel static pre-rendering networks.</li>
+            <li><strong>Analytics &amp; User Experience Telemetry</strong> — Microsoft Clarity used strictly for aggregated website usage analytics, scroll heatmaps, and interface optimization upon explicit user consent. Telemetry is anonymized.</li>
             <li><strong>Workflow &amp; Webhook Lead Automation</strong> — Self-hosted n8n automation pipelines and Notion lead management databases for secure, encrypted form routing.</li>
             <li><strong>Discovery Scheduling</strong> — Calendly for self-service consultation booking.</li>
             <li><strong>AI Model &amp; API Processing</strong> — Third-party Large Language Model APIs (e.g. OpenAI, Anthropic, Google Gemini) used statelessly for query parsing and content structuring. Client data is not submitted to public training sets.</li>
@@ -83,14 +84,28 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2 className="text-base font-bold text-black dark:text-white mb-3">5. Confidentiality &amp; Data Security</h2>
           <p>
-            Client business data, internal process blueprints, and API credentials shared with DigiXPro are treated as strictly confidential. HTTPS encryption in transit, encrypted environment secret management, and restricted access controls are enforced.
+            Client business data, internal process blueprints, and API credentials shared with DigiXPro Digital Solution are treated as strictly confidential. HTTPS encryption in transit, encrypted environment secret management, and restricted access controls are enforced.
           </p>
         </section>
 
         <section>
-          <h2 className="text-base font-bold text-black dark:text-white mb-3">6. Cookies &amp; Tracking</h2>
+          <h2 className="text-base font-bold text-black dark:text-white mb-3">6. Cookies &amp; Tracking Policy</h2>
           <p>
-            Minimal cookies required for security and functional site operation are utilized. Third-party cross-site advertising cookies are not deployed. Performance monitoring relies on privacy-respecting server metrics.
+            DigiXPro Digital Solution uses cookies and local storage strictly to ensure site security, remember visitor preferences, and measure website performance:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 mt-2">
+            <li>
+              <strong>Analytics Cookies (Microsoft Clarity)</strong> — Activated only upon explicit visitor consent via our cookie banner. These cookies gather anonymized session data, interaction heatmaps, and rendering telemetry to evaluate usability and improve technical architecture.
+            </li>
+            <li>
+              <strong>Preference &amp; Essential Local Storage</strong> — Essential key-value pairs (such as dark/light theme choice and your cookie consent decision <code className="text-xs font-mono bg-neutral-100 dark:bg-neutral-800 px-1 py-0.5 rounded">digixpro_cookie_consent</code>) stored locally in your browser.
+            </li>
+            <li>
+              <strong>Zero Advertising / Marketing Tracking</strong> — DigiXPro Digital Solution does <strong>not</strong> deploy third-party advertising cookies, cross-site tracking pixels, or remarketing scripts.
+            </li>
+          </ul>
+          <p className="mt-3">
+            Visitors may alter or revoke their cookie preferences at any time by clearing their browser&apos;s local storage or adjusting their browser cookie management settings.
           </p>
         </section>
 
