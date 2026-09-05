@@ -38,6 +38,8 @@ function renderTextWithLinks(text: string) {
   return parts.length > 0 ? parts : text;
 }
 
+import CustomBusinessWebsiteDesignView from '@/components/design-services/CustomBusinessWebsiteDesignView';
+
 export async function generateStaticParams() {
   return designSubServices.map((service) => ({
     slug: service.slug,
@@ -71,7 +73,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       canonical: url,
     },
     openGraph: {
-      title: `${service.metaTitle} | DigiXPro`,
+      title: `${service.metaTitle}`,
       description: service.metaDescription,
       url: url,
       type: 'website',
@@ -87,7 +89,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${service.metaTitle} | DigiXPro`,
+      title: `${service.metaTitle}`,
       description: service.metaDescription,
       images: ['/twitter-image.png'],
     },
@@ -100,6 +102,10 @@ export default async function DesignSubServicePage({ params }: { params: Promise
 
   if (!service) {
     notFound();
+  }
+
+  if (resolvedParams.slug === "custom-business-website-design") {
+    return <CustomBusinessWebsiteDesignView />;
   }
 
   const currentUrl = `https://www.digixpro.in/design-services/${service.slug}`;

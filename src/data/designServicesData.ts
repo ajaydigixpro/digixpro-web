@@ -58,13 +58,14 @@ export const designSubServices: DesignServiceItem[] = [
   {
     slug: "custom-business-website-design",
     number: "01",
-    title: "Custom Business Website Design & Development",
-    primaryKeyword: "custom business website design",
+    title: "Custom Website Design Services for Small & Growing Businesses",
+    primaryKeyword: "custom website design services",
     secondaryKeywords: [
+      "small business website design",
+      "custom website design",
+      "business website design",
       "custom website development",
-      "business website design service",
-      "custom web development company",
-      "custom website development firm"
+      "custom website development service"
     ],
     problemAwareKeywords: [
       "why generic website templates fail growing businesses",
@@ -76,11 +77,11 @@ export const designSubServices: DesignServiceItem[] = [
       "plan custom business website build",
       "custom web development quote"
     ],
-    buyerSituation: "I need a new business website.",
-    heroHeading: "Custom Business Website Design & Codebase Engineering.",
-    heroSubheading: "We design and build bespoke, high-performance web applications in Next.js and React—engineered for visual authority, fast Core Web Vitals, built-in search indexability, and frictionless B2B lead capture.",
-    metaTitle: "Custom Business Website Design & Development Services",
-    metaDescription: "Bespoke custom business website design and React/Next.js codebase engineering. Built for visual authority, 100% Core Web Vitals performance, and B2B lead capture.",
+    buyerSituation: "I need a new business website engineered for speed, authority, and lead capture.",
+    heroHeading: "Custom Website Design Services for Small & Growing Businesses",
+    heroSubheading: "Custom business website design is the engineering of bespoke web applications tailored directly to a company's brand authority, operational workflows, and commercial lead capture targets. Unlike rigid pre-made templates, professional custom website design services build decoupled frontend architecture using React and Next.js, ensuring 100% Core Web Vitals page speed, immune site security, and native search indexability for small business website design requirements.",
+    metaTitle: "Custom Website Design Services for Small & Growing Businesses | DigiXPro",
+    metaDescription: "Bespoke custom website design services and React/Next.js codebase engineering for small business website design requirements. 100% Core Web Vitals & lead capture.",
     shortDesc: "Bespoke web applications built on modern Next.js and React architecture. Engineered for visual authority, fast performance, search indexability, and B2B lead capture.",
     problemHeading: "Common Obstacles When Building a New Business Website",
     problemPoints: [
@@ -91,10 +92,10 @@ export const designSubServices: DesignServiceItem[] = [
     ],
     solutionHeading: "Custom Web Engineering Deliverables",
     solutionDeliverables: [
-      { title: "Decoupled Next.js & React Codebase", desc: "Clean, modern web application architecture engineered for speed, immune security, and 100% Core Web Vitals performance." },
-      { title: "TailwindCSS Accessible UI Design System", desc: "Custom component library styled for enterprise visual authority, mobile responsiveness, and consistent brand tokens." },
-      { title: "Built-In Technical SEO & Schema Plumbing", desc: "Automated JSON-LD structured data, dynamic XML sitemaps, canonical tags, and semantic HTML5 hierarchy." },
-      { title: "Automated CRM & Webhook Lead Routing", desc: "Direct API webhooks connecting lead capture forms with your CRM, Notion, WhatsApp, or n8n workflow automation." }
+      { title: "Design Scope", desc: "Accessible UI/UX design tokens, Tailwind CSS component library, responsive viewports, and enterprise visual authority." },
+      { title: "Development Scope", desc: "Decoupled Next.js static & server rendering, React Server Components, zero third-party plugin bloat, sub-second speed." },
+      { title: "Integrations", desc: "Direct API webhooks connecting lead capture forms to CRM platforms (Notion, HubSpot, WhatsApp, n8n automation)." },
+      { title: "SEO-Readiness", desc: "Automated JSON-LD structured data schemas, canonical tag management, semantic HTML5, 100% Core Web Vitals optimization." }
     ],
     capabilitySignals: [
       "Custom Next.js & React Architecture",
@@ -104,33 +105,49 @@ export const designSubServices: DesignServiceItem[] = [
     ],
     faqs: [
       {
-        question: "Do I need a custom business website or can a pre-made template work?",
-        answer: "Templates come bloated with unused CSS/JS scripts, slow page load speeds, and rigid layouts that fail to communicate technical authority. A custom web application engineered in Next.js and React provides fast rendering, 100% Core Web Vitals performance, immune security, and complete flexibility to model your exact business operating workflows and lead capture pathways."
+        question: "What is custom website design and how does it differ from template websites?",
+        answer: "Custom website design is the engineering of bespoke web applications tailored directly to a company's brand identity, operational workflows, and conversion requirements rather than forcing content into pre-packaged themes. Off-the-shelf templates rely on monolithic CMS platforms like WordPress, which ship with bloated CSS, unoptimized JavaScript, unused third-party plugins, and rigid layout boundaries that restrict brand authority. In contrast, our custom business website design services build clean Next.js and React codebases optimized for 100% Core Web Vitals speed, zero plugin vulnerability risk, and complete architectural scalability. To compare detailed investment tiers for custom builds versus template migrations, review the [DigiXPro Investment Guide](/pricing)."
       },
       {
-        question: "What should a custom business website include to generate qualified leads?",
-        answer: "A high-converting business website requires clear message-to-market positioning, prominent call-to-actions, transparent delivery blueprints, proof of execution, friction-free lead capture forms, and direct API webhooks routing lead context to your team."
+        question: "What does a professional custom website development service include?",
+        answer: "A professional custom website development service includes comprehensive technical discovery, accessible UI design system engineering, decoupled frontend development, automated JSON-LD structured data integration, and direct API lead capture plumbing. Rather than delivering simple graphic mocks, our engineering team constructs modular Tailwind CSS component libraries paired with server-rendered Next.js pages. We also implement custom webhook routes connecting web forms to your internal CRM, Notion boards, or automated workflow engines without relying on vulnerable third-party plugins. For a breakdown of phase deliverables and scoping options, consult the [DigiXPro Investment Guide](/pricing)."
       },
       {
-        question: "Will SEO be built into our custom business website during development?",
-        answer: "Yes. Technical search architecture is engineered into the codebase from day one. Every custom website includes automated JSON-LD structured data, canonical tag management, clean semantic HTML5 hierarchy, dynamic XML sitemaps, and optimized page speed architecture without relying on third-party plugins."
+        question: "Custom website vs WordPress: Which architecture is right for my business?",
+        answer: "Decoupled custom website architecture is right for businesses that prioritize sub-second page performance, immune security, and long-term brand authority over quick template deployment. Traditional WordPress sites suffer from plugin bloat, frequent database exploits, slow mobile rendering, and high maintenance overhead. Modern Next.js custom applications eliminate database query latency by serving pre-compiled static HTML pages and optimized React components across global CDN edge nodes. While generic WordPress setups suit basic low-traffic blogs, growing businesses require decoupled Next.js web applications to convert search visitors into qualified lead pipelines. Explore detailed feature comparisons and delivery schedules in the [DigiXPro Investment Guide](/pricing)."
+      },
+      {
+        question: "How much does a custom business website cost?",
+        answer: "Custom business website development pricing depends directly on total page scope, bespoke UI component complexity, interactive workflow logic, and custom API integration requirements. Unlike low-cost template installations, custom web engineering provides a long-term digital asset engineered for conversion, zero security vulnerabilities, and sub-second page performance. Engagements are structured as fixed-scope milestones covering architecture discovery, UI design tokens, Next.js codebase construction, technical SEO integration, and webhook lead routing. To review standard engagement tiers, scoping benchmarks, and commercial payment terms, view the [DigiXPro Investment Guide](/pricing)."
+      },
+      {
+        question: "How long does a custom web development project take?",
+        answer: "A custom business website engineering project typically takes 4 to 8 weeks from initial discovery to live production launch depending on technical scope and content readiness. Phase 1 (Weeks 1–2) focuses on architecture discovery, user intent mapping, and structural wireframing. Phase 2 (Weeks 3–4) establishes visual design system tokens and responsive Tailwind CSS layout components. Phase 3 (Weeks 5–7) executes decoupled Next.js codebase engineering, schema injection, and webhook API routes. Phase 4 (Week 8) conducts Core Web Vitals optimization and production release. Detailed timeline breakdowns for every development stage are detailed in the [DigiXPro Investment Guide](/pricing)."
+      },
+      {
+        question: "Will search indexability be built into our custom business website?",
+        answer: "Yes, comprehensive technical search indexability is engineered directly into the custom codebase from day one rather than treated as a post-launch add-on. Every custom Next.js website includes automated JSON-LD structured data schemas, canonical tag management, dynamic XML sitemaps, clean semantic HTML5 heading structures, and OpenGraph metadata configuration. Server-side rendering in Next.js serves pre-rendered HTML to search engine crawlers, eliminating indexing delays associated with client-side JavaScript applications. Furthermore, our performance architecture guarantees 100% Core Web Vitals scores across mobile viewports, providing an immediate ranking advantage in Google search results."
       },
       {
         question: "Can our custom Next.js website connect with our existing CRM or software stack?",
-        answer: "Absolutely. We build custom API webhooks connecting web forms with your CRM, Notion lead boards, WhatsApp notifications, or n8n workflow automation pipelines. Lead data flows instantly without manual copy-paste errors or third-party plugin vulnerability risks."
+        answer: "Yes, custom Next.js web applications seamlessly connect with CRMs, Notion databases, email marketing platforms, and n8n workflow engines via direct API webhooks. Instead of relying on insecure third-party plugins that degrade page performance, we construct idempotent API webhook endpoints that transmit lead form data instantly upon submission. This eliminates manual copy-paste data entry and guarantees zero lead loss between web forms and sales pipelines. Review our [verified client evidence](/evidence) to see real-world API integration blueprints, or learn more about our [founder-led technical strategy](/founder) for enterprise software integration."
       },
       {
-        question: "How long does a custom business website engineering project take?",
-        answer: "Engagements typically span 3 to 8 weeks depending on component scope, interactive workflow needs, and API integration requirements. Projects follow a clear 4-phase sequence: Discovery & Diagnosis → UX Architecture → Next.js Codebase Engineering → SEO & Webhook Release."
+        question: "What is the difference between frontend visual design and codebase engineering?",
+        answer: "Frontend visual design focuses on brand aesthetics, color palettes, typography hierarchy, user interface layouts, and visual asset production to create an engaging brand identity. Codebase engineering translates visual designs into production-ready software using React components, Tailwind CSS styling, optimized JavaScript assets, server-side rendering logic, and secure API endpoints. While visual design ensures your website looks professional, codebase engineering guarantees that your website loads in under one second, remains secure against cyber threats, ranks effectively on search engines, and converts visitors into leads. Unsure which fits your business? A quick [Technical Architecture Audit](/audit) clarifies this."
       },
       {
-        question: "Who owns the codebase and visual design assets after completion?",
-        answer: "You own 100% of the custom codebase, design tokens, and digital assets upon project completion. There are no proprietary platform lock-ins or recurring license fees required to maintain your custom website."
+        question: "How does a custom Next.js website achieve fast mobile Core Web Vitals page speed?",
+        answer: "Custom Next.js web applications achieve sub-second mobile page loads through server-side rendering, automatic code splitting, optimized image loading, and decoupled architecture. Next.js compiles static HTML at build time, eliminating backend database execution delays when users visit your site. Furthermore, React Server Components isolate heavy dependencies on the server, serving minimal JavaScript bundles to mobile browsers. This architecture eliminates layout shift, reduces interaction latency, and guarantees 100% Core Web Vitals scores across all mobile cellular networks. Unsure which fits your business? A quick [Technical Architecture Audit](/audit) clarifies this."
+      },
+      {
+        question: "Do we get 100% source code ownership of our custom business website?",
+        answer: "Yes, you retain complete 100% source code ownership, design asset IP, and repository access upon completion of your custom business website project. We deliver full production source code via GitHub repositories along with modern deployment configurations for Vercel, Cloudflare, or your preferred cloud infrastructure. There are zero mandatory monthly maintenance lock-ins, proprietary framework licensing fees, or hidden platform host restrictions. Your team retains total control to host, modify, extend, or transfer your custom web application as your business scales. Unsure which fits your business? A quick [Technical Architecture Audit](/audit) clarifies this."
       }
     ],
     ctaHeading: "Ready to build a custom business website engineered for growth?",
-    ctaButtonText: "Plan Your Custom Website",
-    ctaSubtext: "Book a 30-minute discovery call to discuss your business bottlenecks, target audience intent, and web engineering requirements."
+    ctaButtonText: "Request a Technical Architecture Audit",
+    ctaSubtext: "Book an architecture discovery session to discuss your business bottlenecks, target audience intent, and technical web engineering requirements."
   },
 
   // =========================================================================
