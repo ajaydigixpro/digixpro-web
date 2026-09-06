@@ -382,8 +382,8 @@ export const ADVISORY_SERVICES: AdvisoryServiceItem[] = [
     "ctaButtonText": "Review a Technology Decision",
     "ctaSubtext": "Schedule a 30-minute discovery call to evaluate vendor proposals before signing contracts.",
     "lastUpdated": "2026-09-04",
-    "metaTitle": "Unbiased Technology Due Diligence & Vendor Risk Audits",
-    "metaDescription": "Independent technology due diligence and software vendor evaluation. Get codebase debt audits, security risk assessments, and build-vs-buy TCO models."
+    "metaTitle": "Technology Due Diligence & Vendor Evaluation Services",
+    "metaDescription": "Independent technology due diligence and vendor evaluation services. Objective codebase audits, systems architecture reviews, and software proposal vetting."
   },
   {
     "slug": "digital-transformation-consulting",
@@ -539,8 +539,8 @@ export const ADVISORY_SERVICES: AdvisoryServiceItem[] = [
     "ctaButtonText": "Discuss Your Transformation Roadmap",
     "ctaSubtext": "Book a 30-minute discovery call to evaluate your operational hierarchy and transformation readiness.",
     "lastUpdated": "2026-09-04",
-    "metaTitle": "Digital Transformation Consulting for Legacy Systems",
-    "metaDescription": "Practical digital transformation consulting focused on legacy system modernization, human workflow mapping, and eliminating manual operational bottlenecks."
+    "metaTitle": "Digital Transformation Consulting Services | DigiXPro",
+    "metaDescription": "Independent digital transformation consulting services. Align operational models, automate manual workflows, and engineer executable cloud transition plans."
   },
   {
     "slug": "business-systems-process-architecture",
@@ -699,8 +699,8 @@ export const ADVISORY_SERVICES: AdvisoryServiceItem[] = [
     "ctaButtonText": "Map Your Business Systems",
     "ctaSubtext": "Schedule a 30-minute discovery call to map your business processes into one connected system.",
     "lastUpdated": "2026-09-04",
-    "metaTitle": "Business Process Consulting & Operational Handoffs",
-    "metaDescription": "Expert business process consulting and systems architecture. We design cross-departmental handoff matrices and single source of truth operational schemas."
+    "metaTitle": "Business Process Consulting & Business Process Architecture | DigiXPro",
+    "metaDescription": "Independent business process consulting and systems architecture advisory. Eliminate tribal knowledge bottlenecks, map operational handoffs, and govern growth."
   },
   {
     "slug": "technology-roadmaps-architecture",
@@ -861,8 +861,8 @@ export const ADVISORY_SERVICES: AdvisoryServiceItem[] = [
     "ctaButtonText": "Plan Your Technology Roadmap",
     "ctaSubtext": "Book a 30-minute discovery call to map your target technology architecture and roadmap.",
     "lastUpdated": "2026-09-04",
-    "metaTitle": "Strategic Technology Roadmap Consulting & Execution Plans",
-    "metaDescription": "Strategic technology roadmap consulting. We deliver 3-phase execution roadmaps, technical dependency matrices, and system architecture transition plans."
+    "metaTitle": "Technology Roadmaps & Architecture Consulting | DigiXPro",
+    "metaDescription": "Independent enterprise architecture and technology roadmap consulting. Sequence technical decisions, eliminate software rework, and align team investments."
   },
   {
     "slug": "fractional-cto-technology-leadership",
@@ -1019,7 +1019,7 @@ export const ADVISORY_SERVICES: AdvisoryServiceItem[] = [
     "ctaButtonText": "Discuss Fractional CTO Support",
     "ctaSubtext": "Schedule a 30-minute discovery call to evaluate Fractional CTO leadership options.",
     "lastUpdated": "2026-09-04",
-    "metaTitle": "Fractional CTO Services & On-Demand Executive Tech Lead",
-    "metaDescription": "Strategic fractional CTO and technology leadership services on a flexible retainer. Get senior architecture guidance, code audits, and team governance."
+    "metaTitle": "Fractional CTO & Virtual CTO Services | DigiXPro",
+    "metaDescription": "Senior fractional CTO and virtual CTO services for growing companies. Ongoing executive technology leadership, architecture decisions, and vendor oversight."
   }
 ];

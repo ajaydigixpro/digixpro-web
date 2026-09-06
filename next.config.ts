@@ -69,7 +69,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/services/website-design-for-trades-and-contractors',
-        destination: '/design-services/small-business-websites',
+        destination: '/design-services/small-business-service-business-websites',
+        permanent: true,
+      },
+      {
+        source: '/design-services/small-business-websites',
+        destination: '/design-services/small-business-service-business-websites',
         permanent: true,
       },
       {

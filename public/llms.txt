@@ -28,7 +28,7 @@ Primary Markets: India (INR / ₹), United States / Global (USD / $), United Kin
 ## Segment 02 — Design & Build
 - Custom Business Website Design & Development: https://www.digixpro.in/design-services/custom-business-website-design
 - Website Redesign & SEO-Safe Rebuild: https://www.digixpro.in/design-services/website-redesign
-- Small Business & Service Business Websites: https://www.digixpro.in/design-services/small-business-websites
+- Small Business & Service Business Websites: https://www.digixpro.in/design-services/small-business-service-business-websites
 - Landing Page & Lead Generation Design: https://www.digixpro.in/design-services/landing-page-lead-generation
 - Website UX & Conversion Optimization: https://www.digixpro.in/design-services/website-conversion-optimization
 - SEO-Ready Website Engineering: https://www.digixpro.in/design-services/seo-ready-website-engineering

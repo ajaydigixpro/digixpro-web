@@ -81,7 +81,7 @@ export const designSubServices: DesignServiceItem[] = [
     heroHeading: "Custom Website Design Services for Small & Growing Businesses",
     heroSubheading: "Custom business website design is the engineering of bespoke web applications tailored directly to a company's brand authority, operational workflows, and commercial lead capture targets. Unlike rigid pre-made templates, professional custom website design services build decoupled frontend architecture using React and Next.js, ensuring 100% Core Web Vitals page speed, immune site security, and native search indexability for small business website design requirements.",
     metaTitle: "Custom Website Design Services for Small & Growing Businesses",
-    metaDescription: "Bespoke custom website design services and React/Next.js codebase engineering for small business website design requirements. 100% Core Web Vitals & lead capture.",
+    metaDescription: "Bespoke custom business website design and Next.js engineering for growing enterprises. Clean decoupled code, Core Web Vitals speed, and direct CRM plumbing.",
     shortDesc: "Bespoke web applications built on modern Next.js and React architecture. Engineered for visual authority, fast performance, search indexability, and B2B lead capture.",
     problemHeading: "Common Obstacles When Building a New Business Website",
     problemPoints: [
@@ -179,7 +179,7 @@ export const designSubServices: DesignServiceItem[] = [
     heroHeading: "Website Redesign & SEO-Safe Codebase Rebuild.",
     heroSubheading: "Modernize legacy WordPress or CMS platforms without risking existing Google rankings. We preserve canonical integrity, fix Core Web Vitals bottlenecks, and eliminate plugin security vulnerabilities.",
     metaTitle: "Website Redesign & SEO-Safe Rebuild Services",
-    metaDescription: "Modernize legacy websites without losing Google rankings. SEO-safe website redesign service preserving canonical integrity, 301 mappings, and Core Web Vitals speed.",
+    metaDescription: "Modernize legacy platforms without losing search ranks. SEO-safe website redesign services preserving canonical integrity, 301 mappings, and page speed.",
     shortDesc: "Modernize legacy WordPress or CMS platforms without risking existing Google rankings. Preserves canonical integrity, fixes Core Web Vitals bottlenecks, and eliminates plugin vulnerabilities.",
     problemHeading: "Critical Risks When Redesigning an Existing Business Website",
     problemPoints: [
@@ -236,7 +236,7 @@ export const designSubServices: DesignServiceItem[] = [
   // SERVICE 03: SMALL BUSINESS & SERVICE BUSINESS WEBSITES
   // =========================================================================
   {
-    slug: "small-business-websites",
+    slug: "small-business-service-business-websites",
     number: "03",
     title: "Small Business & Service Business Websites",
     primaryKeyword: "small business website design service",
@@ -342,7 +342,7 @@ export const designSubServices: DesignServiceItem[] = [
     heroHeading: "Landing Page & Lead Generation Conversion Design.",
     heroSubheading: "We design and engineer high-converting landing pages built for offer clarity, visitor intent alignment, friction-free lead capture forms, and automated CRM webhook routing.",
     metaTitle: "Landing Page Design & Lead Generation Services",
-    metaDescription: "High-converting landing page design services. Engineered for campaign offer clarity, visitor intent alignment, friction-free lead forms, and automated CRM webhooks.",
+    metaDescription: "High-converting landing page design services. Engineered for campaign offer clarity, visitor intent alignment, clean lead forms, and automated CRM webhooks.",
     shortDesc: "High-converting landing pages engineered for offer clarity, visitor intent alignment, friction-free lead capture forms, and automated CRM webhook routing.",
     problemHeading: "Why Ad Campaigns & Promotional Landing Pages Fail to Convert",
     problemPoints: [
@@ -423,7 +423,7 @@ export const designSubServices: DesignServiceItem[] = [
     heroHeading: "Website UX & Conversion Rate Optimization Services.",
     heroSubheading: "We diagnose user drop-off bottlenecks, eliminate conversion friction, and rebuild message hierarchy—connecting your web traffic directly with your commercial pipeline to turn visitors into booked calls.",
     metaTitle: "Website Conversion Optimization & UX Services",
-    metaDescription: "Turn existing website traffic into qualified enquiries. Website conversion optimization services, UX drop-off diagnostics, message hierarchy overhaul, and lead form friction reduction.",
+    metaDescription: "Turn existing traffic into qualified enquiries. Data-driven conversion optimization services, UX drop-off diagnostics, and high-intent lead form engineering.",
     shortDesc: "Diagnose user drop-off, eliminate conversion friction, and rebuild message hierarchy. Connects directly with your commercial pipeline to turn traffic into qualified calls.",
     problemHeading: "Why High Website Traffic Fails to Produce Business Enquiries",
     problemPoints: [
@@ -505,7 +505,7 @@ export const designSubServices: DesignServiceItem[] = [
     heroHeading: "SEO-Ready Website Engineering & Codebase Architecture.",
     heroSubheading: "We build search visibility directly into the codebase from line one—injecting automated JSON-LD schemas, clean HTML5 hierarchy, 100% Core Web Vitals speed, and machine-readable AI search (GEO) compatibility.",
     metaTitle: "SEO-Ready Website Engineering Services",
-    metaDescription: "Search visibility built into code, not bolted on later. SEO-ready website engineering with automated JSON-LD schemas, Core Web Vitals speed, and clean HTML5 hierarchy.",
+    metaDescription: "Bespoke SEO-ready website engineering and Next.js SEO architecture. Built-in technical SEO, automated JSON-LD schemas, and sub-second Core Web Vitals speed.",
     shortDesc: "Technical search architecture engineered into the codebase from line one. Automated JSON-LD schemas, clean HTML5 hierarchy, and machine-readable AI search (GEO) compatibility.",
     problemHeading: "Why Traditional Web Development Breaks Search Visibility",
     problemPoints: [

@@ -141,7 +141,7 @@ export const SEARCH_AUTOMATION_SERVICES: SearchAutomationServiceItem[] = [
     ctaSubtext: "Book a 30-minute growth systems call to evaluate your current search visibility and keyword strategy.",
     lastUpdated: "2026-08-26",
     metaTitle: "SEO Services & Organic Search Visibility",
-    metaDescription: "Technical SEO services, commercial keyword mapping, on-page optimization, and organic search visibility strategy for growing businesses."
+    metaDescription: "Technical SEO services, commercial keyword mapping, technical on-page optimization, and organic search visibility strategy for growing business websites."
   },
 
   // =========================================================================
@@ -320,7 +320,7 @@ export const SEARCH_AUTOMATION_SERVICES: SearchAutomationServiceItem[] = [
     ctaSubtext: "Book a 30-minute growth systems call to evaluate your local map pack rankings and lead generation.",
     lastUpdated: "2026-08-26",
     metaTitle: "Local SEO Services & Google Business Visibility",
-    metaDescription: "Local SEO services, Google Business Profile optimization, local map pack rankings, and geo-targeted lead generation for service businesses."
+    metaDescription: "Targeted local SEO services, Google Business Profile optimization, local map pack rankings, and high-intent geo-targeted lead acquisition for service firms."
   },
 
   // =========================================================================
@@ -455,31 +455,31 @@ export const SEARCH_AUTOMATION_SERVICES: SearchAutomationServiceItem[] = [
     faqs: [
       {
         question: "What business processes can be automated using custom workflow automation?",
-        answer: "Workflow automation streamlines repetitive operational tasks including inbound lead routing, CRM data synchronization, customer onboarding emails, invoice generation, and cross-system data transfers. Connecting software applications via secure API webhooks eliminates manual data entry, reduces human error, and speeds up internal task execution. Automated workflows handle routine cross-platform data exchanges, freeing your staff to focus on high-value client advisory work and scaling operational capacity without proportional hiring costs."
+        answer: "Workflow automation streamlines repetitive operational tasks including inbound lead routing, CRM data synchronization, customer onboarding notifications, invoice generation, and cross-system data transfers. Connecting software applications via secure API webhooks eliminates manual copy-paste effort, reduces human error, and speeds up internal task execution. To evaluate indicative automation pricing frameworks, explore the [DigiXPro Investment Guide](/pricing)."
       },
       {
-        question: "What is the difference between low-code platforms like n8n or Zapier and custom API automation?",
-        answer: "n8n and Zapier offer visual workflow canvases that rapidly connect standard SaaS applications through pre-built API nodes. In contrast, custom API automation requires writing dedicated Node.js or Python integration scripts to handle proprietary database schemas, complex data transformations, and high-volume data streams. Low-code automation minimizes initial setup friction for standard business workflows, whereas custom scripts cater to strict enterprise security standards and non-standard internal software environments."
+        question: "What is the difference between n8n / Zapier and custom API automation?",
+        answer: "n8n and Zapier provide visual workflow canvases that rapidly connect standard SaaS applications through pre-built API nodes. In contrast, custom API automation requires writing dedicated integration scripts to handle proprietary database schemas, complex data transformations, and high-volume data streams. Low-code automation minimizes initial setup friction for standard business workflows, whereas custom scripts cater to strict enterprise security standards and non-standard internal software environments."
+      },
+      {
+        question: "Zapier vs Make — which is right for your business?",
+        answer: "Choosing between Zapier and Make depends on workflow complexity, team technical expertise, and task execution volume. Zapier excels for non-technical teams seeking rapid point-to-point connections across standard SaaS applications with minimal setup friction. Make (formerly Integromat) provides a visual canvas with advanced data transformation controls, complex multi-branch routing, and lower high-volume execution pricing. However, both SaaS platforms charge ongoing per-task fees and process data on shared third-party cloud servers. For businesses requiring strict data privacy, zero task execution caps, and full infrastructure control, self-hosted n8n and custom API webhooks offer superior long-term ownership."
       },
       {
         question: "Will workflow automation replace our existing software systems or work alongside them?",
-        answer: "Automated workflows operate directly alongside your current software tools, linking separate SaaS platforms, CRMs, and internal databases into a unified operational network. API webhooks pass data smoothly between applications like HubSpot, Slack, Google Workspace, and SQL backends without replacing existing software investments. Connecting your software stack eliminates manual file exports and data silos, creating seamless end-to-end operational processes without disrupting daily business operations."
+        answer: "Automated workflows operate directly alongside your current software tools, linking separate SaaS platforms, CRMs, and internal databases into a unified operational network. API webhooks pass data smoothly between applications like HubSpot, Slack, Google Workspace, and SQL backends without replacing existing software investments. Connecting your software stack eliminates manual file exports and data silos, creating seamless end-to-end operational processes."
       },
       {
         question: "How do you ensure data security and compliance when connecting business systems?",
-        answer: "We maintain data security by enforcing encrypted OAuth2 authentication, TLS 1.3 transit encryption, restricted API access tokens, and isolated server execution environments. Workflows process data payloads securely without storing sensitive customer information permanently on intermediary integration servers. Rate-limiting and error logging protocols prevent unauthorized system access and protect data integrity during high-volume API transfers, ensuring compliant security engineering that satisfies strict privacy regulations."
+        answer: "We maintain data security by enforcing encrypted OAuth2 authentication, TLS 1.3 transit encryption, restricted API access tokens, and isolated server execution environments. Workflows process data payloads securely without storing sensitive customer information permanently on intermediary integration servers. Rate-limiting and error logging protocols prevent unauthorized system access and protect data integrity during high-volume API transfers."
       },
       {
         question: "How long does a typical workflow automation implementation take?",
-        answer: "Deploying an operational automation system generally takes 2 to 5 weeks from initial process mapping to live production release. Standard multi-app lead routing integrations are often operational within 10 business days. Complex enterprise projects featuring custom database mapping, multi-stage conditional branching, and legacy software connectors follow a structured 4-week development roadmap, including extensive sandbox testing to guarantee complete data accuracy."
+        answer: "Deploying an operational automation system generally takes 2 to 5 weeks from initial process mapping to live production release. Standard multi-app lead routing integrations are often operational within 10 business days. Complex enterprise projects featuring custom database mapping, multi-stage conditional branching, and legacy software connectors follow a structured 4-week development roadmap, including extensive sandbox testing to ensure complete data accuracy."
       },
       {
         question: "How do you handle error monitoring and system failures in automated workflows?",
-        answer: "Our integration architecture incorporates automated retry loops, dead-letter queue storage, and real-time alert notifications sent to Slack or email upon system exceptions. If an external SaaS platform experiences temporary API downtime, fallback scripts hold failed payloads securely and retry execution once connectivity recovers. Detailed execution logging allows engineers to diagnose and resolve third-party API changes rapidly, guaranteeing zero data loss during platform service outages."
-      },
-      {
-        question: "What is the expected return on investment (ROI) from business workflow automation?",
-        answer: "Workflow automation yields immediate financial returns by eliminating hundreds of manual labor hours annually, minimizing costly data entry errors, and accelerating lead response speed. Automating inbound lead distribution enables rapid sales follow-up, significantly increasing consultation booking rates and customer capture. Streamlining administrative tasks allows your team to manage larger client volumes without hiring additional staff, enabling most automation projects to achieve full cost payback within 3 to 6 months."
+        answer: "Our integration architecture incorporates automated retry loops, dead-letter queue storage, and real-time alert notifications sent to Slack or email upon system exceptions. If an external SaaS platform experiences temporary API downtime, fallback scripts hold failed payloads securely and retry execution once connectivity recovers. Detailed execution logging allows engineers to diagnose and resolve third-party API changes rapidly, avoiding data loss during platform service outages."
       },
       {
         question: "Can custom AI models or LLMs be integrated into daily business workflows?",
@@ -487,11 +487,7 @@ export const SEARCH_AUTOMATION_SERVICES: SearchAutomationServiceItem[] = [
       },
       {
         question: "What ongoing support and maintenance are required after automation workflows are deployed?",
-        answer: "Automated workflows require periodic maintenance to adapt to third-party SaaS API schema changes, security patch releases, and expanding operational requirements. Our ongoing maintenance retainers supply continuous API execution monitoring, script adjustments, security updates, and workflow expansion credits. Proactive maintenance ensures your automated system adapts smoothly whenever third-party software vendors modify API endpoints, guaranteeing unbroken operational continuity across connected systems seamlessly."
-      },
-      {
-        question: "How do you get started with a workflow automation audit?",
-        answer: "Starting an automation project begins with mapping your manual workflows during a technical operational audit. Our senior integration engineers analyze your software stack and process bottlenecks to identify high-impact automation targets. To schedule a workflow audit, submit your request via /audit or book a call on /contact. You can also explore indicative automation pricing models directly inside our [Investment Guide](/pricing)."
+        answer: "Automated workflows require periodic maintenance to adapt to third-party SaaS API schema changes, security patch releases, and expanding operational requirements. Our ongoing maintenance retainers supply continuous API execution monitoring, script adjustments, security updates, and workflow expansion credits. Proactive maintenance ensures your automated system adapts smoothly whenever third-party software vendors modify API endpoints, guaranteeing unbroken operational continuity across connected systems."
       }
     ],
     ctaHeading: "Ready to eliminate manual copy-paste tasks and automate operational workflows?",
@@ -499,7 +495,7 @@ export const SEARCH_AUTOMATION_SERVICES: SearchAutomationServiceItem[] = [
     ctaSubtext: "Book a 30-minute growth systems call to evaluate your workflow automation opportunities.",
     lastUpdated: "2026-08-26",
     metaTitle: "Workflow & AI Automation Services | n8n & API Engineering",
-    metaDescription: "Production workflow automation, n8n pipeline engineering, custom API webhook integrations, AI model connections, and business process automation."
+    metaDescription: "Production workflow automation, n8n pipeline engineering, custom API webhook integrations, AI model connections, and reliable business process automation."
   },
 
   // =========================================================================
@@ -588,6 +584,6 @@ export const SEARCH_AUTOMATION_SERVICES: SearchAutomationServiceItem[] = [
     ctaSubtext: "Book a 30-minute growth systems call to evaluate your lead management infrastructure.",
     lastUpdated: "2026-08-26",
     metaTitle: "Lead Capture, CRM & Sales Automation Systems",
-    metaDescription: "Lead capture system engineering, CRM automation, instant lead routing, sales pipeline tracking, and automated lead follow-up workflows."
+    metaDescription: "Engineered lead capture automation and CRM lead generation systems. Connect web forms to instant WhatsApp alerts, automated routing, and sales pipelines."
   }
 ];
