@@ -7,6 +7,12 @@ import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import FAQSchema from '@/components/seo/FAQSchema';
 import ProfessionalServiceSchema from '@/components/seo/ProfessionalServiceSchema';
 import DeferredStickyMobileCTA from '@/components/layout/DeferredStickyMobileCTA';
+import ItConsultingTechnologyStrategyView from '@/components/advisory/ItConsultingTechnologyStrategyView';
+import TechnologyDueDiligenceVendorEvaluationView from '@/components/advisory/TechnologyDueDiligenceVendorEvaluationView';
+import DigitalTransformationConsultingView from '@/components/advisory/DigitalTransformationConsultingView';
+import BusinessSystemsProcessArchitectureView from '@/components/advisory/BusinessSystemsProcessArchitectureView';
+import TechnologyRoadmapsArchitectureView from '@/components/advisory/TechnologyRoadmapsArchitectureView';
+import FractionalCtoTechnologyLeadershipView from '@/components/advisory/FractionalCtoTechnologyLeadershipView';
 import { 
   ArrowRight, 
   CheckCircle2, 
@@ -102,6 +108,30 @@ export default async function AdvisorySubServicePage({ params }: PageProps) {
 
   if (!service) {
     notFound();
+  }
+
+  if (slug === "it-consulting-technology-strategy") {
+    return <ItConsultingTechnologyStrategyView />;
+  }
+
+  if (slug === "technology-due-diligence-vendor-evaluation") {
+    return <TechnologyDueDiligenceVendorEvaluationView />;
+  }
+
+  if (slug === "digital-transformation-consulting") {
+    return <DigitalTransformationConsultingView />;
+  }
+
+  if (slug === "business-systems-process-architecture") {
+    return <BusinessSystemsProcessArchitectureView />;
+  }
+
+  if (slug === "technology-roadmaps-architecture") {
+    return <TechnologyRoadmapsArchitectureView />;
+  }
+
+  if (slug === "fractional-cto-technology-leadership") {
+    return <FractionalCtoTechnologyLeadershipView />;
   }
 
   const canonicalUrl = `https://www.digixpro.in/advisory/${service.slug}`;
