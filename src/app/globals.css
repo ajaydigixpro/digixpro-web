@@ -75,6 +75,8 @@
   --color-brand-green: var(--brand-green);
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-plex-sans: var(--font-ibm-plex-sans), system-ui, -apple-system, sans-serif;
+  --font-plex-mono: var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
 html {
