@@ -52,10 +52,6 @@ export const workflowAiFaqs = [
     answer: "Workflow automation streamlines repetitive operational tasks including inbound lead routing, CRM data synchronization, customer onboarding notifications, invoice generation, and cross-system data transfers. Connecting software applications via secure API webhooks eliminates manual copy-paste effort, reduces human error, and speeds up internal task execution. To evaluate indicative automation pricing frameworks, explore the [DigiXPro Investment Guide](/pricing)."
   },
   {
-    question: "What business processes can actually be automated?",
-    answer: "Business processes that follow predictable rules or involve data movement across applications can be automated cleanly using modern workflow pipelines and AI models. Common operational use cases include automating repetitive data entry across spreadsheets, routing inbound sales leads instantly to assigned CRM account owners, sending real-time notifications to team channels upon customer events, parsing unstructured PDF invoices and incoming email documents, and generating scheduled executive reporting feeds. By replacing manual administrative handoffs with automated API webhooks and self-hosted n8n workflows, organizations accelerate operational speed, eliminate copy-paste human errors, and scale processing capacity without incurring proportional staffing overhead."
-  },
-  {
     question: "What is the difference between n8n / Zapier and custom API automation?",
     answer: "n8n and Zapier provide visual workflow canvases that rapidly connect standard SaaS applications through pre-built API nodes. In contrast, custom API automation requires writing dedicated integration scripts to handle proprietary database schemas, complex data transformations, and high-volume data streams. Low-code automation minimizes initial setup friction for standard business workflows, whereas custom scripts cater to strict enterprise security standards and non-standard internal software environments."
   },
@@ -78,6 +74,14 @@ export const workflowAiFaqs = [
   {
     question: "How do you handle error monitoring and system failures in automated workflows?",
     answer: "Our integration architecture incorporates automated retry loops, dead-letter queue storage, and real-time alert notifications sent to Slack or email upon system exceptions. If an external SaaS platform experiences temporary API downtime, fallback scripts hold failed payloads securely and retry execution once connectivity recovers. Detailed execution logging allows engineers to diagnose and resolve third-party API changes rapidly, avoiding data loss during platform service outages."
+  },
+  {
+    question: "Can custom AI models or LLMs be integrated into daily business workflows?",
+    answer: "We embed advanced LLMs (such as OpenAI GPT-4 or Anthropic Claude) directly into automated business workflows via API endpoints to handle complex cognitive tasks. Custom AI nodes analyze incoming customer emails, summarize lengthy PDF uploads, categorize support tickets, and draft tailored response copy automatically. Intelligent automation processes unstructured text instantly, delivering smart assistance within Slack or CRM interfaces to accelerate team decision-making."
+  },
+  {
+    question: "What ongoing support and maintenance are required after automation workflows are deployed?",
+    answer: "Automated workflows require periodic maintenance to adapt to third-party SaaS API schema changes, security patch releases, and expanding operational requirements. Our ongoing maintenance retainers supply continuous API execution monitoring, script adjustments, security updates, and workflow expansion credits. Proactive maintenance ensures your automated system adapts smoothly whenever third-party software vendors modify API endpoints, guaranteeing unbroken operational continuity across connected systems."
   }
 ];
 
