@@ -106,8 +106,40 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
+import SeoSearchVisibilityView from '@/components/search-automation/SeoSearchVisibilityView';
+import LocalSeoLeadVisibilityView from '@/components/search-automation/LocalSeoLeadVisibilityView';
+import WorkflowAiAutomationView from '@/components/search-automation/WorkflowAiAutomationView';
+import LeadCaptureCrmSalesAutomationView from '@/components/search-automation/LeadCaptureCrmSalesAutomationView';
+import AiSearchOptimizationGeoView from '@/components/search-automation/AiSearchOptimizationGeoView';
+import SocialMediaManagementView from '@/components/search-automation/SocialMediaManagementView';
+
 export default async function SearchAutomationSubServicePage({ params }: PageProps) {
   const { slug } = await params;
+
+  if (slug === 'seo-search-visibility') {
+    return <SeoSearchVisibilityView />;
+  }
+
+  if (slug === 'local-seo-lead-visibility') {
+    return <LocalSeoLeadVisibilityView />;
+  }
+
+  if (slug === 'workflow-ai-automation') {
+    return <WorkflowAiAutomationView />;
+  }
+
+  if (slug === 'lead-capture-crm-sales-automation') {
+    return <LeadCaptureCrmSalesAutomationView />;
+  }
+
+  if (slug === 'ai-search-optimization-geo') {
+    return <AiSearchOptimizationGeoView />;
+  }
+
+  if (slug === 'social-media-management' || slug === 'social-media-management-content-systems') {
+    return <SocialMediaManagementView />;
+  }
+
   const service = SEARCH_AUTOMATION_SERVICES.find((s) => s.slug === slug);
 
   if (!service) {
