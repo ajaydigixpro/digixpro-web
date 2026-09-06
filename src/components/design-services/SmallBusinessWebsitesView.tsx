@@ -52,58 +52,55 @@ function slugify(text: string): string {
     .replace(/\s+/g, '-');
 }
 
-export const customBusinessWebsiteFaqs = [
+export const smallBusinessWebsitesFaqs = [
   {
-    question: "What is custom website design and how does it differ from template websites?",
-    answer: "Custom website design is the engineering of bespoke web applications tailored directly to a company's brand identity, operational workflows, and conversion requirements rather than forcing content into pre-packaged themes. Off-the-shelf templates rely on monolithic CMS platforms like WordPress, which ship with bloated CSS, unoptimized JavaScript, unused third-party plugins, and rigid layout boundaries that restrict brand authority. In contrast, our custom business website design services build clean codebases optimized for top-tier Core Web Vitals speed, zero plugin vulnerability risk, and complete architectural scalability. To compare detailed investment tiers for custom builds versus template migrations, review the [DigiXPro Investment Guide](/pricing)."
+    question: "How much does a small business website cost?",
+    answer: "Small business website pricing varies dramatically across the market, ranging from cheap five-thousand-rupee freelancer templates to seventy-thousand-rupee commercial platforms. Cheap template setups often carry hidden costs in plugin subscriptions, frequent security patches, slow mobile performance, and eventual total rebuilds. At DigiXPro, we deliver complete bespoke web systems engineered for performance, clean code ownership, and direct lead generation starting from transparent, fixed-scope milestones. We provide itemized pricing with zero monthly builder subscriptions or hidden hosting lock-in fees. To review full investment tiers, milestone timelines, and scope specifications, view our comprehensive [Investment & Pricing Guide](/pricing)."
   },
   {
-    question: "What does custom website design cost in India?",
-    answer: "Custom website design cost in India varies based on project scope, custom UI component design, workflow complexity, and API integrations. Professional web designer charges in India for custom-engineered business websites typically start with fixed milestone deliverables for architecture, design tokens, codebase construction, and technical SEO. Unlike cheap template sites that incur ongoing plugin fixes and security maintenance, a custom business website provides a high-performing digital asset engineered for conversion. Review detailed pricing tiers and scoping benchmarks in the [DigiXPro Investment Guide](/pricing)."
+    question: "Why shouldn't I just build my own website on Wix, Squarespace, or a cheap WordPress template?",
+    answer: "While DIY builders like Wix or Squarespace appear cost-effective initially, they trap service businesses in perpetual platform rent while delivering heavy, slow-loading JavaScript that degrades Google Core Web Vitals. Furthermore, DIY platforms restrict custom schema implementation and make exporting your codebase impossible. Cheap WordPress templates present equal risks through unmaintained third-party plugins that create severe security vulnerabilities and break during updates. DigiXPro builds bespoke web applications in modern Next.js and TypeScript. You receive sub-second page load times, precision LocalBusiness schema, automated lead routing, and complete code ownership without recurring software licensing fees."
   },
   {
-    question: "How much should a website cost for a small business?",
-    answer: "For a small business, website cost depends on whether you choose a generic template platform or a custom-engineered web application. While basic template setups have lower upfront costs, they often lead to hidden expenses in plugin licenses, slow mobile load speeds, security vulnerabilities, and frequent redesigns. A custom business website design provides a long-term commercial asset with zero plugin bloat, sub-second load times, and direct lead capture webhooks. For transparent pricing packages and project scopes, view the [DigiXPro Investment Guide](/pricing)."
+    question: "How long does it take to design and launch a service business website?",
+    answer: "A typical bespoke service business web project takes between two and four weeks from architectural kickoff to production launch. Essential service architectures with up to five key service pages generally deploy within fourteen to twenty-one business days. More expansive commercial platforms—requiring multi-location pages, interactive intake qualification funnels, and complex CRM webhook integrations—typically take four to six weeks. Because we work with fixed milestones and clear scope specifications, we avoid the open-ended timeline bloat common among traditional web agencies. You receive a structured delivery schedule with guaranteed milestone completion dates."
   },
   {
-    question: "How much does it cost to build a custom website from scratch?",
-    answer: "Building a custom website from scratch involves comprehensive discovery, UX design system tokens, frontend engineering, database or webhook routing, and technical SEO optimization. Pricing is determined by total page count, custom workflow features, CRM integrations, and performance targets. Investing in a custom build eliminates platform lock-in and monthly plugin subscription fees while delivering superior search indexability and lead conversion. Explore full commercial terms and milestone breakdowns in the [DigiXPro Investment Guide](/pricing)."
+    question: "Will my service business website rank on Google for local searches?",
+    answer: "Yes. We engineer every service website with technical SEO and local discoverability built directly into the foundational codebase. This includes semantic HTML5 structure, automated XML sitemaps, localized breadcrumb schemas, and precision LocalBusiness and MedicalBusiness JSON-LD schemas that help Google understand your physical service areas. In addition, our sub-second page speeds ensure your site easily passes Google Core Web Vitals benchmarks. When combined with a verified Google Business Profile, this technical foundation creates the necessary search equity for your practice or company to rank prominently in local Google Maps 3-Pack and organic search results."
   },
   {
-    question: "How long does it take to build a professional business website?",
-    answer: "A custom business website project typically takes 4 to 8 weeks from initial technical discovery to production launch. Phase 1 (Weeks 1–2) covers architecture mapping and wireframing. Phase 2 (Weeks 3–4) establishes UI design tokens and responsive component layouts. Phase 3 (Weeks 5–7) executes custom codebase engineering and API webhook plumbing. Phase 4 (Week 8) conducts Core Web Vitals testing and production release. View detailed delivery schedules and project milestones in the [DigiXPro Investment Guide](/pricing)."
+    question: "Do I own the website and source code completely?",
+    answer: "Yes. With DigiXPro, you retain one hundred percent legal ownership of your design assets, content, and application source code. Unlike proprietary SaaS builders where your website ceases to exist if you cancel your monthly platform subscription, our codebases are completely portable. We build on modern, open-source technology standards including Next.js, React, and Tailwind CSS. Upon project completion, we hand over full repository access and deployment documentation. You can host your application on high-performance global edge networks like Vercel, Cloudflare, or AWS with minimal infrastructure expense and complete operational independence."
   },
   {
-    question: "How to choose the right website design company?",
-    answer: "To choose the right website design company, evaluate their technical architecture, verified client case studies, codebase security standards, and lead capture capabilities rather than relying solely on visual portfolios. A reputable web engineering firm provides full source code ownership, decoupled performance architecture, direct CRM webhooks, and documented Core Web Vitals benchmarks. Inspect our verified [client case study evidence](/evidence) to see real-world project outcomes, or learn more about our engineering team on the [DigiXPro Founder page](/founder)."
-  },
-  {
-    question: "Custom website vs WordPress — which is right for your business?",
-    answer: "A custom website is right for businesses prioritizing sub-second performance, robust security, and long-term brand authority over quick template deployment. WordPress sites frequently suffer from plugin bloat, database exploits, slow mobile loading, and high maintenance overhead. Modern custom web applications serve pre-compiled static pages and optimized components across global CDNs, eliminating database latency and security risks. Unsure which architecture fits your business? Request a [Technical Architecture Audit](/audit) for a detailed evaluation."
-  },
-  {
-    question: "Custom website vs Shopify — which is right for an online store?",
-    answer: "Custom website architecture is ideal for online stores requiring unique product customizers, complex B2B workflow logic, or independence from proprietary platform transaction fees and rigid template constraints. While Shopify works well for standard D2C retail catalogs, custom e-commerce engines (built with custom PHP or React/Next.js) provide complete code ownership, tailored checkout flows, and sub-second page performance. Evaluate your platform requirements with a [Technical Architecture Audit](/audit)."
-  },
-  {
-    question: "Custom website design vs template — what's the real difference?",
-    answer: "The real difference between custom website design and template builds lies in code quality, page speed, security posture, and conversion flexibility. Templates force your brand content into rigid pre-existing layouts filled with bloated, unused code and vulnerable third-party plugins. Custom website design builds a clean, lightweight codebase tailored specifically to your user journeys, search SEO requirements, and CRM integrations. Compare technical trade-offs by requesting a [Technical Architecture Audit](/audit)."
+    question: "Can you integrate appointment booking, WhatsApp messaging, and CRM leads?",
+    answer: "Yes. Direct lead conversion is a core architectural pillar of our service business builds. We engineer friction-free inquiry forms that trigger instant webhook dispatches to your customer relationship management platform, whether you utilize HubSpot, Zoho, Google Sheets, or custom internal pipelines. For mobile visitors seeking immediate answers, we configure direct click-to-WhatsApp and click-to-call routing with built-in analytics event tracking. This ensures you never miss a high-intent inbound prospect while capturing granular attribution data on which service pages and search queries generate your highest-value commercial inquiries."
   }
 ];
 
+/*
+ * ============================================================================
+ * FLAGGED DRAFT FAQ 7 (NOT YET ADDED - AWAITING FOUNDER CONFIRMATION):
+ * Question: "What ongoing maintenance or retainer support is required after launch?"
+ * Draft Answer: "Because our custom Next.js architectures are decoupled and statically pre-rendered, they do not require constant security patching, database defragmentation, or vulnerability updates like legacy CMS setups. We provide optional managed support retainers covering continuous conversion optimization, localized content publishing, and analytics tracking reviews."
+ * Status: NOT YET ADDED TO ACTIVE FAQ LIST (PRESERVED FOR FUTURE EXPANSION)
+ * ============================================================================
+ */
+
 export const h2TocSections = [
-  { text: "What Is Custom Business Website Design?", id: "what-is-custom-business-website-design" },
-  { text: "Who Custom Website Design Services Are For", id: "who-custom-website-design-services-are-for" },
-  { text: "DigiXPro's Website Design & Development Process", id: "digixpros-website-design-development-process" },
-  { text: "What's Included in Custom Website Development", id: "whats-included-in-custom-website-development" },
-  { text: "Custom Website vs Template vs Platform", id: "custom-website-vs-template-vs-platform" },
-  { text: "Evidence: Custom Business Website Design in Action", id: "evidence-custom-business-website-design-in-action" },
+  { text: "What Is Service Business Website Design?", id: "what-is-service-business-website-design" },
+  { text: "Who Small & Service Business Website Design Is For", id: "who-small-service-business-website-design-is-for" },
+  { text: "Our 4-Step Small Business Web Engineering Methodology", id: "our-4-step-small-business-web-engineering-methodology" },
+  { text: "What's Included in Service Business Website Development", id: "whats-included-in-service-business-website-development" },
+  { text: "Bespoke Service Engineering vs Generic DIY Builders vs Cheap Templates", id: "bespoke-service-engineering-vs-generic-diy-builders-vs-cheap-templates" },
+  { text: "Evidence: Service Business Web Engineering in Action", id: "evidence-service-business-web-engineering-in-action" },
   { text: "Custom Website Design Company Serving Delhi NCR", id: "custom-website-design-company-serving-delhi-ncr" },
   { text: "Frequently Asked Questions", id: "frequently-asked-questions" }
 ];
 
-export default function CustomBusinessWebsiteDesignView() {
-  const currentUrl = "https://www.digixpro.in/design-services/custom-business-website-design";
+export default function SmallBusinessWebsitesView() {
+  const currentUrl = "https://www.digixpro.in/design-services/small-business-service-business-websites";
 
   const [openFaqs, setOpenFaqs] = useState<Record<number, boolean>>({});
 
@@ -111,14 +108,14 @@ export default function CustomBusinessWebsiteDesignView() {
     setOpenFaqs((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
-  const isAllOpen = customBusinessWebsiteFaqs.length > 0 && customBusinessWebsiteFaqs.every((_, i) => !!openFaqs[i]);
+  const isAllOpen = smallBusinessWebsitesFaqs.length > 0 && smallBusinessWebsitesFaqs.every((_, i) => !!openFaqs[i]);
 
   const toggleAllFaqs = () => {
     if (isAllOpen) {
       setOpenFaqs({});
     } else {
       const allOpen: Record<number, boolean> = {};
-      customBusinessWebsiteFaqs.forEach((_, i) => {
+      smallBusinessWebsitesFaqs.forEach((_, i) => {
         allOpen[i] = true;
       });
       setOpenFaqs(allOpen);
@@ -128,27 +125,27 @@ export default function CustomBusinessWebsiteDesignView() {
   const serviceSchemaObj = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Custom Website Design Services for Small & Growing Businesses",
+    "name": "Small Business & Service Business Website Design",
     "provider": {
       "@type": "ProfessionalService",
       "name": "DigiXPro Digital Solution",
       "url": "https://www.digixpro.in"
     },
-    "serviceType": "Custom Website Design & Development",
-    "description": "Bespoke custom website design services and code engineering for growing B2B business website design requirements. Engineered for top-tier Core Web Vitals & lead capture.",
+    "serviceType": "Small Business Website Design & Engineering",
+    "description": "Bespoke small business website design and service business web engineering. High-converting Next.js architectures with local search schemas and direct lead capture.",
     "url": currentUrl,
-    "dateModified": "2026-09-05",
+    "dateModified": "2026-09-06",
     "areaServed": ["Delhi NCR", "Delhi", "Noida", "Gurgaon", "US", "UK", "AU", "SG", "IN"],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Custom Website Development Scope",
+      "name": "Service Business Web Development Scope",
       "itemListElement": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
             "name": "Design Scope",
-            "description": "Accessible UI/UX design tokens, Tailwind CSS component library, responsive viewports, and enterprise visual authority."
+            "description": "Accessible service UI/UX tokens, high-converting mobile wireframes, transparent service packaging, and frictionless booking UX."
           },
           "position": 1
         },
@@ -157,7 +154,7 @@ export default function CustomBusinessWebsiteDesignView() {
           "itemOffered": {
             "@type": "Service",
             "name": "Development Scope",
-            "description": "Decoupled static & server rendering, React or custom PHP engines, zero third-party plugin bloat, sub-second speed."
+            "description": "Decoupled Next.js architecture, zero monthly platform fees, sub-second mobile page speed, and complete code ownership."
           },
           "position": 2
         },
@@ -166,7 +163,7 @@ export default function CustomBusinessWebsiteDesignView() {
           "itemOffered": {
             "@type": "Service",
             "name": "Integrations",
-            "description": "Direct API webhooks connecting lead capture forms to CRM platforms (Notion, HubSpot, WhatsApp, n8n automation)."
+            "description": "Direct API webhooks connecting inquiry forms to WhatsApp, CRM platforms, Google Sheets, and phone consultation routing."
           },
           "position": 3
         },
@@ -175,7 +172,7 @@ export default function CustomBusinessWebsiteDesignView() {
           "itemOffered": {
             "@type": "Service",
             "name": "SEO-Readiness",
-            "description": "Automated JSON-LD structured data schemas, canonical tag management, semantic HTML5, top-tier Core Web Vitals performance."
+            "description": "Automated LocalBusiness and Service JSON-LD structured data schemas, local catchment sitemaps, and top Core Web Vitals speed."
           },
           "position": 4
         }
@@ -194,10 +191,10 @@ export default function CustomBusinessWebsiteDesignView() {
         items={[
           { name: 'Home', url: 'https://www.digixpro.in' },
           { name: 'Website Design & Engineering', url: 'https://www.digixpro.in/design-services' },
-          { name: 'Custom Website Design Services for Small & Growing Businesses', url: currentUrl },
+          { name: 'Small Business & Service Business Website Design', url: currentUrl },
         ]}
       />
-      <FAQSchema items={customBusinessWebsiteFaqs} />
+      <FAQSchema items={smallBusinessWebsitesFaqs} />
 
       {/* ZONE 1: HERO & TOC SECTION */}
       <section className="bg-white dark:bg-[#0A0A0A] pt-10 md:pt-16 pb-16 md:pb-20 border-b border-neutral-200 dark:border-neutral-800">
@@ -220,7 +217,7 @@ export default function CustomBusinessWebsiteDesignView() {
             <div className="lg:col-span-7">
               {/* EXACT H1 TAG (1 ONLY ON PAGE) */}
               <h1 className="hero-lcp-heading text-[38px] md:text-[54px] font-extrabold tracking-tight leading-[1.08] mb-6 text-black dark:text-white font-plex-sans">
-                Custom Website Design Services for Small &amp; Growing Businesses
+                Small Business &amp; Service Business Website Design
               </h1>
 
               {/* GEO QUICK SUMMARY / TL;DR BLOCK */}
@@ -229,17 +226,17 @@ export default function CustomBusinessWebsiteDesignView() {
                   QUICK SUMMARY / TL;DR
                 </div>
                 <p className="text-[15px] md:text-[16px] font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">
-                  Custom business website design services engineer bespoke, clean-coded web applications tailored for small and growing B2B enterprises. This service replaces slow, plugin-heavy template platforms with modern decoupled architecture, top-tier Core Web Vitals speed, automated search indexability, and direct API lead capture webhooks.
+                  Bespoke small business website design delivers high-converting, lightweight web applications engineered specifically for medical clinics, local trade contractors, and professional service firms. This architecture eliminates fragile DIY builder lock-in with clean Next.js code, sub-second Core Web Vitals speed, automated local search indexability, and direct WhatsApp and CRM appointment capture.
                 </p>
               </div>
 
               {/* DEFINITION & SITUATION */}
               <div className="border-l-4 border-neutral-300 dark:border-neutral-700 pl-4 md:pl-6 mb-8">
                 <p className="text-[16px] md:text-[18px] font-medium text-neutral-700 dark:text-neutral-300 leading-relaxed mb-3">
-                  Custom business website design is the engineering of bespoke web applications tailored directly to a company&apos;s brand authority, operational workflows, and commercial lead capture targets. Unlike rigid pre-made templates, professional custom website design services build clean, custom codebases (using Next.js/React or custom PHP engines based on scope), ensuring top-tier Core Web Vitals page speed, robust site security, and native search indexability for growing B2B enterprise website design requirements.
+                  Small business and service business website design is the engineering of purpose-built, high-converting digital platforms for service providers, clinics, consultancies, and commercial trade businesses. Unlike slow, plugin-dependent DIY template builders, professional service business website engineering builds clean, bespoke codebases optimized for rapid local discovery, mobile appointment conversions, and direct CRM lead capture.
                 </p>
                 <div className="text-xs font-plex-mono font-semibold text-[#16a34a]">
-                  Buyer Situation: &ldquo;I need a new business website engineered for speed, authority, and lead capture.&rdquo;
+                  Buyer Situation: &ldquo;I need a website designed around how my business actually gets enquiries.&rdquo;
                 </div>
               </div>
 
@@ -289,7 +286,7 @@ export default function CustomBusinessWebsiteDesignView() {
                       CODE OWNERSHIP
                     </div>
                     <div className="text-sm font-bold text-black dark:text-white">
-                      100% Repository IP &amp; Source Code Ownership
+                      100 Percent Repository IP &amp; Source Code Ownership
                     </div>
                   </div>
 
@@ -368,14 +365,14 @@ export default function CustomBusinessWebsiteDesignView() {
           <div className="lg:grid lg:grid-cols-12 lg:gap-12 lg:items-start">
             {/* Left Column: Heading & Body */}
             <div className="lg:col-span-7 mb-10 lg:mb-0">
-              <h2 id="what-is-custom-business-website-design" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24 font-plex-sans">
-                What Is Custom Business Website Design?
+              <h2 id="what-is-service-business-website-design" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24 font-plex-sans">
+                What Is Service Business Website Design?
               </h2>
               <p className="text-[16px] md:text-[18px] text-neutral-700 dark:text-neutral-300 leading-relaxed mb-6">
-                Growing B2B enterprises outgrow off-the-shelf templates when plugin bloat, sluggish mobile loading, and rigid layout boundaries begin degrading lead conversions. Our custom web engineering replaces fragile CMS plugins with clean, maintainable codebases engineered specifically around your sales workflow, brand authority, and search visibility targets.
+                Most small service businesses fall into the DIY builder trap. Off-the-shelf site builders and bloated WordPress themes promise simplicity but deliver sluggish load speeds, continuous monthly plugin subscriptions, and fragile architectures that break during updates. Because these platforms generate heavy code bloat, search engines struggle to index them cleanly, leaving local service businesses invisible to high-intent buyers in their primary catchment areas.
               </p>
               <p className="text-[15px] md:text-[16px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                While legacy website builds rely on bloated monolithic CMS platforms like WordPress—which suffer from plugin vulnerability exploits, heavy database execution latencies, and rigid layout boundaries—our custom web development services utilize modern decoupled static architecture and optimized server components. This is engineered for sub-second page performance, robust security, automated JSON-LD search schema injection, and friction-free lead capture pipelines.
+                DigiXPro engineers high-performance small business website design architectures that operate as permanent commercial assets. We build clean-coded, decoupled web applications that load in under 800 milliseconds, capture local search presence via structured schema markup, and channel inbound inquiries straight into verified CRM workflows. You retain complete code ownership without recurring platform fees.
               </p>
             </div>
 
@@ -384,9 +381,9 @@ export default function CustomBusinessWebsiteDesignView() {
               <div className="flex gap-5 pb-5 border-b border-neutral-200 dark:border-neutral-800">
                 <span className="font-plex-mono text-3xl font-bold text-neutral-300 dark:text-neutral-700 w-12 shrink-0">01</span>
                 <div>
-                  <h3 className="text-base font-bold text-black dark:text-white mb-1 font-plex-sans">Sub-Second Performance</h3>
+                  <h3 className="text-base font-bold text-black dark:text-white mb-1 font-plex-sans">Zero Monthly Platform Rent</h3>
                   <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    Decoupled React Server Components compile static HTML at build time for sub-second Core Web Vitals scores across mobile networks.
+                    100 Percent client-owned codebase with no mandatory monthly software subscriptions or vendor lock-in fees.
                   </p>
                 </div>
               </div>
@@ -394,9 +391,9 @@ export default function CustomBusinessWebsiteDesignView() {
               <div className="flex gap-5 pb-5 border-b border-neutral-200 dark:border-neutral-800">
                 <span className="font-plex-mono text-3xl font-bold text-neutral-300 dark:text-neutral-700 w-12 shrink-0">02</span>
                 <div>
-                  <h3 className="text-base font-bold text-black dark:text-white mb-1 font-plex-sans">Robust Security Architecture</h3>
+                  <h3 className="text-base font-bold text-black dark:text-white mb-1 font-plex-sans">Sub-800ms Mobile Performance</h3>
                   <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    Eliminates vulnerable CMS plugins and database exploits. Decoupled architecture protects critical enterprise web assets.
+                    Lightweight decoupled assets load instantly on mobile networks, preventing prospective clients from bouncing.
                   </p>
                 </div>
               </div>
@@ -404,9 +401,9 @@ export default function CustomBusinessWebsiteDesignView() {
               <div className="flex gap-5 pb-5 border-b border-neutral-200 dark:border-neutral-800">
                 <span className="font-plex-mono text-3xl font-bold text-neutral-300 dark:text-neutral-700 w-12 shrink-0">03</span>
                 <div>
-                  <h3 className="text-base font-bold text-black dark:text-white mb-1 font-plex-sans">Automated API Webhooks</h3>
+                  <h3 className="text-base font-bold text-black dark:text-white mb-1 font-plex-sans">Automated Lead Dispatch</h3>
                   <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    Direct API webhook integration streams form submissions instantly into your CRM, Notion, WhatsApp, or n8n workflow engines.
+                    Inquiries flow directly to your WhatsApp, mobile phone, and CRM pipeline without manual administrative entry.
                   </p>
                 </div>
               </div>
@@ -420,39 +417,39 @@ export default function CustomBusinessWebsiteDesignView() {
             <div className="font-plex-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-3">
               02 — audience
             </div>
-            <h2 id="who-custom-website-design-services-are-for" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24 font-plex-sans">
-              Who Custom Website Design Services Are For
+            <h2 id="who-small-service-business-website-design-is-for" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24 font-plex-sans">
+              Who Small &amp; Service Business Website Design Is For
             </h2>
             <p className="text-[16px] md:text-[18px] text-neutral-700 dark:text-neutral-300 leading-relaxed">
-              Professional custom business website design services are specifically engineered for ambitious, growing organizations that have outgrown rigid off-the-shelf templates and require enterprise-grade visual distinction.
+              Purpose-built website engineering designed for ambitious local practices, specialized service firms, and trades that need dependable commercial enquiry flow.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="border-t border-neutral-300 dark:border-neutral-700 pt-6">
               <h3 className="text-base font-bold text-black dark:text-white mb-3 font-plex-sans">
-                Scaling B2B Companies &amp; Specialized Agencies
+                Local Healthcare Practices &amp; Consultancies
               </h3>
               <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Organizations offering complex technical services or enterprise solutions that need clear messaging, high authority signals, and structured conversion pathways.
+                Medical clinics, physical therapy centres, law firms, and consulting practices that need to build trust, present verified credentials, and convert search inquiries into confirmed appointments.
               </p>
             </div>
 
             <div className="border-t border-neutral-300 dark:border-neutral-700 pt-6">
               <h3 className="text-base font-bold text-black dark:text-white mb-3 font-plex-sans">
-                Businesses Escaping Monolithic WordPress Bloat
+                Specialized Trade &amp; Field Service Companies
               </h3>
               <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Companies frustrated by slow mobile load speeds, frequent plugin breakage, poor security, and low Google Lighthouse performance scores.
+                Commercial contractors, engineering specialists, HVAC services, and premium home service businesses where rapid mobile quote requests and emergency contact routing drive commercial revenue.
               </p>
             </div>
 
             <div className="border-t border-neutral-300 dark:border-neutral-700 pt-6">
               <h3 className="text-base font-bold text-black dark:text-white mb-3 font-plex-sans">
-                High-Intent Service Providers Requiring Custom Workflow Logic
+                Boutique Agencies &amp; Solo Practitioners
               </h3>
               <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Firms that require tailored lead intake logic, dynamic pricing calculators, automated webhook routing, and multi-channel CRM integrations.
+                Growing design studios, financial advisors, and specialized agencies that have outgrown restrictive website builders and require a high-authority digital presence reflecting true market positioning.
               </p>
             </div>
           </div>
@@ -467,11 +464,11 @@ export default function CustomBusinessWebsiteDesignView() {
             <div className="font-plex-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-3">
               03 — methodology
             </div>
-            <h2 id="digixpros-website-design-development-process" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24 font-plex-sans">
-              DigiXPro&apos;s Website Design &amp; Development Process
+            <h2 id="our-4-step-small-business-web-engineering-methodology" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24 font-plex-sans">
+              Our 4-Step Small Business Web Engineering Methodology
             </h2>
             <p className="text-[16px] md:text-[18px] text-neutral-700 dark:text-neutral-300 leading-relaxed">
-              Our systematic 4-phase custom website development process combines rigorous architecture discovery with modern Next.js engineering to deliver high-converting web applications on time and within budget.
+              Our systematic 4-phase service website engineering process combines customer journey mapping with modern Next.js development to launch high-converting business platforms.
             </p>
           </div>
 
@@ -485,9 +482,9 @@ export default function CustomBusinessWebsiteDesignView() {
                   </div>
                   <span className="font-plex-mono text-[10px] text-neutral-400 uppercase tracking-wider">PHASE 01</span>
                 </div>
-                <h3 className="text-lg font-bold text-black dark:text-white mb-2 font-plex-sans">Discovery &amp; Intent Boundary Mapping</h3>
+                <h3 className="text-lg font-bold text-black dark:text-white mb-2 font-plex-sans">Service Intent Mapping &amp; Local Taxonomy</h3>
                 <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                  We audit existing page analytics, identify buyer pain points, map commercial keyword intent, and establish technical architecture requirements for your custom business website build.
+                  We map your specific commercial services against high-intent search queries in your primary target locations. By establishing structured service hierarchies, we ensure prospective buyers find precise solutions instantly.
                 </p>
               </div>
 
@@ -498,9 +495,9 @@ export default function CustomBusinessWebsiteDesignView() {
                   </div>
                   <span className="font-plex-mono text-[10px] text-neutral-400 uppercase tracking-wider">PHASE 02</span>
                 </div>
-                <h3 className="text-lg font-bold text-black dark:text-white mb-2 font-plex-sans">UX Architecture &amp; Accessible Design System</h3>
+                <h3 className="text-lg font-bold text-black dark:text-white mb-2 font-plex-sans">Mobile-First Conversion UX &amp; Flow Architecture</h3>
                 <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                  Our UI team constructs high-fidelity wireframes, visual page layouts, typography hierarchies, and accessible Tailwind CSS design tokens engineered for mobile responsiveness.
+                  Service buyers visit on mobile devices while seeking immediate solutions. We eliminate unnecessary visual distractions, designing clean wireframes with prominent click-to-call, WhatsApp booking, and frictionless inquiry forms.
                 </p>
               </div>
 
@@ -511,9 +508,9 @@ export default function CustomBusinessWebsiteDesignView() {
                   </div>
                   <span className="font-plex-mono text-[10px] text-neutral-400 uppercase tracking-wider">PHASE 03</span>
                 </div>
-                <h3 className="text-lg font-bold text-black dark:text-white mb-2 font-plex-sans">Decoupled Next.js Codebase Engineering</h3>
+                <h3 className="text-lg font-bold text-black dark:text-white mb-2 font-plex-sans">Clean-Code Development &amp; Core Web Vitals Tuning</h3>
                 <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                  We write clean, modular Next.js and React frontend code with server components, optimized asset bundles, dynamic route parameters, and strict TypeScript type validation.
+                  We engineer your platform using modern Next.js and TypeScript, completely bypassing plugin-heavy CMS ecosystems. We optimize assets to achieve sub-second load times and top-tier Core Web Vitals metrics.
                 </p>
               </div>
 
@@ -524,9 +521,9 @@ export default function CustomBusinessWebsiteDesignView() {
                   </div>
                   <span className="font-plex-mono text-[10px] text-neutral-400 uppercase tracking-wider">PHASE 04</span>
                 </div>
-                <h3 className="text-lg font-bold text-black dark:text-white mb-2 font-plex-sans">Technical SEO &amp; Webhook Release</h3>
+                <h3 className="text-lg font-bold text-black dark:text-white mb-2 font-plex-sans">Lead Routing, Schema Integration &amp; Launch</h3>
                 <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                  We inject JSON-LD structured data schemas, canonical tag rules, OpenGraph meta tags, API webhook lead routing, and conduct end-to-end Core Web Vitals performance verification before production release.
+                  Before deployment, we configure LocalBusiness JSON-LD schemas, verify Google Search Console indexing pathways, and connect form endpoints directly to your sales pipeline and mobile notifications.
                 </p>
               </div>
             </div>
@@ -539,11 +536,11 @@ export default function CustomBusinessWebsiteDesignView() {
             <div className="font-plex-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-3">
               04 — scope
             </div>
-            <h2 id="whats-included-in-custom-website-development" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24 font-plex-sans">
-              What&apos;s Included in Custom Website Development
+            <h2 id="whats-included-in-service-business-website-development" className="text-[30px] md:text-[42px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24 font-plex-sans">
+              What&apos;s Included in Service Business Website Development
             </h2>
             <p className="text-[16px] md:text-[18px] text-neutral-700 dark:text-neutral-300 leading-relaxed">
-              Every custom website development service project delivers complete, end-to-end digital capabilities designed for visual distinction, high search indexability, and automated sales pipeline handoff.
+              Every small business website engineering engagement provides complete, turnkey digital infrastructure engineered for local discovery, trust authority, and automated inquiry handoff.
             </p>
           </div>
 
@@ -553,10 +550,10 @@ export default function CustomBusinessWebsiteDesignView() {
                 DESIGN SCOPE // 01
               </div>
               <h4 className="text-lg font-bold text-black dark:text-white mb-3 flex items-center font-plex-sans">
-                <Layers className="w-5 h-5 text-[#16a34a] mr-2.5 shrink-0" /> Design Scope
+                <Layers className="w-5 h-5 text-[#16a34a] mr-2.5 shrink-0" /> Service UX Architecture
               </h4>
               <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Bespoke user interface architecture, custom Tailwind CSS styling tokens, accessible typography hierarchy, brand-aligned visual assets, interactive micro-interactions, and fully responsive multi-breakpoint device layouts.
+                Accessible UI design tokens, mobile-first appointment funnels, transparent service packaging, touch-optimized navigation bars, and conversion-focused credential layouts.
               </p>
             </div>
 
@@ -565,10 +562,10 @@ export default function CustomBusinessWebsiteDesignView() {
                 DEVELOPMENT SCOPE // 02
               </div>
               <h4 className="text-lg font-bold text-black dark:text-white mb-3 flex items-center font-plex-sans">
-                <Code2 className="w-5 h-5 text-[#16a34a] mr-2.5 shrink-0" /> Development Scope
+                <Code2 className="w-5 h-5 text-[#16a34a] mr-2.5 shrink-0" /> Clean Code Engineering
               </h4>
               <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Custom build architecture (utilizing Next.js/React or custom PHP engines tailored to project requirements), clean maintainable codebase, zero third-party plugin bloat, sub-second load times, and complete source code ownership.
+                Decoupled Next.js and React frontend, semantic HTML5 structure, sub-second load times, zero vulnerable CMS plugins, and 100 percent source code ownership.
               </p>
             </div>
 
@@ -577,10 +574,10 @@ export default function CustomBusinessWebsiteDesignView() {
                 INTEGRATIONS // 03
               </div>
               <h4 className="text-lg font-bold text-black dark:text-white mb-3 flex items-center font-plex-sans">
-                <Globe className="w-5 h-5 text-[#16a34a] mr-2.5 shrink-0" /> Integrations
+                <Globe className="w-5 h-5 text-[#16a34a] mr-2.5 shrink-0" /> Lead Capture Plumbing
               </h4>
               <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Direct API webhook endpoints routing lead form submissions to Notion databases, HubSpot CRM, WhatsApp notifications, or n8n workflow engines without third-party database plugins.
+                Direct API webhook endpoints routing form inquiries to WhatsApp notifications, CRM pipelines, Google Sheets, or email without fragile third-party mailer plugins.
               </p>
             </div>
 
@@ -589,10 +586,10 @@ export default function CustomBusinessWebsiteDesignView() {
                 SEO-READINESS // 04
               </div>
               <h4 className="text-lg font-bold text-black dark:text-white mb-3 flex items-center font-plex-sans">
-                <Zap className="w-5 h-5 text-[#16a34a] mr-2.5 shrink-0" /> SEO-Readiness
+                <Zap className="w-5 h-5 text-[#16a34a] mr-2.5 shrink-0" /> Local Search Schemas
               </h4>
               <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Automated JSON-LD structured data schemas (Service, FAQPage, Breadcrumb), canonical tag controls, dynamic XML sitemaps, semantic HTML5 structure, and top-tier Core Web Vitals performance.
+                Automated LocalBusiness, Service, and Breadcrumb JSON-LD schemas, XML sitemaps, open graph metadata, and top-tier Google Core Web Vitals performance.
               </p>
             </div>
           </div>
@@ -604,13 +601,12 @@ export default function CustomBusinessWebsiteDesignView() {
             <div className="font-plex-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-3">
               05 — decision
             </div>
-            <h2 id="custom-website-vs-template-vs-platform" className="text-[30px] md:text-[42px] font-extrabold mb-4 text-black dark:text-white scroll-mt-24 font-plex-sans">
-              Custom Website vs Template vs Platform
+            <h2 id="bespoke-service-engineering-vs-generic-diy-builders-vs-cheap-templates" className="text-[30px] md:text-[42px] font-extrabold mb-4 text-black dark:text-white scroll-mt-24 font-plex-sans">
+              Bespoke Service Engineering vs Generic DIY Builders vs Cheap Templates
             </h2>
             <p className="text-[16px] md:text-[18px] text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
-              Evaluating the architectural differences, security posture, page speed performance, and lead conversion capabilities across different web build approaches.
+              Comparing code ownership, mobile speed performance, local search visibility, and lead routing resilience across different website solutions.
             </p>
-            {/* NEW Supplementary Framing Sentence (Explicitly Flagged to Founder) */}
             <p className="text-xs font-plex-mono text-[#16a34a] font-semibold uppercase tracking-wider">
               Choose the architecture based on control, performance, ownership, and long-term flexibility.
             </p>
@@ -621,30 +617,30 @@ export default function CustomBusinessWebsiteDesignView() {
               <thead>
                 <tr className="border-b border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-800/80">
                   <th className="p-5 md:p-6 text-xs font-plex-mono font-bold uppercase text-neutral-600 dark:text-neutral-300 w-1/4">Evaluation Vector</th>
-                  <th className="p-5 md:p-6 text-xs font-plex-mono font-bold uppercase text-[#16a34a] w-1/3 border-l-2 border-[#16a34a]">Custom Codebase Application (DigiXPro)</th>
-                  <th className="p-5 md:p-6 text-xs font-plex-mono font-bold uppercase text-neutral-500 dark:text-neutral-400 w-1/3">WordPress / Monolithic Templates</th>
+                  <th className="p-5 md:p-6 text-xs font-plex-mono font-bold uppercase text-[#16a34a] w-1/3 border-l-2 border-[#16a34a]">Custom Service Engine (DigiXPro)</th>
+                  <th className="p-5 md:p-6 text-xs font-plex-mono font-bold uppercase text-neutral-500 dark:text-neutral-400 w-1/3">DIY Builders (Wix / Squarespace)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800">
                 <tr className="hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors">
-                  <td className="p-5 md:p-6 text-xs font-bold text-black dark:text-white align-top">Mobile Core Web Vitals</td>
-                  <td className="p-5 md:p-6 text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed align-top border-l-2 border-[#16a34a]">Engineered for sub-second mobile rendering and top Core Web Vitals performance.</td>
-                  <td className="p-5 md:p-6 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed align-top">Typically 35-65 due to plugin bloat and render-blocking scripts.</td>
+                  <td className="p-5 md:p-6 text-xs font-bold text-black dark:text-white align-top">Code Ownership &amp; Portability</td>
+                  <td className="p-5 md:p-6 text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed align-top border-l-2 border-[#16a34a]">100 Percent client-owned codebase; exportable and hostable anywhere.</td>
+                  <td className="p-5 md:p-6 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed align-top">Zero code ownership; permanently locked into proprietary hosting and monthly rent.</td>
                 </tr>
                 <tr className="hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors">
-                  <td className="p-5 md:p-6 text-xs font-bold text-black dark:text-white align-top">Security &amp; Immunity</td>
-                  <td className="p-5 md:p-6 text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed align-top border-l-2 border-[#16a34a]">Decoupled static output; resilient against SQL injection and plugin exploits.</td>
-                  <td className="p-5 md:p-6 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed align-top">High risk of automated plugin vulnerabilities and malware injections.</td>
+                  <td className="p-5 md:p-6 text-xs font-bold text-black dark:text-white align-top">Mobile Page Speed (LCP)</td>
+                  <td className="p-5 md:p-6 text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed align-top border-l-2 border-[#16a34a]">Sub-800ms loading speeds guaranteed with top-tier Core Web Vitals.</td>
+                  <td className="p-5 md:p-6 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed align-top">Typically 3 to 6 seconds due to heavy monolithic script runtimes.</td>
                 </tr>
                 <tr className="hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors">
-                  <td className="p-5 md:p-6 text-xs font-bold text-black dark:text-white align-top">Technical SEO &amp; Schema</td>
-                  <td className="p-5 md:p-6 text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed align-top border-l-2 border-[#16a34a]">Automated JSON-LD schemas baked into build pipeline natively.</td>
-                  <td className="p-5 md:p-6 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed align-top">Requires multiple SEO plugins that conflict and add database overhead.</td>
+                  <td className="p-5 md:p-6 text-xs font-bold text-black dark:text-white align-top">Local Search Schema</td>
+                  <td className="p-5 md:p-6 text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed align-top border-l-2 border-[#16a34a]">Precision LocalBusiness and Service JSON-LD schemas baked into code.</td>
+                  <td className="p-5 md:p-6 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed align-top">Generic automated metadata with strict limits on nested schema data.</td>
                 </tr>
                 <tr className="hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors">
-                  <td className="p-5 md:p-6 text-xs font-bold text-black dark:text-white align-top">Lead Capture Plumbing</td>
-                  <td className="p-5 md:p-6 text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed align-top border-l-2 border-[#16a34a]">Direct API webhooks into CRM, Notion, WhatsApp, n8n workflows.</td>
-                  <td className="p-5 md:p-6 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed align-top">Form data stored in SQL database or passed via unreliable plugin mailers.</td>
+                  <td className="p-5 md:p-6 text-xs font-bold text-black dark:text-white align-top">Lead Capture &amp; Routing</td>
+                  <td className="p-5 md:p-6 text-xs text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed align-top border-l-2 border-[#16a34a]">Direct API webhooks into WhatsApp, CRM pipelines, and email instantly.</td>
+                  <td className="p-5 md:p-6 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed align-top">Basic email dispatches or expensive locked-in premium tier subscriptions.</td>
                 </tr>
               </tbody>
             </table>
@@ -657,29 +653,29 @@ export default function CustomBusinessWebsiteDesignView() {
             <div className="font-plex-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-3">
               06 — proof
             </div>
-            <h2 id="evidence-custom-business-website-design-in-action" className="text-[32px] md:text-[44px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24 font-plex-sans">
-              Evidence: Custom Business Website Design in Action
+            <h2 id="evidence-service-business-web-engineering-in-action" className="text-[32px] md:text-[44px] font-extrabold mb-6 text-black dark:text-white scroll-mt-24 font-plex-sans">
+              Evidence: Service Business Web Engineering in Action
             </h2>
             <p className="text-[16px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              We practice exact engineering principles we recommend to our clients. Inspect real-world case studies of custom website builds, legacy platform migrations, and sub-second performance architecture.
+              Inspect production deployments of lightweight medical portals, multi-location diagnostic booking funnels, and low-CapEx business architectures.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-[1000px] mx-auto mb-10 text-left">
-            {/* Case File 1: BuySecondhandBook */}
+            {/* Case File 1: Dr Aggarwal Physio Centre */}
             <div>
               <div className="inline-block bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-plex-mono text-[10px] font-bold px-3.5 py-1.5 uppercase tracking-wider rounded-t-xl">
-                CASE FILE 01 // E-COMMERCE MIGRATION
+                CASE FILE 01 // HEALTHCARE LOCAL SEARCH
               </div>
               <div className="p-7 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-b-3xl rounded-tr-3xl shadow-sm">
                 <h3 className="text-xl font-bold text-black dark:text-white mb-2 font-plex-sans">
-                  BuySecondhandBook
+                  Dr Aggarwal Physio Centre
                 </h3>
                 <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
-                  Bespoke e-commerce design system and lightweight PHP front-end delivering sub-second shopping experiences under extreme hardware constraints, proving custom code efficiency over bloated CMS themes.
+                  Cost-efficient decoupled clinic portal engineered with direct WhatsApp consultation routing, providing a growing community medical practice with 99.9% uptime and zero maintenance overhead.
                 </p>
                 <Link 
-                  href="/evidence/buy-secondhand-book" 
+                  href="/evidence/dr-aggarwal" 
                   className="text-xs font-bold text-[#16a34a] hover:underline inline-flex items-center"
                 >
                   View case study &rarr;
@@ -687,20 +683,20 @@ export default function CustomBusinessWebsiteDesignView() {
               </div>
             </div>
 
-            {/* Case File 2: DigiXPro Web Platform */}
+            {/* Case File 2: ScanCentreNearMe */}
             <div>
               <div className="inline-block bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-plex-mono text-[10px] font-bold px-3.5 py-1.5 uppercase tracking-wider rounded-t-xl">
-                CASE FILE 02 // LIVE PLATFORM EVIDENCE
+                CASE FILE 02 // DIAGNOSTIC MARKETPLACE
               </div>
               <div className="p-7 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-b-3xl rounded-tr-3xl shadow-sm">
                 <h3 className="text-xl font-bold text-black dark:text-white mb-2 font-plex-sans">
-                  DigiXPro Web Platform
+                  ScanCentreNearMe
                 </h3>
                 <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
-                  Production showcase of our modular UI design tokens, accessible typography hierarchy, and zero-framework CSS architecture powering 50+ commercial pages with instantaneous screen transitions.
+                  Architectural leverage enabled a multi-city healthcare diagnostic aggregator to deploy in six to eight weeks, saving eighty percent in commodity infrastructure capital expenditure.
                 </p>
                 <Link 
-                  href="/evidence/digixpro" 
+                  href="/evidence/scan-centre" 
                   className="text-xs font-bold text-[#16a34a] hover:underline inline-flex items-center"
                 >
                   View case study &rarr;
@@ -787,7 +783,7 @@ export default function CustomBusinessWebsiteDesignView() {
           </div>
         </section>
 
-        {/* SECTION 8 (H2) — FAQ ACCORDION (NARROW CONTAINER ~820px, CLOSED BY DEFAULT, ALL 10 ITEMS) */}
+        {/* SECTION 8 (H2) — FAQ ACCORDION (NARROW CONTAINER ~820px, CLOSED BY DEFAULT, ALL 6 ITEMS) */}
         <section className="py-24 max-w-[1200px] mx-auto px-6 border-b border-neutral-200 dark:border-neutral-800">
           <div className="max-w-[820px] mx-auto">
             <div className="text-center mb-12">
@@ -798,7 +794,7 @@ export default function CustomBusinessWebsiteDesignView() {
                 Frequently Asked Questions
               </h2>
               <p className="text-[16px] text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
-                Clear technical and commercial answers regarding custom website design services for small and growing businesses.
+                Clear technical and commercial answers regarding small business and service business website design.
               </p>
               
               {/* Expand all / Collapse all toggle button */}
@@ -812,7 +808,7 @@ export default function CustomBusinessWebsiteDesignView() {
             </div>
 
             <div className="divide-y divide-neutral-200 dark:divide-neutral-800 border-t border-b border-neutral-200 dark:border-neutral-800">
-              {customBusinessWebsiteFaqs.map((faq, idx) => {
+              {smallBusinessWebsitesFaqs.map((faq, idx) => {
                 const faqId = `faq-${slugify(faq.question)}`;
                 const isOpen = !!openFaqs[idx];
                 return (
@@ -853,10 +849,10 @@ export default function CustomBusinessWebsiteDesignView() {
               COMMERCIAL DISCOVERY
             </span>
             <div className="text-white font-extrabold text-[28px] md:text-[40px] mb-4 leading-tight">
-              Ready to build a custom business website engineered for growth?
+              Ready to build a service business website engineered for inquiries?
             </div>
             <p className="text-[16px] md:text-[18px] text-neutral-400 leading-relaxed mb-8 max-w-2xl mx-auto">
-              Book an architecture discovery session to discuss your business bottlenecks, target audience intent, and technical web engineering requirements.
+              Book an architecture discovery session to discuss your service bottlenecks, local search intent, and technical web engineering requirements.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link

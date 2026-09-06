@@ -72,7 +72,7 @@ export const SERVICE_CLUSTERS: ServiceCluster[] = [
     services: [
       { title: 'Custom Business Website Design', href: '/design-services/custom-business-website-design', icon: Code2 },
       { title: 'Website Redesign & SEO-Safe Rebuild', href: '/design-services/website-redesign', icon: RefreshCw },
-      { title: 'Small Business Web Systems', href: '/design-services/small-business-websites', icon: Store },
+      { title: 'Small Business Web Systems', href: '/design-services/small-business-service-business-websites', icon: Store },
       { title: 'Landing Page & Lead Generation Design', href: '/design-services/landing-page-lead-generation', icon: Layout },
       { title: 'Website UX & Conversion Optimization', href: '/design-services/website-conversion-optimization', icon: Zap },
       { title: 'SEO-Ready Website Engineering', href: '/design-services/seo-ready-website-engineering', icon: Lock },

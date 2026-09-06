@@ -39,16 +39,24 @@ function renderTextWithLinks(text: string) {
 }
 
 import CustomBusinessWebsiteDesignView from '@/components/design-services/CustomBusinessWebsiteDesignView';
+import WebsiteRedesignView from '@/components/design-services/WebsiteRedesignView';
+import LandingPageLeadGenDesignView from '@/components/design-services/LandingPageLeadGenDesignView';
+import WebsiteUxConversionOptimizationView from '@/components/design-services/WebsiteUxConversionOptimizationView';
+import SmallBusinessWebsitesView from '@/components/design-services/SmallBusinessWebsitesView';
+import SeoReadyWebsiteEngineeringView from '@/components/design-services/SeoReadyWebsiteEngineeringView';
 
 export async function generateStaticParams() {
-  return designSubServices.map((service) => ({
+  const slugs = designSubServices.map((service) => ({
     slug: service.slug,
   }));
+  slugs.push({ slug: 'small-business-websites' });
+  return slugs;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
-  const service = designSubServices.find((item) => item.slug === resolvedParams.slug);
+  const lookupSlug = resolvedParams.slug === 'small-business-websites' ? 'small-business-service-business-websites' : resolvedParams.slug;
+  const service = designSubServices.find((item) => item.slug === lookupSlug);
 
   if (!service) {
     return {
@@ -106,6 +114,26 @@ export default async function DesignSubServicePage({ params }: { params: Promise
 
   if (resolvedParams.slug === "custom-business-website-design") {
     return <CustomBusinessWebsiteDesignView />;
+  }
+
+  if (resolvedParams.slug === "website-redesign") {
+    return <WebsiteRedesignView />;
+  }
+
+  if (resolvedParams.slug === "landing-page-lead-generation" || resolvedParams.slug === "landing-page-lead-generation-design") {
+    return <LandingPageLeadGenDesignView />;
+  }
+
+  if (resolvedParams.slug === "website-conversion-optimization" || resolvedParams.slug === "website-ux-conversion-optimization") {
+    return <WebsiteUxConversionOptimizationView />;
+  }
+
+  if (resolvedParams.slug === "small-business-service-business-websites" || resolvedParams.slug === "small-business-websites") {
+    return <SmallBusinessWebsitesView />;
+  }
+
+  if (resolvedParams.slug === "seo-ready-website-engineering") {
+    return <SeoReadyWebsiteEngineeringView />;
   }
 
   const currentUrl = `https://www.digixpro.in/design-services/${service.slug}`;

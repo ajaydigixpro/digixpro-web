@@ -382,7 +382,7 @@ export default function DesignServicesPage() {
             </div>
 
             <Link 
-              href="/design-services/small-business-websites" 
+              href="/design-services/small-business-service-business-websites" 
               className="inline-flex items-center justify-center w-full px-4 py-3 bg-[#0A0A0A] dark:bg-white text-white dark:text-black font-bold text-xs rounded-xl hover:bg-[#16a34a] dark:hover:bg-[#16a34a] dark:hover:text-white transition-colors"
             >
               Discuss Your Business Website <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
