@@ -18,8 +18,9 @@ import {
   User,
   Compass,
 } from "lucide-react";
-
-const API_ENDPOINT = "/api/sales-concierge";
+import { LocalSemanticRouter } from "@/sales-concierge/semantic-router/router";
+import { GuidedTourEngine } from "@/sales-concierge/tour-matrix";
+import { FROZEN_PROTOTYPES } from "@/sales-concierge/semantic-router/prototypes";
 const SESSION_STORAGE_KEY = "digixpro-sales-concierge-session";
 const CHAT_HISTORY_STORAGE_KEY = "digixpro-sales-concierge-history";
 // Round-tripped VisitorSessionState snapshot (Phase 5) - lets the stateless
@@ -480,37 +481,44 @@ export default function SalesConcierge() {
     const currentPageContext = pathname || (typeof window !== "undefined" ? window.location.pathname : "/");
 
     try {
-      const response = await fetch(API_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: visitorMessage,
-          session_id: getSessionId(),
-          current_page: currentPageContext,
-          session_state: getStoredSessionState()
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`API response failed with status ${response.status}`);
+      const router = new LocalSemanticRouter();
+      router.loadPrototypes(FROZEN_PROTOTYPES);
+      const sessionId = getSessionId();
+      const storedState = getStoredSessionState();
+      if (storedState) {
+        router.hydrateSession(sessionId, storedState);
       }
+      const result = router.route(visitorMessage, sessionId, undefined, currentPageContext);
+      const session = router.getSession(sessionId);
+      const tourEngine = new GuidedTourEngine();
+      const tourStep = tourEngine.resolveTourStep(result, session);
+      const text = tourStep.targeted_question
+        ? `${tourStep.headline_message}\n\n${tourStep.targeted_question}`
+        : tourStep.headline_message;
 
-      const data = await response.json();
+      const data = {
+        success: true,
+        text,
+        session_id: sessionId,
+        result,
+        tour_step: tourStep,
+        session_state: session
+      };
 
       if (data.success && data.text) {
         setStoredSessionState(data.session_state);
-        const tourStep: TourStepInfo | undefined = data.tour_step;
+        const tourStepInfo: TourStepInfo | undefined = data.tour_step as unknown as TourStepInfo;
         const assistantEntry: ChatMessage = {
           id: nextMessageId("assistant"),
           role: "assistant",
           text: data.text,
-          suggestedReplies: tourStep?.suggested_replies,
-          tourActions: tourStep?.tour_actions,
-          tourStep: tourStep
+          suggestedReplies: tourStepInfo?.suggested_replies,
+          tourActions: tourStepInfo?.tour_actions,
+          tourStep: tourStepInfo
         };
         setMessages((current) => [...current, assistantEntry].slice(-MAX_STORED_MESSAGES));
       } else {
-        throw new Error(data.error || "Failed to process guided tour response.");
+        throw new Error("Failed to process guided tour response.");
       }
     } catch (requestError) {
       console.error("DigiXPro Concierge Error:", requestError);
@@ -533,14 +541,16 @@ export default function SalesConcierge() {
 
   return (
     <div
-      className={`fixed bottom-32 left-4 right-4 z-[45] flex flex-col items-end md:left-auto md:right-6 ${
-        isOpen ? "md:top-24 md:bottom-auto" : "md:bottom-32"
+      className={`fixed z-[9999] flex flex-col items-end ${
+        isOpen
+          ? "top-14 bottom-16 left-4 right-4 md:top-44 md:bottom-auto md:left-auto md:right-6"
+          : "bottom-20 left-4 right-4 md:bottom-12 md:left-auto md:right-6"
       }`}
     >
       {isOpen && (
         <section
           aria-label="DigiXPro Concierge"
-          className="flex h-[min(40rem,calc(100dvh-7.5rem))] w-full max-w-[25rem] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50 shadow-2xl shadow-black/20 dark:border-neutral-800 dark:bg-[#0E0E0E] md:h-[min(40rem,calc(100dvh-8rem))] md:w-[25rem]"
+          className="flex h-full w-full max-w-[25rem] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50 shadow-2xl shadow-black/20 dark:border-neutral-800 dark:bg-[#0E0E0E] md:h-[min(38rem,calc(100dvh-13rem))] md:w-[25rem] ml-auto"
         >
           {/* HEADER */}
           <header className="border-b border-neutral-200 bg-white px-3.5 py-2.5 dark:border-neutral-800 dark:bg-[#121212]">
@@ -573,10 +583,10 @@ export default function SalesConcierge() {
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex min-h-7 min-w-7 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-colors hover:border-neutral-300 hover:text-[#0A0A0A] dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
+                  className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-colors hover:border-neutral-300 hover:text-[#0A0A0A] dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
                   aria-label="Close Concierge"
                 >
-                  <X className="h-3.5 w-3.5" aria-hidden="true" />
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
             </div>
