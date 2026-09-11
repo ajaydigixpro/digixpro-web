@@ -4,8 +4,14 @@ const SEMIBOLD_BASE64 = 'AAEAAAAOAIAAAwBgRFNJRwAAAAEAAmZ4AAAACEdERUYJFgkZAAIpcAA
 
 let cachedBoldBuf: ArrayBuffer | null = null;
 let cachedSemiBoldBuf: ArrayBuffer | null = null;
+let cachedFontsArray: Array<{
+  name: string;
+  data: ArrayBuffer;
+  weight: 600 | 700;
+  style: 'normal';
+}> | null = null;
 
-export function getEmbeddedFonts() {
+function initEmbeddedFonts() {
   if (!cachedBoldBuf) {
     const binaryString = atob(BOLD_BASE64);
     const len = binaryString.length;
@@ -26,18 +32,30 @@ export function getEmbeddedFonts() {
     cachedSemiBoldBuf = bytes.buffer;
   }
 
-  return [
-    {
-      name: 'Poppins',
-      data: cachedBoldBuf,
-      weight: 700 as const,
-      style: 'normal' as const,
-    },
-    {
-      name: 'Poppins',
-      data: cachedSemiBoldBuf,
-      weight: 600 as const,
-      style: 'normal' as const,
-    },
-  ];
+  if (!cachedFontsArray) {
+    cachedFontsArray = [
+      {
+        name: 'Poppins',
+        data: cachedBoldBuf,
+        weight: 700 as const,
+        style: 'normal' as const,
+      },
+      {
+        name: 'Poppins',
+        data: cachedSemiBoldBuf,
+        weight: 600 as const,
+        style: 'normal' as const,
+      },
+    ];
+  }
+
+  return cachedFontsArray;
 }
+
+export function getEmbeddedFonts() {
+  if (cachedFontsArray) return cachedFontsArray;
+  return initEmbeddedFonts();
+}
+
+// Pre-initialize at isolate startup (avoids per-request decoding and guarantees stable WeakMap key)
+export const STATIC_EMBEDDED_FONTS = initEmbeddedFonts();

@@ -16,9 +16,11 @@ import {
   Master08Payload,
   Master10Payload
 } from '../../../src/visual-engine/renderer/types';
-import { getEmbeddedFonts } from '../../../src/visual-engine/renderer/embedded-fonts';
+import { getEmbeddedFonts, STATIC_EMBEDDED_FONTS } from '../../../src/visual-engine/renderer/embedded-fonts';
 import { DEFAULT_INSIGHT_BG_DATA_URI } from '../../../src/visual-engine/renderer/embedded-backgrounds';
 import { validatePayload } from '../../../src/visual-engine/renderer/qa';
+
+const STATIC_FONTS = STATIC_EMBEDDED_FONTS || getEmbeddedFonts();
 
 function validationErrorResponse(errors: string[]) {
   return new Response(JSON.stringify({ error: 'Validation failed', details: errors }), {
@@ -29,10 +31,22 @@ function validationErrorResponse(errors: string[]) {
 
 export const onRequestGet = async (context: any) => {
   try {
+    const cache = (caches as any)?.default;
+    const cacheKey = new Request(context.request.url, { method: 'GET' });
+
+    if (cache) {
+      try {
+        const cached = await cache.match(cacheKey);
+        if (cached) {
+          return cached;
+        }
+      } catch {
+        // Proceed to render on cache match error
+      }
+    }
+
     const url = new URL(context.request.url);
     const templateId = url.searchParams.get('template_id') || 'master_01_insight';
-
-    const fonts = getEmbeddedFonts();
 
     let element: React.ReactElement;
 
@@ -44,7 +58,8 @@ export const onRequestGet = async (context: any) => {
           problem_supporting_text: url.searchParams.get('problem_supporting_text') || 'Disconnected clinic records force staff into repetitive manual data entry.',
           solution_headline: url.searchParams.get('solution_headline') || 'Automate queue processing with real-time event triggers',
           solution_supporting_text: url.searchParams.get('solution_supporting_text') || 'Synchronize patient queues with practitioner availability across all branches.',
-          category_badge_text: (url.searchParams.get('category_badge_text') || 'AUTOMATION').toUpperCase()
+          category_badge_text: (url.searchParams.get('category_badge_text') || 'AUTOMATION').toUpperCase(),
+          variant: (url.searchParams.get('variant') as any) || 'v1'
         };
         const validation = validatePayload(data);
         if (!validation.valid) return validationErrorResponse(validation.errors);
@@ -178,15 +193,35 @@ export const onRequestGet = async (context: any) => {
       }
     }
 
-    return new ImageResponse(element, {
+    const imageResponse = new ImageResponse(element, {
       width: 1080,
       height: 1080,
       headers: {
         'Cache-Control': 'public, max-age=86400, s-maxage=86400',
         'Access-Control-Allow-Origin': '*'
       },
-      fonts
+      fonts: STATIC_FONTS
     });
+
+    const pngBuffer = await imageResponse.arrayBuffer();
+    const finalResponse = new Response(pngBuffer, {
+      status: 200,
+      headers: {
+        'Content-Type': 'image/png',
+        'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+
+    if (cache) {
+      try {
+        context.waitUntil(cache.put(cacheKey, finalResponse.clone()));
+      } catch {
+        // Ignore cache put error
+      }
+    }
+
+    return finalResponse;
   } catch (err: any) {
     return new Response(JSON.stringify({ error: err.message, stack: err.stack }), {
       status: 500,
