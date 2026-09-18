@@ -347,7 +347,37 @@ let inMemoryRotationState: Master02RotationState = {
 export async function getPersistentRotationState(
   context: any
 ): Promise<{ state: Master02RotationState; storage: 'kv' | 'edge_cache' | 'file' }> {
-  // 1. Cloudflare KV binding check
+  // 1. Explicit storage adapter passed via context
+  if (context?.storageAdapter) {
+    try {
+      const val = await context.storageAdapter.getState();
+      if (val && Array.isArray(val.assetHistory)) {
+        return { state: val, storage: context.storageAdapter.name || 'file' };
+      }
+    } catch (err) {
+      console.error('[master02-intelligence] StorageAdapter read error:', err);
+    }
+  }
+
+  // 2. Node.js environment filesystem check
+  if (typeof process !== 'undefined' && process.versions?.node) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const nodeFs = require('fs');
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const nodePath = require('path');
+      const filePath = nodePath.resolve(process.cwd(), 'master02-rotation-state.json');
+      if (nodeFs.existsSync(filePath)) {
+        const raw = nodeFs.readFileSync(filePath, 'utf8');
+        const parsed = JSON.parse(raw);
+        if (parsed && Array.isArray(parsed.assetHistory)) {
+          return { state: parsed, storage: 'file' };
+        }
+      }
+    } catch {}
+  }
+
+  // 3. Cloudflare KV binding check
   if (context?.env?.ROTATION_KV) {
     try {
       const val = await context.env.ROTATION_KV.get('master02_rotation_state', 'json');
@@ -355,7 +385,7 @@ export async function getPersistentRotationState(
     } catch {}
   }
 
-  // 2. Cloudflare Edge Cache API check
+  // 4. Cloudflare Edge Cache API check
   try {
     const cache = (caches as any)?.default;
     if (cache) {
@@ -368,7 +398,7 @@ export async function getPersistentRotationState(
     }
   } catch {}
 
-  // 3. In-memory fallback (Node / testing environment)
+  // 5. In-memory fallback (Node / testing environment)
   return { state: inMemoryRotationState, storage: 'file' };
 }
 
@@ -379,7 +409,32 @@ export async function savePersistentRotationState(
   state.lastRotatedAt = new Date().toISOString();
   let savedStorage: 'kv' | 'edge_cache' | 'file' = 'file';
 
-  // 1. Save to Cloudflare KV if bound
+  // 1. Explicit storage adapter passed via context
+  if (context?.storageAdapter) {
+    try {
+      await context.storageAdapter.saveState(state);
+      inMemoryRotationState = { ...state };
+      return context.storageAdapter.name || 'file';
+    } catch (err) {
+      console.error('[master02-intelligence] StorageAdapter write error:', err);
+    }
+  }
+
+  // 2. Node.js environment filesystem write
+  if (typeof process !== 'undefined' && process.versions?.node) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const nodeFs = require('fs');
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const nodePath = require('path');
+      const filePath = nodePath.resolve(process.cwd(), 'master02-rotation-state.json');
+      nodeFs.writeFileSync(filePath, JSON.stringify(state, null, 2), 'utf8');
+      inMemoryRotationState = { ...state };
+      return 'file';
+    } catch {}
+  }
+
+  // 3. Save to Cloudflare KV if bound
   if (context?.env?.ROTATION_KV) {
     try {
       await context.env.ROTATION_KV.put('master02_rotation_state', JSON.stringify(state));
@@ -387,7 +442,7 @@ export async function savePersistentRotationState(
     } catch {}
   }
 
-  // 2. Save to Cloudflare Edge Cache API
+  // 4. Save to Cloudflare Edge Cache API
   try {
     const cache = (caches as any)?.default;
     if (cache) {
@@ -407,7 +462,7 @@ export async function savePersistentRotationState(
     }
   } catch {}
 
-  // 3. In-memory fallback
+  // 5. In-memory fallback
   inMemoryRotationState = { ...state };
 
   return savedStorage;

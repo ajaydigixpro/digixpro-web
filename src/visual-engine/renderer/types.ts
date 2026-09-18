@@ -228,6 +228,7 @@ export interface RenderOptions {
   height?: number;
   debug?: boolean;
   allowPrototypeBackground?: boolean;
+  master02Intelligence?: any;
 }
 
 export interface QAResult {

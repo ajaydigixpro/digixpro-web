@@ -44,7 +44,22 @@ export async function renderTemplateToSvg(
     const bgId = p.background_id || 'bg_family_radial_focus';
     const resolved = resolver.resolveAsset('master_02_problem_solution', bgId, 'background', options?.allowPrototypeBackground || false);
     bgRecord = resolved.record;
-    element = <Master02ProblemSolution data={p} backgroundVariant="radial_focus" bgDataUri={resolved.base64DataUri} />;
+    if (options?.master02Intelligence) {
+      const intel = options.master02Intelligence;
+      element = (
+        <Master02ProblemSolution
+          data={p}
+          backgroundVariant="radial_focus"
+          bgDataUri={resolved.base64DataUri}
+          showFooter={intel.showFooter}
+          palette={intel.palette}
+          injectedAssetDataUri={intel.injectedAssetDataUri}
+          injectedAssetBounds={intel.injectedAssetBounds}
+        />
+      );
+    } else {
+      element = <Master02ProblemSolution data={p} backgroundVariant="radial_focus" bgDataUri={resolved.base64DataUri} />;
+    }
   } else if (payload.template_id === 'master_03_framework') {
     const p = payload as any;
     const bgId = p.background_id || 'bg_family_base_light';
