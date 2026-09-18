@@ -3,8 +3,25 @@ import { BrandLogo } from '../components/BrandLogo';
 import { Footer } from '../components/Footer';
 import { Background } from '../components/Background';
 import { BackgroundFamilyVariant, Master02Payload } from '../renderer/types';
-import { IconArrowDown } from '../components/Icons';
-import { GeometrySignalRail } from '../components/Geometries';
+const IconArrowDown: React.FC<{ size?: number; color?: string; strokeWidth?: number }> = ({
+  size = 16,
+  color = '#FFFFFF',
+  strokeWidth = 2.5,
+}) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 5v14" />
+    <path d="m19 12-7 7-7-7" />
+  </svg>
+);
 
 export interface Master02Props {
   data: Master02Payload;

@@ -1,5 +1,3 @@
-import fs from 'fs';
-import path from 'path';
 import { Master02Payload } from './types';
 import { EMBEDDED_MASTER02_SVGS } from './embedded-master02-assets';
 
@@ -339,7 +337,12 @@ const DEFAULT_ROTATION_STATE: Master02RotationState = {
 };
 
 const EDGE_CACHE_STATE_URL = 'https://www.digixpro.in/__cf_storage/master02-rotation-v4.json';
-const LOCAL_STORAGE_FILE_PATH = path.resolve(process.cwd(), 'src/visual-engine/lab/rotation-state-prod.json');
+let inMemoryRotationState: Master02RotationState = {
+  assetHistory: [],
+  paletteHistory: [],
+  footerHistory: [],
+  lastRotatedAt: new Date().toISOString(),
+};
 
 export async function getPersistentRotationState(
   context: any
@@ -365,20 +368,8 @@ export async function getPersistentRotationState(
     }
   } catch {}
 
-  // 3. Local JSON file fallback (Node / testing environment)
-  try {
-    let p = LOCAL_STORAGE_FILE_PATH;
-    if (!fs.existsSync(p)) {
-      const alt = path.resolve(process.cwd(), 'digixpro-web/src/visual-engine/lab/rotation-state-prod.json');
-      if (fs.existsSync(alt)) p = alt;
-    }
-    if (fs.existsSync(p)) {
-      const json = JSON.parse(fs.readFileSync(p, 'utf8'));
-      return { state: json, storage: 'file' };
-    }
-  } catch {}
-
-  return { state: { ...DEFAULT_ROTATION_STATE }, storage: 'edge_cache' };
+  // 3. In-memory fallback (Node / testing environment)
+  return { state: inMemoryRotationState, storage: 'file' };
 }
 
 export async function savePersistentRotationState(
@@ -386,7 +377,7 @@ export async function savePersistentRotationState(
   state: Master02RotationState
 ): Promise<'kv' | 'edge_cache' | 'file'> {
   state.lastRotatedAt = new Date().toISOString();
-  let savedStorage: 'kv' | 'edge_cache' | 'file' = 'edge_cache';
+  let savedStorage: 'kv' | 'edge_cache' | 'file' = 'file';
 
   // 1. Save to Cloudflare KV if bound
   if (context?.env?.ROTATION_KV) {
@@ -416,14 +407,8 @@ export async function savePersistentRotationState(
     }
   } catch {}
 
-  // 3. Save to Local JSON file if in Node environment
-  try {
-    let p = LOCAL_STORAGE_FILE_PATH;
-    const dir = path.dirname(p);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(p, JSON.stringify(state, null, 2), 'utf8');
-    if (savedStorage !== 'kv' && !(caches as any)?.default) savedStorage = 'file';
-  } catch {}
+  // 3. In-memory fallback
+  inMemoryRotationState = { ...state };
 
   return savedStorage;
 }
