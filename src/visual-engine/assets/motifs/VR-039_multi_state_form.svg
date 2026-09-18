@@ -1,0 +1,57 @@
+<svg width="100%" height="100%" viewBox="0 0 720 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- STATE 1: Raw / Segmented Wireframe (Left: x: 70 - 210) -->
+  <g transform="translate(140, 220)">
+    <polygon points="0,-70 60,-35 60,35 0,70 -60,35 -60,-35" 
+             fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="6 4" />
+    <line x1="0" y1="-70" x2="0" y2="70" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4 3" stroke-opacity="0.6" />
+    <line x1="-60" y1="-35" x2="60" y2="35" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4 3" stroke-opacity="0.6" />
+    <line x1="-60" y1="35" x2="60" y2="-35" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4 3" stroke-opacity="0.6" />
+    <circle cx="0" cy="-70" r="4" fill="#0F172A" stroke="#94A3B8" stroke-width="1.5" />
+    <circle cx="60" cy="-35" r="4" fill="#0F172A" stroke="#94A3B8" stroke-width="1.5" />
+    <circle cx="60" cy="35" r="4" fill="#0F172A" stroke="#94A3B8" stroke-width="1.5" />
+    <circle cx="0" cy="70" r="4" fill="#0F172A" stroke="#94A3B8" stroke-width="1.5" />
+    <circle cx="-60" cy="35" r="4" fill="#0F172A" stroke="#94A3B8" stroke-width="1.5" />
+    <circle cx="-60" cy="-35" r="4" fill="#0F172A" stroke="#94A3B8" stroke-width="1.5" />
+  </g>
+
+  <!-- TRANSITION VECTOR 1 -> 2 -->
+  <path d="M 215 220 L 285 220" stroke="#007A55" stroke-width="4" stroke-linecap="round" />
+  <polygon points="285,213 297,220 285,227" fill="#007A55" />
+  <circle cx="250" cy="220" r="3" fill="#6EE7B7" />
+
+  <!-- STATE 2: Structured / Interlocking Solid (Center: x: 300 - 440) -->
+  <g transform="translate(370, 220)">
+    <polygon points="0,-75 65,-37 65,37 0,75 -65,37 -65,-37" 
+             fill="#007A55" stroke="#064E3B" stroke-width="2.5" />
+    <polygon points="0,-75 65,-37 0,0" fill="#059669" />
+    <polygon points="65,-37 65,37 0,0" fill="#064E3B" />
+    <polygon points="65,37 0,75 0,0" fill="#0F172A" />
+    <polygon points="0,75 -65,37 0,0" fill="#007A55" />
+    <polygon points="-65,37 -65,-37 0,0" fill="#059669" />
+    <polygon points="-65,-37 0,-75 0,0" fill="#6EE7B7" fill-opacity="0.8" />
+    <circle cx="0" cy="0" r="6" fill="#FFFFFF" stroke="#0F172A" stroke-width="2" />
+  </g>
+
+  <!-- TRANSITION VECTOR 2 -> 3 -->
+  <path d="M 445 220 L 515 220" stroke="#6EE7B7" stroke-width="5" stroke-linecap="round" />
+  <polygon points="515,211 530,220 515,229" fill="#6EE7B7" />
+  <circle cx="480" cy="220" r="3.5" fill="#FFFFFF" />
+
+  <!-- STATE 3: Optimized / Hardened Apex Monolith (Right: x: 530 - 670) -->
+  <g transform="translate(600, 220)">
+    <polygon points="10,-65 85,-27 85,47 10,85 -55,47 -55,-27" fill="#0F172A" />
+    <polygon points="0,-75 70,-35 70,35 0,75 -70,35 -70,-35" 
+             fill="#007A55" stroke="#FFFFFF" stroke-width="2.5" />
+    <polygon points="0,-75 70,-35 0,-10 -70,-35" fill="#6EE7B7" stroke="#FFFFFF" stroke-width="1.5" />
+    <polygon points="0,-10 70,-35 70,35 0,60" fill="#059669" />
+    <polygon points="0,-10 -70,-35 -70,35 0,60" fill="#064E3B" />
+    <circle cx="0" cy="20" r="16" fill="#FFFFFF" stroke="#007A55" stroke-width="2.5" />
+    <circle cx="0" cy="20" r="7" fill="#6EE7B7" />
+    <circle cx="0" cy="20" r="3" fill="#0F172A" />
+  </g>
+
+  <!-- State Indicator Stage Rails -->
+  <line x1="80" y1="360" x2="200" y2="360" stroke="#94A3B8" stroke-width="2" />
+  <line x1="310" y1="360" x2="430" y2="360" stroke="#007A55" stroke-width="3" />
+  <line x1="540" y1="360" x2="660" y2="360" stroke="#6EE7B7" stroke-width="4" />
+</svg>

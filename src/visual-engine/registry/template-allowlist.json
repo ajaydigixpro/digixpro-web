@@ -2,7 +2,9 @@
   "master_01_insight": {
     "allowed_asset_types": [
       "brand_logo",
-      "background"
+      "background",
+      "bottom_zone",
+      "footer"
     ],
     "allowed_background_ids": [
       "bg_insight_code_clean",
@@ -21,7 +23,9 @@
   "master_02_problem_solution": {
     "allowed_asset_types": [
       "brand_logo",
-      "background"
+      "background",
+      "bottom_zone",
+      "footer"
     ],
     "allowed_background_ids": [
       "bg_family_base_light",
@@ -41,7 +45,10 @@
   "master_03_framework": {
     "allowed_asset_types": [
       "brand_logo",
-      "background"
+      "background",
+      "bottom_zone",
+      "side_column",
+      "footer"
     ],
     "allowed_background_ids": [
       "bg_family_base_light",
@@ -66,7 +73,10 @@
   "master_04_architecture": {
     "allowed_asset_types": [
       "brand_logo",
-      "background"
+      "background",
+      "bottom_zone",
+      "side_column",
+      "footer"
     ],
     "allowed_background_ids": [
       "bg_family_base_light",
@@ -92,7 +102,9 @@
   "master_05_data_signal": {
     "allowed_asset_types": [
       "brand_logo",
-      "background"
+      "background",
+      "bottom_zone",
+      "footer"
     ],
     "allowed_background_ids": [
       "bg_family_signal_data",
@@ -115,7 +127,10 @@
   "master_06_case_study": {
     "allowed_asset_types": [
       "brand_logo",
-      "background"
+      "background",
+      "bottom_zone",
+      "side_column",
+      "footer"
     ],
     "allowed_background_ids": [
       "bg_family_base_light"
@@ -136,7 +151,10 @@
   "master_07_comparison": {
     "allowed_asset_types": [
       "brand_logo",
-      "background"
+      "background",
+      "bottom_zone",
+      "side_column",
+      "footer"
     ],
     "allowed_background_ids": [
       "bg_family_base_light",
@@ -165,7 +183,9 @@
     "allowed_asset_types": [
       "brand_logo",
       "partner_logo",
-      "background"
+      "background",
+      "bottom_zone",
+      "footer"
     ],
     "allowed_background_ids": [
       "bg_family_announcement",
@@ -190,7 +210,9 @@
   "master_09_occasion": {
     "allowed_asset_types": [
       "brand_logo",
-      "background"
+      "background",
+      "bottom_zone",
+      "footer"
     ],
     "allowed_background_ids": [
       "bg_family_base_light",
@@ -214,7 +236,8 @@
       "brand_logo",
       "client_photo",
       "client_logo",
-      "background"
+      "background",
+      "footer"
     ],
     "allowed_background_ids": [
       "bg_family_base_light",

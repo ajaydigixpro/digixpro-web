@@ -1,0 +1,41 @@
+<svg width="100%" height="100%" viewBox="0 0 640 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Heavy Grounding Foundation Footing (Deep Slate) -->
+  <rect x="100" y="430" width="440" height="30" rx="6" 
+        fill="#0F172A" stroke="#007A55" stroke-width="2" />
+  <line x1="120" y1="445" x2="520" y2="445" stroke="#007A55" stroke-width="2" stroke-dasharray="12 6" stroke-opacity="0.6" />
+
+  <!-- Primary Sheared Monolith Slab (Left Emerald Plate) -->
+  <polygon points="130,430 190,140 320,140 260,430" 
+           fill="#007A55" stroke="#064E3B" stroke-width="3" />
+  <polygon points="130,430 150,430 210,140 190,140" fill="#6EE7B7" fill-opacity="0.8" />
+  <line x1="180" y1="200" x2="270" y2="200" stroke="#86EFAC" stroke-width="2.5" stroke-linecap="round" />
+  <line x1="170" y1="230" x2="260" y2="230" stroke="#86EFAC" stroke-width="2.5" stroke-linecap="round" />
+  <line x1="160" y1="260" x2="250" y2="260" stroke="#86EFAC" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Secondary Counter-Sheared Slab (Right Slate/Emerald Plate) -->
+  <polygon points="340,430 400,140 510,140 450,430" 
+           fill="#0F172A" stroke="#007A55" stroke-width="3" />
+  <polygon points="510,140 490,140 430,430 450,430" fill="#064E3B" />
+  <circle cx="430" cy="240" r="8" fill="#6EE7B7" stroke="#0F172A" stroke-width="2" />
+
+  <!-- SIGNATURE FLOATING EQUILATERAL PRISM (Luminous Mint Core) -->
+  <g transform="translate(325, 230)">
+    <polygon points="0,-65 65,45 -65,45" fill="#0A0A0A" fill-opacity="0.5" transform="translate(8, 8)" />
+    <polygon points="0,-65 65,45 -65,45" fill="#6EE7B7" stroke="#FFFFFF" stroke-width="3" />
+    <polygon points="0,-65 65,45 0,15" fill="#86EFAC" />
+    <polygon points="0,-65 -65,45 0,15" fill="#007A55" />
+    <polygon points="-65,45 65,45 0,15" fill="#059669" />
+    <circle cx="0" cy="15" r="7" fill="#FFFFFF" stroke="#0F172A" stroke-width="2" />
+  </g>
+
+  <!-- Precision Framing Enclosure Brackets -->
+  <path d="M 120 110 L 80 110 L 80 200" stroke="#007A55" stroke-width="3.5" stroke-linecap="round" fill="none" />
+  <line x1="80" y1="110" x2="65" y2="95" stroke="#6EE7B7" stroke-width="2" />
+  <path d="M 520 450 L 560 450 L 560 360" stroke="#007A55" stroke-width="3.5" stroke-linecap="round" fill="none" />
+  <line x1="560" y1="450" x2="575" y2="465" stroke="#6EE7B7" stroke-width="2" />
+
+  <!-- Telemetry Calibration Scales -->
+  <line x1="200" y1="90" x2="480" y2="90" stroke="#007A55" stroke-width="1.5" stroke-dasharray="6 4" stroke-opacity="0.6" />
+  <circle cx="200" cy="90" r="4" fill="#6EE7B7" />
+  <circle cx="480" cy="90" r="4" fill="#6EE7B7" />
+</svg>

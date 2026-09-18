@@ -6,9 +6,12 @@ import { AssetResolver } from './asset-resolver';
 import { Master01Insight } from '../templates/master_01_insight';
 import { Master02ProblemSolution } from '../templates/master_02_problem_solution';
 import { Master03Framework } from '../templates/master_03_framework';
+import { Master04Architecture } from '../templates/master_04_architecture';
 import { Master05DataSignal } from '../templates/master_05_data_signal';
+import { Master06CaseStudy } from '../templates/master_06_case_study';
 import { Master07Comparison } from '../templates/master_07_comparison';
 import { Master08Announcement } from '../templates/master_08_announcement';
+import { Master09Occasion } from '../templates/master_09_occasion';
 import { Master10Testimonial } from '../templates/master_10_testimonial';
 import { validatePayload } from './qa';
 
@@ -48,12 +51,24 @@ export async function renderTemplateToSvg(
     const resolved = resolver.resolveAsset('master_03_framework', bgId, 'background', options?.allowPrototypeBackground || false);
     bgRecord = resolved.record;
     element = <Master03Framework data={p} backgroundVariant="base_light" bgDataUri={resolved.base64DataUri} />;
+  } else if (payload.template_id === 'master_04_architecture') {
+    const p = payload as any;
+    const bgId = p.background_id || 'bg_family_base_light';
+    const resolved = resolver.resolveAsset('master_04_architecture', bgId, 'background', options?.allowPrototypeBackground || false);
+    bgRecord = resolved.record;
+    element = <Master04Architecture data={p} backgroundVariant="base_light" bgDataUri={resolved.base64DataUri} />;
   } else if (payload.template_id === 'master_05_data_signal') {
     const p = payload as any;
     const bgId = p.background_id || 'bg_family_signal_data';
     const resolved = resolver.resolveAsset('master_05_data_signal', bgId, 'background', options?.allowPrototypeBackground || false);
     bgRecord = resolved.record;
     element = <Master05DataSignal data={p} backgroundVariant="signal_subtle" bgDataUri={resolved.base64DataUri} />;
+  } else if (payload.template_id === 'master_06_case_study') {
+    const p = payload as any;
+    const bgId = p.background_id || 'bg_family_base_light';
+    const resolved = resolver.resolveAsset('master_06_case_study', bgId, 'background', options?.allowPrototypeBackground || false);
+    bgRecord = resolved.record;
+    element = <Master06CaseStudy data={p} backgroundVariant="base_light" bgDataUri={resolved.base64DataUri} />;
   } else if (payload.template_id === 'master_07_comparison') {
     const p = payload as any;
     const bgId = p.background_id || 'bg_family_base_light';
@@ -80,6 +95,12 @@ export async function renderTemplateToSvg(
         partnerLogoUri={partnerLogoUri}
       />
     );
+  } else if (payload.template_id === 'master_09_occasion') {
+    const p = payload as any;
+    const bgId = p.background_id || 'bg_family_base_light';
+    const resolved = resolver.resolveAsset('master_09_occasion', bgId, 'background', options?.allowPrototypeBackground || false);
+    bgRecord = resolved.record;
+    element = <Master09Occasion data={p} backgroundVariant="base_light" bgDataUri={resolved.base64DataUri} />;
   } else if (payload.template_id === 'master_10_testimonial') {
     const p = payload as any;
     const bgId = p.background_id || 'bg_family_radial_focus';

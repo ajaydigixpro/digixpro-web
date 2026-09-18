@@ -1,0 +1,58 @@
+<svg width="100%" height="100%" viewBox="0 0 660 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Frame 1 (Full Enclosure) -->
+  <polygon points="60,60 600,60 600,440 60,440" fill="#0F172A" stroke="#007A55" stroke-width="3.5" />
+
+  <!-- Perspective Floor Plane -->
+  <polygon points="60,440 600,440 450,290 270,290" fill="#064E3B" stroke="#007A55" stroke-width="1" />
+  <!-- Perspective Ceiling Plane -->
+  <polygon points="60,60 600,60 450,170 270,170" fill="#0A0A0A" />
+  <!-- Left Wall Plane -->
+  <polygon points="60,60 60,440 270,290 270,170" fill="#007A55" fill-opacity="0.9" />
+  <!-- Right Wall Plane -->
+  <polygon points="600,60 600,440 450,290 450,170" fill="#007A55" fill-opacity="0.6" />
+
+  <!-- Perspective Ribs on Left Wall -->
+  <line x1="130" y1="100" x2="130" y2="400" stroke="#6EE7B7" stroke-width="2" stroke-opacity="0.5" />
+  <line x1="200" y1="135" x2="200" y2="355" stroke="#6EE7B7" stroke-width="2" stroke-opacity="0.7" />
+
+  <!-- Perspective Ribs on Right Wall -->
+  <line x1="530" y1="100" x2="530" y2="400" stroke="#86EFAC" stroke-width="2" stroke-opacity="0.5" />
+  <line x1="480" y1="135" x2="480" y2="355" stroke="#86EFAC" stroke-width="2" stroke-opacity="0.7" />
+
+  <!-- FRAME 2: Mid-Depth Gate -->
+  <polygon points="130,100 530,100 530,400 130,400" 
+           fill="none" stroke="#059669" stroke-width="3" stroke-linejoin="round" />
+  
+  <!-- FRAME 3: Deep Gate -->
+  <polygon points="200,135 480,135 480,355 200,355" 
+           fill="none" stroke="#6EE7B7" stroke-width="3" stroke-linejoin="round" />
+
+  <!-- FRAME 4: Near Threshold Gate -->
+  <polygon points="270,170 450,170 450,290 270,290" 
+           fill="#0F172A" stroke="#86EFAC" stroke-width="3" stroke-linejoin="round" />
+
+  <!-- INFINITE THRESHOLD APERTURE (The Exit Core: High Contrast Mint/White) -->
+  <polygon points="320,200 400,200 400,260 320,260" 
+           fill="#FFFFFF" stroke="#6EE7B7" stroke-width="2.5" />
+  <polygon points="340,215 380,215 380,245 340,245" fill="#6EE7B7" />
+
+  <!-- Floor Running Rails (Brilliant Converging Lines) -->
+  <line x1="120" y1="440" x2="330" y2="260" stroke="#6EE7B7" stroke-width="4" stroke-linecap="round" />
+  <line x1="240" y1="440" x2="350" y2="260" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+  <line x1="420" y1="440" x2="370" y2="260" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+  <line x1="540" y1="440" x2="390" y2="260" stroke="#6EE7B7" stroke-width="4" stroke-linecap="round" />
+
+  <!-- Floor Cross Ties -->
+  <line x1="160" y1="400" x2="500" y2="400" stroke="#86EFAC" stroke-width="1.5" stroke-opacity="0.5" />
+  <line x1="220" y1="355" x2="450" y2="355" stroke="#86EFAC" stroke-width="1.5" stroke-opacity="0.6" />
+
+  <!-- Ceiling Illumination Conduits -->
+  <line x1="140" y1="60" x2="330" y2="200" stroke="#007A55" stroke-width="2" />
+  <line x1="330" y1="60" x2="360" y2="200" stroke="#6EE7B7" stroke-width="3" stroke-dasharray="8 6" />
+  <line x1="520" y1="60" x2="390" y2="200" stroke="#007A55" stroke-width="2" />
+
+  <!-- Corridor Station Indicator Ticks -->
+  <circle cx="130" cy="400" r="6" fill="#6EE7B7" stroke="#0F172A" stroke-width="1.5" />
+  <circle cx="200" cy="355" r="5" fill="#86EFAC" stroke="#0F172A" stroke-width="1.5" />
+  <circle cx="270" cy="290" r="5" fill="#FFFFFF" stroke="#007A55" stroke-width="1.5" />
+</svg>

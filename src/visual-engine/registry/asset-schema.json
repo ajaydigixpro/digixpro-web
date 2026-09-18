@@ -11,7 +11,7 @@
   "properties": {
     "asset_id": {
       "type": "string",
-      "pattern": "^[a-z0-9_]+$"
+      "pattern": "^[a-zA-Z0-9_-]+$"
     },
     "asset_type": {
       "type": "string",
@@ -22,7 +22,15 @@
         "client_photo",
         "icon",
         "background",
-        "font"
+        "font",
+        "bottom_zone",
+        "side_column",
+        "footer",
+        "motif",
+        "corner_accent",
+        "central_focal",
+        "micro_element",
+        "mid_canvas"
       ]
     },
     "background_source": {
@@ -72,6 +80,72 @@
       "type": "string"
     },
     "notes": {
+      "type": "string"
+    },
+    "asset_name": {
+      "type": "string"
+    },
+    "primary_category": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "orientation": {
+      "type": "string"
+    },
+    "size_class": {
+      "type": "string"
+    },
+    "visual_weight": {
+      "type": "string"
+    },
+    "density": {
+      "type": "string"
+    },
+    "preferred_zone": {
+      "type": "string"
+    },
+    "best_for": {
+      "type": [
+        "string",
+        "array"
+      ]
+    },
+    "compatible_content_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_templates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "semantic_family": {
+      "type": [
+        "string",
+        "array"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "quarantined",
+        "rejected"
+      ]
+    },
+    "compatible_zones": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "composition_role": {
+      "type": "string"
+    },
+    "nature": {
       "type": "string"
     }
   }

@@ -26,12 +26,19 @@ export function validatePayload(payload: TemplatePayload): { valid: boolean; err
     const p = payload as any;
     if (!p.framework_headline?.trim()) errors.push('master_03_framework requires framework_headline.');
     if (!p.framework_step_1?.trim()) errors.push('master_03_framework requires framework_step_1.');
-    if (!p.framework_description_1?.trim()) errors.push('master_03_framework requires framework_description_1.');
     if (!p.framework_step_2?.trim()) errors.push('master_03_framework requires framework_step_2.');
-    if (!p.framework_description_2?.trim()) errors.push('master_03_framework requires framework_description_2.');
     if (!p.framework_step_3?.trim()) errors.push('master_03_framework requires framework_step_3.');
-    if (!p.framework_description_3?.trim()) errors.push('master_03_framework requires framework_description_3.');
     if (!p.framework_summary?.trim()) errors.push('master_03_framework requires framework_summary.');
+  }
+
+  if (payload.template_id === 'master_04_architecture') {
+    const p = payload as any;
+    if (!p.architecture_headline?.trim()) errors.push('master_04_architecture requires architecture_headline.');
+    if (!p.architecture_step_1?.trim()) errors.push('master_04_architecture requires architecture_step_1.');
+    if (!p.architecture_step_2?.trim()) errors.push('master_04_architecture requires architecture_step_2.');
+    if (!p.architecture_step_3?.trim()) errors.push('master_04_architecture requires architecture_step_3.');
+    if (!p.architecture_step_4?.trim()) errors.push('master_04_architecture requires architecture_step_4.');
+    if (!p.architecture_summary?.trim()) errors.push('master_04_architecture requires architecture_summary.');
   }
 
   if (payload.template_id === 'master_05_data_signal') {
@@ -42,6 +49,15 @@ export function validatePayload(payload: TemplatePayload): { valid: boolean; err
     if (!p.short_context?.trim()) errors.push('master_05_data_signal requires short_context.');
   }
 
+  if (payload.template_id === 'master_06_case_study') {
+    const p = payload as any;
+    if (!p.case_study_headline?.trim()) errors.push('master_06_case_study requires case_study_headline.');
+    if (!p.short_challenge?.trim()) errors.push('master_06_case_study requires short_challenge.');
+    if (!p.what_digixpro_changed?.trim()) errors.push('master_06_case_study requires what_digixpro_changed.');
+    if (!p.verified_result_outcome?.trim()) errors.push('master_06_case_study requires verified_result_outcome.');
+    if (!p.case_study_summary?.trim()) errors.push('master_06_case_study requires case_study_summary.');
+  }
+
   if (payload.template_id === 'master_07_comparison') {
     const p = payload as any;
     if (!p.comparison_headline?.trim()) errors.push('master_07_comparison requires comparison_headline.');
@@ -49,8 +65,6 @@ export function validatePayload(payload: TemplatePayload): { valid: boolean; err
     if (!p.after_point_1?.trim()) errors.push('master_07_comparison requires after_point_1.');
     if (!p.before_point_2?.trim()) errors.push('master_07_comparison requires before_point_2.');
     if (!p.after_point_2?.trim()) errors.push('master_07_comparison requires after_point_2.');
-    if (!p.before_point_3?.trim()) errors.push('master_07_comparison requires before_point_3.');
-    if (!p.after_point_3?.trim()) errors.push('master_07_comparison requires after_point_3.');
     if (!p.comparison_summary?.trim()) errors.push('master_07_comparison requires comparison_summary.');
   }
 
@@ -58,6 +72,14 @@ export function validatePayload(payload: TemplatePayload): { valid: boolean; err
     const p = payload as any;
     if (!p.announcement_headline?.trim()) errors.push('master_08_announcement requires announcement_headline.');
     if (!p.announcement_message?.trim()) errors.push('master_08_announcement requires announcement_message.');
+  }
+
+  if (payload.template_id === 'master_09_occasion') {
+    const p = payload as any;
+    if (!p.occasion_name?.trim()) errors.push('master_09_occasion requires occasion_name.');
+    if (!p.greeting_headline?.trim()) errors.push('master_09_occasion requires greeting_headline.');
+    if (!p.relevant_message?.trim()) errors.push('master_09_occasion requires relevant_message.');
+    if (!p.line_message?.trim()) errors.push('master_09_occasion requires line_message.');
   }
 
   if (payload.template_id === 'master_10_testimonial') {

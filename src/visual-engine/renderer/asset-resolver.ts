@@ -104,4 +104,114 @@ export class AssetResolver {
     const defaultBgId = 'bg_insight_code_clean';
     return this.resolveAsset(templateId, defaultBgId, 'background');
   }
+
+  /**
+   * Deterministic zone-based asset resolver implementing the DigiXPro selection hierarchy:
+   * Template -> Visual Zone -> Primary Category -> Content Type -> Semantic -> Recent-use suppression -> Deterministic Rotation
+   */
+  public resolveZoneAsset(
+    templateId: TemplateId,
+    zoneCategory: 'bottom_zone' | 'side_column' | 'footer',
+    options?: {
+      contentType?: string;
+      semanticFamily?: string;
+      recentAssetIds?: string[];
+      rotationIndex?: number;
+    }
+  ): { record: AssetRecord; absolutePath?: string; base64DataUri?: string } | null {
+    const templateRules = this.allowlist[templateId];
+    if (!templateRules || !templateRules.allowed_asset_types.includes(zoneCategory)) {
+      return null;
+    }
+
+    // Deduplicate registry by asset_id (to ignore alias copies)
+    const seenIds = new Set<string>();
+    const activeEntries: AssetRecord[] = [];
+
+    for (const r of Object.values(this.registry)) {
+      if (seenIds.has(r.asset_id)) continue;
+      seenIds.add(r.asset_id);
+
+      // Must be approved and active
+      if (!r.approved || r.status !== 'active') continue;
+
+      // Must match category strictly
+      if (r.asset_type !== zoneCategory && r.primary_category !== zoneCategory) continue;
+
+      // Must allow this template (if template restrictions exist)
+      if (r.allowed_templates && r.allowed_templates.length > 0 && !r.allowed_templates.includes(templateId)) {
+        continue;
+      }
+
+      activeEntries.push(r);
+    }
+
+    if (activeEntries.length === 0) return null;
+
+    // Filter by content type compatibility if specified
+    let eligible = activeEntries;
+    if (options?.contentType) {
+      const ctMatches = eligible.filter(
+        r => r.compatible_content_types && r.compatible_content_types.includes(options.contentType!)
+      );
+      if (ctMatches.length > 0) eligible = ctMatches;
+    }
+
+    // Filter by semantic family compatibility if specified
+    if (options?.semanticFamily) {
+      const semMatches = eligible.filter(r => {
+        if (Array.isArray(r.semantic_family)) {
+          return r.semantic_family.includes(options.semanticFamily!);
+        }
+        return r.semantic_family === options.semanticFamily;
+      });
+      if (semMatches.length > 0) eligible = semMatches;
+    }
+
+    // Recent-use suppression
+    if (options?.recentAssetIds && options.recentAssetIds.length > 0) {
+      const nonRecent = eligible.filter(r => !options.recentAssetIds!.includes(r.asset_id));
+      if (nonRecent.length > 0) {
+        eligible = nonRecent;
+      }
+    }
+
+    // Deterministic selection / rotation
+    eligible.sort((a, b) => a.asset_id.localeCompare(b.asset_id));
+    const rotation = options?.rotationIndex ?? 0;
+    const idx = Math.abs(rotation) % eligible.length;
+    const selected = eligible[idx];
+
+    if (!selected) return null;
+
+    return this.resolveAsset(templateId, selected.asset_id, zoneCategory);
+  }
+
+  public getActiveAssetsByCategory(category: 'bottom_zone' | 'side_column' | 'footer'): AssetRecord[] {
+    const seen = new Set<string>();
+    const res: AssetRecord[] = [];
+    for (const r of Object.values(this.registry)) {
+      if (r.approved && r.status === 'active' && (r.asset_type === category || r.primary_category === category)) {
+        if (!seen.has(r.asset_id)) {
+          seen.add(r.asset_id);
+          res.push(r);
+        }
+      }
+    }
+    return res.sort((a, b) => a.asset_id.localeCompare(b.asset_id));
+  }
+
+  public getQuarantinedAssets(): AssetRecord[] {
+    const seen = new Set<string>();
+    const res: AssetRecord[] = [];
+    for (const r of Object.values(this.registry)) {
+      if (r.status === 'quarantined' || (!r.approved && r.reason)) {
+        if (!seen.has(r.asset_id)) {
+          seen.add(r.asset_id);
+          res.push(r);
+        }
+      }
+    }
+    return res.sort((a, b) => a.asset_id.localeCompare(b.asset_id));
+  }
 }

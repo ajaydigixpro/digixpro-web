@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrandLogo } from '../components/BrandLogo';
-import { CategoryBadge } from '../components/CategoryBadge';
 import { Footer } from '../components/Footer';
 import { Background } from '../components/Background';
 import { LogoFit } from '../components/LogoFit';
@@ -22,7 +21,6 @@ export const Master10Testimonial: React.FC<Master10Props> = ({
   clientPhotoUri,
   clientLogoUri,
 }) => {
-  const badgeText = data.category_badge_text || 'TESTIMONIAL';
 
   return (
     <div
@@ -43,13 +41,10 @@ export const Master10Testimonial: React.FC<Master10Props> = ({
           position: 'absolute',
           top: 75,
           left: 80,
-          right: 80,
-          justifyContent: 'space-between',
           alignItems: 'center',
         }}
       >
         <BrandLogo theme="dark" />
-        <CategoryBadge text={badgeText} />
       </div>
 
       <div

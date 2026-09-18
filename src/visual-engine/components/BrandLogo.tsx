@@ -21,8 +21,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({ style, theme = 'dark', log
       <img
         src={logoSrc}
         alt="DigiXPro Logo"
-        width="215"
-        height="42"
+        width={215}
+        height={42}
         style={{
           objectFit: 'contain',
         }}

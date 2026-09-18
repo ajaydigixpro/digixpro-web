@@ -1,0 +1,41 @@
+<svg width="100%" height="100%" viewBox="0 0 680 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Facet 1: Ground Anchor -->
+  <polygon points="60,380 180,300 240,420 100,440" 
+           fill="#064E3B" stroke="#007A55" stroke-width="1.5" />
+
+  <!-- Facet 2: Rising Lateral Wall -->
+  <polygon points="60,380 180,300 200,160 80,220" 
+           fill="#0F172A" stroke="#007A55" stroke-width="2" />
+
+  <!-- Facet 3: Mid-Deck Crease -->
+  <polygon points="180,300 200,160 400,140 360,290" 
+           fill="#007A55" stroke="#064E3B" stroke-width="2" />
+
+  <!-- Facet 4: Luminous Upper Wing -->
+  <polygon points="200,160 400,140 480,60 300,80" 
+           fill="#6EE7B7" stroke="#FFFFFF" stroke-width="1.5" />
+
+  <!-- Facet 5: Forward Thrusting Center Wedge -->
+  <polygon points="360,290 400,140 560,190 480,350" 
+           fill="#059669" stroke="#6EE7B7" stroke-width="2" />
+
+  <!-- Facet 6: Terminal Downward Flange -->
+  <polygon points="480,350 560,190 620,240 580,390" 
+           fill="#0F172A" stroke="#007A55" stroke-width="2" />
+
+  <!-- Facet 7: Underside Shadow Keel -->
+  <polygon points="240,420 360,290 480,350 380,440" 
+           fill="#0A0A0A" fill-opacity="0.8" stroke="#064E3B" stroke-width="1.5" />
+
+  <!-- Crease Fold Lines -->
+  <line x1="180" y1="300" x2="200" y2="160" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+  <line x1="200" y1="160" x2="400" y2="140" stroke="#86EFAC" stroke-width="2.5" stroke-linecap="round" />
+  <line x1="400" y1="140" x2="360" y2="290" stroke="#0F172A" stroke-width="3" stroke-linecap="round" />
+  <line x1="400" y1="140" x2="560" y2="190" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+  <line x1="360" y1="290" x2="480" y2="350" stroke="#6EE7B7" stroke-width="3" stroke-linecap="round" />
+
+  <line x1="220" y1="260" x2="340" y2="230" stroke="#6EE7B7" stroke-width="2" stroke-dasharray="6 4" />
+  <line x1="230" y1="230" x2="350" y2="200" stroke="#86EFAC" stroke-width="2" stroke-dasharray="6 4" />
+  <circle cx="340" cy="230" r="4" fill="#FFFFFF" />
+  <circle cx="350" cy="200" r="4" fill="#6EE7B7" />
+</svg>
