@@ -17,7 +17,15 @@ export type AssetType =
   | 'client_photo'
   | 'icon'
   | 'background'
-  | 'font';
+  | 'font'
+  | 'bottom_zone'
+  | 'side_column'
+  | 'footer'
+  | 'motif'
+  | 'central_focal'
+  | 'micro_element'
+  | 'corner_accent'
+  | 'mid_canvas';
 
 export type BackgroundSource = 'code' | 'approved_asset' | 'prototype_unresolved';
 
@@ -32,7 +40,20 @@ export type BackgroundFamilyVariant =
 
 export interface AssetRecord {
   asset_id: string;
+  asset_name?: string;
   asset_type: AssetType;
+  primary_category?: string;
+  semantic_family?: string[] | string;
+  orientation?: 'wide' | 'vertical' | 'square' | 'compact' | 'corner' | string;
+  size_class?: 'S' | 'M' | 'L' | 'W' | 'T' | string;
+  role?: string;
+  visual_weight?: 'light' | 'light_medium' | 'medium' | 'medium_strong' | 'strong' | 'hero' | string;
+  density?: 'low' | 'medium' | 'high' | string;
+  preferred_zone?: string;
+  best_for?: string[] | string;
+  compatible_content_types?: string[];
+  allowed_templates?: string[];
+  approved_palette?: string[];
   background_source?: BackgroundSource;
   provenance?: string;
   file_path?: string;
@@ -43,9 +64,15 @@ export interface AssetRecord {
   theme?: string;
   keywords?: string[];
   approved: boolean;
+  status?: 'active' | 'quarantined' | 'rejected' | string;
   approved_by?: string | null;
   approved_at?: string | null;
   notes?: string;
+  reason?: string;
+  superseded_by?: string;
+  compatible_zones?: string[];
+  composition_role?: string;
+  nature?: string;
 }
 
 export interface Master01Payload {
@@ -54,6 +81,8 @@ export interface Master01Payload {
   supporting_text: string;
   category_badge_text?: string;
   background_id?: string;
+  variant?: 'v1' | 'v2' | 'v3' | 'v4';
+  reference_note?: string;
 }
 
 export interface Master02Payload {
@@ -64,6 +93,8 @@ export interface Master02Payload {
   solution_supporting_text: string;
   category_badge_text?: string;
   background_id?: string;
+  variant?: 'v1' | 'v2' | 'v3' | 'v4';
+  reference_note?: string;
 }
 
 export interface Master03Payload {
@@ -78,6 +109,24 @@ export interface Master03Payload {
   framework_description_3: string;
   category_badge_text?: string;
   background_id?: string;
+  variant?: 'v1' | 'v2' | 'v3' | 'v4';
+}
+
+export interface Master04Payload {
+  template_id: 'master_04_architecture';
+  architecture_headline: string;
+  architecture_step_1: string;
+  architecture_detail_1: string;
+  architecture_step_2: string;
+  architecture_detail_2: string;
+  architecture_step_3: string;
+  architecture_detail_3: string;
+  architecture_step_4: string;
+  architecture_detail_4: string;
+  architecture_summary: string;
+  category_badge_text?: string;
+  background_id?: string;
+  variant?: 'v1' | 'v2' | 'v3' | 'v4';
 }
 
 export interface Master05Payload {
@@ -89,6 +138,20 @@ export interface Master05Payload {
   source_period_context?: string;
   category_badge_text?: string;
   background_id?: string;
+  variant?: 'v1' | 'v2' | 'v3' | 'v4';
+}
+
+export interface Master06Payload {
+  template_id: 'master_06_case_study';
+  case_study_headline: string;
+  client_project_type: string;
+  short_challenge: string;
+  what_digixpro_changed: string;
+  verified_result_outcome: string;
+  case_study_summary: string;
+  category_badge_text?: string;
+  background_id?: string;
+  variant?: 'v1' | 'v2' | 'v3' | 'v4';
 }
 
 export interface Master07Payload {
@@ -106,6 +169,7 @@ export interface Master07Payload {
   comparison_summary: string;
   category_badge_text?: string;
   background_id?: string;
+  variant?: 'v1' | 'v2' | 'v3' | 'v4';
 }
 
 export interface Master08Payload {
@@ -118,6 +182,19 @@ export interface Master08Payload {
   partner_logo_id?: string;
   category_badge_text?: string;
   background_id?: string;
+  variant?: 'v1' | 'v2' | 'v3' | 'v4';
+}
+
+export interface Master09Payload {
+  template_id: 'master_09_occasion';
+  occasion_name: string;
+  greeting_headline: string;
+  relevant_message: string;
+  line_message: string;
+  date_context?: string;
+  category_badge_text?: string;
+  background_id?: string;
+  variant?: 'v1' | 'v2' | 'v3' | 'v4';
 }
 
 export interface Master10Payload {
@@ -130,15 +207,19 @@ export interface Master10Payload {
   client_logo_id?: string;
   category_badge_text?: string;
   background_id?: string;
+  variant?: 'v1' | 'v2' | 'v3' | 'v4';
 }
 
 export type TemplatePayload =
   | Master01Payload
   | Master02Payload
   | Master03Payload
+  | Master04Payload
   | Master05Payload
+  | Master06Payload
   | Master07Payload
   | Master08Payload
+  | Master09Payload
   | Master10Payload
   | { template_id: TemplateId; [key: string]: any };
 
